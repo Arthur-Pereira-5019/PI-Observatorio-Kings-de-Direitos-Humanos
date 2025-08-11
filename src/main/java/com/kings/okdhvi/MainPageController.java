@@ -5,25 +5,31 @@ import com.kings.okdhvi.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
 @RestController
 public class MainPageController {
 
+    String emailRegex = ".{3,64}\\@.{4,255}";
+    String passwordRegex = ".{8,64}";
     @Autowired
     UsuarioRepository ur;
 
         @RequestMapping("/")
         public String mainScreen() {
-
             return "mainscreen.html";
-
         }
+
+    @RequestMapping("/login_screen/login")
+    //Recebe os parâmetros de login e os passa para variáveis String de mesmo nome
+    public String login(@RequestParam("email") String email, @RequestParam("passw") String passw) {
+        if(verifyEmail(email) && verifyPassword(passw)) {
+            return"Logado";
+        }
+        return "Banido";
+    }
 
         @RequestMapping(value = "/createUser", produces = MediaType.APPLICATION_JSON_VALUE)
         public Usuario login() {
@@ -42,6 +48,15 @@ public class MainPageController {
             u.setTelefone("9243112");
             return u;
         }
+
+
+    public boolean verifyEmail(String email) {
+        return email.matches(emailRegex);
+    }
+
+    public boolean verifyPassword(String passw) {
+        return passw.matches(passwordRegex);
+    }
 
 
 }
