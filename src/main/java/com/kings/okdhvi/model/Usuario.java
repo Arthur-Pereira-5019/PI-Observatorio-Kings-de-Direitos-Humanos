@@ -98,13 +98,13 @@ public class Usuario implements Serializable{
     @Column(nullable = false, length = 100)
     private String senha;
 
-    @Column(nullable = false, length = 14)
+    @Column(nullable = false, length = 14, unique = true)
     private String telefone;
 
-    @Column(nullable = false, length = 11)
+    @Column(nullable = false, length = 11, unique = true)
     private String cpf;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 100, unique = true)
     private String eMail;
 
     @Column(nullable = false)
