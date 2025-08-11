@@ -31,11 +31,16 @@ public class MainPageController {
         return "Banido";
     }
 
-        @RequestMapping(value = "/createUser", produces = MediaType.APPLICATION_JSON_VALUE)
-        public Usuario login() {
+        @PostMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
+        public Usuario createUser() {
             Usuario u = mockUsuario();
             return ur.save(u);
         }
+
+    @GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Usuario getUserById(@PathVariable("id") Long id) {
+        return ur.findById(id).orElseThrow();
+    }
 
         public Usuario mockUsuario() {
             Usuario u = new Usuario();
