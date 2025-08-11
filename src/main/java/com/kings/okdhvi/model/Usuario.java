@@ -1,35 +1,96 @@
 package com.kings.okdhvi.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.kings.okdhvi.repositories.UsuarioRepository;
+import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class Usuario implements Serializable {
+@Entity
+@Table(name="Usuario")
+public class Usuario implements Serializable{
 
+    public Usuario() {
+    }
 
-        /*create table usuario
-(
- nome varchar(100) not null,
- senha varchar(100),
- telefone varchar(14),
- cpf varchar(11) not null,
- idUsuario char(8)  primary key,
- eMail varchar(100),
- dataDeNascimento date,
- oculto boolean
-);
+    public Usuario(Long idUsuario, String nome, String senha, String telefone, String cpf, String eMail, Date dataDeNascimento, boolean oculto) {
+        this.idUsuario = idUsuario;
+        this.nome = nome;
+        this.senha = senha;
+        this.telefone = telefone;
+        this.cpf = cpf;
+        this.eMail = eMail;
+        this.dataDeNascimento = dataDeNascimento;
+        this.oculto = oculto;
+    }
 
-);*/
+    public Long getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String geteMail() {
+        return eMail;
+    }
+
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
+    }
+
+    public Date getDataDeNascimento() {
+        return dataDeNascimento;
+    }
+
+    public void setDataDeNascimento(Date dataDeNascimento) {
+        this.dataDeNascimento = dataDeNascimento;
+    }
+
+    public void doThat() {
+        System.out.println("A");
+    }
 
     private static final long serialVersionId = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String idUsuario;
+    private Long idUsuario;
 
     @Column(nullable = false, length = 100)
     private String nome;
