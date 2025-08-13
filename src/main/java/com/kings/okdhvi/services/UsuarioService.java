@@ -1,13 +1,24 @@
 package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.InvalidCPFException;
+import com.kings.okdhvi.repositories.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class UsuarioService {
+
+    @Autowired
+    UsuarioRepository ur;
 
     String emailRegex = ".{3,64}\\@.{4,255}";
     String senhaRegex = ".{8,64}";
     String cpfRegex = ".{11}";
-    String repeatedCPFRegex = "(.)\1{11}";
+    String CPFRepetidoRegex = "(.)\1{11}";
+    String telefoneRegex = "[0-9]{2}9[1-9][0-9]{7}";
+    Date dataMinima = new Date(1900, Calendar.JANUARY,1);
+
 
 
     public boolean verificarEmail(String email) {
@@ -16,6 +27,14 @@ public class UsuarioService {
 
     public boolean verificarSenha(String senha) {
         return senha.matches(senhaRegex);
+    }
+
+    public boolean verificarTelefone(String telefone) {
+        return telefone.matches(telefoneRegex);
+    }
+
+    public boolean verificarDataDeNasc(Date data) {
+        return dataMinima.before(data);
     }
 
     public boolean verificarNCPF(String cpf) {
@@ -41,13 +60,10 @@ public class UsuarioService {
         if(cpf.length()!=11) {
             throw new InvalidCPFException("O tamanho precisa ser de 11 caracteres");
         }
-        if(cpf.matches(repeatedCPFRegex)) {
-            throw new InvalidCPFException("O CPF é inválido!");
-        }
         if(!cpf.matches(cpfRegex)) {
-            throw new InvalidCPFException("O CPF é constituído de 11 números!");
+            throw new InvalidCPFException("O CPF deve conter somente números!");
         }
-        if(!verificarNCPF(cpf)) {
+        if(!verificarNCPF(cpf) || !cpf.matches(CPFRepetidoRegex)) {
             throw new InvalidCPFException("O CPF é inválido!");
         }
         return "Logado!";
