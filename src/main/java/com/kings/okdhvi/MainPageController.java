@@ -2,6 +2,7 @@ package com.kings.okdhvi;
 
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.repositories.UsuarioRepository;
+import com.kings.okdhvi.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,8 @@ public class MainPageController {
     String passwordRegex = ".{8,64}";
     @Autowired
     UsuarioRepository ur;
+
+    UsuarioService us = new UsuarioService();
 
         @RequestMapping("/")
         public String mainScreen() {
@@ -35,6 +38,11 @@ public class MainPageController {
         public Usuario createUser() {
             Usuario u = mockUsuario();
             return ur.save(u);
+        }
+
+        @RequestMapping("/cpf/{cpf}")
+        public String verifyCpf(@PathVariable("cpf") String cpf) {
+            return us.verifyCPF(cpf);
         }
 
     @GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
