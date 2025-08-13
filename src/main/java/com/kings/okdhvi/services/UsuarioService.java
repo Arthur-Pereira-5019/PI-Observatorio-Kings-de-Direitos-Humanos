@@ -1,10 +1,13 @@
 package com.kings.okdhvi.services;
 
+import com.kings.okdhvi.exception.InvalidCPFException;
+
 public class UsuarioService {
 
     String emailRegex = ".{3,64}\\@.{4,255}";
     String senhaRegex = ".{8,64}";
     String cpfRegex = ".{11}";
+    String repeatedCPFRegex = "(.)\1{11}";
 
 
     public boolean verificarEmail(String email) {
@@ -15,7 +18,7 @@ public class UsuarioService {
         return senha.matches(senhaRegex);
     }
 
-    public String verificarNCPF(String cpf) {
+    public boolean verificarNCPF(String cpf) {
         int dig1;
         int dig2;
 
@@ -29,13 +32,25 @@ public class UsuarioService {
             dig2 = digitoVerificador(numbers,1,dig1);
 
         if(numbers[9] == dig1 && numbers[10] == dig2) {
-            return("Verdadeiro");
+            return(true);
         }
-        return("Falso");
+        return(false);
     }
 
-    public void verificarCPF(String cpf) {
-
+    public String verificarCPF(String cpf) {
+        if(cpf.length()!=11) {
+            throw new InvalidCPFException("O tamanho precisa ser de 11 caracteres");
+        }
+        if(cpf.matches(repeatedCPFRegex)) {
+            throw new InvalidCPFException("O CPF é inválido!");
+        }
+        if(!cpf.matches(cpfRegex)) {
+            throw new InvalidCPFException("O CPF é constituído de 11 números!");
+        }
+        if(!verificarNCPF(cpf)) {
+            throw new InvalidCPFException("O CPF é inválido!");
+        }
+        return "Logado!";
     }
 
     public int converterEmNumero(Character a) {

@@ -42,7 +42,7 @@ public class MainPageController {
 
         @RequestMapping("/cpf/{cpf}")
         public String verifyCpf(@PathVariable("cpf") String cpf) {
-            return us.verifyCPF(cpf);
+            return us.verificarCPF(cpf);
         }
 
     @GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
