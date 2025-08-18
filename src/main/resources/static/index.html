@@ -103,16 +103,63 @@
             text-decoration: underline; 
             word-wrap: break-word;
         }
+
+        .forgot-password-button{
         
-        .register-link {
-            left: 480px; 
+            width: 180px; 
+            height: 20px; 
+            left: 439px; 
+            top: 677px; 
+            position: absolute; 
+            background: none; 
+            border-color: none;
+            text-align: center;
+            color: black;
+            font-size: 20px;
+            font-weight: 400;
+            text-decoration: underline black;
+            cursor: pointer;
+            word-wrap: break-word;
+            
+            
+
+        }
+
+        .hide-button{ 
+        
+            width: 50px; 
+            height: 50px; 
+            left: 595px; 
+            top: 548px; 
+            position: absolute; 
+            background: none; 
+            border-color: transparent;
+            text-align: center;
+            color: none;
+            font-size: 20px;
+            font-weight: 400;
+            cursor: pointer;
+            word-wrap: break-word;
+            
+            
+
+        }
+
+        
+        .register-button-under-forgot {
+            width: 180px; 
+            height: 20px; 
+            left: 435px; 
             top: 708px; 
             position: absolute; 
-            text-align: center; 
-            color: black; 
-            font-size: 20px; 
-            font-weight: 400; 
-            text-decoration: underline; 
+            background: none; 
+            border-color: none;
+            text-align: center;
+            color: black;
+            font-size: 20px;
+            font-weight: 400;
+            text-decoration: underline black;
+            cursor: pointer;
             word-wrap: break-word;
         }
         
@@ -249,14 +296,15 @@
         <input type="password" style="left: 272px; top: 523px;" placeholder="Senha*" class="input-label">
 
 
-        <img style="width: 50px; height: 50px; left: 595px; top: 548px; position: absolute" src="OlhoFechado.png" />
+        <img style="width: 50px; height: 50px; left: 595px; top: 548px; position: absolute" src="olhosfechados.png" />
+        <button class="hide-button"></button>
         
         <!-- Login Options -->
         <input type="checkbox" class="checkbox">
         <div class="remember-me">Lembrar</div>
         <div style="width: 25px; height: 0px; left: 425px; top: 672px; position: absolute; transform: rotate(90deg); transform-origin: top left; outline: 1px #8D0028 solid; outline-offset: -0.50px"></div>
-        <div class="forgot-password">Esqueci minha senha</div>
-        <div class="register-link">Registrar-se</div>
+        <div class="forgot-password-button">Esqueci minha senha</div>
+        <div class="register-button-under-forgot">Registrar-se</div>
         
         <!-- Login Button --><div>
         <button class= "login-button">Acessar  </button>
@@ -279,7 +327,8 @@
         <div class="input-field" style="left: 1277px; top: 523px;"></div>
         <input type="password" style="left: 1290px; top: 523px;" placeholder="Senha*" class="input-label">
 
-        <img style="width: 50px; height: 50px; left: 1613px; top: 548px; position: absolute" src="OlhoFechado.png" />
+        <img style="width: 50px; height: 50px; left: 1613px; top: 548px; position: absolute" src="olhosfechados.png" />
+        <button class="hide-button" style="left: 1613px; top: 548px;"></button>
         
         <div class="input-field" style="left: 1277px; top: 682px;"></div>
         <input type="password" style="left: 1290px; top: 682px;" placeholder="Confirmar senha*" class="input-label">
