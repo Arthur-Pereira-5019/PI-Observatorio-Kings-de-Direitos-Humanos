@@ -1,9 +1,6 @@
 package com.kings.okdhvi.model;
 
-import com.kings.okdhvi.repositories.UsuarioRepository;
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -21,7 +18,7 @@ public class Usuario implements Serializable{
         this.senha = senha;
         this.telefone = telefone;
         this.cpf = cpf;
-        this.eMail = eMail;
+        this.email = eMail;
         this.dataDeNascimento = dataDeNascimento;
         this.oculto = oculto;
     }
@@ -66,12 +63,12 @@ public class Usuario implements Serializable{
         this.cpf = cpf;
     }
 
-    public String geteMail() {
-        return eMail;
+    public String getEmail() {
+        return email;
     }
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Date getDataDeNascimento() {
@@ -105,10 +102,12 @@ public class Usuario implements Serializable{
     private String cpf;
 
     @Column(nullable = false, length = 100, unique = true)
-    private String eMail;
+    private String email;
 
     @Column(nullable = false)
     private Date dataDeNascimento;
+
+    private boolean oculto;
 
     public boolean isOculto() {
         return oculto;
@@ -118,7 +117,7 @@ public class Usuario implements Serializable{
         this.oculto = oculto;
     }
 
-    private boolean oculto;
+
 
 
 }
