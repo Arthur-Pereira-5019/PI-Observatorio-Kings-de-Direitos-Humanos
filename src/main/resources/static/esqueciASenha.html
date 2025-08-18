@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .recovery-container {
+            width: 1427px;
+            height: 1370px;
+            position: relative;
+            background: white;
+            overflow: hidden;
+        }
+        
+        .header-image {
+            width: 920px;
+            height: 215px;
+            left: 254px;
+            top: 49px;
+            position: absolute;
+        }
+        
+        .content-box {
+            width: 920px;
+            height: 920px;
+            left: 254px;
+            top: 313px;
+            position: absolute;
+            background: white;
+            border: 1px black solid;
+        }
+        
+        .main-image {
+            width: 290px;
+            height: 334px;
+            left: 572px;
+            top: 334px;
+            position: absolute;
+        }
+        
+        .title {
+            width: 618px;
+            height: 70px;
+            left: 405px;
+            top: 685px;
+            position: absolute;
+            text-align: center;
+            color: black;
+            font-size: 64px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .instructions {
+            width: 854px;
+            height: 61px;
+            left: 287px;
+            top: 783px;
+            position: absolute;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .instructions span.normal {
+            color: black;
+            font-size: 20px;
+            font-weight: 400;
+        }
+        
+        .instructions span.bold {
+            color: black;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .email-input {
+            width: 434px;
+            height: 100px;
+            left: 497px;
+            top: 872px;
+            position: absolute;
+            background: white;
+            box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.25);
+            border-radius: 18px;
+            border: 1px black solid;
+        }
+        
+        .email-placeholder {
+            width: 384px;
+            height: 74px;
+            left: 517px;
+            top: 885px;
+            position: absolute;
+            color: black;
+            font-size: 28px;
+            font-weight: 400;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-color: transparent;
+            outline: none;
+            text-align: left;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="recovery-container">
+        <!-- Header Image -->
+        <img class="header-image" src="https://placehold.co/920x215" alt="Header">
+        
+        <!-- Content Box -->
+        <div class="content-box"></div>
+        
+        <!-- Main Image -->
+        <img class="main-image" src="cadeado.png" alt="Icone de um cadeado">
+        
+        <!-- Title -->
+        <div class="title">Recuperar Senha</div>
+        
+        <!-- Instructions -->
+        <div class="instructions">
+            <span class="normal">Informe abaixo seu email para ser enviado o código para </span>
+            <span class="bold">redefinir sua senha.</span>
+        </div>
+        
+        <!-- Email Input -->
+         <div class="email-input"></div>
+        <input type="email" class="email-placeholder" placeholder="Email:">
+    </div>
+</body>
+</html>
