@@ -22,7 +22,7 @@ public class UsuarioService {
     String cpfRegex = ".{11}";
     String CPFRepetidoRegex = "(.)\1{11}";
     String telefoneRegex = "[0-9]{2}9[1-9][0-9]{7}";
-    Date dataMinima = new Date(1900, Calendar.JANUARY, 1);
+    Date dataMinima = new Date(0,Calendar.JANUARY,1);
 
     public Usuario saveUsuario(Usuario u) {
         validarDados(u);
@@ -38,8 +38,7 @@ public class UsuarioService {
         return false;
     }
 
-    public Usuario atualizarUsuario (Usuario u) {
-        Long id = u.getIdUsuario();
+    public Usuario atualizarUsuario (Usuario u, Long id) {
         Usuario original = encontrarPorId(id);
         original = u;
         u.setIdUsuario(id);
@@ -63,6 +62,7 @@ public class UsuarioService {
         u.setTelefone("47999999999");
         u.setSenha("293912391");
         u.setNome("Escritor C.");
+        u.setDataDeNascimento(new Date("03-31-2008"));
         u.setIdUsuario(r.nextLong(1000,1100));
         return u;
     }
@@ -99,7 +99,7 @@ public class UsuarioService {
     }
 
     public void verificarDataDeNasc(Date data) {
-        if (dataMinima.before(data)) {
+        if (dataMinima.after(data)) {
             throw new InvalidDateException("Data inválida!");
         }
     }
@@ -120,7 +120,7 @@ public class UsuarioService {
         if (numbers[9] == dig1 && numbers[10] == dig2) {
             return (true);
         }
-        return (false);
+        return false;
     }
 
     public void verificarCPF(String cpf) {
@@ -152,7 +152,8 @@ public class UsuarioService {
         }
         res = somaV % 11;
 
-        if (res >= 10) {
+        System.out.println(res);
+        if (res > 10 || res == 0|| res == 1) {
             res = 0;
         } else {
             res = 11 - res;

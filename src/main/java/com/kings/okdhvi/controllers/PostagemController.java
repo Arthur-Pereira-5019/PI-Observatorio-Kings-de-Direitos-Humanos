@@ -21,4 +21,24 @@ public class PostagemController {
         return ps.mockPostagem();
     }
 
+
+    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Postagem criarUsuario(@RequestBody Postagem P) {
+        return ps.criarPostagem(P);
+    }
+
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Postagem encontrarPostagemPeloId(@PathVariable("id") Long id) {
+        return ps.encontrarPostagemPeloId(id);
+    }
+
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
+    public Postagem atualizarPostagem(@RequestBody Postagem p, @PathVariable("id") Long id) {
+        return ps.atualizarPostagem(p,id);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public void deletarPostagem(@PathVariable Long id) {
+        ps.deletarPeloId(id);
+    }
 }

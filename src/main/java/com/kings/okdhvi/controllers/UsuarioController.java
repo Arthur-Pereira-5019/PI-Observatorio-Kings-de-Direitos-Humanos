@@ -34,10 +34,14 @@ public class UsuarioController {
         return us.encontrarPorId(id);
     }
 
+    @GetMapping(value = "/mock", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Usuario mock() {
+        return us.mockUsuario();
+    }
 
-    @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
-    public Usuario atualizarUsuario(@RequestBody Usuario u) {
-        return us.atualizarUsuario(u);
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
+    public Usuario atualizarUsuario(@RequestBody Usuario u, @PathVariable Long id) {
+        return us.atualizarUsuario(u, id);
     }
 
     @DeleteMapping(value = "/{id}")
