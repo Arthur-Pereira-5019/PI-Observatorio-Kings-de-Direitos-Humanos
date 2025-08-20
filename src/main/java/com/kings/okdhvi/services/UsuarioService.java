@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 @Service
 public class UsuarioService {
@@ -44,6 +45,18 @@ public class UsuarioService {
         verificarSenha(u.getTelefone());
         verificarDataDeNasc(u.getDataDeNascimento());
         verificarNCPF(u.getCpf());
+    }
+
+    public Usuario mockUsuario() {
+        Usuario u = new Usuario();
+        Random r = new Random();
+        u.setCpf("131.783.399-65");
+        u.setEmail("abcdef@gmail.com");
+        u.setTelefone("47999999999");
+        u.setDataDeNascimento(new Date(2008,31,03));
+        u.setSenha("293912391");
+        u.setIdUsuario(r.nextLong(1000,1100));
+        return u;
     }
 
     public Usuario encontrarPorId(Long id) {
