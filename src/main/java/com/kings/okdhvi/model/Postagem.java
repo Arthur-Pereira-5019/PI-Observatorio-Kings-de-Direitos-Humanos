@@ -13,16 +13,19 @@ public class Postagem {
     String tituloPostagem;
     @Column(nullable = false)
     Date dataDaPostagem;
+
     @OneToOne
     @JoinColumn(name="idUsuario")
-    @Column
+    @PrimaryKeyJoinColumn
     Usuario autor;
     @Column(nullable = false, length = 32768)
     String textoPostagem;
 
-    @ManyToMany
-    @JoinColumn(name="idUsuario")
-    @Column
+    @JoinTable(
+            name = "revisores",
+            joinColumns = @JoinColumn(name = "idPostagem", referencedColumnName = "idPostagem"),
+            inverseJoinColumns = @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario") // Column for Course
+    )
     List<Usuario> revisor;
     @Column(nullable = true, length = 256)
     String tags;

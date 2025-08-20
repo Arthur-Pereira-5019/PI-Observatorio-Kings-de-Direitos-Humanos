@@ -1,6 +1,7 @@
 package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.*;
+import com.kings.okdhvi.model.Postagem;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,13 @@ public class UsuarioService {
         return false;
     }
 
+    public Usuario atualizarUsuario (Usuario u) {
+        Long id = u.getIdUsuario();
+        Usuario original = encontrarPorId(id);
+        original = u;
+        u.setIdUsuario(id);
+        return ur.save(original);
+    }
 
     public void validarDados(Usuario u) {
         verificarCPF(u.getCpf());
@@ -53,10 +61,14 @@ public class UsuarioService {
         u.setCpf("131.783.399-65");
         u.setEmail("abcdef@gmail.com");
         u.setTelefone("47999999999");
-        u.setDataDeNascimento(new Date(2008,31,03));
         u.setSenha("293912391");
+        u.setNome("Escritor C.");
         u.setIdUsuario(r.nextLong(1000,1100));
         return u;
+    }
+
+    public void deletarPeloId(Long id) {
+        ur.delete(encontrarPorId(id));
     }
 
     public Usuario encontrarPorId(Long id) {

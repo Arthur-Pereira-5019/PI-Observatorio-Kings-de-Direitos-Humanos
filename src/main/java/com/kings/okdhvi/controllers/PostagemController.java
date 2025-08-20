@@ -17,7 +17,7 @@ public class PostagemController {
     PostagemServices ps;
 
     @GetMapping(value = "/mock", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Postagem createUser(@RequestBody Usuario u) {
+    public Postagem createUser() {
         return ps.mockPostagem();
     }
 

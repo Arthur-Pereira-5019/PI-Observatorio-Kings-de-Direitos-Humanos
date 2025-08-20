@@ -1,5 +1,6 @@
 package com.kings.okdhvi.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -104,6 +105,7 @@ public class Usuario implements Serializable{
     @Column(nullable = false, length = 100, unique = true)
     private String email;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(nullable = false)
     private Date dataDeNascimento;
 

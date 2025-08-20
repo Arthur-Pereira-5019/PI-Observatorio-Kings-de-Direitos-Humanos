@@ -1,5 +1,6 @@
 package com.kings.okdhvi.services;
 
+import com.kings.okdhvi.exception.PostagemNotFoundException;
 import com.kings.okdhvi.model.Postagem;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.repositories.PostagemRepository;
@@ -30,5 +31,24 @@ public class PostagemServices {
         p.setTituloPostagem("Morte");
         p.setIdPostagem(1234L);
         return p;
+    }
+
+    public Postagem criarPostagem(Postagem p) {
+        return pr.save(p);
+    }
+
+    public Postagem atualizarPostagem (Postagem p, Long id) {
+        Postagem original = encontrarPostagemPeloId(id);
+        original = p;
+        p.setIdPostagem(id);
+        return pr.save(original);
+    }
+
+    public void deletarPeloId(Long id) {
+       pr.delete(encontrarPostagemPeloId(id));
+    }
+
+    public Postagem encontrarPostagemPeloId(Long id) {
+        return pr.findById(id).orElseThrow(() -> new PostagemNotFoundException("Postagem não encontrada!"));
     }
 }
