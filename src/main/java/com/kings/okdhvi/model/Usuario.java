@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="Usuario")
@@ -108,6 +109,9 @@ public class Usuario implements Serializable{
     @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(nullable = false)
     private Date dataDeNascimento;
+
+    @ManyToMany(mappedBy = "revisor")
+    private List<Postagem> revisoes;
 
     private boolean oculto;
 

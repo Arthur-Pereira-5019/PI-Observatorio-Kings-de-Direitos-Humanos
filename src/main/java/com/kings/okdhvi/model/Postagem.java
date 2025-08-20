@@ -21,12 +21,14 @@ public class Postagem {
     @Column(nullable = false, length = 32768)
     String textoPostagem;
 
+    @ManyToMany
     @JoinTable(
             name = "revisores",
-            joinColumns = @JoinColumn(name = "idPostagem", referencedColumnName = "idPostagem"),
-            inverseJoinColumns = @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario") // Column for Course
+            joinColumns = @JoinColumn(name = "idPostagem"),
+            inverseJoinColumns = @JoinColumn(name = "idUsuario")
     )
     List<Usuario> revisor;
+
     @Column(nullable = true, length = 256)
     String tags;
     @Column

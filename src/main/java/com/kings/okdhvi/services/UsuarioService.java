@@ -62,7 +62,7 @@ public class UsuarioService {
         u.setTelefone("47999999999");
         u.setSenha("293912391");
         u.setNome("Escritor C.");
-        u.setDataDeNascimento(new Date("03-31-2008"));
+        u.setDataDeNascimento(new Date("03/31/2008"));
         u.setIdUsuario(r.nextLong(1000,1100));
         return u;
     }
@@ -152,7 +152,6 @@ public class UsuarioService {
         }
         res = somaV % 11;
 
-        System.out.println(res);
         if (res > 10 || res == 0|| res == 1) {
             res = 0;
         } else {
