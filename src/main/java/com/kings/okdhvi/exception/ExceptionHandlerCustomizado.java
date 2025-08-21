@@ -27,6 +27,12 @@ public class ExceptionHandlerCustomizado extends ResponseEntityExceptionHandler 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(RevisaoPostagemException.class)
+    public final ResponseEntity<ExceptionResponse> handlePostagemJaRevisada(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_ACCEPTABLE);
+    }
+
     @ExceptionHandler(InvalidCPFException.class)
     public final ResponseEntity<ExceptionResponse> handleInvalidCPFException(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));

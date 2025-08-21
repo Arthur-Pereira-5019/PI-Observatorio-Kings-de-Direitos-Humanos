@@ -1,10 +1,8 @@
 package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.PostagemNotFoundException;
-import com.kings.okdhvi.model.Postagem;
-import com.kings.okdhvi.model.PostagemRequest;
-import com.kings.okdhvi.model.RevisorPostagemRequest;
-import com.kings.okdhvi.model.Usuario;
+import com.kings.okdhvi.exception.RevisaoPostagemException;
+import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.repositories.PostagemRepository;
 import jakarta.persistence.Entity;
 import jakarta.transaction.Transactional;
@@ -71,16 +69,21 @@ public class PostagemServices {
         //TODO: Verificar se o usuário já não revisou
         Postagem p = encontrarPostagemPeloId(rpr.idPostagem());
         Usuario u = us.encontrarPorId(rpr.idUsuario());
-        try {
-            p.getRevisor().add(u);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if(p.getRevisor().contains(u)) {
+            throw new RevisaoPostagemException("Postagem já revisada pelo usuário fornecido!");
         }
-        try {
-            pr.save(p);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        p.getRevisor().add(u);
         return pr.save(p);
+    }
+
+    public void ocultar(Long id) {
+        Postagem p = encontrarPostagemPeloId(id);
+        p.setOculto(false);
+        DecisaoModeradora dm = new DecisaoModeradora();
+        dm.setData(Date.from(Instant.now()));
+        // dm.setMotivacao();
+        // dm.setResponsavel();
+        dm.setTipo("Postagem");
+        // dm.setUsuarioModerado();
     }
 }
