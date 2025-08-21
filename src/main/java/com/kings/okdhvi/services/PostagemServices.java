@@ -3,9 +3,11 @@ package com.kings.okdhvi.services;
 import com.kings.okdhvi.exception.PostagemNotFoundException;
 import com.kings.okdhvi.model.Postagem;
 import com.kings.okdhvi.model.PostagemRequest;
+import com.kings.okdhvi.model.RevisorPostagemRequest;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.repositories.PostagemRepository;
 import jakarta.persistence.Entity;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,12 +47,7 @@ public class PostagemServices {
         Postagem post = p.postagem();
             post.setAutor(us.encontrarPorId(p.id()));
         post.setDataDaPostagem(Date.from(Instant.now()));
-        try {
-            pr.save(post);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        post.setRevisor(null);
         return pr.save(post);
     }
 
@@ -67,5 +64,23 @@ public class PostagemServices {
 
     public Postagem encontrarPostagemPeloId(Long id) {
         return pr.findById(id).orElseThrow(() -> new PostagemNotFoundException("Postagem não encontrada!"));
+    }
+
+    @Transactional
+    public Postagem revisarPostagem(RevisorPostagemRequest rpr) {
+        //TODO: Verificar se o usuário já não revisou
+        Postagem p = encontrarPostagemPeloId(rpr.idPostagem());
+        Usuario u = us.encontrarPorId(rpr.idUsuario());
+        try {
+            p.getRevisor().add(u);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            pr.save(p);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return pr.save(p);
     }
 }

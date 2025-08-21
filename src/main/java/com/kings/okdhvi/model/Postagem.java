@@ -2,6 +2,7 @@ package com.kings.okdhvi.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class Postagem {
             joinColumns = @JoinColumn(name = "idPostagem"),
             inverseJoinColumns = @JoinColumn(name = "idUsuario")
     )
-    List<Usuario> revisor;
+    List<Usuario> revisor = new ArrayList<>();
 
     @Column(nullable = true, length = 256)
     String tags;

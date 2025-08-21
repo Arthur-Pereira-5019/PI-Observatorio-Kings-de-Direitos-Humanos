@@ -1,9 +1,6 @@
 package com.kings.okdhvi.controllers;
 
-import com.kings.okdhvi.model.PedidoLogin;
-import com.kings.okdhvi.model.Postagem;
-import com.kings.okdhvi.model.PostagemRequest;
-import com.kings.okdhvi.model.Usuario;
+import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.services.PostagemServices;
 import com.kings.okdhvi.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +38,10 @@ public class PostagemController {
     @DeleteMapping(value = "/{id}")
     public void deletarPostagem(@PathVariable Long id) {
         ps.deletarPeloId(id);
+    }
+
+    @PutMapping(value = "revisar", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
+    public Postagem revisarPostagem(@RequestBody RevisorPostagemRequest rpr) {
+        return ps.revisarPostagem(rpr);
     }
 }
