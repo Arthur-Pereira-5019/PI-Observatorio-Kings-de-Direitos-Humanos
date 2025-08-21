@@ -76,14 +76,15 @@ public class PostagemServices {
         return pr.save(p);
     }
 
-    public void ocultar(Long id) {
-        Postagem p = encontrarPostagemPeloId(id);
+    public void ocultar(OcultarRecursoRequest r) {
+        Postagem p = encontrarPostagemPeloId(r.idPostagem());
         p.setOculto(false);
         DecisaoModeradora dm = new DecisaoModeradora();
         dm.setData(Date.from(Instant.now()));
-        // dm.setMotivacao();
-        // dm.setResponsavel();
+        dm.setMotivacao(r.motivacao());
+        dm.setResponsavel(r.moderador());
         dm.setTipo("Postagem");
-        // dm.setUsuarioModerado();
+        dm.setUsuarioModerado(r.moderado());
+        dm.setNomeModerado(p.getTituloPostagem());
     }
 }
