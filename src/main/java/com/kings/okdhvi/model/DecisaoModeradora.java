@@ -1,13 +1,15 @@
 package com.kings.okdhvi.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
 @Entity
 public class DecisaoModeradora {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long idDecisaoModeradora;
 
     @Column(length = 32)
     String tipo;
@@ -71,4 +73,14 @@ public class DecisaoModeradora {
     public void setResponsavel(Usuario responsavel) {
         this.responsavel = responsavel;
     }
+
+
+    public Long getIdDecisaoModeradora() {
+        return idDecisaoModeradora;
+    }
+
+    public void setIdDecisaoModeradora(Long idDecisaoModeradora) {
+        this.idDecisaoModeradora = idDecisaoModeradora;
+    }
+
 }

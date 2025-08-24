@@ -1,8 +1,6 @@
 package com.kings.okdhvi.controllers;
 
-import com.kings.okdhvi.exception.PostagemNotFoundException;
-import com.kings.okdhvi.model.PedidoLogin;
-import com.kings.okdhvi.model.Postagem;
+import com.kings.okdhvi.model.requests.PedidoLogin;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
