@@ -1,5 +1,6 @@
 package com.kings.okdhvi.controllers;
 
+import com.kings.okdhvi.model.Imagem;
 import com.kings.okdhvi.model.requests.CriarImagemRequest;
 import com.kings.okdhvi.services.ImagemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,13 @@ public class ImagemController {
     ImagemService is;
 
     @PostMapping(value = "/")
-    public void criarImagem(@RequestBody CriarImagemRequest cir){
-        is.criarImagem(cir);
+    public Imagem criarImagem(@RequestBody CriarImagemRequest cir){
+        return is.criarImagem(cir);
+    }
+
+    @GetMapping("/{id}")
+    public Imagem procurarImagemPeloId(@PathVariable("id") Long id) {
+          return is.retornarImagemPeloId(id);
     }
 
 }
