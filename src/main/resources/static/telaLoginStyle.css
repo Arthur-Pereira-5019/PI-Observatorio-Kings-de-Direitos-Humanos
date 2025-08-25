@@ -1,0 +1,285 @@
+.container {
+    width: 1920px; 
+    height: 2044px; 
+    position: relative; 
+    background: #9A9292; 
+    overflow: hidden;
+    font-family: Inter;
+
+}
+        
+        /* Login Section */
+.loginBox {
+    width: 600px; 
+    height: 810px; 
+    left: 163px; 
+    top: 156px; 
+    position: absolute; 
+    background: white; 
+    border-radius: 23px;
+
+}
+        
+#loginHeader {
+    width: 600px; 
+    height: 105px; 
+    left: 163px; 
+    top: 156px; 
+    position: absolute; 
+    background: #8D0028; 
+    border-top-left-radius: 23px;
+    border-top-right-radius: 23px;
+
+}
+        
+#loginTitle {
+    left: 377px; 
+    top: 173px; 
+    position: absolute; 
+    text-align: center; 
+    color: white; 
+    font-size: 60px; 
+    font-weight: 700; 
+    
+}
+        
+.inputArea {
+    width: 368px; 
+    height: 100px; 
+    position: absolute; 
+    padding-left: 30px;
+    background: #DFDEDE; 
+    box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.25); 
+    border-radius: 18px; 
+    border: 1px #8D0028 solid;
+    text-align: left; 
+    font-size: 22px; 
+           
+}
+
+.inputArea::placeholder{
+    color: #4D4D4D;
+
+}
+        
+.remember-me {
+    left: 332px; 
+    top: 677px; 
+    position: absolute; 
+    text-align: center; 
+    color: black; 
+    font-size: 20px; 
+    font-weight: 400; 
+    word-wrap: break-word;
+            
+}
+        
+.checkbox {
+    width: 38px; 
+    height: 38px; 
+    left: 288px; 
+    top: 666px; 
+    cursor: pointer;
+    position: absolute; 
+    background: #DFDEDE; 
+    box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.25); 
+    border: 1px #8D0028 solid;
+    accent-color: #cf3561;
+
+}
+        
+.forgot-password {
+    left: 439px; 
+    top: 677px; 
+    position: absolute; 
+    text-align: center; 
+    color: black; 
+    font-size: 20px; 
+    font-weight: 400; 
+    text-decoration: underline; 
+    word-wrap: break-word;
+
+}
+
+.forgot-password-button{
+    width: 180px; 
+    height: 20px; 
+    left: 439px; 
+    top: 677px; 
+    position: absolute; 
+    background: none; 
+    border-color: none;
+    text-align: center;
+    color: black;
+    font-size: 20px;
+    font-weight: 400;
+    text-decoration: underline black;
+    cursor: pointer;
+    word-wrap: break-word;
+                        
+}
+
+.hide-button{ 
+    width: 50px; 
+    height: 50px; 
+    left: 595px; 
+    top: 548px; 
+    position: absolute; 
+    background: none; 
+    border-color: transparent;
+    text-align: center;
+    color: none;
+    font-size: 20px;
+    font-weight: 400;
+    cursor: pointer;
+    word-wrap: break-word;
+            
+}
+
+.register-button-under-forgot {
+    width: 180px; 
+    height: 20px; 
+    left: 435px; 
+    top: 708px; 
+    position: absolute; 
+    background: none; 
+    border-color: none;
+    text-align: center;
+    color: black;
+    font-size: 20px;
+    font-weight: 400;
+    text-decoration: underline black;
+    cursor: pointer;
+    word-wrap: break-word;
+
+}
+        
+#loginButton {
+    width: 408px; 
+    height: 100px; 
+    left: 266px; 
+    top: 777px; 
+    position: absolute; 
+    background: #8D0028; 
+    cursor: pointer;
+    box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.25); 
+    border-radius: 18px;
+    border: none;
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    font-weight: 700;
+    word-wrap: break-word;
+
+}
+        
+        /* Register Section */
+.register-box {
+    width: 600px; 
+    height: 1548px; 
+    left: 1181px; 
+    top: 156px; 
+    position: absolute; 
+    background: #F3F3F3; 
+    border-radius: 23px;
+}
+        
+.register-header {
+    width: 600px; 
+    height: 105px; 
+    left: 1181px; 
+    top: 156px; 
+    position: absolute; 
+    background: #8D0028; 
+    border-top-left-radius: 23px;
+    border-top-right-radius: 23px;
+}
+        
+.register-title {
+    left: 1305px; 
+    top: 173px; 
+    position: absolute; 
+    text-align: center; 
+    color: #F3F3F3; 
+    font-size: 60px; 
+    font-weight: 700; 
+    word-wrap: break-word;
+
+}
+        
+#registerButton {
+    width: 408px; 
+    height: 100px; 
+    left: 1277px; 
+    top: 1515px; 
+    position: absolute; 
+    background: #8D0028; 
+    box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.25); 
+    border-radius: 18px;
+    border-color: white;
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    word-wrap: break-word;
+
+}
+        
+.register-button-text {
+    left: 1390px; 
+    top: 1540px; 
+    position: absolute; 
+    text-align: center; 
+    color: #F3F3F3; 
+    font-size: 40px; 
+    font-weight: 700; 
+    word-wrap: break-word;
+
+}
+        
+.terms-checkbox {
+    width: 38px; 
+    height: 38px; 
+    left: 1285px; 
+    top: 1302px; 
+    cursor: pointer;
+    position: absolute; 
+    background: #DFDEDE; 
+    box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.25); 
+    border: 1px #8D0028 solid;
+    accent-color: #cf353d;
+
+}
+        
+.terms-text {
+    left: 1330px; 
+    top: 1313px; 
+    position: absolute; 
+    text-align: center; 
+    color: black; 
+    font-size: 20px; 
+    font-weight: 400; 
+    word-wrap: break-word;
+
+}
+        
+.password-rule {
+    position: absolute; 
+    color: black; 
+    font-size: 20px; 
+    font-weight: 400; 
+    word-wrap: break-word;
+
+}
+        
+.password-rule span.highlight {
+    color: #8D0028;
+
+}
+
+.button:hover {
+    transform: scale(0.98);
+    transition: 0.25s;
+
+}
