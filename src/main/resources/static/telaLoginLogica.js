@@ -8,39 +8,40 @@ inputDataNascRegistro = document.getElementById("inputDataNascRegistro")
 confSenhaInputRegistro = document.getElementById("confSenhaInputRegistro");
 
 
-
 const url = 'https://localhost:8080/api/user'; 
-const newPost = {
+const novoPost = {
   title: 'dadosRegistro',
-  body: '',
-  email: inputEmailRegistro.value,
-  cpf : inputCpfRegistro.value,
+  id : 1231412,
+  nome : "oi",
+   senha : senhaInputRegistro.value,
   telefone : inputTelefoneRegistro.value,
-  senha : senhaInputRegistro.value,
+  cpf : 11111111111,
+  email: "a@a",
   dataNasc : inputDataNascRegistro.value 
+ 
+
 };
 
 
-fetch(url, {
+fetch("http://localhost:8080/api/user", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(newPost)
-  })
-  .then(response => {
+    body: JSON.stringify(novoPost)
+})
+.then(response => {
     if (!response.ok) {
-      throw new Error('sem reposta');
+        throw new Error('sem resposta');
     }
     return response.json();
-  })
-  .then(data => {
+})
+.then(data => {
     console.log('Post feito:', data);
-  })
-  .catch(error => {
+})
+.catch(error => {
     console.error('erro no post:', error);
-  });
-
+});
 
 
     hideIcons.forEach(icon => {
@@ -58,5 +59,8 @@ fetch(url, {
         });
     });
 
+
+console.log(novoPost)
+    
 
 

@@ -281,5 +281,6 @@
 .button:hover {
     transform: scale(0.98);
     transition: 0.25s;
+    background: #df6a8b;
 
 }

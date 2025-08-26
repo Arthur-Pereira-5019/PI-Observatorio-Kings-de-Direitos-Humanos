@@ -1,8 +1,6 @@
 package com.kings.okdhvi.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Lob;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -17,10 +15,12 @@ public class Imagem {
     @Column(length = 128)
     String donoImagem;
 
+
     @Column
     Date dataImagem;
 
-    @Column
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long idImagem;
 
     @Lob
