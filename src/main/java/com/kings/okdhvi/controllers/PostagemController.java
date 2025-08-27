@@ -41,6 +41,7 @@ public class PostagemController {
         ps.deletarPeloId(id);
     }
 
+
     @PutMapping(value = "revisar", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
     public Postagem revisarPostagem(@RequestBody RevisorPostagemRequest rpr) {
         return ps.revisarPostagem(rpr);

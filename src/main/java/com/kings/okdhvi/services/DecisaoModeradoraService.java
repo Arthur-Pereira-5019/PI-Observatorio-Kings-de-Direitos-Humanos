@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class DecisaoModeradoraService {
@@ -36,6 +37,10 @@ public class DecisaoModeradoraService {
 
     public DecisaoModeradora encontrarDecisaoPeloId(Long id) {
         return dmr.findById(id).orElseThrow(() -> new DecisaoModeradoraNotFoundException("Decisão Moderadora não encontrada!"));
+    }
+
+    public List<DecisaoModeradora> encontrarTodasDecisoes() {
+        return dmr.findAll();
     }
 
 }

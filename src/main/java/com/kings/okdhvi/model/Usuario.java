@@ -81,15 +81,15 @@ public class Usuario implements Serializable{
         this.dataDeNascimento = dataDeNascimento;
     }
 
-    public void doThat() {
-        System.out.println("A");
-    }
 
     private static final long serialVersionId = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
+
+    @OneToOne()
+    private Imagem imagem;
 
     @Column(nullable = false, length = 100)
     private String nome;
@@ -105,6 +105,22 @@ public class Usuario implements Serializable{
 
     @Column(nullable = false, length = 100, unique = true)
     private String email;
+
+    public Imagem getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(Imagem imagem) {
+        this.imagem = imagem;
+    }
+
+    public List<Postagem> getRevisoes() {
+        return revisoes;
+    }
+
+    public void setRevisoes(List<Postagem> revisoes) {
+        this.revisoes = revisoes;
+    }
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(nullable = false)

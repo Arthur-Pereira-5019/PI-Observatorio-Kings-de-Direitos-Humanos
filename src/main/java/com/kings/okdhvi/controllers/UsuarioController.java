@@ -1,25 +1,26 @@
 package com.kings.okdhvi.controllers;
 
+import com.kings.okdhvi.model.Imagem;
 import com.kings.okdhvi.model.requests.PedidoLogin;
 import com.kings.okdhvi.model.Usuario;
+import com.kings.okdhvi.model.requests.RetornoLogin;
 import com.kings.okdhvi.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins="")
 @RestController
 @RequestMapping("/api/user")
 public class UsuarioController {
 
-
     @Autowired
     UsuarioService us;
     @RequestMapping("/login")
-    public String login(@RequestBody PedidoLogin lr) {
-        if(us.login(lr.senha(),lr.email())) {
-            return "Oieee";
-        }
-        return "Não";
+    public RetornoLogin login(@RequestBody PedidoLogin lr) {
+        return us.login(lr.senha(),lr.email());
     }
 
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -38,8 +39,13 @@ public class UsuarioController {
     }
 
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
-    public Usuario atualizarUsuario(@RequestBody Usuario u, @PathVariable Long id) {
+    public Usuario atualizarUsuario(@RequestBody Usuario u, @PathVariable("u") Long id) {
         return us.atualizarUsuario(u, id);
+    }
+
+    @PutMapping(value = "/{id}")
+    public Usuario atualizarImagem(@RequestBody Imagem i, @PathVariable("id") Long id) {
+        return us.atualizarImagem(id, i);
     }
 
     @DeleteMapping(value = "/{id}")

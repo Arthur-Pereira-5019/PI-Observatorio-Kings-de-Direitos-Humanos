@@ -20,12 +20,6 @@ public class MainPageController {
         return "mainscreen.html";
     }
 
-    /*
-    User ModelAndView("nome","mensagem")
-    Aprender as tags
-    View resolver
-
-     */
 
 
 }

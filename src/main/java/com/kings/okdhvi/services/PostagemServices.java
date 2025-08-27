@@ -68,12 +68,13 @@ public class PostagemServices {
 
     @Transactional
     public Postagem revisarPostagem(RevisorPostagemRequest rpr) {
-        //TODO: Verificar se o usuário já não revisou
         Postagem p = encontrarPostagemPeloId(rpr.idPostagem());
         Usuario u = us.encontrarPorId(rpr.idUsuario());
+
         if(p.getRevisor().contains(u)) {
             throw new RevisaoPostagemException("Postagem já revisada pelo usuário fornecido!");
         }
+
         p.getRevisor().add(u);
         return pr.save(p);
     }

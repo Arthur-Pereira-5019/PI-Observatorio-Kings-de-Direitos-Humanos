@@ -5,12 +5,9 @@ import com.kings.okdhvi.model.Imagem;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.model.requests.CriarImagemRequest;
 import com.kings.okdhvi.repositories.ImagemRepository;
-import com.kings.okdhvi.util.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.time.Instant;
 import java.util.Base64;
 import java.util.Date;

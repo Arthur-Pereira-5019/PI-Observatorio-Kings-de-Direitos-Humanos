@@ -1,8 +1,10 @@
 package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.*;
+import com.kings.okdhvi.model.Imagem;
 import com.kings.okdhvi.model.Postagem;
 import com.kings.okdhvi.model.Usuario;
+import com.kings.okdhvi.model.requests.RetornoLogin;
 import com.kings.okdhvi.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,7 @@ public class UsuarioService {
 
     String emailRegex = ".{3,64}\\@.{4,255}";
     String senhaRegex = ".{8,64}";
-    String cpfRegex = ".{11}";
+    String cpfRegex = "[0-0]{11}";
     String CPFRepetidoRegex = "(.)\1{11}";
     String telefoneRegex = "[0-9]{2}9[1-9][0-9]{7}";
     Date dataMinima = new Date(0,Calendar.JANUARY,1);
@@ -29,13 +31,19 @@ public class UsuarioService {
         return ur.save(u);
     }
 
-    public boolean login (String senha, String email) {
+    public RetornoLogin login (String senha, String email) {
         verificarEmail(email);
         verificarSenha(senha);
         if(encontrarPorEmail(email).getSenha().equals(senha)) {
-            return true;
+            return new RetornoLogin("AAAAAAAAA");
         }
-        return false;
+        throw new InvalidCPFException("Login Inválido! Verifique E-Mail e Senha.");
+    }
+
+    public Usuario atualizarImagem (Long id, Imagem i) {
+        Usuario u = encontrarPorId(id);
+        u.setImagem(i);
+        return ur.save(u);
     }
 
     public Usuario atualizarUsuario (Usuario u, Long id) {
@@ -57,7 +65,7 @@ public class UsuarioService {
     public Usuario mockUsuario() {
         Usuario u = new Usuario();
         Random r = new Random();
-        u.setCpf("131.783.399-65");
+        u.setCpf("13178339965");
         u.setEmail("abcdef@gmail.com");
         u.setTelefone("47999999999");
         u.setSenha("293912391");
