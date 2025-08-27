@@ -1,79 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-        <style>
-            
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
-       
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            width: 100%;
-            height: 216px;
-            margin-top: 1%;
-        }
-        
-        .logo {
-            width: 920px;
-            height: 216px;
-        }
-        
-        .container-noticias{
-            width: 100%;
-            height: auto;
-            display: flex;
-            margin-top: 5%;
-            align-items: center;
-            justify-content: center;
-            gap: 5%;
-            
-        }
-
-        .noticia-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            padding: 0;
-            width: 620px; 
-        }
-        .texto-noticia{
-            margin-top: 10px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 48px;
-            font-weight: bolder;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2; 
-            overflow: hidden;
-            text-overflow: ellipsis;
-            line-height: 1.2;
-            max-width: 620px; 
-            text-align: justify;
-            
-        }
-
-        .botao-seta{
-            width: 50px;
-            height: 50px;
-        }
-
-        .noticia{
-            width: 620px;
-            height: 420px;
-        }
-    </style>
     </head>
+
     <body>
         <div class="container">
             <img class="logo" src=logoObservatorio.png alt="Logo">
         </div>
         <div class="container-noticias">
-            <img class="botao-seta" style="transform: scaleX(-1);" src=setaIcon.png
+            <img class="botao-seta" style="transform: scaleX(-1);"
+                src=setaIcon.png
                 alt="Seta para esquerda">
             <div class="noticia-container">
                 <img class="noticia" src="https://placehold.co/620x420"
@@ -83,13 +20,18 @@
 
             </div>
             <div class="noticia-container">
+
                 <img class="noticia" src="https://placehold.co/620x420"
                     alt="Notícia">
-                <p class="texto-noticia"> Novos dados descobertos referente à tal coisa</p>
+                <p class="texto-noticia"> Novos dados descobertos referente à
+                    tal coisa</p>
+
             </div>
+            
             <img class="botao-seta" src=setaIcon.png
                 alt="Seta para direita">
         </div>
 
     </body>
+
 </html>
