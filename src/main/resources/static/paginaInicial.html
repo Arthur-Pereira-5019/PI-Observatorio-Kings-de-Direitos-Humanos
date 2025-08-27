@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
+
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <style>
+            
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+       
         .container {
             display: flex;
             justify-content: center;
@@ -19,12 +23,13 @@
         
         .container-noticias{
             width: 100%;
-            height: 420px;
+            height: auto;
             display: flex;
             margin-top: 5%;
             align-items: center;
             justify-content: center;
             gap: 5%;
+            
         }
 
         .noticia-container {
@@ -35,6 +40,23 @@
             padding: 0;
             width: 620px; 
         }
+        .texto-noticia{
+            margin-top: 10px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 48px;
+            font-weight: bolder;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2; 
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2;
+            max-width: 620px; 
+            text-align: justify;
+            
+        }
+
         .botao-seta{
             width: 100px;
             height: 100px;
@@ -51,12 +73,22 @@
             <img class="logo" src="https://placehold.co/920x215" alt="Logo">
         </div>
         <div class="container-noticias">
-            <img class="botao-seta" src="https://placehold.co/100x100" alt="Seta para esquerda">
-            <img class="noticia" src="https://placehold.co/620x420"
-                alt="Notícia">
-            <img class="noticia" src="https://placehold.co/620x420"
-                alt="Notícia">
-            <img class="botao-seta" src="https://placehold.co/100x100" alt="Seta para direita">
+            <img class="botao-seta" src="https://placehold.co/100x100"
+                alt="Seta para esquerda">
+            <div class="noticia-container">
+                <img class="noticia" src="https://placehold.co/620x420"
+                    alt="Notícia">
+                <p class="texto-noticia"> Notícia é noticiada em tal lugar em
+                    tal hora e momento tal além de tudo tal coisa</p>
+
+            </div>
+            <div class="noticia-container">
+                <img class="noticia" src="https://placehold.co/620x420"
+                    alt="Notícia">
+                <p class="texto-noticia"> Novos dados descobertos referente à tal coisa</p>
+            </div>
+            <img class="botao-seta" src="https://placehold.co/100x100"
+                alt="Seta para direita">
         </div>
 
     </body>
