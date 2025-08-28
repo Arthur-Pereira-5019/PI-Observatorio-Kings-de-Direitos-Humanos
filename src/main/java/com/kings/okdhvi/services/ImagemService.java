@@ -1,6 +1,7 @@
 package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.imagens.ImagemNotFoundException;
+import com.kings.okdhvi.exception.imagens.InvalidBase64ImageEncoding;
 import com.kings.okdhvi.model.Imagem;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.model.requests.CriarImagemRequest;
@@ -26,7 +27,7 @@ public class ImagemService {
         try {
             imageByte = Base64.getDecoder().decode(cir.imageBase64());
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new InvalidBase64ImageEncoding("A imagem não foi codificada na Base 64 corretamente! " + e.getMessage());
         }
         i.setImage(imageByte);
         Usuario u = us.encontrarPorId(cir.usuarioId());

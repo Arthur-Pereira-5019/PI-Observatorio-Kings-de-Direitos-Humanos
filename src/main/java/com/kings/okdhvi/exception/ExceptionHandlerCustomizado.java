@@ -1,5 +1,7 @@
 package com.kings.okdhvi.exception;
 
+import com.kings.okdhvi.exception.imagens.ImagemNotFoundException;
+import com.kings.okdhvi.exception.imagens.InvalidBase64ImageEncoding;
 import com.kings.okdhvi.exception.login.InvalidLoginInfoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,22 @@ public class ExceptionHandlerCustomizado extends ResponseEntityExceptionHandler 
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_ACCEPTABLE);
     }
+
+    //Imagens
+    @ExceptionHandler(InvalidBase64ImageEncoding.class)
+    public final ResponseEntity<ExceptionResponse> handleInvalidBase64ImageEncoding(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ImagemNotFoundException.class)
+    public final ResponseEntity<ExceptionResponse> handleImagemNotFoundException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+
+    //Usuario
 
     @ExceptionHandler(InvalidCPFException.class)
     public final ResponseEntity<ExceptionResponse> handleInvalidCPFException(Exception ex, WebRequest request) {

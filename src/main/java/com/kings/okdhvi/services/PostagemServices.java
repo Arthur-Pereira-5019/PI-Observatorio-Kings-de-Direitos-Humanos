@@ -26,7 +26,6 @@ public class PostagemServices {
     public Postagem mockPostagem() {
         Postagem p = new Postagem();
 
-        try {
             Usuario u = us.mockUsuario();
             p.setAutor(u);
             p.setTags("noticia;crime");
@@ -37,9 +36,6 @@ public class PostagemServices {
             p.setOculto(false);
             p.setTituloPostagem("Morte");
             p.setIdPostagem(1234L);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
         return p;
     }
 
