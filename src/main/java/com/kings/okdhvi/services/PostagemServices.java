@@ -43,9 +43,10 @@ public class PostagemServices {
         return p;
     }
 
+    @Transactional
     public Postagem criarPostagem(PostagemRequest p) {
         Postagem post = p.postagem();
-            post.setAutor(us.encontrarPorId(p.id()));
+        post.setAutor(us.encontrarPorId(p.id()));
         post.setDataDaPostagem(Date.from(Instant.now()));
         post.setRevisor(null);
         return pr.save(post);

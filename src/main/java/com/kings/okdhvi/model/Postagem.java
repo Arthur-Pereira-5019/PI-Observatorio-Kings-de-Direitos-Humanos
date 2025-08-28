@@ -10,8 +10,13 @@ import java.util.List;
 @Table(name="postagens")
 public class Postagem {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long idPostagem;
+
     @Column(nullable = false, length = 512)
     String tituloPostagem;
+
     @Column(nullable = false)
     Date dataDaPostagem;
 
@@ -34,10 +39,6 @@ public class Postagem {
     String tags;
     @Column
     boolean oculto;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long idPostagem;
 
     public String getTituloPostagem() {
         return tituloPostagem;

@@ -20,9 +20,8 @@ public class PostagemController {
         return ps.mockPostagem();
     }
 
-
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Postagem criarUsuario(@RequestBody PostagemRequest p) {
+    public Postagem criarPostagem(@RequestBody PostagemRequest p) {
         return ps.criarPostagem(p);
     }
 

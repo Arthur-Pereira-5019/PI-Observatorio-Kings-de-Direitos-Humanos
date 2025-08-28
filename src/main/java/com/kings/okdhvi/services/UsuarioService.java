@@ -21,7 +21,7 @@ public class UsuarioService {
 
     String emailRegex = ".{3,64}\\@.{4,255}";
     String senhaRegex = ".{8,64}";
-    String cpfRegex = "[0-0]{11}";
+    String cpfRegex = "[0-9]{11}";
     String CPFRepetidoRegex = "(.)\1{11}";
     String telefoneRegex = "[0-9]{2}9[1-9][0-9]{7}";
     Date dataMinima = new Date(0,Calendar.JANUARY,1);

@@ -1,9 +1,11 @@
 package com.kings.okdhvi.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -106,6 +108,14 @@ public class Usuario implements Serializable{
     @Column(nullable = false, length = 100, unique = true)
     private String email;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @Column(nullable = false)
+    private Date dataDeNascimento;
+
+    @JsonIgnore()
+    @ManyToMany(mappedBy = "revisor")
+    private List<Postagem> revisoes = new ArrayList<>();
+
     public Imagem getImagem() {
         return imagem;
     }
@@ -121,13 +131,6 @@ public class Usuario implements Serializable{
     public void setRevisoes(List<Postagem> revisoes) {
         this.revisoes = revisoes;
     }
-
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    @Column(nullable = false)
-    private Date dataDeNascimento;
-
-    @ManyToMany(mappedBy = "revisor")
-    private List<Postagem> revisoes;
 
     private boolean oculto;
 
