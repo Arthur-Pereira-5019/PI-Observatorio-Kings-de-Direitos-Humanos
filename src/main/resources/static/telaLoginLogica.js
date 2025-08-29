@@ -1,25 +1,24 @@
 const hideButtons = document.querySelectorAll(".hideButton");
 const hideIcons = document.querySelectorAll(".hideIcon");
-inputEmailRegistro = document.getElementById("inputEmailRegistro");
-inputCpfRegistro = document.getElementById("inputCpfRegistro");
-inputTelefoneRegistro = document.getElementById("inputTelefoneRegistro");
+inputNomeRegistro = document.getElementById("inputNomeRegistro")
 senhaInputRegistro = document.getElementById("senhaInputRegistro");
-inputDataNascRegistro = document.getElementById("inputDataNascRegistro")
 confSenhaInputRegistro = document.getElementById("confSenhaInputRegistro");
+inputTelefoneRegistro = document.getElementById("inputTelefoneRegistro");
+inputCpfRegistro = document.getElementById("inputCpfRegistro");
+inputEmailRegistro = document.getElementById("inputEmailRegistro");
+inputDataNascRegistro = document.getElementById("inputDataNascRegistro")
 
 
 const url = 'https://localhost:8080/api/user'; 
 const novoPost = {
-  title: 'dadosRegistro',
-  id : 1231412,
-  nome : "oi",
-   senha : senhaInputRegistro.value,
+  title: 'dadosRegistro', 
+  nome : inputNomeRegistro,
+    senha : senhaInputRegistro.value,
   telefone : inputTelefoneRegistro.value,
-  cpf : 11111111111,
-  email: "a@a",
+  cpf : inputCpfRegistro.value,
+  email: inputEmailRegistro.value,
   dataNasc : inputDataNascRegistro.value 
  
-
 };
 
 
