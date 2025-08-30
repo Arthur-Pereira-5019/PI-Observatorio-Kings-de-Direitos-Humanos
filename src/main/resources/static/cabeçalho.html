@@ -5,11 +5,16 @@
 
             * {
                 margin: 0px;
+                padding: 0px;
+                box-sizing: border-box;
             }
 
             header{
                 background-color: #C00003;
                 padding: 1%;
+                display: flex;
+                gap: 2%;
+                align-items: center;
 
             }
 
@@ -18,10 +23,27 @@
                 width: 67px;
 
             }
+            .menu{
+                height: 55px;
+                width: 67;
+            }
+
+            .container-pesquisa{
+                height: 55px;
+                width: 875px;
+                display: flex;
+            }
+            .label-pesquisa{
+                height: 55px;
+                width: 875;
+                background-color: white;
+                border-radius: 100px;
+            }
 
             .container{
                 width: 100%;
                 height: auto;
+
 
             }
 
@@ -32,8 +54,11 @@
         <div class="container">
             <header>
                 <img class="home" src="homeIcon.png" alt="home">
+                <img class="menu" src="menuIcon.png" alt="menu">
             </header>
         </div>
+
+        
 
     </body>
 
