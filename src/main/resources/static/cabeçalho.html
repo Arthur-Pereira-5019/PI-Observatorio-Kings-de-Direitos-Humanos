@@ -13,7 +13,7 @@
                 background-color: #C00003;
                 padding: 1%;
                 display: flex;
-                gap: 2%;
+                gap: 2.5%;
                 align-items: center;
 
             }
@@ -21,23 +21,37 @@
             .home{
                 height: 55px;
                 width: 67px;
+                cursor: pointer;
 
             }
             .menu{
                 height: 55px;
                 width: 67;
+                cursor: pointer;
             }
 
             .container-pesquisa{
                 height: 55px;
                 width: 875px;
                 display: flex;
+                background-color: white;
+                border-radius: 360px;
+                align-items: center;
+                padding: 1%;
             }
             .label-pesquisa{
-                height: 55px;
-                width: 875;
-                background-color: white;
-                border-radius: 100px;
+                height: 100%;
+                width: 100%;
+                margin-left: 1%;
+                background-color: transparent;
+                border: none;
+                outline: none;
+                font-size: 18px;
+            }
+            .lupa{
+                height: 43px;
+                width: 43px;
+                cursor: pointer;
             }
 
             .container{
@@ -53,9 +67,15 @@
     <body>
         <div class="container">
             <header>
-                <img class="home" src="homeIcon.png" alt="home">
-                <img class="menu" src="menuIcon.png" alt="menu">
-                
+                <img class="home" src="./imagens/homeIcon.png" alt="home">
+                <img class="menu" src="./imagens/menuIcon.png" alt="menu">
+                <div class="container-pesquisa">
+                    <input type="text" class="label-pesquisa">
+                    <img class="lupa" src="./imagens/lupaIcon.png" alt="lupa">
+                    
+
+                </div>
+
             </header>
         </div>
 
