@@ -51,10 +51,10 @@ fetch("http://localhost:8080/api/user", {
 
             if (input.type === "password") {
                 input.type = "text";
-                icon.src = "olhoAberto.png";
+                icon.src = "./imagens/olhosfechados.png";
             } else {
                 input.type = "password";
-                icon.src = "olhoFechado.png";
+                icon.src = "./imagens/olhosfechados.png";
             }
         });
     });
