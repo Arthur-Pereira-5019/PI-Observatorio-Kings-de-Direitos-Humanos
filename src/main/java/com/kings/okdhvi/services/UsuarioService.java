@@ -46,10 +46,16 @@ public class UsuarioService {
         return ur.save(u);
     }
 
-    public Usuario atualizarUsuario (Usuario u, Long id) {
-        Usuario original = encontrarPorId(id);
-        original = u;
-        u.setIdUsuario(id);
+    public Usuario atualizarUsuario (Usuario novo) {
+        Usuario original = encontrarPorId(novo.getIdUsuario());
+        original.setCpf(novo.getCpf());
+        original.setEmail(novo.getEmail());
+        original.setNome(novo.getNome());
+        original.setEmail(novo.getEmail());
+        original.setOculto(novo.isOculto());
+        original.setTelefone(novo.getTelefone());
+        original.setDataDeNascimento(novo.getDataDeNascimento());
+        original.setSenha(novo.getSenha());
         return ur.save(original);
     }
 

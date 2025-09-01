@@ -39,8 +39,8 @@ public class UsuarioController {
     }
 
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
-    public Usuario atualizarUsuario(@RequestBody Usuario u, @PathVariable("u") Long id) {
-        return us.atualizarUsuario(u, id);
+    public Usuario atualizarUsuario(@RequestBody Usuario u) {
+        return us.atualizarUsuario(u);
     }
 
     @PutMapping(value = "/{id}")

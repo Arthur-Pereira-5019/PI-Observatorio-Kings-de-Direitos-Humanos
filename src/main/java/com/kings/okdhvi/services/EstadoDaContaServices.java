@@ -30,4 +30,16 @@ public class EstadoDaContaServices {
     public EstadoDaConta encontrarEstadoDaContaPeloId(Long id) {
         return edcr.findById(id).orElseThrow(() -> new ResourceNotFoundException("Estado da Conta não encontrado!"));
     }
+
+    public EstadoDaConta atualizarEstadoDaConta(EstadoDaConta novo) {
+        EstadoDaConta original = encontrarEstadoDaContaPeloId(novo.getIdEstado());
+        original.setEstadoNocivo(novo.isEstadoNocivo());
+        original.setNomeEstado(novo.getNomeEstado());
+        original.setAplicavelPorModerador(novo.isAplicavelPorModerador());
+        original.setRequisitavel(novo.isRequisitavel());
+        original.setEstadoNocivo(novo.isEstadoNocivo());
+        original.setPodeComentar(novo.isPodeComentar());
+        original.setPodeConcederTitulacoes(novo.isPodeConcederTitulacoes());
+        return edcr.save(original);
+    }
 }
