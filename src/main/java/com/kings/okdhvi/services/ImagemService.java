@@ -1,6 +1,6 @@
 package com.kings.okdhvi.services;
 
-import com.kings.okdhvi.exception.imagens.ImagemNotFoundException;
+import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.imagens.InvalidBase64ImageEncoding;
 import com.kings.okdhvi.model.Imagem;
 import com.kings.okdhvi.model.Usuario;
@@ -39,7 +39,7 @@ public class ImagemService {
     }
 
     public Imagem retornarImagemPeloId(Long id) {
-        return ir.findById(id).orElseThrow(() -> new ImagemNotFoundException("Imagem não encontrada!"));
+        return ir.findById(id).orElseThrow(() -> new ResourceNotFoundException("Imagem não encontrada!"));
     }
 
     public void excluirImagemPeloId(Long id) {

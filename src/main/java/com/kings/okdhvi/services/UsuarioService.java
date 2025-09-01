@@ -1,5 +1,6 @@
 package com.kings.okdhvi.services;
 
+import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.usuario.*;
 import com.kings.okdhvi.model.Imagem;
 import com.kings.okdhvi.model.Usuario;
@@ -79,11 +80,11 @@ public class UsuarioService {
     }
 
     public Usuario encontrarPorId(Long id) {
-        return ur.findById(id).orElseThrow(() -> new UserNotFoundException("Usuário não encontrado"));
+        return ur.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
     }
 
     public Usuario encontrarPorEmail(String email) {
-        return ur.findByemail(email).orElseThrow(() -> new UserNotFoundException("Usuário não encontrado"));
+        return ur.findByemail(email).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
     }
 
 

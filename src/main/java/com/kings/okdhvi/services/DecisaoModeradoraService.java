@@ -1,5 +1,6 @@
 package com.kings.okdhvi.services;
 
+import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.decisao_moderadora.DecisaoModeradoraNotFoundException;
 import com.kings.okdhvi.model.DecisaoModeradora;
 import com.kings.okdhvi.model.Usuario;
@@ -36,7 +37,7 @@ public class DecisaoModeradoraService {
     }
 
     public DecisaoModeradora encontrarDecisaoPeloId(Long id) {
-        return dmr.findById(id).orElseThrow(() -> new DecisaoModeradoraNotFoundException("Decisão Moderadora não encontrada!"));
+        return dmr.findById(id).orElseThrow(() -> new ResourceNotFoundException("Decisão Moderadora não encontrada!"));
     }
 
     public List<DecisaoModeradora> encontrarTodasDecisoes() {

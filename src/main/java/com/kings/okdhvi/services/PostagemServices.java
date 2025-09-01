@@ -1,6 +1,6 @@
 package com.kings.okdhvi.services;
 
-import com.kings.okdhvi.exception.postagem.PostagemNotFoundException;
+import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.postagem.RevisaoPostagemException;
 import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.model.requests.OcultarRecursoRequest;
@@ -60,7 +60,7 @@ public class PostagemServices {
     }
 
     public Postagem encontrarPostagemPeloId(Long id) {
-        return pr.findById(id).orElseThrow(() -> new PostagemNotFoundException("Postagem não encontrada!"));
+        return pr.findById(id).orElseThrow(() -> new ResourceNotFoundException("Postagem não encontrada!"));
     }
 
     @Transactional

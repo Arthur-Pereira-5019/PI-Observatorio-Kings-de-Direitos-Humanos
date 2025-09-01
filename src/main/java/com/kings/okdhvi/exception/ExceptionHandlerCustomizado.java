@@ -1,9 +1,7 @@
 package com.kings.okdhvi.exception;
 
-import com.kings.okdhvi.exception.imagens.ImagemNotFoundException;
 import com.kings.okdhvi.exception.imagens.InvalidBase64ImageEncoding;
 import com.kings.okdhvi.exception.login.InvalidLoginInfoException;
-import com.kings.okdhvi.exception.postagem.PostagemNotFoundException;
 import com.kings.okdhvi.exception.postagem.RevisaoPostagemException;
 import com.kings.okdhvi.exception.usuario.*;
 import org.springframework.http.HttpStatus;
@@ -26,12 +24,12 @@ public class ExceptionHandlerCustomizado extends ResponseEntityExceptionHandler 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    //Postagens
-    @ExceptionHandler(PostagemNotFoundException.class)
-    public final ResponseEntity<ExceptionResponse> handlePostagemNotFound(Exception ex, WebRequest request) {
+    @ExceptionHandler(Exception.class)
+    public final ResponseEntity<ExceptionResponse> handleNotFoundExceptions(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
+
 
     @ExceptionHandler(RevisaoPostagemException.class)
     public final ResponseEntity<ExceptionResponse> handlePostagemJaRevisada(Exception ex, WebRequest request) {
@@ -46,11 +44,6 @@ public class ExceptionHandlerCustomizado extends ResponseEntityExceptionHandler 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(ImagemNotFoundException.class)
-    public final ResponseEntity<ExceptionResponse> handleImagemNotFoundException(Exception ex, WebRequest request) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
-    }
 
 
     //Usuario
@@ -83,12 +76,6 @@ public class ExceptionHandlerCustomizado extends ResponseEntityExceptionHandler 
     public final ResponseEntity<ExceptionResponse> InvalidTelephoneException(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(UserNotFoundException.class)
-    public final ResponseEntity<ExceptionResponse> handleUserNotFoundExceptions(Exception ex, WebRequest request) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(InvalidLoginInfoException.class)
