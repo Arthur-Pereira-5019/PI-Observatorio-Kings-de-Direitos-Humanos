@@ -34,8 +34,9 @@ public class UsuarioService {
     public RetornoLogin login (String senha, String email) {
         verificarEmail(email);
         verificarSenha(senha);
+        Usuario encontrado = encontrarPorEmail(email);
         if(encontrarPorEmail(email).getSenha().equals(senha)) {
-            return new RetornoLogin("AAAAAAAAA");
+            return new RetornoLogin(encontrado.getIdUsuario(), encontrado.getNome());
         }
         throw new InvalidCPFException("Login Inválido! Verifique E-Mail e Senha.");
     }
