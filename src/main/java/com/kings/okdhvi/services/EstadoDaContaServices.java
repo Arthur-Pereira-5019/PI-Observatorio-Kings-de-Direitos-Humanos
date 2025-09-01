@@ -1,6 +1,7 @@
 package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.ResourceNotFoundException;
+import com.kings.okdhvi.exception.usuario.NullResourceException;
 import com.kings.okdhvi.model.EstadoDaConta;
 import com.kings.okdhvi.repositories.EstadoDaContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class EstadoDaContaServices {
     EstadoDaContaRepository edcr;
 
     public EstadoDaConta criarEstadoDaConta(EstadoDaConta edc) {
+        if(edc == null) {
+            throw new NullResourceException("Estado da Conta nulo submetido");
+        }
         return edcr.save(edc);
     }
 
@@ -32,6 +36,9 @@ public class EstadoDaContaServices {
     }
 
     public EstadoDaConta atualizarEstadoDaConta(EstadoDaConta novo) {
+        if(novo == null) {
+            throw new NullResourceException("Estado da Conta nulo submetido");
+        }
         EstadoDaConta original = encontrarEstadoDaContaPeloId(novo.getIdEstado());
         original.setEstadoNocivo(novo.isEstadoNocivo());
         original.setNomeEstado(novo.getNomeEstado());

@@ -2,6 +2,7 @@ package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.decisao_moderadora.DecisaoModeradoraNotFoundException;
+import com.kings.okdhvi.exception.usuario.NullResourceException;
 import com.kings.okdhvi.model.DecisaoModeradora;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.repositories.DecisaoModeradoraRepository;
@@ -33,6 +34,9 @@ public class DecisaoModeradoraService {
     }
 
     public DecisaoModeradora criarDecisaoModeradora(DecisaoModeradora dm) {
+        if(dm == null) {
+            throw new NullResourceException("Decisão Moderadora nula submetido");
+        }
         return dmr.save(dm);
     }
 

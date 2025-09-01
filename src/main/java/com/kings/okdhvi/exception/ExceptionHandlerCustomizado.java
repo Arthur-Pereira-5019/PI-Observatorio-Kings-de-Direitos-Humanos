@@ -4,6 +4,7 @@ import com.kings.okdhvi.exception.imagens.InvalidBase64ImageEncoding;
 import com.kings.okdhvi.exception.login.InvalidLoginInfoException;
 import com.kings.okdhvi.exception.postagem.RevisaoPostagemException;
 import com.kings.okdhvi.exception.usuario.*;
+import com.kings.okdhvi.exception.usuario.NullResourceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,10 +25,16 @@ public class ExceptionHandlerCustomizado extends ResponseEntityExceptionHandler 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(ResourceNotFoundException.class)
     public final ResponseEntity<ExceptionResponse> handleNotFoundExceptions(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(NullResourceException.class)
+    public final ResponseEntity<ExceptionResponse> handleNullResourceException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
 

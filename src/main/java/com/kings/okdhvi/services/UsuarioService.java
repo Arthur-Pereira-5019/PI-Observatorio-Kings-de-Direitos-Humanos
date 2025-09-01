@@ -2,6 +2,7 @@ package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.usuario.*;
+import com.kings.okdhvi.exception.usuario.NullResourceException;
 import com.kings.okdhvi.model.Imagem;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.model.requests.RetornoLogin;
@@ -27,6 +28,9 @@ public class UsuarioService {
     Date dataMinima = new Date(0,Calendar.JANUARY,1);
 
     public Usuario saveUsuario(Usuario u) {
+        if(u == null) {
+            throw new NullResourceException("Usuário nulo submetido");
+        }
         validarDados(u);
         return ur.save(u);
     }
@@ -47,6 +51,9 @@ public class UsuarioService {
     }
 
     public Usuario atualizarUsuario (Usuario novo) {
+        if(novo == null) {
+            throw new NullResourceException("Usuário nulo submetido");
+        }
         Usuario original = encontrarPorId(novo.getIdUsuario());
         original.setCpf(novo.getCpf());
         original.setEmail(novo.getEmail());
