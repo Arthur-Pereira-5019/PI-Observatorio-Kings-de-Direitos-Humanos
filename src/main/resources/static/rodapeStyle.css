@@ -1,0 +1,96 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        a{
+            text-decoration: none;
+
+        }
+
+        a:hover{
+            color: #9bdaff;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container{
+            display: flex;
+            width: auto;
+            margin-left: 0px;
+
+        }
+
+        .container-rodape-esquerda{
+            display: flex;
+            padding: 3%;
+            font-size: 18px;
+            align-items: center;
+            text-align: center;
+            width: 50%;
+            margin-left: 0px;
+
+        }
+
+        .container-rodape-direita{
+            display: flex;
+            padding: 3%;
+            font-size: 24px;
+            align-items: center;
+            text-align: justify;
+            width: 50%;
+            margin-right: 0px;
+            font-weight: lighter;
+            color: #FFFFFFFF;
+
+        }
+        .lista{
+            display: flex;
+            flex-direction: column;
+            font-size: 22px;
+            color: white;
+            list-style-type: none;
+            padding: 0;
+            list-style-type: none;
+
+
+        }
+
+        .lista li{
+            display: flex;
+            align-items: center;
+            gap: 2%;
+            padding-bottom: 2%;
+        }
+
+
+
+        .content {
+            flex: 1; /* Isso empurra o footer para baixo */
+            padding: 20px;
+        }
+
+        .twitter{
+            height: 20px;
+            width: auto;
+        }
+
+        .insta{
+            height: 20px;
+            width: auto;
+        }
+
+        .youtube{
+            height: 20px;
+            width: auto;
+        }
+
+        footer {
+            background-color: #8D0028;
+            padding: 20px;
+            text-align: center;
+            margin-top: auto; /* Garante que fique no final */
+        }

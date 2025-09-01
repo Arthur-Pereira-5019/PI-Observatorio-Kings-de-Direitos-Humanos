@@ -1,8 +1,9 @@
 package com.kings.okdhvi.services;
 
-import com.kings.okdhvi.exception.*;
+import com.kings.okdhvi.exception.ResourceNotFoundException;
+import com.kings.okdhvi.exception.usuario.*;
+import com.kings.okdhvi.exception.usuario.NullResourceException;
 import com.kings.okdhvi.model.Imagem;
-import com.kings.okdhvi.model.Postagem;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.model.requests.RetornoLogin;
 import com.kings.okdhvi.repositories.UsuarioRepository;
@@ -27,6 +28,9 @@ public class UsuarioService {
     Date dataMinima = new Date(0,Calendar.JANUARY,1);
 
     public Usuario saveUsuario(Usuario u) {
+        if(u == null) {
+            throw new NullResourceException("Usuário nulo submetido");
+        }
         validarDados(u);
         return ur.save(u);
     }
@@ -47,10 +51,19 @@ public class UsuarioService {
         return ur.save(u);
     }
 
-    public Usuario atualizarUsuario (Usuario u, Long id) {
-        Usuario original = encontrarPorId(id);
-        original = u;
-        u.setIdUsuario(id);
+    public Usuario atualizarUsuario (Usuario novo) {
+        if(novo == null) {
+            throw new NullResourceException("Usuário nulo submetido");
+        }
+        Usuario original = encontrarPorId(novo.getIdUsuario());
+        original.setCpf(novo.getCpf());
+        original.setEmail(novo.getEmail());
+        original.setNome(novo.getNome());
+        original.setEmail(novo.getEmail());
+        original.setOculto(novo.isOculto());
+        original.setTelefone(novo.getTelefone());
+        original.setDataDeNascimento(novo.getDataDeNascimento());
+        original.setSenha(novo.getSenha());
         return ur.save(original);
     }
 
@@ -81,11 +94,11 @@ public class UsuarioService {
     }
 
     public Usuario encontrarPorId(Long id) {
-        return ur.findById(id).orElseThrow(() -> new UserNotFoundException("Usuário não encontrado"));
+        return ur.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
     }
 
     public Usuario encontrarPorEmail(String email) {
-        return ur.findByemail(email).orElseThrow(() -> new UserNotFoundException("Usuário não encontrado"));
+        return ur.findByemail(email).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
     }
 
 

@@ -1,7 +1,8 @@
 package com.kings.okdhvi.services;
 
-import com.kings.okdhvi.exception.PostagemNotFoundException;
-import com.kings.okdhvi.exception.RevisaoPostagemException;
+import com.kings.okdhvi.exception.ResourceNotFoundException;
+import com.kings.okdhvi.exception.postagem.RevisaoPostagemException;
+import com.kings.okdhvi.exception.usuario.NullResourceException;
 import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.model.requests.OcultarRecursoRequest;
 import com.kings.okdhvi.model.requests.PostagemRequest;
@@ -41,6 +42,9 @@ public class PostagemServices {
 
     @Transactional
     public Postagem criarPostagem(PostagemRequest p) {
+        if(p == null) {
+            throw new NullResourceException("Postagem nula submetida!");
+        }
         Postagem post = p.postagem();
         post.setAutor(us.encontrarPorId(p.id()));
         post.setDataDaPostagem(Date.from(Instant.now()));
@@ -49,6 +53,9 @@ public class PostagemServices {
     }
 
     public Postagem atualizarPostagem (Postagem p, Long id) {
+        if(p == null) {
+            throw new NullResourceException("Postagem nula submetido");
+        }
         Postagem original = encontrarPostagemPeloId(id);
         original = p;
         p.setIdPostagem(id);
@@ -60,7 +67,7 @@ public class PostagemServices {
     }
 
     public Postagem encontrarPostagemPeloId(Long id) {
-        return pr.findById(id).orElseThrow(() -> new PostagemNotFoundException("Postagem não encontrada!"));
+        return pr.findById(id).orElseThrow(() -> new ResourceNotFoundException("Postagem não encontrada!"));
     }
 
     @Transactional

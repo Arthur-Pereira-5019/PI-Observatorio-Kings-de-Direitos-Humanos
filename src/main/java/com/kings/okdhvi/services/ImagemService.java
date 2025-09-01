@@ -1,7 +1,8 @@
 package com.kings.okdhvi.services;
 
-import com.kings.okdhvi.exception.imagens.ImagemNotFoundException;
+import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.imagens.InvalidBase64ImageEncoding;
+import com.kings.okdhvi.exception.usuario.NullResourceException;
 import com.kings.okdhvi.model.Imagem;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.model.requests.CriarImagemRequest;
@@ -22,6 +23,9 @@ public class ImagemService {
     UsuarioService us;
 
     public Imagem criarImagem(CriarImagemRequest cir) {
+        if(cir == null) {
+            throw new NullResourceException("Request de Criação de Imagem nula submetido");
+        }
         Imagem i = new Imagem();
         byte[] imageByte = new byte[0];
         try {
@@ -39,7 +43,7 @@ public class ImagemService {
     }
 
     public Imagem retornarImagemPeloId(Long id) {
-        return ir.findById(id).orElseThrow(() -> new ImagemNotFoundException("Imagem não encontrada!"));
+        return ir.findById(id).orElseThrow(() -> new ResourceNotFoundException("Imagem não encontrada!"));
     }
 
     public void excluirImagemPeloId(Long id) {
