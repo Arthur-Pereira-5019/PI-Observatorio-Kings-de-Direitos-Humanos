@@ -1,7 +1,7 @@
 package com.kings.okdhvi.services;
 
-import com.kings.okdhvi.exception.PostagemNotFoundException;
-import com.kings.okdhvi.exception.RevisaoPostagemException;
+import com.kings.okdhvi.exception.postagem.PostagemNotFoundException;
+import com.kings.okdhvi.exception.postagem.RevisaoPostagemException;
 import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.model.requests.OcultarRecursoRequest;
 import com.kings.okdhvi.model.requests.PostagemRequest;

@@ -1,8 +1,7 @@
 package com.kings.okdhvi.services;
 
-import com.kings.okdhvi.exception.*;
+import com.kings.okdhvi.exception.usuario.*;
 import com.kings.okdhvi.model.Imagem;
-import com.kings.okdhvi.model.Postagem;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.model.requests.RetornoLogin;
 import com.kings.okdhvi.repositories.UsuarioRepository;

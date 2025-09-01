@@ -1,11 +1,11 @@
-package com.kings.okdhvi.exception;
+package com.kings.okdhvi.exception.usuario;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class InvalidTelephoneException extends RuntimeException {
-    public InvalidTelephoneException(String message) {
+public class InvalidCPFException extends RuntimeException {
+    public InvalidCPFException(String message) {
         super(message);
     }
 }
