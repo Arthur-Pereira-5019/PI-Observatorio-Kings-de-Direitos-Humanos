@@ -2,13 +2,14 @@ package com.kings.okdhvi.model;
 
 import jakarta.persistence.*;
 
+@Entity
 public class EstadoDaConta {
-
-    @Column
-    Long idEstado;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long idEstado;
+
+    @Column
     String nomeEstado;
 
     @Column
