@@ -18,7 +18,7 @@ public class UsuarioController {
 
     @Autowired
     UsuarioService us;
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public RetornoLogin login(@RequestBody PedidoLogin lr) {
         return us.login(lr.senha(),lr.email());
     }
