@@ -1,5 +1,6 @@
  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
        
+
         .container {
             display: flex;
             justify-content: center;
@@ -8,12 +9,12 @@
             height: 216px;
             margin-top: 1%;
         }
-        
+
         .logo {
             width: 920px;
             height: 216px;
         }
-        
+
         .container-noticias{
             width: 100%;
             height: auto;
@@ -22,7 +23,7 @@
             align-items: center;
             justify-content: center;
             gap: 5%;
-            
+
         }
 
         .noticia-container {
@@ -31,7 +32,7 @@
             align-items: center;
             margin: 0;
             padding: 0;
-            width: 620px; 
+            width: 620px;
         }
         .texto-noticia{
             margin-top: 10px;
@@ -41,13 +42,13 @@
             overflow: hidden;
             display: -webkit-box;
             -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2; 
+            -webkit-line-clamp: 2;
             overflow: hidden;
             text-overflow: ellipsis;
             line-height: 1.2;
-            max-width: 620px; 
+            max-width: 620px;
             text-align: justify;
-            
+
         }
 
         .botao-seta{
@@ -58,4 +59,8 @@
         .noticia{
             width: 620px;
             height: 420px;
+        }
+         #footer {
+            width: 100%;
+            height: auto;
         }

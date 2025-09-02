@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Unificada</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+        iframe {
+            width: 100%;
+            border: none;
+        }
+        #header {
+            height: 100px;
+        }
+        #content {
+            min-height: 100vh;
+        }
+        #footer {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<iframe id="header" src="./cabecalho.html"></iframe>
+<iframe id="content" src="paginaInicialBase.html"></iframe>
+<iframe id="footer" scrolling="no" src="rodape.html"></iframe>
+</body>
+</html>

@@ -21,6 +21,7 @@
             display: flex;
             width: auto;
             margin-left: 0px;
+            height: auto;
 
         }
 
@@ -66,12 +67,6 @@
             padding-bottom: 2%;
         }
 
-
-
-        .content {
-            flex: 1; /* Isso empurra o footer para baixo */
-            padding: 20px;
-        }
 
         .twitter{
             height: 20px;

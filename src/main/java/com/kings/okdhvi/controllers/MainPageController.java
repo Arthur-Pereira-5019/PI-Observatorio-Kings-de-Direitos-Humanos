@@ -10,7 +10,7 @@ public class MainPageController {
 
     @GetMapping("/")
     public String mainScreen() {
-        return "paginaInicial";
+        return "telaInicial";
     }
 
     @GetMapping("login")
