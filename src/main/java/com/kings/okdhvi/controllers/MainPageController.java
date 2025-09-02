@@ -11,7 +11,21 @@ public class MainPageController {
     @GetMapping("/")
     public String mainScreen() {
         return "telaInicial";
+
     }
+
+    @GetMapping("/rodape")
+    public String rodape() {
+        return "rodape";
+
+    }
+
+    @GetMapping("/cabecalho")
+    public String cabecalho() {
+        return "cabecalho";
+
+    }
+
 
     @GetMapping("login")
     public String login() {

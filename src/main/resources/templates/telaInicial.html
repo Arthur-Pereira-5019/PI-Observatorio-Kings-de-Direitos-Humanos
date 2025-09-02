@@ -1,36 +1,34 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Unificada</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-        }
-        iframe {
-            width: 100%;
-            border: none;
-        }
-        #header {
-            height: 100px;
-        }
-        #content {
-            min-height: 100vh;
-        }
-        #footer {
-            width: 100%;
-            height: 500px;
-        }
-    </style>
+    <title>Página Inicial</title>
+    <link rel="stylesheet" href="paginaInicialStyle.css">
+    <link rel="stylesheet" href="cabecalhoStyle.css">
+    <link rel="stylesheet" href="rodapeStyle.css">
 </head>
 <body>
-<iframe id="header" src="./cabecalho.html"></iframe>
-<iframe id="content" src="paginaInicialBase.html"></iframe>
-<iframe id="footer" scrolling="no" src="rodape.html"></iframe>
+
+<!-- Header placeholder -->
+<div id="header"></div>
+
+<!-- Conteúdo principal -->
+<div class="container-noticias">
+    <img class="botao-seta" style="transform: scaleX(-1);" src="./imagens/setaIcon.png" alt="Seta para esquerda">
+    <div class="noticia-container">
+        <img class="noticia" src="https://placehold.co/620x420" alt="Notícia">
+        <p class="texto-noticia"> Notícia é noticiada em tal lugar em tal hora e momento tal além de tudo tal coisa</p>
+    </div>
+    <div class="noticia-container">
+        <img class="noticia" src="https://placehold.co/620x420" alt="Notícia">
+        <p class="texto-noticia"> Novos dados descobertos referente à tal coisa</p>
+    </div>
+    <img class="botao-seta" src="./imagens/setaIcon.png" alt="Seta para direita">
+</div>
+
+<!-- Footer placeholder -->
+<div id="footer"></div>
+
+<script src="include.js"></script>
 </body>
 </html>
