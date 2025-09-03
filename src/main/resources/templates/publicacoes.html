@@ -5,19 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
         
         .container-moderador{
             margin-top: 1%;
-            height: 120px;
+            height: 10vh;
             width: 100vw;
             display: flex;
-            background-color: blue;
             justify-content: end;
+            background-color: aliceblue;
         }
         .botao-moderador{
             margin-right: 1%;
-            height: 120px;
-            width: 120px;
+            height: 10vh;
+            width: 10vh;
             background-color: orange;
             border-radius: 50%;
             display: flex;
@@ -25,13 +29,43 @@
             align-items: center;
             cursor: pointer;
         }
+        .mais{
+            width: 60%;
+            height: 60%;
+        }
+        .container-publicacoes{
+            height: 30vh;
+            width: 95vw;
+            display: flex;
+            justify-content: left;
+            background-color: mediumaquamarine;
+        }
+        .container-alinhamento{
+            height: 30vh;
+            width: 100vw;
+            display: flex;
+            justify-content: right;
+            background-color: aliceblue;
+        }
+        .titulo-publicacao{
+            font-size: 20%;
+            font-weight: 500;
+            color: #C00003;
+            text-align: left;
+        }
+
 
     </style>
 
 </head>
 <body>
     <div class="container-moderador">
-        <div class="botao-moderador"><img src="mais.png" height="76px" width="76px" alt="sinal de mais"></div>
+<div class="botao-moderador"><img src="mais.png" class="mais" alt="sinal de mais"></div>
+    </div>
+    <div class="container-alinhamento">
+        <div class="container-publicacoes">
+
+        </div>
     </div>
     
 </body>
