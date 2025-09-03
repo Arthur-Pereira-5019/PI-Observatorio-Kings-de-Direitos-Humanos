@@ -16,6 +16,8 @@ const senhaLogin = document.getElementById("senhaLogin");
 const loginButton = document.getElementById("loginButton");
 
 
+
+
 hideIcons.forEach(icon => {
   icon.addEventListener("click", () => {
     const input = document.getElementById(icon.dataset.target);
@@ -39,6 +41,8 @@ loginButton.addEventListener("click", function(){
         senha: senhaLogin.value
     };
 
+
+
     fetch("http://localhost:8080/api/user/login", {
         method: "POST",
         headers: {
@@ -57,6 +61,7 @@ loginButton.addEventListener("click", function(){
         senhaLogin.value = '';
 
         console.log(data.id)
+        localStorage.setItem('logado',true)
         localStorage.setItem('id',data.id)
         localStorage.setItem('nome',data.nome)
         window.location.href = "http://localhost:8080/"
@@ -68,7 +73,6 @@ loginButton.addEventListener("click", function(){
 
 
 })
-
 
 registerButton.addEventListener("click", () => {
   const novoPost = {

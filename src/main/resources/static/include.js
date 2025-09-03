@@ -1,3 +1,8 @@
+if (localStorage.getItem('logado') === null) {
+   localStorage.setItem('logado', "false");
+}
+
+
 
 async function carregarHTML(id, url, cssFile) {
     const response = await fetch(url);
@@ -26,7 +31,12 @@ async function iniciar() {
 
     if (iconButton) {
         iconButton.addEventListener("click", function () {
-            window.location.href = "http://localhost:8080/login";
+        if(localStorage.getItem("logado") == "false") {
+        window.location.href = "http://localhost:8080/login";
+        } else {
+        window.location.href = "http://localhost:8080/usuario";
+        }
+
         });
     } else {
         console.warn("Botão com id 'iconButton' não encontrado.");
