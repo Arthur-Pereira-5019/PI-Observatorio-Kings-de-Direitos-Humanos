@@ -13,11 +13,11 @@
     <div id="loginTitle">LOGIN</div>
 
     <!-- Campos de login -->
-    <input type="email" style="left: 272px; top: 364px;" placeholder="E-mail*" class="inputArea">
+    <input type="email" id="inputEmailLogin"  style="left: 272px; top: 364px;" placeholder="E-mail*" class="inputArea">
 
     <input type="password" id="senhaLogin" style="left: 272px; top: 523px;" placeholder="Senha*" class="inputArea">
 
-    <img src="olhoFechado.png" class="hideIcon" data-target="senhaLogin" style="width: 50px; height: 50px; cursor: pointer; position: absolute; left: 595px; top: 548px;" />
+    <img src="imagens/olhosfechados.png" class="hideIcon" data-target="senhaLogin" style="width: 50px; height: 50px; cursor: pointer; position: absolute; left: 595px; top: 548px;" />
 
     <!-- Login Options -->
     <input type="checkbox" class="checkbox">
@@ -37,19 +37,25 @@
     <div class="register-title">REGISTRAR</div>
 
     <!-- Campos de registro -->
-    <input type="email" style="left: 1290px; top: 364px;" placeholder="E-mail*" class="inputArea" id = "inputEmailRegistro">
+    
 
-    <input type="password" id="senhaInputRegistro" style="left: 1290px; top: 523px;" placeholder="Senha*" class="inputArea">
+    <input type="password" id="senhaInputRegistro" style="left: 1290px; top: 453px;" placeholder="Senha*" class="inputArea">
 
-    <img src="olhoFechado.png" class="hideIcon" data-target="senhaInputRegistro" style="width: 50px; height: 50px; cursor: pointer; position: absolute; left: 1613px; top: 548px;" />
+    <img src="imagens/olhosfechados.png" class="hideIcon" data-target="senhaInputRegistro" style="width: 50px; height: 50px; cursor: pointer; position: absolute; left: 1613px; top: 482px;" />
 
-    <input id="confSenhaInputRegistro" type="password" style="left: 1290px; top: 682px;" placeholder="Confirmar senha*" class="inputArea">
+    <input id="confSenhaInputRegistro" type="password" style="left: 1290px; top: 562px;" placeholder="Confirmar senha*" class="inputArea">
 
-    <img src="olhoFechado.png" class="hideIcon" data-target="senhaInputRegistro" style="width: 50px; height: 50px; cursor: pointer; position: absolute; left: 1613px; top: 707px;" />
+    <img src="imagens/olhosfechados.png" class="hideIcon" data-target="confSenhaInputRegistro" style="width: 50px; height: 50px; cursor: pointer; position: absolute; left: 1613px; top: 590px;" />
 
-    <input type="text" id = "inputCpfRegistro" style="left: 1290px; top: 842px;" placeholder="CPF*" class="inputArea">
-    <input type="text" id = "inputDataNascRegistro" style="left: 1290px; top: 1001px;" placeholder="Data de nascimento*" class="inputArea">
-    <input type="text" id = "inputTelefoneRegistro" style="left: 1290px; top: 1160px;" placeholder="Telefone" class="inputArea">
+     <input type="text" id = "inputNomeRegistro" style="left: 1290px; top: 720px;" placeholder="Nome*" class="inputArea">
+
+    <input type="email" id = "inputEmailRegistro" style="left: 1290px; top: 304px;" placeholder="E-mail*" class="inputArea" >
+
+    <input type="text" id = "inputCpfRegistro" style="left: 1290px; top: 870px;" placeholder="CPF*" class="inputArea">
+
+    <input type="text" id = "inputDataNascRegistro" style="left: 1290px; top: 1020px;" placeholder="Data de nascimento*" class="inputArea">
+
+    <input type="text" id = "inputTelefoneRegistro" style="left: 1290px; top: 1170px;" placeholder="Telefone" class="inputArea">
 
     <!-- Register Options -->
     <input type="checkbox" class="terms-checkbox">
@@ -68,7 +74,7 @@
 
 </div>
 
-<script src = "telaLoginLogica.js"></script>
+<script src = "telaLoginLogica.js" defer></script>
 
 </body>
 </html>

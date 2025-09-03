@@ -1,63 +1,74 @@
- * {
-                margin: 0px;
-                padding: 0px;
-                box-sizing: border-box;
-            }
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
 
-            header{
-                background-color: #C00003;
-                padding: 1%;
-                display: flex;
-                gap: 2.5%;
-                align-items: center;
+header {
+    background-color: #C00003;
+    padding: 1%;
+    display: flex;
+    gap: 2.5%;
+    align-items: center;
 
-            }
-
-            .home{
-                height: 55px;
-                width: 67px;
-                cursor: pointer;
-
-            }
-            .menu{
-                height: 55px;
-                width: 67;
-                cursor: pointer;
-            }
-
-            .container-pesquisa{
-                height: 55px;
-                width: 1000px;
-                display: flex;
-                background-color: white;
-                border-radius: 360px;
-                align-items: center;
-                padding: 1%;
-            }
-            .label-pesquisa{
-                height: 100%;
-                width: 100%;
-                margin-left: 1%;
-                background-color: transparent;
-                border: none;
-                outline: none;
-                font-size: 18px;
-            }
-            .lupa{
-                height: 43px;
-                width: 43px;
-                cursor: pointer;
-            }
-
-            .perfil{
-                width: 53px;
-                cursor: pointer;
-                margin-left: auto;
-            }
-
-            .container{
-                width: 100%;
-                height: auto;
+   
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
 
 
-            }
+body {
+    padding-top: 80px; 
+}
+
+.home {
+    height: 55px;
+    width: 67px;
+    cursor: pointer;
+}
+
+.menu {
+    height: 55px;
+    width: 67px;   
+    cursor: pointer;
+}
+
+.container-pesquisa {
+    height: 55px;
+    width: 1000px;
+    display: flex;
+    background-color: white;
+    border-radius: 360px;
+    align-items: center;
+    padding: 1%;
+}
+
+.label-pesquisa {
+    height: 100%;
+    width: 100%;
+    margin-left: 10%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 18px;
+}
+
+.lupa {
+    height: 43px;
+    width: 43px;
+    cursor: pointer;
+}
+
+.perfil {
+    width: 53px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.container {
+    width: 100%;
+    height: auto;
+}
