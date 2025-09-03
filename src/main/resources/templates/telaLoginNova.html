@@ -10,26 +10,21 @@
             margin: 0;
             padding: 0;
         }
-        a{
+
+        a {
             color: black;
+            font-size: larger
 
         }
-        a:hover{
-            color: #9df4ff;
-        }
 
-        .container-geral {
-            display: flex;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgb(255, 255, 224);
-            justify-content: center;
-            align-items: center;
+        a:hover {
+            color: #0000FF;
         }
 
         .fundo-popup {
             display: flex;
             flex-direction: column;
+            gap: 3%;
             align-items: center;
             background-color: white;
             width: 25vw;
@@ -87,11 +82,12 @@
             height: 8vh;
             margin-top: 5%;
         }
+
         .container-links {
             display: flex;
             flex-direction: column;
             width: 55%;
-            height:100%;
+            height: 100%;
             align-items: center;
             justify-content: center;
         }
@@ -104,23 +100,36 @@
             align-items: center;
             position: relative;
         }
-        .linha-vertical{
+
+        .linha-vertical {
             position: absolute;
             height: 50%;
-            border-left: 2px solid #8D0028 ;
+            border-left: 2px solid #8D0028;
             right: 0;
         }
 
-        .texto-lembrar{
-            font-size: 18px;
+        .texto-lembrar {
+            font-size: larger;
             margin-left: 20%;
             font-family: Arial, Helvetica, sans-serif;
         }
+
         .checkbox {
             transform-origin: left;
             transform: scale(3.0);
             cursor: pointer;
             accent-color: #cf3561;
+        }
+        .botao-acessar{
+            background-color: #8D0028;
+            width: 21vw;
+            height: 11vh;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 2.5rem;
+
         }
     </style>
 </head>
@@ -142,18 +151,22 @@
                 <input class="input-texto" style="width: 16.9vw;" type="password" placeholder="Senha*">
                 <img class="olho" src="olhosfechados.png" alt="">
             </div>
-            
+
             <div class="container-geral-checkbox">
+                
                 <div class="container-checkbox">
                     <input type="checkbox" class="checkbox">
                     <p class="texto-lembrar">Lembrar</p>
                     <div class="linha-vertical"></div>
                 </div>
+
                 <div class="container-links">
-                <a href="esqueciASenha.html">Esqueci minha senha</a>
-                <a href="registro.html">Registrar-se</a>
+                    <a href="esqueciASenha.html">Esqueci minha senha</a>
+                    <a href="registro.html">Registrar-se</a>
                 </div>
+
             </div>
+            <button class="botao-acessar">Acessar</button>
         </div>
 
     </div>
