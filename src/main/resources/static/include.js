@@ -1,3 +1,10 @@
+const iconButton = document.getElementById("iconButton");
+
+iconButton.addEventListener("click", function(){
+    window.location.href = "http://localhost:8080/login"
+
+})
+
 function loadHTML(id, url, cssFile) {
     fetch(url)
         .then(response => response.text())

@@ -15,8 +15,6 @@ const senhaLogin = document.getElementById("senhaLogin");
 
 const loginButton = document.getElementById("loginButton");
 
-const iconButton = document.getElementById("iconButton");
-
 
 hideIcons.forEach(icon => {
   icon.addEventListener("click", () => {
@@ -31,12 +29,6 @@ hideIcons.forEach(icon => {
     }
   });
 });
-
-
-iconButton.addEventListener("click", function(){
-    window.location.href = "http://localhost:8080/login"
-
-})
 
 
 loginButton.addEventListener("click", function(){
@@ -62,8 +54,11 @@ loginButton.addEventListener("click", function(){
         console.log("Usuário logado:", data);
 
         inputEmailLogin.value = '';
-        senhaLogin.value = ''
+        senhaLogin.value = '';
 
+        console.log(data.id)
+        localStorage.setItem('id',data.id)
+        localStorage.setItem('nome',data.nome)
         window.location.href = "http://localhost:8080/"
 
     })
