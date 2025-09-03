@@ -31,7 +31,7 @@ async function iniciar() {
 
     if (iconButton) {
         iconButton.addEventListener("click", function () {
-        if(localStorage.getItem("logado") == "false") {
+        if(localStorage.getItem("logado") == "false" || localStorage.getItem('logado') === null) {
         window.location.href = "http://localhost:8080/login";
         } else {
         window.location.href = "http://localhost:8080/usuario";
