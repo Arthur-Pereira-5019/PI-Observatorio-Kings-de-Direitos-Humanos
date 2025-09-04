@@ -2,6 +2,8 @@ package com.kings.okdhvi.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class EstadoDaConta {
 
@@ -26,6 +28,9 @@ public class EstadoDaConta {
     boolean aplicavelPorModerador;
     @Column
     boolean requisitavel;
+
+    @OneToMany(mappedBy = "estadoDaConta")
+    List<Usuario> pertencentes;
 
     public boolean isRequisitavel() {
         return requisitavel;

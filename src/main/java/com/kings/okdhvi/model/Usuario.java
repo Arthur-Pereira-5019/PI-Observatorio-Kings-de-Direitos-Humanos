@@ -3,15 +3,51 @@ package com.kings.okdhvi.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name="Usuario")
-public class Usuario implements Serializable{
+public class Usuario implements Serializable, UserDetails {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idUsuario;
+
+    @OneToOne()
+    private Imagem imagem;
+
+    @Column(nullable = false, length = 100)
+    private String nome;
+
+    @Column(nullable = false, length = 100)
+    private String senha;
+
+    @Column(nullable = false, length = 14, unique = true)
+    private String telefone;
+
+    @Column(nullable = false, length = 11, unique = true)
+    private String cpf;
+
+    @Column(nullable = false, length = 100, unique = true)
+    private String email;
+
+    @OneToMany(mappedBy = "pertencentes")
+    private EstadoDaConta estadoDaConta;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @Column(nullable = false)
+    private Date dataDeNascimento;
+
+    @JsonIgnore()
+    @ManyToMany(mappedBy = "revisor")
+    private List<Postagem> revisoes = new ArrayList<>();
 
     public Usuario() {
     }
@@ -86,36 +122,6 @@ public class Usuario implements Serializable{
 
     private static final long serialVersionId = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idUsuario;
-
-    @OneToOne()
-    private Imagem imagem;
-
-    @Column(nullable = false, length = 100)
-    private String nome;
-
-    @Column(nullable = false, length = 100)
-    private String senha;
-
-    @Column(nullable = false, length = 14, unique = true)
-    private String telefone;
-
-    @Column(nullable = false, length = 11, unique = true)
-    private String cpf;
-
-    @Column(nullable = false, length = 100, unique = true)
-    private String email;
-
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    @Column(nullable = false)
-    private Date dataDeNascimento;
-
-    @JsonIgnore()
-    @ManyToMany(mappedBy = "revisor")
-    private List<Postagem> revisoes = new ArrayList<>();
-
     public Imagem getImagem() {
         return imagem;
     }
@@ -145,4 +151,38 @@ public class Usuario implements Serializable{
 
 
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return idUsuario.toString();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
+    }
 }
