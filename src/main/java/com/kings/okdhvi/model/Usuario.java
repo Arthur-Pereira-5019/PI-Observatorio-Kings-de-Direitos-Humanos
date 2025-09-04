@@ -52,11 +52,29 @@ public class Usuario implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        ArrayList<SimpleGrantedAuthority> roles;
-        if(estadoDaConta.po) {
-
+        ArrayList<SimpleGrantedAuthority> roles = null;
+        if(estadoDaConta.podeComentar) {
+            roles.add(new SimpleGrantedAuthority("ROLE_COMENTADOR"));
         }
-        return List;
+        if(estadoDaConta.podeComentar) {
+            roles.add(new SimpleGrantedAuthority("ROLE_COMENTADOR"));
+        }
+        if(estadoDaConta.podeComentar) {
+            roles.add(new SimpleGrantedAuthority("ROLE_COMENTADOR"));
+        }
+        if(estadoDaConta.podeComentar) {
+            roles.add(new SimpleGrantedAuthority("ROLE_COMENTADOR"));
+        }
+        if(estadoDaConta.podeComentar) {
+            roles.add(new SimpleGrantedAuthority("ROLE_COMENTADOR"));
+        }
+        if(estadoDaConta.podeComentar) {
+            roles.add(new SimpleGrantedAuthority("ROLE_COMENTADOR"));
+        }
+        if(estadoDaConta.podeComentar) {
+            roles.add(new SimpleGrantedAuthority("ROLE_COMENTADOR"));
+        }
+        return roles;
     }
 
     @Override
