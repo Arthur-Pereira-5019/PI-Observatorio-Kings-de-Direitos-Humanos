@@ -39,9 +39,6 @@ public class Usuario implements Serializable, UserDetails {
     @Column(nullable = false, length = 100, unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "pertencentes")
-    private EstadoDaConta estadoDaConta;
-
     @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(nullable = false)
     private Date dataDeNascimento;
@@ -50,29 +47,28 @@ public class Usuario implements Serializable, UserDetails {
     @ManyToMany(mappedBy = "revisor")
     private List<Postagem> revisoes = new ArrayList<>();
 
+    private EstadoDaContaEnum estadoDaConta;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         ArrayList<SimpleGrantedAuthority> roles = null;
-        if(estadoDaConta.podeComentar) {
-            roles.add(new SimpleGrantedAuthority("ROLE_COMENTADOR"));
+        if(estadoDaConta == EstadoDaContaEnum.ADMNISTRADOR) {
+            roles.add(new SimpleGrantedAuthority("ADMIN"));
+            roles.add(new SimpleGrantedAuthority("PADRAO"));
         }
-        if(estadoDaConta.podeComentar) {
-            roles.add(new SimpleGrantedAuthority("ROLE_COMENTADOR"));
+        if(estadoDaConta == EstadoDaContaEnum.MODERADOR) {
+            roles.add(new SimpleGrantedAuthority("MODER"));
+            roles.add(new SimpleGrantedAuthority("PADRAO"));
         }
-        if(estadoDaConta.podeComentar) {
-            roles.add(new SimpleGrantedAuthority("ROLE_COMENTADOR"));
+        if(estadoDaConta == EstadoDaContaEnum.ESPECIALISTA) {
+            roles.add(new SimpleGrantedAuthority("ESPEC"));
+            roles.add(new SimpleGrantedAuthority("PADRAO"));
         }
-        if(estadoDaConta.podeComentar) {
-            roles.add(new SimpleGrantedAuthority("ROLE_COMENTADOR"));
+        if(estadoDaConta == EstadoDaContaEnum.PADRAO) {
+            roles.add(new SimpleGrantedAuthority("PADRAO"));
         }
-        if(estadoDaConta.podeComentar) {
-            roles.add(new SimpleGrantedAuthority("ROLE_COMENTADOR"));
-        }
-        if(estadoDaConta.podeComentar) {
-            roles.add(new SimpleGrantedAuthority("ROLE_COMENTADOR"));
-        }
-        if(estadoDaConta.podeComentar) {
-            roles.add(new SimpleGrantedAuthority("ROLE_COMENTADOR"));
+        if(estadoDaConta == EstadoDaContaEnum.SUSPENSO) {
+            roles.add(new SimpleGrantedAuthority("SUSPEN"));
         }
         return roles;
     }

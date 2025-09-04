@@ -32,8 +32,6 @@ public class EstadoDaConta {
     @Column
     boolean admnistrador;
 
-    @OneToMany(mappedBy = "estadoDaConta")
-    List<Usuario> pertencentes;
 
     public boolean isRequisitavel() {
         return requisitavel;
