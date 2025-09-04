@@ -29,6 +29,9 @@ public class EstadoDaConta {
     @Column
     boolean requisitavel;
 
+    @Column
+    boolean admnistrador;
+
     @OneToMany(mappedBy = "estadoDaConta")
     List<Usuario> pertencentes;
 
@@ -102,5 +105,13 @@ public class EstadoDaConta {
 
     public void setIdEstado(Long idEstado) {
         this.idEstado = idEstado;
+    }
+
+    public boolean isAdmnistrador() {
+        return admnistrador;
+    }
+
+    public void setAdmnistrador(boolean admnistrador) {
+        this.admnistrador = admnistrador;
     }
 }
