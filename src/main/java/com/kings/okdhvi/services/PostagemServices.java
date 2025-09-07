@@ -46,7 +46,7 @@ public class PostagemServices {
             throw new NullResourceException("Postagem nula submetida!");
         }
         Postagem post = p.postagem();
-        post.setAutor(us.encontrarPorId(p.id()));
+        post.setAutor(us.encontrarPorId(p.id(), false));
         post.setDataDaPostagem(Date.from(Instant.now()));
         post.setRevisor(null);
         return pr.save(post);
@@ -73,7 +73,7 @@ public class PostagemServices {
     @Transactional
     public Postagem revisarPostagem(RevisorPostagemRequest rpr) {
         Postagem p = encontrarPostagemPeloId(rpr.idPostagem());
-        Usuario u = us.encontrarPorId(rpr.idUsuario());
+        Usuario u = us.encontrarPorId(rpr.idUsuario(), false);
 
         if(p.getRevisor().contains(u)) {
             throw new RevisaoPostagemException("Postagem já revisada pelo usuário fornecido!");

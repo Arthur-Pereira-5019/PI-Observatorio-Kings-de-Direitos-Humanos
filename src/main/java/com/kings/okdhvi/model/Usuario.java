@@ -30,7 +30,7 @@ public class Usuario implements Serializable, UserDetails {
     @Column(nullable = false, length = 100)
     private String senha;
 
-    @Column(nullable = false, length = 14, unique = true)
+    @Column(nullable = false, length = 14)
     private String telefone;
 
     @Column(nullable = false, length = 11, unique = true)
@@ -47,11 +47,19 @@ public class Usuario implements Serializable, UserDetails {
     @ManyToMany(mappedBy = "revisor")
     private List<Postagem> revisoes = new ArrayList<>();
 
+    public EstadoDaContaEnum getEstadoDaConta() {
+        return estadoDaConta;
+    }
+
+    public void setEstadoDaConta(EstadoDaContaEnum estadoDaConta) {
+        this.estadoDaConta = estadoDaConta;
+    }
+
     private EstadoDaContaEnum estadoDaConta;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        ArrayList<SimpleGrantedAuthority> roles = null;
+        ArrayList<SimpleGrantedAuthority> roles = new ArrayList<>();
         if(estadoDaConta == EstadoDaContaEnum.ADMNISTRADOR) {
             roles.add(new SimpleGrantedAuthority("ADMIN"));
             roles.add(new SimpleGrantedAuthority("PADRAO"));
@@ -80,7 +88,7 @@ public class Usuario implements Serializable, UserDetails {
 
     @Override
     public String getUsername() {
-        return idUsuario.toString();
+        return email;
     }
 
     @Override
@@ -106,15 +114,13 @@ public class Usuario implements Serializable, UserDetails {
     public Usuario() {
     }
 
-    public Usuario(Long idUsuario, String nome, String senha, String telefone, String cpf, String eMail, Date dataDeNascimento, boolean oculto) {
-        this.idUsuario = idUsuario;
+    public Usuario(String nome, String senha, String telefone, String cpf, String eMail, Date dataDeNascimento) {
         this.nome = nome;
         this.senha = senha;
         this.telefone = telefone;
         this.cpf = cpf;
         this.email = eMail;
         this.dataDeNascimento = dataDeNascimento;
-        this.oculto = oculto;
     }
 
     public Long getIdUsuario() {

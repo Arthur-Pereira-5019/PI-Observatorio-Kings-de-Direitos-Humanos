@@ -3,11 +3,13 @@ package com.kings.okdhvi.services;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.usuario.*;
 import com.kings.okdhvi.exception.usuario.NullResourceException;
+import com.kings.okdhvi.model.EstadoDaContaEnum;
 import com.kings.okdhvi.model.Imagem;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.model.requests.RetornoLogin;
 import com.kings.okdhvi.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
@@ -32,21 +34,23 @@ public class UsuarioService {
             throw new NullResourceException("Usuário nulo submetido");
         }
         validarDados(u);
+        u.setSenha(new BCryptPasswordEncoder().encode(u.getSenha()));
+        u.setEstadoDaConta(EstadoDaContaEnum.PADRAO);
         return ur.save(u);
     }
 
     public RetornoLogin login (String senha, String email) {
         verificarEmail(email);
         verificarSenha(senha);
-        Usuario encontrado = encontrarPorEmail(email);
-        if(encontrarPorEmail(email).getSenha().equals(senha)) {
+        Usuario encontrado = encontrarPorEmail(email, false);
+        if(encontrado.getSenha().equals(senha)) {
             return new RetornoLogin(encontrado.getIdUsuario(), encontrado.getNome());
         }
         throw new InvalidCPFException("Login Inválido! Verifique E-Mail e Senha.");
     }
 
     public Usuario atualizarImagem (Long id, Imagem i) {
-        Usuario u = encontrarPorId(id);
+        Usuario u = encontrarPorId(id, false);
         u.setImagem(i);
         return ur.save(u);
     }
@@ -55,7 +59,7 @@ public class UsuarioService {
         if(novo == null) {
             throw new NullResourceException("Usuário nulo submetido");
         }
-        Usuario original = encontrarPorId(novo.getIdUsuario());
+        Usuario original = encontrarPorId(novo.getIdUsuario(), false);
         original.setCpf(novo.getCpf());
         original.setEmail(novo.getEmail());
         original.setNome(novo.getNome());
@@ -68,6 +72,10 @@ public class UsuarioService {
     }
 
     public void validarDados(Usuario u) {
+        if(encontrarPorEmail(u.getEmail(), true) != null || encontrarPorCPF(u.getCpf(), true) != null) {
+            throw new DuplicatedResource("Usuário já existente!");
+        }
+
         verificarCPF(u.getCpf());
         verificarEmail(u.getEmail());
         verificarSenha(u.getSenha());
@@ -90,15 +98,31 @@ public class UsuarioService {
     }
 
     public void deletarPeloId(Long id) {
-        ur.delete(encontrarPorId(id));
+        ur.delete(encontrarPorId(id, false));
     }
 
-    public Usuario encontrarPorId(Long id) {
-        return ur.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+    public Usuario encontrarPorId(Long id, boolean anulavel) {
+        var u = ur.findById(id);
+        if(anulavel && u.isEmpty()) {
+            return null;
+        }
+        return u.orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
     }
 
-    public Usuario encontrarPorEmail(String email) {
-        return ur.findByemail(email).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+    public Usuario encontrarPorEmail(String email, boolean anulavel) {
+        var u = ur.findByemail(email);
+        if(anulavel && u.isEmpty()) {
+            return null;
+        }
+        return u.orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+    }
+
+    public Usuario encontrarPorCPF(String cpf, boolean anulavel) {
+        var u = ur.findBycpf(cpf);
+        if(anulavel && u.isEmpty()) {
+                return null;
+        }
+        return u.orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
     }
 
 
