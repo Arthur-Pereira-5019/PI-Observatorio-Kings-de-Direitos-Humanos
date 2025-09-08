@@ -1,23 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+        <style>
         *{
             margin: 0;
-            padding: 0;
+            box-sizing: border-box;
         }
         
         .container-moderador{
             margin-top: 1%;
             height: 10vh;
-            width: 100vw;
+            width: 100%;
             display: flex;
             justify-content: end;
-            background-color: aliceblue;
         }
+
+        .container-linha{
+            height: auto;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+        }
+        hr{
+            width: 95%;
+        }
+
         .botao-moderador{
             margin-right: 1%;
             height: 10vh;
@@ -29,59 +43,196 @@
             align-items: center;
             cursor: pointer;
         }
+
         .mais{
             width: 60%;
             height: 60%;
         }
+
         .container-publicacoes{
             height: 40vh;
-            width: 95vw;
+            width: 90vw;
             display: flex;
-            justify-content: left;
-            background-color: mediumaquamarine;
+            flex-direction: column;
+            justify-content:left;
+            margin-right: 5%;
         }
-        .container-alinhamento{
+
+        .container-geral{
             height: 40vh;
-            width: 100vw;
+            width: 100%;
             display: flex;
             justify-content: right;
-            background-color: red;
+            margin-top: 2%;
+            margin-bottom: 2%;
         }
+
         .titulo-publicacao{
             font-size: 3rem;
-            font-weight: 1200;
+            font-weight: 800;
+            font-family: "Inter", sans-serif;
             color: #C00003;
             text-align: left;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
-        .foto-publicacao{
-            width: 100%;
-            height: 75%;
-        }
+
         .container-titulo{
-            width: 25%;
-            height: 100%;
+            width: 100%;
+            height: 17%;
             display: flex;
             text-align: left;
-            background-color: blueviolet;
-            flex-direction: column;
         }
+
+        .container-imagem{
+            margin-top: 0.75%;
+            height: 100%;
+            width: 35%;
+        }
+
+        .container-baixo{
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+        }
+
+        .container-descricao{
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 1%;
+            font-family: "Inter", sans-serif;
+        }
+
+        .imagem{
+            height: 100%;
+            width: 100%;
+        }
+
+        .autor{
+            font-size: 2.0rem;
+            font-weight: 500;
+        }
+
+        .data{
+            font-size: 0.5;
+            font-weight: 100;
+
+        }
+
+        .paragrafo{
+            font-size: 1rem;
+            font-weight: 200;
+            margin-top: 1%;
+        }
+
+        .container-seletores{
+            height: 5%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 2%;
+        }
+
+        .bloquinhos{
+            height: 100%;
+            width: 2%;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            font-size: 2rem;
+            background-color: #D9D9D9;
+            cursor: pointer;
+
+        }
+
 
 
     </style>
 
-</head>
-<body>
-    <div class="container-moderador">
-<div class="botao-moderador"><img src="mais.png" class="mais" alt="sinal de mais"></div>
-    </div>
-    <div class="container-alinhamento">
-        <div class="container-publicacoes">
-            <div class="container-titulo">
-            <h1 class="titulo-publicacao">Titulo.</h1>
-            <img class="foto-publicacao" src="azul.png" alt="noticia">
+    </head>
+    <body>
+
+        <div class="container-moderador">
+
+            <div class="botao-moderador"><img src="mais.png" class="mais"
+                    alt="sinal de mais"></div>
+
+        </div>
+
+        <div class="container-geral">
+
+            <div class="container-publicacoes">
+
+                <div class="container-titulo">
+                    <p class="titulo-publicacao">Lorem ipsum dolor sit amet
+                        consectetur adipisicing elit. Ipsum, enim quidem iusto
+                        dolor repudiandae pariatur, incidunt, obcaecati in animi
+                        minima quod nulla quae laborum possimus numquam harum.
+                        Architecto, nisi nihil!.</p>
+                </div>
+
+                <div class="container-baixo">
+
+                    <div class="container-imagem">
+                        <img class="imagem" src="azul.png" alt>
+                    </div>
+
+                    <div class="container-descricao">
+                        <p class="autor">Autor</p>
+                        <p class="data">data de postagem</p>
+                        <p class="paragrafo">Primeiro parágrafo do texto contido dentro da postagem, como forma de servir como um resumo atrativo para o usuário.</p>
+                    </div>
+
+                </div>
+
             </div>
         </div>
-    </div>
-    
-</body>
+        <div class="container-linha">
+        <hr>
+        </div>
+        <div class="container-geral">
+
+            <div class="container-publicacoes">
+
+                <div class="container-titulo">
+                    <p class="titulo-publicacao">Lorem ipsum dolor sit amet
+                        consectetur adipisicing elit. Ipsum, enim quidem iusto
+                        dolor repudiandae pariatur, incidunt, obcaecati in animi
+                        minima quod nulla quae laborum possimus numquam harum.
+                        Architecto, nisi nihil!.</p>
+                </div>
+
+                <div class="container-baixo">
+
+                    <div class="container-imagem">
+                        <img class="imagem" src="azul.png" alt>
+                    </div>
+
+                    <div class="container-descricao">
+                        <p class="autor">Autor</p>
+                        <p class="data">data de postagem</p>
+                        <p class="paragrafo">Primeiro parágrafo do texto contido dentro da postagem, como forma de servir como um resumo atrativo para o usuário.</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container-seletores">
+            <button class="bloquinhos">&lt;</button>
+            <button class="bloquinhos">1</button>
+            <button class="bloquinhos">2</button>
+            <input type="text" class="bloquinhos" placeholder="--">
+            <button class="bloquinhos">99</button>
+            <button class="bloquinhos">&gt;</button>
+        </div>
+
+    </body>
 </html>
