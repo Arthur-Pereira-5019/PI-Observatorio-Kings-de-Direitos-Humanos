@@ -26,4 +26,9 @@ public class PageControllers {
         return "telaLogin";
     }
 
+    @GetMapping("/registro")
+    public String registro() {
+        return "registro";
+    }
+
 }

@@ -1,5 +1,7 @@
 
 const hideIcons = document.querySelectorAll(".hideIcon");
+
+
 const registerButton = document.getElementById("registerButton");
 
 const senhaInputRegistro = document.getElementById("senhaInputRegistro");
@@ -10,9 +12,9 @@ const inputCpfRegistro = document.getElementById("inputCpfRegistro");
 const inputEmailRegistro = document.getElementById("inputEmailRegistro");
 const inputDataNascRegistro = document.getElementById("inputDataNascRegistro");
 
+
 const inputEmailLogin = document.getElementById("inputEmailLogin");
 const senhaLogin = document.getElementById("senhaLogin");
-
 const loginButton = document.getElementById("loginButton");
 
 
