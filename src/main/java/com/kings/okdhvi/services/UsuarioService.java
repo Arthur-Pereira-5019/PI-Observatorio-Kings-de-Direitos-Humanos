@@ -39,16 +39,6 @@ public class UsuarioService {
         return ur.save(u);
     }
 
-    public RetornoLogin login (String senha, String email) {
-        verificarEmail(email);
-        verificarSenha(senha);
-        Usuario encontrado = encontrarPorEmail(email, false);
-        if(encontrado.getSenha().equals(senha)) {
-            return new RetornoLogin(encontrado.getIdUsuario(), encontrado.getNome());
-        }
-        throw new InvalidCPFException("Login Inválido! Verifique E-Mail e Senha.");
-    }
-
     public Usuario atualizarImagem (Long id, Imagem i) {
         Usuario u = encontrarPorId(id, false);
         u.setImagem(i);
@@ -79,7 +69,9 @@ public class UsuarioService {
         verificarCPF(u.getCpf());
         verificarEmail(u.getEmail());
         verificarSenha(u.getSenha());
-        verificarSenha(u.getTelefone());
+        if(u.getTelefone() != null) {
+            verificarTelefone(u.getTelefone());
+        }
         verificarDataDeNasc(u.getDataDeNascimento());
         verificarNCPF(u.getCpf());
     }

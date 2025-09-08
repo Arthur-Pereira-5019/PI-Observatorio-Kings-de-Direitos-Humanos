@@ -30,7 +30,7 @@ public class Usuario implements Serializable, UserDetails {
     @Column(nullable = false, length = 100)
     private String senha;
 
-    @Column(nullable = false, length = 14)
+    @Column(length = 14)
     private String telefone;
 
     @Column(nullable = false, length = 11, unique = true)
@@ -62,6 +62,7 @@ public class Usuario implements Serializable, UserDetails {
         ArrayList<SimpleGrantedAuthority> roles = new ArrayList<>();
         if(estadoDaConta == EstadoDaContaEnum.ADMNISTRADOR) {
             roles.add(new SimpleGrantedAuthority("ADMIN"));
+            roles.add(new SimpleGrantedAuthority("MODER"));
             roles.add(new SimpleGrantedAuthority("PADRAO"));
         }
         if(estadoDaConta == EstadoDaContaEnum.MODERADOR) {
