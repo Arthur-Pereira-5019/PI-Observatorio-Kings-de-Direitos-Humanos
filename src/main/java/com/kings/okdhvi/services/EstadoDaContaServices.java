@@ -1,7 +1,7 @@
 package com.kings.okdhvi.services;
 
+import com.kings.okdhvi.exception.NullResourceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
-import com.kings.okdhvi.exception.usuario.NullResourceException;
 import com.kings.okdhvi.model.EstadoDaConta;
 import com.kings.okdhvi.repositories.EstadoDaContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;

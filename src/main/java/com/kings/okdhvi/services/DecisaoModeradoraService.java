@@ -1,8 +1,8 @@
 package com.kings.okdhvi.services;
 
+import com.kings.okdhvi.exception.NullResourceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.decisao_moderadora.DecisaoModeradoraNotFoundException;
-import com.kings.okdhvi.exception.usuario.NullResourceException;
 import com.kings.okdhvi.model.DecisaoModeradora;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.repositories.DecisaoModeradoraRepository;

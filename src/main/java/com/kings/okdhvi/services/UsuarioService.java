@@ -1,8 +1,8 @@
 package com.kings.okdhvi.services;
 
+import com.kings.okdhvi.exception.NullResourceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.usuario.*;
-import com.kings.okdhvi.exception.usuario.NullResourceException;
 import com.kings.okdhvi.model.EstadoDaContaEnum;
 import com.kings.okdhvi.model.Imagem;
 import com.kings.okdhvi.model.Usuario;

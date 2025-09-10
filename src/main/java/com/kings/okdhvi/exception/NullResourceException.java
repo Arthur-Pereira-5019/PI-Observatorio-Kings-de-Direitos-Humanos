@@ -1,4 +1,4 @@
-package com.kings.okdhvi.exception.usuario;
+package com.kings.okdhvi.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

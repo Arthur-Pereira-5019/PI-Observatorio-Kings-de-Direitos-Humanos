@@ -26,4 +26,10 @@ public class PageControllers {
         return "telaLogin";
     }
 
+    @GetMapping("/**")
+    public String telaInexistente() {
+        return "telaInexistente";
+    }
+
+
 }

@@ -1,8 +1,8 @@
 package com.kings.okdhvi.services;
 
+import com.kings.okdhvi.exception.NullResourceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.imagens.InvalidBase64ImageEncoding;
-import com.kings.okdhvi.exception.usuario.NullResourceException;
 import com.kings.okdhvi.model.Imagem;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.model.requests.CriarImagemRequest;
