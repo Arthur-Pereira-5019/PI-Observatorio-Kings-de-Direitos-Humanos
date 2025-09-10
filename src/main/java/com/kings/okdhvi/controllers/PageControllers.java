@@ -26,9 +26,9 @@ public class PageControllers {
         return "telaLogin";
     }
 
-    @GetMapping("/registro")
-    public String registro() {
-        return "registro";
+    @GetMapping("/popupRegistro")
+    public String popupRegistro() {
+        return "popupRegistro";
     }
 
 }
