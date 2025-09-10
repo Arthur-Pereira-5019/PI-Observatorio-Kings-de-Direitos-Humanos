@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/kings?useTimezone=true&serverTimezone=UTC
     username: root
-    password: admin
+    password: Art.DB25
     name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -13,18 +13,9 @@ spring:
     open-in-view: false
     properties:
       hibernate:
-  mvc:
-    throw-exception-if-no-handler-found: true
-  web:
-    resources:
-      add-mappings: false
 logger:
   root: WARN
   com.kings.okdhvi: WARN
-server:
-  error:
-    whitelabel:
-      enabled: false
 api:
   security:
     token:

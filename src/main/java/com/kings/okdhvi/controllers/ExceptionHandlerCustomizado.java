@@ -1,5 +1,9 @@
-package com.kings.okdhvi.exception;
+package com.kings.okdhvi.controllers;
 
+import com.kings.okdhvi.exception.ExceptionResponse;
+import com.kings.okdhvi.exception.NullResourceException;
+import com.kings.okdhvi.exception.ResourceNotFoundException;
+import com.kings.okdhvi.exception.TokenGenerationException;
 import com.kings.okdhvi.exception.imagens.InvalidBase64ImageEncoding;
 import com.kings.okdhvi.exception.login.InvalidLoginInfoException;
 import com.kings.okdhvi.exception.postagem.RevisaoPostagemException;
@@ -12,19 +16,24 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Date;
 
 @RestController
 @ControllerAdvice
-public class ExceptionHandlerCustomizado extends ResponseEntityExceptionHandler {
+public class ExceptionHandlerCustomizado {
 
-    /*
+    @ExceptionHandler(NoResourceFoundException.class)
+    public final RedirectView handleNoResourceFoundException(Exception ex, WebRequest request) {
+        return new RedirectView("/telaInexistente");
+    }
+
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<ExceptionResponse> handleAllExceptions(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-    }*/
+    }
 
     @ExceptionHandler(DuplicatedResource.class)
     public final ResponseEntity<ExceptionResponse> handleDuplicatedResource(Exception ex, WebRequest request) {
