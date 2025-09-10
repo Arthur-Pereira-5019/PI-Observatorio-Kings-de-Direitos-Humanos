@@ -6,6 +6,8 @@ import com.kings.okdhvi.model.requests.PedidoLogin;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.model.requests.RetornoLogin;
 import com.kings.okdhvi.services.UsuarioService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.antlr.v4.runtime.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -69,13 +71,20 @@ public class UsuarioController {
 
 
     @PostMapping("/login")
-    public RetornoLogin login(@RequestBody PedidoLogin pl) {
+    public ResponseEntity<?> login(@RequestBody PedidoLogin pl, HttpServletResponse response) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(pl.email(), pl.senha());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
         var token = ts.gerarToken((Usuario) auth.getPrincipal());
 
-        return new RetornoLogin(token);
+        Cookie cookie = new Cookie("jwt", token);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(1209600);
+        response.addCookie(cookie);
+
+        return ResponseEntity.ok("Logado com sucesso!");
     }
 
     @PostMapping("/registrar")

@@ -4,6 +4,7 @@ import com.kings.okdhvi.repositories.UsuarioRepository;
 import com.kings.okdhvi.services.UsuarioService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -29,6 +30,19 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     Logger logger = LoggerFactory.getLogger(SecurityFilter.class);
 
+    /*@Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        var token = this.recoverToken(request);
+        if(token != null) {
+            var login = tokenService.validateToken(token);
+            UserDetails user = us.encontrarPorEmail(login,false);
+
+            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
+        filterChain.doFilter(request, response);
+    }*/
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var token = this.recoverToken(request);
@@ -43,10 +57,14 @@ public class SecurityFilter extends OncePerRequestFilter {
     }
 
     private String recoverToken(HttpServletRequest request) {
-        var authHeader = request.getHeader("Authorization");
-        if(authHeader == null) {
-            return null;
+        String token = null;
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if ("jwt".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                }
+            }
         }
-        return authHeader.replace("Bearer ","");
+        return token;
     }
 }
