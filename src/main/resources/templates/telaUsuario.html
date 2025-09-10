@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet">
+
+        <style>
+
+        *{
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .container-menu-usuario-geral{
+            height: 100vh;
+            width: 20vw;
+            background-color: bisque;
+        }
+
+        .container-menu-usuario-info{
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 99%;
+            background-color: yellow;
+            justify-content: left;
+            padding: 5%;
+            gap: 2%;
+        }
+
+        .container-imagem-user{
+            width: 100%;
+            height: auto;
+            background-color: blue;
+            display: flex;
+            justify-content: center;
+        }
+
+        .icon-user{
+            width: 75%;
+        }
+
+        .nome-usuario{
+            width: 100%;
+            height: auto;
+            padding: 5%;
+            background-color: aqua;
+            font-size: 2.5rem;
+            font-weight: 900;
+            word-break: break-word;
+            font-family: "Inter", sans-serif;
+        }
+
+        .container-cargos{
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            background-color: pink;
+            width: 100%;
+            height: auto;
+        }
+        
+        .cargos{
+            text-align: center; 
+            width: 100%;
+            height: auto;
+            color: #ffffff;
+            font-size: 2rem;
+            font-weight: 100;   
+            border-radius: 100px;
+            font-family: "Inter", sans-serif;
+        }
+
+        #usuario{
+            background-color: #8C8C8C;
+            height: auto;
+        }
+
+        #moderador{
+            background-color: #FF7B7B;
+            height: auto;
+        }
+
+        #especialista{
+            background-color: #C00003;
+            height: auto;
+        }
+
+        #administrador{
+            background-color: #560000;
+            height: auto;
+        }
+
+        #fundador{
+            background-color: #000000;
+            height: auto;
+        }
+
+        .container-botoes{
+            display: flex;
+            width: 100%;
+            height: 10%;
+            background-color: aliceblue;
+        }
+
+        .botao-add-cargo{
+            
+            background-color: orange;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+    </style>
+    </head>
+    <body>
+
+        <div class="container-menu-usuario-geral">
+            <div class="container-menu-usuario-info">
+                <div class="container-imagem-user">
+                    <img src="icon-user.png" class="icon-user"
+                        alt="icone de usuário">
+                </div>
+                <div class="nome-usuario">
+                    <p>Emanuel de Oliveira Farias</p>
+                </div>
+                
+                <div class="container-cargos">
+                    <p class="cargos" id="usuario">Usuário</p>
+                    <p class="cargos" id="moderador">Moderador</p>
+                    <p class="cargos" id="especialista">Especialista</p>
+                    <p class="cargos" id="administrador">Administrador</p>
+                    <p class="cargos" id="fundador">Fundador</p>
+                </div>
+
+                <div class="container-botoes"></div>
+
+            </div>
+        </div>
+
+    </body>
+</html>
