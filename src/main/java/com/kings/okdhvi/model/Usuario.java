@@ -61,23 +61,23 @@ public class Usuario implements Serializable, UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         ArrayList<SimpleGrantedAuthority> roles = new ArrayList<>();
         if(estadoDaConta == EstadoDaContaEnum.ADMNISTRADOR) {
-            roles.add(new SimpleGrantedAuthority("ADMIN"));
-            roles.add(new SimpleGrantedAuthority("MODER"));
-            roles.add(new SimpleGrantedAuthority("PADRAO"));
+            roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+            roles.add(new SimpleGrantedAuthority("ROLE_MODER"));
+            roles.add(new SimpleGrantedAuthority("ROLE_PADRAO"));
         }
         if(estadoDaConta == EstadoDaContaEnum.MODERADOR) {
-            roles.add(new SimpleGrantedAuthority("MODER"));
-            roles.add(new SimpleGrantedAuthority("PADRAO"));
+            roles.add(new SimpleGrantedAuthority("ROLE_MODER"));
+            roles.add(new SimpleGrantedAuthority("ROLE_PADRAO"));
         }
         if(estadoDaConta == EstadoDaContaEnum.ESPECIALISTA) {
-            roles.add(new SimpleGrantedAuthority("ESPEC"));
-            roles.add(new SimpleGrantedAuthority("PADRAO"));
+            roles.add(new SimpleGrantedAuthority("ROLE_ESPEC"));
+            roles.add(new SimpleGrantedAuthority("ROLE_PADRAO"));
         }
         if(estadoDaConta == EstadoDaContaEnum.PADRAO) {
-            roles.add(new SimpleGrantedAuthority("PADRAO"));
+            roles.add(new SimpleGrantedAuthority("ROLE_PADRAO"));
         }
         if(estadoDaConta == EstadoDaContaEnum.SUSPENSO) {
-            roles.add(new SimpleGrantedAuthority("SUSPEN"));
+            roles.add(new SimpleGrantedAuthority("ROLE_SUSPEN"));
         }
         return roles;
     }

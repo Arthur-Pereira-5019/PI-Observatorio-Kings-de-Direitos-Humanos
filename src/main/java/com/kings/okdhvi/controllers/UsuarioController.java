@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/user")
 
-@EnableMethodSecurity
 public class UsuarioController {
 
     @Autowired
@@ -61,7 +60,6 @@ public class UsuarioController {
     public Usuario atualizarImagem(@RequestBody Imagem i, @PathVariable("id") Long id) {
         return us.atualizarImagem(id, i);
     }
-
 
     @PreAuthorize("hasRole('MODER')")
     @DeleteMapping(value = "/{id}")
