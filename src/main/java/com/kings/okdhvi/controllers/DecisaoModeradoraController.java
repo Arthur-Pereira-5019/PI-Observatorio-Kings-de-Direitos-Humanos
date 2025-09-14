@@ -23,7 +23,7 @@ public class DecisaoModeradoraController {
     }
 
     @GetMapping("/{id}")
-    public DecisaoModeradora buscarDecisaoModeradoraPeloId(@PathVariable("id") Long id) {
+    public DecisaoModeradora buscarDecisaoModeradoraPeloId(@PathVariable("id") String id) {
         return dms.encontrarDecisaoPeloId(id);
     }
 }
