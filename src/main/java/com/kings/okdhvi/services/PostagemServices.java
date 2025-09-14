@@ -67,6 +67,7 @@ public class PostagemServices {
     }
 
     public Postagem encontrarPostagemPeloId(Long id) {
+
         return pr.findById(id).orElseThrow(() -> new ResourceNotFoundException("Postagem não encontrada!"));
     }
 

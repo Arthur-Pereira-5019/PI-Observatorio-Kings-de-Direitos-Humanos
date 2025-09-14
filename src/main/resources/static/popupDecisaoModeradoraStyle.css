@@ -1,0 +1,49 @@
+       html,
+        body,  #blur{
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #blur {
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none;
+        }
+
+        #container {
+            position: relative;
+            width: 56vw;
+            height: 64vh;
+            background-color: #7F00A9;
+            border-radius: 8%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+        }
+
+        .cxtexto {
+            position: relative;
+            width: 88%;
+            background-color: black;
+            left: 50%;
+            top: 4%;
+            transform: translate(-50%);
+            color: white;
+            font-size: 1vw;
+            overflow-wrap: break-word;
+            overflow: hidden;
+            padding: 0.5em;
+            margin-bottom: 2%;
+        }
+
+        .cxmen {
+            height: 8%;
+        }
+
+        .cxmai {
+            height: 56%;
+        }
+
+        .cxtexto p {
+            margin: 0;
+        }
