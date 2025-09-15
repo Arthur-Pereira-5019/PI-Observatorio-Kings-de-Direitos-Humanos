@@ -19,6 +19,14 @@
     
 }
 
+#divPopUpRegistro{
+
+    position: fixed;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+
+}
 
 .fundo-popup {
     position: relative; 
@@ -93,7 +101,7 @@
 }
 
 
-.botao-registrar {
+#registerButton {
     background-color: #8D0028;
     width: 21vw;
     height: 11vh;

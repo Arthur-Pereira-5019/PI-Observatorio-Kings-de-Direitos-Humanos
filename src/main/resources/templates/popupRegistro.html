@@ -1,37 +1,39 @@
+<div id="divPopUpRegistro">
 <div class="fundo-popup">
     <span class="botao-fechar">&times;</span>
+    
     <div class="titulo">
         <p>REGISTRO</p>
     </div>
 
     <div class="input-fundo">
-        <input class="input-texto" type="email" placeholder="E-Mail*">
+        <input class="input-texto" type="email" id="inputEmailRegistro" placeholder="E-Mail*">
     </div>
 
     <div class="input-fundo">
-        <input class="input-texto" type="password" placeholder="Senha*">
+        <input class="input-texto" type="password" id="senhaInputRegistro" placeholder="Senha*">
         <img class="olho" src="olhosfechados.png" alt="">
     </div>
 
     <div class="input-fundo" style="margin-top: 0;">
-        <input class="input-texto" type="password" placeholder="Confirmar senha*">
+        <input class="input-texto" type="password" id="confSenhaInputRegistro" placeholder="Confirmar senha*">
         <img class="olho" src="olhosfechados.png" alt="">
     </div>
 
     <div class="input-fundo">
-        <input class="input-texto" type="text" placeholder="Nome*">
+        <input class="input-texto" type="text" id="inputNomeRegistro" placeholder="Nome*">
     </div>
 
     <div class="input-fundo">
-        <input class="input-texto" type="text" placeholder="CPF*">
+        <input class="input-texto" type="text" id="inputCpfRegistro" placeholder="CPF*">
     </div>
 
     <div class="input-fundo">
-        <input class="input-texto" type="text" placeholder="Data de nascimento*">
+        <input class="input-texto" type="text" id="inputDataNascRegistro" placeholder="Data de nascimento*">
     </div>
 
     <div class="input-fundo">
-        <input class="input-texto" type="text" placeholder="Telefone">
+        <input class="input-texto" type="text" id="inputTelefoneRegistro" placeholder="Telefone">
     </div>
 
     <div class="container-geral-checkbox">
@@ -46,5 +48,10 @@
         </ul>
     </div>
 
-    <button class="botao-registrar">Registrar</button>
+    <button id = "registerButton">Registrar</button>
+
+    </div>
+<script src="telaLoginLogica.js" defer></script>
+
 </div>
+

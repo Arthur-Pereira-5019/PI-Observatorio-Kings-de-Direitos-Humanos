@@ -43,7 +43,7 @@ loginButton.addEventListener("click", function(){
         senha: senhaLogin.value
     };
 
-
+    
 
     fetch("http://localhost:8080/api/user/login", {
         method: "POST",
@@ -86,6 +86,8 @@ registerButton.addEventListener("click", () => {
     email: inputEmailRegistro.value,
     dataDeNascimento: inputDataNascRegistro.value
   };
+
+console.log("oi")
 
   fetch("http://localhost:8080/api/user", {
     method: 'POST',
