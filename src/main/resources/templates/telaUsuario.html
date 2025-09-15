@@ -19,7 +19,9 @@
         .container-menu-usuario-geral{
             height: 100vh;
             width: 20vw;
-            background-color: bisque;
+            /* background-color: bisque; */
+            display: flex;
+            align-items: center;
         }
 
         .container-menu-usuario-info{
@@ -27,16 +29,16 @@
             flex-direction: column;
             height: 100%;
             width: 99%;
-            background-color: yellow;
+            /* background-color: yellow; */
             justify-content: left;
             padding: 5%;
-            gap: 2%;
+            gap: 4%;
         }
 
         .container-imagem-user{
             width: 100%;
             height: auto;
-            background-color: blue;
+            /* background-color: blue; */
             display: flex;
             justify-content: center;
         }
@@ -48,21 +50,26 @@
         .nome-usuario{
             width: 100%;
             height: auto;
-            padding: 5%;
-            background-color: aqua;
+            padding-left: 5%;
+            /* background-color: aqua; */
             font-size: 2.5rem;
             font-weight: 900;
             word-break: break-word;
             font-family: "Inter", sans-serif;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .container-cargos{
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
-            background-color: pink;
+            /* background-color: pink; */
             width: 100%;
             height: 4.5%;
+            padding-left: 5%;
         }
         
         .cargos{
@@ -106,18 +113,42 @@
         .container-botoes{
             display: flex;
             width: 100%;
-            height: 10%;
-            background-color: aliceblue;
+            height: auto;
+            /* background-color: aliceblue; */
+            gap: 5%;
+            padding-left: 5%;
         }
 
         .botao-add-cargo{
-            
-            background-color: orange;
+            height: 8vh;
+            width: 8vh;
+            background-color: #AE00FF;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
+            
+        }
+
+        .barra-vertical{
+            border: solid 1px black;
+            height: 90vh;
+        }
+
+        .botao-requisitar{
+            height: 8vh;
+            width: 8vh;
+            background-color: #FF0004;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .mais{
+            width: 70%;
+            height: 70%;
         }
         
     </style>
@@ -142,8 +173,21 @@
                     <p class="cargos" id="fundador">Fundador</p>
                 </div>
 
-                <div class="container-botoes"></div>
+                <div class="container-botoes">
+                    <div class="botao-requisitar">
+                        <img src="mais-branco.png" class="mais" alt="">
+                    </div>
+                    <div class="botao-add-cargo">
+                        <img src="mais-branco.png" class="mais" alt="">
+                    </div>
+                </div>
 
+            </div>
+
+            <!-- Aqui vai ter a barra lateral -->
+
+            <div class="barra-vertical">
+                
             </div>
         </div>
 
