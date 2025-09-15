@@ -16,9 +16,15 @@
             box-sizing: border-box;
         }
 
+        .container-universal{
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
         .container-menu-usuario-geral{
             height: 100vh;
-            width: 20vw;
+            width: 20%;
             /* background-color: bisque; */
             display: flex;
             align-items: center;
@@ -51,8 +57,7 @@
             width: 100%;
             height: auto;
             padding-left: 5%;
-            /* background-color: aqua; */
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             font-weight: 900;
             word-break: break-word;
             font-family: "Inter", sans-serif;
@@ -69,13 +74,13 @@
             /* background-color: pink; */
             width: 100%;
             height: 4.5%;
-            padding-left: 5%;
+            padding-left: 3%;
         }
         
         .cargos{
             position: absolute ;
             text-align: center;     
-            width: 15%;
+            width: 13%;
             height: auto;
             color: #ffffff;
             font-size: 2rem;
@@ -128,7 +133,6 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            
         }
 
         .barra-vertical{
@@ -146,49 +150,97 @@
             align-items: center;
             cursor: pointer;
         }
+        
         .mais{
             width: 70%;
             height: 70%;
         }
+
+        .botao-atividade-usuario{
+            height: 10vh;
+            width: 10vh;
+            background-color: #AA00FF;
+            border-radius: 50%;
+            position: absolute;
+            right: 1%;
+            top: 2%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .icon-atividade{
+            height: 70%;
+        }
+
+        .container-geral-atividades{
+            display: flex;
+            height: 100%;
+            width: 100%;
+            padding: 5%;
+            flex-direction: column;
+            background-color: aquamarine;
+        }
+
+
         
     </style>
     </head>
     <body>
+        <div class="container-universal" style="background-color: aqua;">
 
-        <div class="container-menu-usuario-geral">
-            <div class="container-menu-usuario-info">
-                <div class="container-imagem-user">
-                    <img src="icon-user.png" class="icon-user"
-                        alt="icone de usuário">
-                </div>
-                <div class="nome-usuario">
-                    <p>Emanuel de Oliveira Farias</p>
-                </div>
-                
-                <div class="container-cargos">
-                    <p class="cargos" id="usuario">Usuário</p>
-                    <p class="cargos" id="moderador">Moderador</p>
-                    <p class="cargos" id="especialista">Especialista</p>
-                    <p class="cargos" id="administrador">Administrador</p>
-                    <p class="cargos" id="fundador">Fundador</p>
+            <div class="container-menu-usuario-geral">
+
+                <div class="container-menu-usuario-info">
+
+                    <div class="container-imagem-user">
+                        <img src="icon-user.png" class="icon-user"
+                            alt="icone de usuário">
+                    </div>
+
+                    <div class="nome-usuario">
+                        <p>Emanuel de Oliveira Farias</p>
+                    </div>
+
+                    <div class="container-cargos">
+                        <p class="cargos" id="usuario">Usuário</p>
+                        <p class="cargos" id="moderador">Moderador</p>
+                        <p class="cargos" id="especialista">Especialista</p>
+                        <p class="cargos" id="administrador">Administrador</p>
+                        <p class="cargos" id="fundador">Fundador</p>
+                    </div>
+
+                    <div class="container-botoes">
+
+                        <div class="botao-requisitar">
+                            <img src="mais-branco.png" class="mais"
+                                alt="sinal de mais">
+                        </div>
+
+                        <div class="botao-add-cargo">
+                            <img src="mais-branco.png" class="mais"
+                                alt="sinal de mais">
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <div class="container-botoes">
-                    <div class="botao-requisitar">
-                        <img src="mais-branco.png" class="mais" alt="">
-                    </div>
-                    <div class="botao-add-cargo">
-                        <img src="mais-branco.png" class="mais" alt="">
-                    </div>
-                </div>
+                <div class="barra-vertical"></div>
 
             </div>
 
-            <!-- Aqui vai ter a barra lateral -->
+            <div class="container-geral-atividades">
 
-            <div class="barra-vertical">
-                
             </div>
+
+
+        </div>
+
+        <!-- tem que ser a ultima linha -->
+        <div class="botao-atividade-usuario">
+            <img src="atividades.png" class="icon-atividade" alt="icone de prancheta">
         </div>
 
     </body>
