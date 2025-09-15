@@ -44,7 +44,7 @@ public class UsuarioController {
         return us.encontrarPorId(id, false);
     }
 
-    @PreAuthorize("hasRole('MODER')")
+    //@PreAuthorize("hasRole('MODER')")
     @GetMapping(value = "/mock", produces = MediaType.APPLICATION_JSON_VALUE)
     public Usuario mock() {
         return us.mockUsuario();
