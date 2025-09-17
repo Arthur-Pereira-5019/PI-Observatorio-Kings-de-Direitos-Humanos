@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Publicação</title>
+    <style>
+        body,
+        html {
+            overflow: hidden;
+            margin: 0;
+            width: 100vw;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 64%;
+            left: 50%;
+            transform: translateX(-50%);
+            position: relative;
+            gap: 0.5vh;
+
+        }
+
+        #titulo {
+            font-weight: 800;
+            font-size: 42px;
+            color: darkred;
+            align-self: center;
+        }
+
+        #campoEdicao {
+            gap: 0;
+            width: 100%;
+        }
+
+        #campoEdicao *{
+            flex: 1;
+        }
+
+        #campoTitulo {
+            background-color: lightgray;
+            border-radius: 10em;
+            width: 100%;
+            height: 4vh
+        }
+
+        #elementosEdicao {
+            display: flex;
+            flex-direction: row;
+            background-color: gray;
+        }
+
+        #elementosEdicao * {
+            border: 1px solid black;
+        }
+
+        #textoPublicacao {
+            background-color: lightgray;
+            border: 1px solid black;
+            width: 100%;
+            height: 48%
+        }
+
+        #botoes {
+            display: flex;
+            flex-direction: row;
+            gap: 22vw
+        }
+
+        #botoes * {
+            border-radius: 20em;
+        }
+
+        #campoTags {
+            background-color: lightgray;
+            width: 100%;
+            border-radius: 20em;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+
+    <div id="container">
+        <p id="titulo">Nova Publicação</p>
+        <p class="textoBase">Título: *</p>
+        <input id="campoTitulo">
+        <div id="campoEdicao">
+            <div id="elementosEdicao">
+                <span>B </span>
+                <span>u </span>
+                <span>I </span>
+            </div>
+            <div id="textoPublicacao" contenteditable="true"></div>
+        </div>
+
+
+        <span class="textoBase">Adicione Tags: </span>
+        <span id="dicaTags">?</span>
+        <input id="campoTags">
+
+        <div id="botoes">
+            <button id="botaoCancelar">Cancelar</button>
+            <button id="botaoSalvar">Publicar</button>
+            <button id="botaoSalvar">Salvar</button>
+        </div>
+
+        <div id="campoTags"></div>
+    </div>
+
+    <div id="footer"></div>
+</body>
+
+</html>
