@@ -31,4 +31,9 @@ public class PageControllers {
         return "popupRegistro";
     }
 
+    @GetMapping("/popupLogin")
+    public String popupLogin() {
+        return "popupLogin";
+    }
+
 }

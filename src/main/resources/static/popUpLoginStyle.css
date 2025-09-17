@@ -13,6 +13,19 @@
             color: #0000FF;
         }
 
+        #posPopUp {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0,0,0,0.8);
+            display: none; 
+            scrollbar-width: none;
+            z-index: 999;
+            
+        }
+
         .fundo-popup {
             display: flex;
             flex-direction: column;
