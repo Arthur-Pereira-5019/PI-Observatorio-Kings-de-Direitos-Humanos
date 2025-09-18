@@ -8,9 +8,10 @@
     <style>
         body,
         html {
-            overflow: hidden;
+            overflow-x: hidden;
             margin: 0;
             width: 100vw;
+            height: 100vh;
         }
 
         #container {
@@ -21,8 +22,8 @@
             left: 50%;
             transform: translateX(-50%);
             position: relative;
-            gap: 0.5vh;
-
+            gap: 1vh;
+            height: 100%;
         }
 
         #titulo {
@@ -30,22 +31,41 @@
             font-size: 42px;
             color: darkred;
             align-self: center;
+            margin-top: 2.5%;
+            margin-bottom: 2.5%;
         }
 
         #campoEdicao {
             gap: 0;
             width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin: 1vh;
+
         }
 
-        #campoEdicao *{
+        #campoEdicao * {
             flex: 1;
+        }
+
+        #bold {
+            font-weight: bolder;
+        }
+
+        #underlined {
+            text-decoration: underline;
+        }
+
+        #italic {
+            font-style: italic;
         }
 
         #campoTitulo {
             background-color: lightgray;
             border-radius: 10em;
             width: 100%;
-            height: 4vh
+            height: 4vh;
         }
 
         #elementosEdicao {
@@ -56,13 +76,16 @@
 
         #elementosEdicao * {
             border: 1px solid black;
+            text-align: center;
+            background-color: gray;
         }
 
         #textoPublicacao {
             background-color: lightgray;
             border: 1px solid black;
             width: 100%;
-            height: 48%
+            overflow-wrap: break-word;
+            flex: 20
         }
 
         #botoes {
@@ -80,6 +103,12 @@
             width: 100%;
             border-radius: 20em;
         }
+
+        .textoBase {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: 24px;
+        }
     </style>
 </head>
 
@@ -92,16 +121,18 @@
         <input id="campoTitulo">
         <div id="campoEdicao">
             <div id="elementosEdicao">
-                <span>B </span>
-                <span>u </span>
-                <span>I </span>
+                <button id="bold">B</button>
+                <button id="underlined">u</button>
+                <button id="italic">I</button>
             </div>
             <div id="textoPublicacao" contenteditable="true"></div>
         </div>
 
+        <div id="tituloTags">
+            <span class="textoBase">Adicione Tags: </span>
+            <span id="dicaTags" class="textoBase">?</span>
+        </div>
 
-        <span class="textoBase">Adicione Tags: </span>
-        <span id="dicaTags">?</span>
         <input id="campoTags">
 
         <div id="botoes">
