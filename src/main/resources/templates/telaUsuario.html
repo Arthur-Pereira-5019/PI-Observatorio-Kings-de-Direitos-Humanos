@@ -176,7 +176,6 @@
             width: 100%;
             padding: 3%;
             flex-direction: column;
-            background-color: aquamarine;
         }
 
         .container-foruns{
@@ -220,6 +219,38 @@
         .data-forum{
             color: #C8C8C8;
         }
+        .container-forum-justificacao{
+            display: flex;  
+            justify-content: flex-end;
+            width: 100%;
+            height: 100%;
+
+        }
+        .container-info-numero-forum{
+            display: flex;  
+            width: 20%;
+            height: 100%;
+        }
+        .container-resposta-forum{
+            display: flex;
+            flex-direction: column;
+            gap: 10%;
+            width: 90%;
+            height: 100%;
+            align-items: start;
+            justify-content: center;
+            color: white;
+            font-weight: 400;
+        }
+        .container-quantidade-forum{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+            gap: 10%;
+            width: 10%;
+            height: 100%;
+        }
 
         
 
@@ -230,7 +261,7 @@
     </style>
     </head>
     <body>
-        <div class="container-universal" style="background-color: aqua;">
+        <div class="container-universal">
 
             <div class="container-menu-usuario-geral">
 
@@ -286,6 +317,18 @@
                             <p class="data-forum">dd/mm/yyyy</p>
                         </div>
                     </div>
+                    <div class="container-forum-justificacao">
+                        <div class="container-info-numero-forum">
+                            <div class="container-resposta-forum">
+                                <p>Respostas:</p>
+                                <p>Última atualização:</p>
+                            </div>
+                            <div class="container-quantidade-forum">
+                                <p>x</p>
+                                <p>y</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -293,9 +336,9 @@
         </div>
 
         <!-- tem que ser a ultima linha -->
-        <!-- <div class="botao-atividade-usuario">
+        <div class="botao-atividade-usuario">
             <img src="atividades.png" class="icon-atividade" alt="icone de prancheta">
-        </div> -->
+        </div>
 
     </body>
 </html>
