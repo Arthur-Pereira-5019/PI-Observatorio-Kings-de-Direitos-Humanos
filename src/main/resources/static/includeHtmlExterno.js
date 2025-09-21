@@ -1,7 +1,4 @@
-if (localStorage.getItem('logado') === null) {
-   localStorage.setItem('logado', "false");
-}
-
+const iconButton = document.getElementById("iconButton");
 
 
 async function carregarHTML(id, url, cssFile) {
@@ -19,28 +16,17 @@ async function carregarHTML(id, url, cssFile) {
 }
 
 
-
 async function iniciar() {
     await carregarHTML("header", "/cabecalho", "rodapeStyle.css"); 
     await carregarHTML("footer", "/rodape", "cabecalhoStyle.css");
 
 
-    
-    const iconButton = document.getElementById("iconButton");
-
-
     if (iconButton) {
         iconButton.addEventListener("click", function () {
-        if(localStorage.getItem("logado") == "false" || localStorage.getItem('logado') === null) {
-        window.location.href = "http://localhost:8080/login";
-        } else {
-        window.location.href = "http://localhost:8080/usuario";
-        }
+            
 
         });
-    } else {
-        console.warn("Botão com id 'iconButton' não encontrado.");
-    }
+    } 
 }
 
 document.addEventListener("DOMContentLoaded", iniciar);
