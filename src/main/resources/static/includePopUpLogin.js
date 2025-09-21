@@ -15,7 +15,7 @@ async function iniciar() {
     
     await carregarHTML("login", "/popupLogin", "popUpLoginStyle.css");
 
-     const fundoPopup = document.getElementById("posPopUp");
+     const fundoPopup = document.getElementById("posPopUpLogin");
     if (fundoPopup) fundoPopup.style.display = "none";
 
     

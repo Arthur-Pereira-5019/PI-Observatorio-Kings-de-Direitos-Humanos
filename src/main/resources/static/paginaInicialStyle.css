@@ -73,6 +73,16 @@
 
         }
 
+        #posPopUpLogin{
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+
+        }
+
          #footer {
             width: 100%;
             height: auto;
