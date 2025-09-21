@@ -8,6 +8,8 @@ import com.kings.okdhvi.exception.imagens.InvalidBase64ImageEncoding;
 import com.kings.okdhvi.exception.login.InvalidLoginInfoException;
 import com.kings.okdhvi.exception.postagem.RevisaoPostagemException;
 import com.kings.okdhvi.exception.usuario.*;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,9 +26,16 @@ import java.util.Date;
 @ControllerAdvice
 public class ExceptionHandlerCustomizado {
 
+    @Autowired
+    private HttpServletRequest srequest;
+
     @ExceptionHandler(NoResourceFoundException.class)
-    public final RedirectView handleNoResourceFoundException(Exception ex, WebRequest request) {
-        return new RedirectView("/telaInexistente");
+    public final Object handleNoResourceFoundException(Exception ex, WebRequest request) {
+        if(!srequest.getRequestURL().toString().contains("/api")) {
+            return new RedirectView("/telaInexistente");
+        }
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(Exception.class)

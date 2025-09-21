@@ -1,15 +1,43 @@
+        html,
+        body {
+            width: 100vw;
+            height: 140vh;
+             margin: 0
+        }
+
         #container {
-            width: 60%;
-            height: 10%;
-            position: fixed;
-            right: 20%;
-            top: 2%;
+            width: 72%;
+            height: 100%;
+            position: relative;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
             text-align: center;
         }
 
         .texto {
-            color:red;
+            color: red;
             font-weight: bolder;
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-            font-size: 600%;
+            font-size: 76px;
+        }
+
+        #posPopUp{
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+
+        }
+
+        #posPopUpLogin{
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+
         }

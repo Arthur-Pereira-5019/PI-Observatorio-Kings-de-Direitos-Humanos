@@ -91,9 +91,10 @@
         .container-geral-checkbox {
             display: flex;
             flex-direction: row;
-            width: 18vw;
+            width: 22vw;
             height: 8vh;
             margin-top: 5%;
+            gap: 2%
         }
 
         .container-links {

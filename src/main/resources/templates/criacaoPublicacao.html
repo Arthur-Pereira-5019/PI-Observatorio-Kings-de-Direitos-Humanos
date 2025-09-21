@@ -145,6 +145,161 @@
     </div>
 
     <div id="footer"></div>
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Publicação</title>
+    <style>
+        body,
+        html {
+            overflow-x: hidden;
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 64%;
+            left: 50%;
+            transform: translateX(-50%);
+            position: relative;
+            gap: 1vh;
+            height: 100%;
+        }
+
+        #titulo {
+            font-weight: 800;
+            font-size: 42px;
+            color: darkred;
+            align-self: center;
+            margin-top: 2.5%;
+            margin-bottom: 2.5%;
+        }
+
+        #campoEdicao {
+            gap: 0;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin: 1vh;
+
+        }
+
+        #campoEdicao * {
+            flex: 1;
+        }
+
+        #bold {
+            font-weight: bolder;
+        }
+
+        #underlined {
+            text-decoration: underline;
+        }
+
+        #italic {
+            font-style: italic;
+        }
+
+        #campoTitulo {
+            background-color: lightgray;
+            border-radius: 10em;
+            width: 100%;
+            height: 4vh;
+        }
+
+        #elementosEdicao {
+            display: flex;
+            flex-direction: row;
+            background-color: gray;
+        }
+
+        #elementosEdicao * {
+            border: 1px solid black;
+            text-align: center;
+            background-color: gray;
+        }
+
+        #textoPublicacao {
+            background-color: lightgray;
+            border: 1px solid black;
+            width: 100%;
+            overflow-wrap: break-word;
+            flex: 20
+        }
+
+        #botoes {
+            display: flex;
+            flex-direction: row;
+            gap: 22vw
+        }
+
+        #botoes * {
+            border-radius: 20em;
+        }
+
+        #campoTags {
+            background-color: lightgray;
+            width: 100%;
+            border-radius: 20em;
+        }
+
+        .textoBase {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+
+    <div id="container">
+        <p id="titulo">Nova Publicação</p>
+        <p class="textoBase">Título: *</p>
+        <input id="campoTitulo">
+        <div id="campoEdicao">
+            <div id="elementosEdicao">
+                <button id="bold">B</button>
+                <button id="underlined">u</button>
+                <button id="italic">I</button>
+            </div>
+            <div id="textoPublicacao" contenteditable="true"></div>
+        </div>
+
+        <div id="tituloTags">
+            <span class="textoBase">Adicione Tags: </span>
+            <span id="dicaTags" class="textoBase">?</span>
+        </div>
+
+        <input id="campoTags">
+
+        <div id="botoes">
+            <button id="botaoCancelar">Cancelar</button>
+            <button id="botaoSalvar">Publicar</button>
+            <button id="botaoSalvar">Salvar</button>
+        </div>
+
+        <div id="campoTags"></div>
+    </div>
+    <div id="posPopUpLogin">
+<div id="login"></div>
+
+    <div id="footer"></div>
+    <script src="includeHtmlExterno.js" defer></script>
+    <script src="includePopUpRegistro.js" defer></script>
+    <script src="includePopUpLogin.js" defer></script>
+</body>
+
+</html>
 </body>
 
 </html>
