@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <div>
+            <img id="imagem"
+                src="data:imagem/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUA
+    AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
+        9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" />
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const imagem = document.getElementById("imagem")
+url = 'http://localhost:8080/api/imagem';
+path = window.location.pathname;
+url = url+path.replace("imagem/","");
+
+console.log(url);
+  fetch(url)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    imagem.src="data:imagem/png;base64, "+data.imagem;
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+  });
+});
+
+
+            </script>
+        </div>
+    </body>
+</html>

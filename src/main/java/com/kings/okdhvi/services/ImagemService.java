@@ -33,7 +33,7 @@ public class ImagemService {
         } catch (Exception e) {
             throw new InvalidBase64ImageEncoding("A imagem não foi codificada na Base 64 corretamente! " + e.getMessage());
         }
-        i.setImage(imageByte);
+        i.setImagem(imageByte);
         Usuario u = us.encontrarPorId(cir.usuarioId(), false);
         i.setDonoImagem("("+u.getIdUsuario()+")" + u.getNome());
         i.setTituloImagem(cir.titulo());

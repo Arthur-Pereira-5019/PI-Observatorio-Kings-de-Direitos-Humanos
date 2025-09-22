@@ -36,4 +36,9 @@ public class PageControllers {
         return "popupLogin";
     }
 
-}
+    @GetMapping("/imagem/{id}")
+    public String imageView() {
+        return "imagem";
+    }
+
+};

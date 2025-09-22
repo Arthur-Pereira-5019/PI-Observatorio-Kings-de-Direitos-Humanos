@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+      html,
+      body {
+        width: 100vw;
+        height: 100vh;
+      }
+
+      #container {
+        width: 20%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1vh
+      }
+
+      img {
+        width: 90%;
+        height: 32vh
+      }
+
+      #titulo {
+        width: 100%;
+        height: 2vh
+      }
+    </style>
+    </head>
+    <body>
+        <div id="container">
+            <input id="arquivo" type="file" enctype="multipart/form-data"
+                accept=".jpg, .png, .gif">
+            <img src>
+            <textarea id="titulo" maxlength="128"
+                placeholder="Título"></textarea>
+            <textarea id="desc" maxlength="256" rows="4" cols="50"
+                placeholder="Descreva a imagem"></textarea>
+        </div>
+    </body>
+    <script>
+    const file = document.getElementById("arquivo");
+    file.addEventListener("input", function() {
+      const entrada = document.getElementById('arquivo');
+      const arquivo = entrada.files[0];
+      if (arquivo.name.endsWith(".png")) {
+        console.log('Selected file:', arquivo.name);
+        console.log('File type:', arquivo.type);
+        console.log('File size:', arquivo.size, 'bytes');
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const base64StringWithPrefix = reader.result;
+          const fileContent = e.target.result;
+          console.log('File content:', fileContent);
+        };
+      }
+    })
+  </script>
+</html>

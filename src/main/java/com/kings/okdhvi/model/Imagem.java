@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Entity
 public class Imagem {
-    @Column
+    @Column(length = 128)
     String tituloImagem;
 
     @Column(length = 256)
@@ -14,7 +14,6 @@ public class Imagem {
 
     @Column(length = 128)
     String donoImagem;
-
 
     @Column
     Date dataImagem;
@@ -24,7 +23,7 @@ public class Imagem {
     Long idImagem;
 
     @Lob
-    byte[] image;
+    byte[] imagem;
 
     public String getTituloImagem() {
         return tituloImagem;
@@ -66,11 +65,11 @@ public class Imagem {
         this.idImagem = idImagem;
     }
 
-    public byte[] getImage() {
-        return image;
+    public byte[] getImagem() {
+        return imagem;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
     }
 }
