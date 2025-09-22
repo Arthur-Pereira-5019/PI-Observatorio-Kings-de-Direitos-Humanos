@@ -27,6 +27,7 @@
             height: 100vh;
             width: 20%;
             display: flex;
+            flex-shrink: 0;
             align-items: center;
         }
 
@@ -133,7 +134,7 @@
 
         .barra-vertical{
             border: solid 1px black;
-            height: 90vh;
+            height: 95vh;
         }
 
         .botao-requisitar{
@@ -173,8 +174,9 @@
         .container-geral-atividades{
             display: flex;
             height: 100vh;
-            width: 100%;
+            width: 80%;
             padding: 3%;
+            gap: 5%;
             flex-direction: column;
         }
 
@@ -252,7 +254,70 @@
             height: 100%;
         }
 
-        
+         /* Aqui começa o de publicacao */
+
+        .container-geral-publicacao{
+            height: 40vh;
+            width: 100%;
+            display: flex;
+            margin-top: 2%;
+            flex-direction: column;
+        }
+        .container-titulo-publicacao {
+            width: 100%;
+            height: 17%;
+            font-size: 3rem;
+            font-weight: 800;
+            color: #C00003;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+}
+
+        .container-imagem-publicacao{
+            margin-top: 0.75%;
+            height: 100%;
+            width: 35%;
+        }
+
+        .container-inferior-publicacao{
+            height: 83%;
+            width: 100%;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .container-descricao-publicacao{
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 1%;
+            font-family: "Inter", sans-serif;
+        }
+
+        .imagem-publicacao{
+            height: 100%;
+            width: 100%;
+        }
+
+        .autor-publicacao{
+            font-size: 2.0rem;
+            font-weight: 500;
+        }
+
+        .data-publicacao{
+            font-size: 0.5;
+            font-weight: 100;
+
+        }
+
+        .primeiro-paragrafo-publicacao{
+            font-size: 1rem;
+            font-weight: 200;
+            margin-top: 1%;
+            word-break: break-word;
+        }
 
         
 
@@ -331,13 +396,72 @@
                     </div>
                 </div>
 
+                <!-- Aqui vai as publicacao -->
+
+                <div class="container-geral-publicacao">
+
+                    <div class="container-titulo-publicacao">Lorem ipsum dolor
+                        sit amet consectetur, adipisicing elit. Doloribus ab non
+                        architecto dolore qui impedit nostrum laborum deserunt
+                        provident, reiciendis eum eius veritatis? Modi, quos
+                        ducimus? Ipsa architecto quibusdam doloribus.
+                    </div>
+
+                    <div class="container-inferior-publicacao">
+
+                        <div class="container-imagem-publicacao">
+                            
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxoFACf7OmSTMLN_p_LpqKH1OXHj-edndBHg&s " class="imagem-publicacao" alt="">
+
+                        </div>
+
+                        <div class="container-descricao-publicacao">
+
+                            <p class="autor-publicacao">Autor</p>
+                            <p class="data-publicacao">dd/mm/yyyy</p>
+                            <p class="primeiro-paragrafo-publicacao">Primeiro parágrafo do texto contido dentro da postagem, como forma de servir como um resumo atrativo para o usuario.</p>
+
+                        </div>
+                    </div>
+   
+                </div>
+
+                <div class="container-geral-publicacao">
+
+                    <div class="container-titulo-publicacao">Lorem ipsum dolor
+                        sit amet consectetur, adipisicing elit. Doloribus ab non
+                        architecto dolore qui impedit nostrum laborum deserunt
+                        provident, reiciendis eum eius veritatis? Modi, quos
+                        ducimus? Ipsa architecto quibusdam doloribus.
+                    </div>
+
+                    <div class="container-inferior-publicacao">
+
+                        <div class="container-imagem-publicacao">
+                            
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxoFACf7OmSTMLN_p_LpqKH1OXHj-edndBHg&s " class="imagem-publicacao" alt="">
+                            
+                        </div>
+
+                        <div class="container-descricao-publicacao">
+
+                            <p class="autor-publicacao">Autor</p>
+                            <p class="data-publicacao">dd/mm/yyyy</p>
+                            <p class="primeiro-paragrafo-publicacao">Primeiro parágrafo do texto contido dentro da postagem, como forma de servir como um resumo atrativo para o usuario.</p>
+
+                        </div>
+                    </div>
+   
+                </div>
+
             </div>
 
         </div>
 
         <!-- tem que ser a ultima linha -->
         <div class="botao-atividade-usuario">
-            <img src="atividades.png" class="icon-atividade" alt="icone de prancheta">
+            <img src="atividades.png" class="icon-atividade"
+                alt="icone de prancheta">
         </div>
 
     </body>
