@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Combobox</title>
+  <style>
+    .custom-select {
+      appearance: none;           /* Remove seta padrão */
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      
+      background-color: #e5e5e5;  /* Cor de fundo */
+      border: 1px solid #800040;  /* Borda vinho */
+      border-radius: 8px;         /* Bordas arredondadas */
+      padding: 10px 40px 10px 15px;
+      font-size: 18px;
+      font-family: Arial, sans-serif;
+      cursor: pointer;
+      width: 200px;
+    }
+
+    /* Container para posicionar a seta */
+    .select-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Seta customizada */
+    .select-wrapper::after {
+      content: "▼";
+      font-size: 20px;
+      color: #000;
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none; /* não atrapalha clique */
+    }
+  </style>
+</head>
+<body>
+  <div class="select-wrapper">
+    <select class="custom-select">
+      <option selected disabled>Cargo</option>
+      <option>Desenvolvedor</option>
+      <option>Designer</option>
+      <option>Gerente</option>
+    </select>
+  </div>
+</body>
+</html>
