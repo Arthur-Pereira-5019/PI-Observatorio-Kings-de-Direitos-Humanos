@@ -1,62 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <style>
-      html,
-      body {
-        width: 100vw;
-        height: 100vh;
-      }
 
-      #container {
-        width: 20%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1vh
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html,
+    body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+    }
 
-      img {
-        width: 90%;
-        height: 32vh
-      }
+    #container {
+      position: relative;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1vh;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+      border: 3px solid black;
+    }
 
-      #titulo {
-        width: 100%;
-        height: 2vh
-      }
-    </style>
-    </head>
-    <body>
-        <div id="container">
-            <input id="arquivo" type="file" enctype="multipart/form-data"
-                accept=".jpg, .png, .gif">
-            <img src>
-            <textarea id="titulo" maxlength="128"
-                placeholder="Título"></textarea>
-            <textarea id="desc" maxlength="256" rows="4" cols="50"
-                placeholder="Descreva a imagem"></textarea>
-        </div>
-    </body>
-    <script>
-    const file = document.getElementById("arquivo");
-    file.addEventListener("input", function() {
-      const entrada = document.getElementById('arquivo');
-      const arquivo = entrada.files[0];
-      if (arquivo.name.endsWith(".png")) {
-        console.log('Selected file:', arquivo.name);
-        console.log('File type:', arquivo.type);
-        console.log('File size:', arquivo.size, 'bytes');
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const base64StringWithPrefix = reader.result;
-          const fileContent = e.target.result;
-          console.log('File content:', fileContent);
-        };
-      }
-    })
-  </script>
+    img {
+      width: 20vh;
+    }
+
+    #titulo {
+      width: 90%;
+      height: 2vh
+    }
+
+    #desc {
+      width: 90%;
+      height: 40vh;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <input id="arquivo" type="file" enctype="multipart/form-data" accept=".jpg, .png, .gif">
+    <img id="canva" src="">
+    <p>Isto é apenas uma pré visualização, a imagem vai manter seu tamanho real na Publicação!</p>
+    <textarea id="titulo" maxlength="128" placeholder="Título"></textarea>
+    <textarea id="desc" maxlength="256" rows="4" cols="50" placeholder="Descreva a imagem"></textarea>
+    <button id="inserir">Inserir</button>
+  
+  </div>
+</body>
+<script>
+  const file = document.getElementById("arquivo");
+  file.addEventListener("input", function () {
+    const entrada = document.getElementById("arquivo");
+    const canva = document.getElementById("canva");
+    const inserir = document.getElementById("inserir");
+    const arquivo = entrada.files[0];
+
+    if (arquivo && arquivo.name.endsWith(".png") ||arquivo.name.endsWith(".jpg")) {
+      console.log("Selected file:", arquivo.name);
+      console.log("File type:", arquivo.type);
+      console.log("File size:", arquivo.size, "bytes");
+
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        const base64StringWithPrefix = e.target.result;
+        canva.src= base64StringWithPrefix;
+      };
+
+      reader.readAsDataURL(arquivo);
+    }
+  });
+
+  inserir.addEventListener("click",function() {
+    body: {
+      imageBase64: canva.src;
+      descricao 
+    }
+  })
+</script>
+
 </html>
