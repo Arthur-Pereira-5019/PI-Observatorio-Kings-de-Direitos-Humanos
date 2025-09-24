@@ -121,4 +121,10 @@ public class ExceptionHandlerCustomizado {
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(UnableToAuthenticateUser.class)
+    public final ResponseEntity<ExceptionResponse> handleUnableToAuthenticateUserException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.UNAUTHORIZED);
+    }
+
 }

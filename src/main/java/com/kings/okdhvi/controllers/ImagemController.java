@@ -20,8 +20,8 @@ public class ImagemController {
     ImagemService is;
 
     @PostMapping(value = "/")
-    public Imagem criarImagem(@RequestBody CriarImagemRequest cir){
-        return is.criarImagem(cir);
+    public Imagem criarImagem(@RequestBody CriarImagemRequest cir, @CookieValue(name = "jwt") String token){
+        return is.criarImagem(cir, token);
     }
 
     @GetMapping("/{id}")

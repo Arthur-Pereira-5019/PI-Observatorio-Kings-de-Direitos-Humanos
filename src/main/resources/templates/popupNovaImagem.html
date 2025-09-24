@@ -7,13 +7,20 @@
   <title>Document</title>
   <style>
     html,
-    body {
-      width: 100vw;
-      height: 100vh;
-      margin: 0;
-    }
+        body,  #blur{
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #blur {
+            background-color: rgba(0, 0, 0, 0.6);
+            /*display: none;*/
+            
+        }
 
     #container {
+      background-color: white;
       position: relative;
       width: 50%;
       display: flex;
@@ -24,6 +31,7 @@
       top: 50%;
       transform: translate(-50%,-50%);
       border: 3px solid black;
+      /*display: none;*/
     }
 
     img {
@@ -44,6 +52,7 @@
 </head>
 
 <body>
+      <div id="blur">
   <div id="container">
     <input id="arquivo" type="file" enctype="multipart/form-data" accept=".jpg, .png, .gif">
     <img id="canva" src="">
@@ -51,7 +60,7 @@
     <textarea id="titulo" maxlength="128" placeholder="Título"></textarea>
     <textarea id="desc" maxlength="256" rows="4" cols="50" placeholder="Descreva a imagem"></textarea>
     <button id="inserir">Inserir</button>
-  
+  </div>
   </div>
 </body>
 <script>
@@ -60,6 +69,8 @@
     const entrada = document.getElementById("arquivo");
     const canva = document.getElementById("canva");
     const inserir = document.getElementById("inserir");
+    const campoDescricao = document.getElementById("desc");
+    const campoTitulo = document.getElementById("titulo");
     const arquivo = entrada.files[0];
 
     if (arquivo && arquivo.name.endsWith(".png") ||arquivo.name.endsWith(".jpg")) {
@@ -79,11 +90,37 @@
   });
 
   inserir.addEventListener("click",function() {
-    body: {
-      imageBase64: canva.src;
-      descricao 
-    }
+    const requestBody = {
+      imageBase64: canva.src,
+      descricao: campoDescricao.value,
+      titulo: campoTitulo.value
+    };
+
+    fetch("http://localhost:8080/api/imagem", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(novoPost)
   })
+  .then(res => {
+    if (!res.ok) throw new Error("Erro no servidor");
+    return res.json();
+  })
+  .then(data => {
+    console.log("Registro feito:", data);
+    inputNomeRegistro.value = '';
+    senhaInputRegistro.value = '';
+    confSenhaInputRegistro.value = '';
+    inputTelefoneRegistro.value = '';
+    inputCpfRegistro.value = '';
+    inputEmailRegistro.value = '';
+    inputDataNascRegistro.value = '';
+
+    window.location.href = "http://localhost:8080/"
+
+  })
+  .catch(err => console.error(err));
+});
+
 </script>
 
 </html>
