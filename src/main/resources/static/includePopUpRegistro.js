@@ -41,7 +41,7 @@ async function iniciar() {
         }
     });
 
-    const registerButton = document.getElementById("registerButton");
+const registerButton = document.getElementById("registerButton");
 
 const senhaInputRegistro = document.getElementById("senhaInputRegistro");
 const confSenhaInputRegistro = document.getElementById("confSenhaInputRegistro");
@@ -62,7 +62,6 @@ registerButton.addEventListener("click", () => {
     dataDeNascimento: inputDataNascRegistro.value
   };
 
-console.log("oi")
 
   fetch("http://localhost:8080/api/user", {
     method: 'POST',

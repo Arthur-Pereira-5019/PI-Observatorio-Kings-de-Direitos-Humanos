@@ -31,7 +31,7 @@
     position: relative; 
     background-color: white;
     width: 25vw;          
-    max-height: 97vh; 
+    max-height: 100vh; 
     border-radius: 20px;
     margin: 5% auto;     
     display: flex;
@@ -65,21 +65,21 @@
     display: flex;
     margin-top: 3%;
     width: 21vw;
-    height: 7vh;
+    height: 6vh;
     align-items: center;
     justify-content: flex-end;
     background-color: #DFDEDE;
-    border-radius: 20px;
+    border-radius: 15px;
     border: solid 2px #8D0028;
 }
 
 .input-texto {
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: lighter;
     background-color: transparent;
     outline: none;
     width: 20vw;
-    height: 7vh;
+    height: 6vh;
     border: none;
 }
 
@@ -99,6 +99,7 @@
     cursor: pointer;
     border-radius: 20px;
     font-size: 2.5rem;
+    border-top: 20px;
 }
 
 
