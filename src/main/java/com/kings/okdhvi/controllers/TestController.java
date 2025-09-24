@@ -20,4 +20,9 @@ public class TestController {
     public String returnTelaInexistente() {
         return "telaInexistente";
     }
+
+    @RequestMapping("/nova_imagem")
+    public String returnPopupNovaImagem() {
+        return "popupNovaImagem";
+    }
 }

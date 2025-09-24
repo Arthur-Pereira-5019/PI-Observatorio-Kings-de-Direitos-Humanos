@@ -19,7 +19,7 @@ public class ImagemController {
     @Autowired
     ImagemService is;
 
-    @PostMapping(value = "/")
+    @PostMapping(value = "")
     public Imagem criarImagem(@RequestBody CriarImagemRequest cir, @CookieValue(name = "jwt") String token){
         return is.criarImagem(cir, token);
     }

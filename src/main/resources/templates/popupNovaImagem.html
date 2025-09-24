@@ -65,19 +65,17 @@
 </body>
 <script>
   const file = document.getElementById("arquivo");
+    const campoDescricao = document.getElementById("desc");
+    const campoTitulo = document.getElementById("titulo");
+
   file.addEventListener("input", function () {
     const entrada = document.getElementById("arquivo");
     const canva = document.getElementById("canva");
     const inserir = document.getElementById("inserir");
-    const campoDescricao = document.getElementById("desc");
-    const campoTitulo = document.getElementById("titulo");
+
     const arquivo = entrada.files[0];
 
     if (arquivo && arquivo.name.endsWith(".png") ||arquivo.name.endsWith(".jpg")) {
-      console.log("Selected file:", arquivo.name);
-      console.log("File type:", arquivo.type);
-      console.log("File size:", arquivo.size, "bytes");
-
       const reader = new FileReader();
 
       reader.onload = (e) => {
@@ -90,8 +88,13 @@
   });
 
   inserir.addEventListener("click",function() {
+    let imageData = canva.src;
+    let endPosition = imageData.indexOf(",");
+    endPosition++;
+    imageData = imageData.replace(imageData.substring(0,endPosition),"");    
+
     const requestBody = {
-      imageBase64: canva.src,
+      imageBase64: imageData,
       descricao: campoDescricao.value,
       titulo: campoTitulo.value
     };
@@ -99,24 +102,13 @@
     fetch("http://localhost:8080/api/imagem", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(novoPost)
+    body: JSON.stringify(requestBody)
   })
   .then(res => {
     if (!res.ok) throw new Error("Erro no servidor");
     return res.json();
   })
   .then(data => {
-    console.log("Registro feito:", data);
-    inputNomeRegistro.value = '';
-    senhaInputRegistro.value = '';
-    confSenhaInputRegistro.value = '';
-    inputTelefoneRegistro.value = '';
-    inputCpfRegistro.value = '';
-    inputEmailRegistro.value = '';
-    inputDataNascRegistro.value = '';
-
-    window.location.href = "http://localhost:8080/"
-
   })
   .catch(err => console.error(err));
 });

@@ -19,6 +19,10 @@ async function iniciar() {
     const botaoAcesso = document.getElementById("botao-acessar");
 
     const fundoPopup = document.getElementById("posPopUpLogin");
+
+    const campoSenha = document.getElementById("campoSenha");
+    const campoEmail = document.getElementById("campoEmail");
+
     if (fundoPopup) fundoPopup.style.display = "none";
 
 
@@ -46,8 +50,8 @@ async function iniciar() {
 
     botaoAcesso.addEventListener("click", () => {
         const novoPost = {
-            senha: senhaInputRegistro.value,
-            email: inputEmailRegistro.value,
+            senha: campoSenha.value,
+            email: campoEmail.value
         };
 
 
