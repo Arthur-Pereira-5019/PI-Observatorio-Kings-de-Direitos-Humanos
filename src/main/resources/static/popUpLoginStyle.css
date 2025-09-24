@@ -34,7 +34,7 @@
 
         }
 
-        .fundo-popup {
+        .fundo-popup-login {
             display: flex;
             flex-direction: column;
             gap: 3%;
@@ -59,11 +59,11 @@
 
         }
 
-        .input-fundo {
+        .input-fundo-login {
             display: flex;
             margin-top: 5%;
             width: 21vw;
-            height: 10vh;
+            height: 6vh;
             align-items: center;
             justify-content: end;
             background-color: #DFDEDE;
@@ -71,13 +71,13 @@
             border: solid 2px #8D0028;
         }
 
-        .input-texto {
+        .input-texto-login {
             font-size: 24px;
             font-weight: lighter;
             background-color: transparent;
             outline: transparent;
-            width: 20vw;
-            height: 10vh;
+            width: 21vw;
+            height: 6vh;
             border: none;
             justify-content: left;
         }
@@ -136,8 +136,8 @@
         }
         .botao-acessar{
             background-color: #8D0028;
-            width: 21vw;
-            height: 11vh;
+            width: 16vw;
+            height: 7vh;
             color: white;
             font-weight: 700;
             cursor: pointer;
