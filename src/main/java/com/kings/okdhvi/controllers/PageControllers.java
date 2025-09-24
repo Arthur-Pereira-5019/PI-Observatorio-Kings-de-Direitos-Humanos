@@ -36,6 +36,11 @@ public class PageControllers {
         return "popupLogin";
     }
 
+    @GetMapping("/forum")
+    public String forum() {
+        return "forum";
+    }
+
     @GetMapping("/imagem/{id}")
     public String imageView() {
         return "imagem";
