@@ -25,4 +25,10 @@ public class TestController {
     public String returnPopupNovaImagem() {
         return "popupNovaImagem";
     }
+
+    @RequestMapping("/nova_publicacao")
+    public String returnNovaPublicacao() {
+        return "criacaoPublicacao";
+    }
+
 }
