@@ -2,7 +2,7 @@ async function carregarHTML(id, url, cssFile) {
     const response = await fetch(url);
 
     const data = await response.text();
-    
+
     document.getElementById(id).innerHTML = data;
 
     if (cssFile) {
@@ -14,13 +14,14 @@ async function carregarHTML(id, url, cssFile) {
 }
 
 async function iniciar() {
-    
-    await carregarHTML("login", "/popupLogin", "popUpLoginStyle.css");
 
-     const fundoPopup = document.getElementById("posPopUpLogin");
+    await carregarHTML("login", "/popupLogin", "popUpLoginStyle.css");
+    const botaoAcesso = document.getElementById("botao-acessar");
+
+    const fundoPopup = document.getElementById("posPopUpLogin");
     if (fundoPopup) fundoPopup.style.display = "none";
 
-    
+
     const loginTesteButton = document.getElementById("loginButtonCabc");
     if (loginTesteButton && fundoPopup) {
         loginTesteButton.addEventListener("click", () => {
@@ -28,7 +29,7 @@ async function iniciar() {
         });
     }
 
-    
+
     const fechar = document.querySelector(".botao-fechar");
     if (fechar && fundoPopup) {
         fechar.addEventListener("click", () => {
@@ -36,13 +37,39 @@ async function iniciar() {
         });
     }
 
-    
+
     fundoPopup.addEventListener("click", (e) => {
         if (e.target === fundoPopup) {
             fundoPopup.style.display = "none";
         }
     });
 
+    botaoAcesso.addEventListener("click", () => {
+        const novoPost = {
+            senha: senhaInputRegistro.value,
+            email: inputEmailRegistro.value,
+        };
+
+
+        fetch("http://localhost:8080/api/user/login", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(novoPost)
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Erro no servidor");
+                return res.json();
+            })
+            .then(data => {
+                window.location.href = "http://localhost:8080/"
+
+            })
+            .catch(err => console.error(err));
+    });
 }
+
+const inputDataNascRegistro = document.getElementById("inputDataNascRegistro");
+
+
 
 document.addEventListener("DOMContentLoaded", iniciar);
