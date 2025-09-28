@@ -3,10 +3,8 @@ package com.kings.okdhvi.services;
 import com.kings.okdhvi.exception.NullResourceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.usuario.*;
-import com.kings.okdhvi.model.EstadoDaContaEnum;
-import com.kings.okdhvi.model.Imagem;
-import com.kings.okdhvi.model.Usuario;
-import com.kings.okdhvi.model.requests.RetornoLogin;
+import com.kings.okdhvi.model.*;
+import com.kings.okdhvi.repositories.PedidoDeTitulacaoRepository;
 import com.kings.okdhvi.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,6 +19,12 @@ public class UsuarioService {
 
     @Autowired
     UsuarioRepository ur;
+
+    @Autowired
+    PedidoExclusaoContaServices pecs;
+
+    @Autowired
+    PedidoDeTitulacaoServices pets;
 
     String emailRegex = ".{3,64}\\@.{4,255}";
     String senhaRegex = ".{8,64}";
@@ -39,10 +43,26 @@ public class UsuarioService {
         return ur.save(u);
     }
 
-    public Usuario atualizarImagem (Long id, Imagem i) {
+    public Usuario atualizarFoto(Long id, Imagem i) {
         Usuario u = encontrarPorId(id, false);
-        u.setImagem(i);
+        u.setFotoDePerfil(i);
         return ur.save(u);
+    }
+
+    public PedidoExclusaoConta requisitarExclusao(Long id) {
+        Usuario u = encontrarPorId(id, false);
+        PedidoExclusaoConta pecExistente = u.getPedidoExclusao();
+        if(pecExistente != null) {
+            pecs.deletarPedidoDeExclusaoPeloId(pecExistente.getId());
+        }
+        PedidoExclusaoConta pec = new PedidoExclusaoConta(u);
+        u.setPedidoExclusao(pec);
+        return pec;
+    }
+
+    public PedidoDeTitulacao requisitarPedidoDeTitulacao(Long id) {
+        Usuario u = encontrarPorId(id, false);
+        PedidoDeTitulacao
     }
 
     public Usuario atualizarUsuario (Usuario novo) {

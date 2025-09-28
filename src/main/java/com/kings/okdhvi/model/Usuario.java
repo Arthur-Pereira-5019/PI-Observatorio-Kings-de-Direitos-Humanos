@@ -21,20 +21,27 @@ public class Usuario implements Serializable, UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
 
-    @OneToOne()
-    private Imagem imagem;
-
     @Column(nullable = false, length = 100)
     private String nome;
 
     @Column(nullable = false, length = 100)
     private String senha;
 
+    @OneToOne
+    private PedidoExclusaoConta pedidoExclusao;
+
     @Column(length = 14)
     private String telefone;
 
     @Column(nullable = false, length = 11, unique = true)
     private String cpf;
+
+    @Column
+    private boolean notificacoesPorEmail;
+
+    @OneToOne
+    @JoinColumn(name="id_foto_perfil")
+    private Imagem fotoDePerfil;
 
     @Column(nullable = false, length = 100, unique = true)
     private String email;
@@ -182,14 +189,6 @@ public class Usuario implements Serializable, UserDetails {
 
     private static final long serialVersionId = 1L;
 
-    public Imagem getImagem() {
-        return imagem;
-    }
-
-    public void setImagem(Imagem imagem) {
-        this.imagem = imagem;
-    }
-
     public List<Postagem> getRevisoes() {
         return revisoes;
     }
@@ -208,4 +207,27 @@ public class Usuario implements Serializable, UserDetails {
         this.oculto = oculto;
     }
 
+    public PedidoExclusaoConta getPedidoExclusao() {
+        return pedidoExclusao;
+    }
+
+    public void setPedidoExclusao(PedidoExclusaoConta pedidoExclusao) {
+        this.pedidoExclusao = pedidoExclusao;
+    }
+
+    public Imagem getFotoDePerfil() {
+        return fotoDePerfil;
+    }
+
+    public void setFotoDePerfil(Imagem fotoDePerfil) {
+        this.fotoDePerfil = fotoDePerfil;
+    }
+
+    public boolean isNotificacoesPorEmail() {
+        return notificacoesPorEmail;
+    }
+
+    public void setNotificacoesPorEmail(boolean notificacoesPorEmail) {
+        this.notificacoesPorEmail = notificacoesPorEmail;
+    }
 }
