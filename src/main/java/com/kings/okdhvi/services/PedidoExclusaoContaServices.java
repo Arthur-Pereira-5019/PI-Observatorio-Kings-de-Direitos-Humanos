@@ -4,9 +4,11 @@ import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.model.PedidoExclusaoConta;
 import com.kings.okdhvi.repositories.PedidoExclusaoContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PedidoExclusaoContaServices {
     @Autowired
     PedidoExclusaoContaRepository pecr;

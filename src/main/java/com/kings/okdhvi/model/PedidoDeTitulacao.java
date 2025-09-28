@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 
+@Entity
 public class PedidoDeTitulacao {
 
     @Column
@@ -15,7 +16,7 @@ public class PedidoDeTitulacao {
     @OneToMany
     private ArrayList<Imagem> anexos = new ArrayList<>();
 
-    @OneToMany
+    @ManyToOne
     private Usuario requisitor;
 
     @Id

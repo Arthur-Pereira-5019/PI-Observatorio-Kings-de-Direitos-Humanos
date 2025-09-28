@@ -60,10 +60,9 @@ public class UsuarioService {
         return pec;
     }
 
-    public PedidoDeTitulacao requisitarPedidoDeTitulacao(Long id) {
+    /*public PedidoDeTitulacao requisitarPedidoDeTitulacao(Long id) {
         Usuario u = encontrarPorId(id, false);
-        PedidoDeTitulacao
-    }
+    }*/
 
     public Usuario atualizarUsuario (Usuario novo) {
         if(novo == null) {
