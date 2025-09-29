@@ -1,5 +1,6 @@
 package com.kings.okdhvi.controllers;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +40,12 @@ public class PageControllers {
     @GetMapping("/imagem/{id}")
     public String imageView() {
         return "imagem";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/usuario/{id}")
+    public String telaUsuario() {
+        return "telaUsuario";
     }
 
 };
