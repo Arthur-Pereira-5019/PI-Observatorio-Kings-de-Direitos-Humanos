@@ -52,16 +52,14 @@
         .instrucao-popup-excluir{
             height: 10%;
             width: 100%;
-            color: #4D4D4D;
             font-weight: 400;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             text-align: center;
         }
         
         .container-opcoes-popup-excluir{
             height: 45%;
             width: 100%;
-            background-color: pink;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -76,17 +74,47 @@
             color: #4D4D4D;
             padding-left: 1%;
             font-size: 1.5rem;
+            background-color: #DFDEDE;
         }
 
         .botao-confirmar-exclusao{
             height: 98%;
-            width: 20%;
+            width: 10%;
             background-color: rgb(82, 3, 4);
             display: flex;
-            font-size: 1rem;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.7rem;
             font-weight: 700;
+            border-radius: 20px;
             color: white;
+            border: none;
+            box-shadow: 0 8px 8px rgba(0,0,0,0.2);
             cursor: pointer;
+        }
+        
+        .botao-confirmar-exclusao:hover{
+            background-color: #790d10;
+        }
+
+        .botao-cancelar-exclusao{
+            height: 100%;
+            width: 30%;
+            background-color: #C00003;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: 700;
+            border-radius: 20px;
+            color: white;
+            border: none;
+            box-shadow: 0 8px 8px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+
+        .botao-cancelar-exclusao:hover{
+            background-color: #E0272A;
         }
 
         
@@ -104,6 +132,8 @@
             <div class="container-opcoes-popup-excluir">
 
                 <input class="label-popup-excluir" type="text">
+                <button class="botao-confirmar-exclusao">Confirmar exclusão</button>
+                <button class="botao-cancelar-exclusao">Cancelar</button>
 
             </div>
 
