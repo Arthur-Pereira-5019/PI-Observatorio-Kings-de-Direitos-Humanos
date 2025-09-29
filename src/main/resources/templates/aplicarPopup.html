@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet">
+
+        <style>
+
+        *{
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Inter", sans-serif;
+        }
+
+        body {
+            background-color: burlywood;    
+        }
+
+        .fundo-popup-aplicar{
+            display: flex;
+            flex-direction: column;
+            gap: 5%;
+            height: 65vh;
+            width: 21vw;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border: solid 2px #AA009F;
+            background-color: white;
+            justify-content: flex-start;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .popup-aplicar-titulo{
+            background-color: #AA009F;
+            width: 100%;
+            height: 12%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.6rem;
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        #combobox-cargos-aplicar{
+            background-color: #DFDEDE;
+            border: 1px solid #AA009F;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            width: 50%;
+            height: 10%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            outline: none;
+            padding: 3%;
+        }
+
+        #textarea-cargos-aplicar{
+            background-color: #DFDEDE;
+            border: 1px solid #AA009F;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            width: 90%;
+            height: 40%;
+            font-size: 1.0rem;
+            resize: none;
+            padding: 2%;
+            text-indent: 3%;
+            line-height: 1.5;
+        }
+
+        .botao-aplicar{
+            background-color: #AA009F;
+            width: 80%;
+            height: 13%;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 2.0rem;
+            border: none;
+            box-shadow: 0 8px 8px rgba(0,0,0,0.2);
+        }
+
+        .botao-aplicar:hover{
+            background-color: #d85bce;
+        }
+        
+        </style>
+</head>
+<body>
+    
+    <div class="fundo-popup-aplicar">
+
+        <div class="popup-aplicar-titulo">Aplicar Cargo</div>
+
+        <textarea name="motivacaoAplicar" id="textarea-cargos-aplicar" placeholder="Motivação:*"></textarea>
+
+        <select name="Cargos" id="combobox-cargos-aplicar">
+            <option selected disabled>Cargos:</option>
+            <option>Especialista</option>
+            <option>Moderador</option>
+            <option>Administrador</option>
+        </select>
+
+        <button class="botao-aplicar">Aplicar</button>
+
+    </div>
+
+</body>
+</html>
