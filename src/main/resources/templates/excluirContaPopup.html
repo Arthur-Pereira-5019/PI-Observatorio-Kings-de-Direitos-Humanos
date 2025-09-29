@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet">
+
+        <style>
+            
+            *{
+                margin: 0;
+                box-sizing: border-box;
+                font-family: "Inter", sans-serif;
+            }
+
+            body {
+            background-color: burlywood;    
+            }
+
+            .fundo-popup-excluir{
+            display: flex;
+            flex-direction: column;
+            gap: 5%;
+            height: 25vh;
+            width: 55vw;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            background-color: white;
+            justify-content: flex-start;
+            border: solid 2px #C00003;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .titulo-popup-excluir{
+            background-color: #C00003;
+            width: 100%;
+            height: 25%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.6rem;
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .instrucao-popup-excluir{
+            height: 10%;
+            width: 100%;
+            color: #4D4D4D;
+            font-weight: 400;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+        
+        .container-opcoes-popup-excluir{
+            height: 45%;
+            width: 100%;
+            background-color: pink;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3%;
+            padding: 1%;
+        }
+        .label-popup-excluir{
+            height: 100%;
+            width: 20%;
+            border: 2px solid #8D0028;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            color: #4D4D4D;
+            padding-left: 1%;
+            font-size: 1.5rem;
+        }
+
+        .botao-confirmar-exclusao{
+            height: 98%;
+            width: 20%;
+            background-color: rgb(82, 3, 4);
+            display: flex;
+            font-size: 1rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+        }
+
+        
+
+        </style>
+    </head>
+    <body>
+
+        <div class="fundo-popup-excluir">
+            
+            <div class="titulo-popup-excluir">Você tem certeza de que deseja excluir sua conta ?</div>
+
+            <div class="instrucao-popup-excluir">Se for essa mesmo a sua decisão, digite "Sim." exatamente assim para confirmar a exclusão da conta.</div>
+
+            <div class="container-opcoes-popup-excluir">
+
+                <input class="label-popup-excluir" type="text">
+
+            </div>
+
+        </div>
+
+    </body>
+</html>
