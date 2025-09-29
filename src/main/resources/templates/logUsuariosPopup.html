@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet">
+
+        <style>
+
+        *{
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Inter", sans-serif;
+        }
+
+        body {
+            background-color: burlywood;
+        }
+
+        .fundo-popup-logs{
+            display: flex;
+            flex-direction: column;
+            gap: 3%;
+            padding: 2%;
+            padding-bottom: 0;
+            height: 80vh;
+            width: 75vw;
+            border-radius: 2rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border: solid 2px #AA009F;
+            background-color: white;
+            justify-content: flex-start;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container-comentario-logs{
+            background-color: bisque;
+            display: flex;
+            height: 25%;
+            width: 100%;
+            gap: 2%;
+            border: solid 2px #a7209e;
+        }
+
+        .info-autor-logs{
+            height: 100%;
+            width: 15%;
+            gap: 5%;
+            background-color: #252525;
+            display: flex;
+            padding: 0.5%;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .foto-autor-logs{
+            height: 9vh;
+            width: 9vh;
+            border-radius: 100px;
+        }
+
+        .nome-autor-logs{
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 1rem;
+            text-align: center;
+            width: 70%;
+            height: auto;
+            color: white;
+        }
+
+        
+        </style>
+</head>
+<body>
+
+    <div class="fundo-popup-logs">
+        <div class="container-comentario-logs">
+            <div class="info-autor-logs">
+                <img src="https://randomuser.me/api/portraits/lego/6.jpg" class="foto-autor-logs" alt="">
+                <div class="nome-autor-logs">Autor: Emanuel Subtil de Oliveira Farias</div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
