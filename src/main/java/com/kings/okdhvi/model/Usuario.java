@@ -27,9 +27,6 @@ public class Usuario implements Serializable, UserDetails {
     @Column(nullable = false, length = 100)
     private String senha;
 
-    @OneToOne
-    private PedidoExclusaoConta pedidoExclusao;
-
     @Column(length = 14)
     private String telefone;
 
@@ -205,14 +202,6 @@ public class Usuario implements Serializable, UserDetails {
 
     public void setOculto(boolean oculto) {
         this.oculto = oculto;
-    }
-
-    public PedidoExclusaoConta getPedidoExclusao() {
-        return pedidoExclusao;
-    }
-
-    public void setPedidoExclusao(PedidoExclusaoConta pedidoExclusao) {
-        this.pedidoExclusao = pedidoExclusao;
     }
 
     public Imagem getFotoDePerfil() {

@@ -2,17 +2,21 @@ package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.NullResourceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
+import com.kings.okdhvi.exception.login.InvalidLoginInfoException;
 import com.kings.okdhvi.exception.usuario.*;
 import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.repositories.PedidoDeTitulacaoRepository;
 import com.kings.okdhvi.repositories.UsuarioRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 @Service
 public class UsuarioService {
@@ -25,6 +29,8 @@ public class UsuarioService {
 
     @Autowired
     PedidoDeTitulacaoServices pets;
+
+    Logger logger = LoggerFactory.getLogger(UsuarioService.class);
 
     String emailRegex = ".{3,64}\\@.{4,255}";
     String senhaRegex = ".{8,64}";
@@ -64,8 +70,11 @@ public class UsuarioService {
         Usuario u = encontrarPorId(id, false);
     }*/
 
-    public Usuario atualizarUsuario (Usuario novo) {
-        if(novo == null) {
+    public Usuario atualizarUsuario (Usuario novo, Long idTentado) {
+        if(!Objects.equals(idTentado, novo.getIdUsuario())) {
+            throw new InvalidLoginInfoException("Tentativa de atualização inválida!");
+        }
+        if(novo.equals(null)) {
             throw new NullResourceException("Usuário nulo submetido");
         }
         Usuario original = encontrarPorId(novo.getIdUsuario(), false);
@@ -78,6 +87,15 @@ public class UsuarioService {
         original.setDataDeNascimento(novo.getDataDeNascimento());
         original.setSenha(novo.getSenha());
         return ur.save(original);
+    }
+
+    @Scheduled(cron = "* * * * * ?")
+    public void exclusaoGeralAgendada() {
+        ArrayList<PedidoExclusaoConta> pedidos = new ArrayList<>(pecs.encontrarTodosPedidosDeExclusao());
+        Instant agora = Instant.now();
+        pedidos.removeIf(p -> p.getDataPedido().toInstant().plus(30, ChronoUnit.DAYS).isAfter(agora));
+        logger.info("Encontrado " + pedidos.size() + " marcados para deleção na data de hoje.");
+        pedidos.forEach(p -> {deletarPeloId(p.getUsuarioPedido().getIdUsuario());});
     }
 
     public void validarDados(Usuario u) {
