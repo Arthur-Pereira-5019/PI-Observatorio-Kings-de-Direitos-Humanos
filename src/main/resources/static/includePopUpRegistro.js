@@ -26,15 +26,14 @@ async function iniciar() {
         });
     }
 
-    
-    const fechar = document.querySelector(".botao-fechar");
-    if (fechar && fundoPopup) {
-        fechar.addEventListener("click", () => {
+    const loginTesteButton = document.getElementById("loginButtonCabc");
+    if (loginTesteButton && fundoPopup) {
+        loginTesteButton.addEventListener("click", () => {
             fundoPopup.style.display = "none";
         });
     }
 
-    
+
     fundoPopup.addEventListener("click", (e) => {
         if (e.target === fundoPopup) {
             fundoPopup.style.display = "none";
@@ -42,7 +41,6 @@ async function iniciar() {
     });
 
 const registerButton = document.getElementById("registerButton");
-
 const senhaInputRegistro = document.getElementById("senhaInputRegistro");
 const confSenhaInputRegistro = document.getElementById("confSenhaInputRegistro");
 const inputNomeRegistro = document.getElementById("inputNomeRegistro");
@@ -52,6 +50,10 @@ const inputEmailRegistro = document.getElementById("inputEmailRegistro");
 const inputDataNascRegistro = document.getElementById("inputDataNascRegistro");
 
 registerButton.addEventListener("click", () => {
+  
+  if(senhaInputRegistro.value != confSenhaInputRegistro.value){return}
+  
+
   const novoPost = {
     title: 'dadosRegistro',
     nome: inputNomeRegistro.value,
