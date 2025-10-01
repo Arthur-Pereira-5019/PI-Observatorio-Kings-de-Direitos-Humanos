@@ -51,7 +51,6 @@ public class Usuario implements Serializable, UserDetails {
     private Date dataDeNascimento;
 
     @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private PedidoExclusaoConta pedidoExclusao;
 
     @JsonIgnore()

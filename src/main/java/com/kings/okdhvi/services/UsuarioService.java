@@ -7,6 +7,7 @@ import com.kings.okdhvi.exception.usuario.*;
 import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.repositories.PedidoDeTitulacaoRepository;
 import com.kings.okdhvi.repositories.UsuarioRepository;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,7 @@ public class UsuarioService {
         return ur.save(u);
     }
 
+    @Transactional
     public PedidoExclusaoConta requisitarExclusao(Long id) {
         Usuario u = encontrarPorId(id, false);
         PedidoExclusaoConta pecExistente = u.getPedidoExclusao();
@@ -64,6 +66,7 @@ public class UsuarioService {
         PedidoExclusaoConta pec = new PedidoExclusaoConta(u);
         pecs.salvarPedidoExclusao(pec);
         u.setPedidoExclusao(pec);
+        ur.save(u);
         return pec;
     }
 
@@ -90,11 +93,11 @@ public class UsuarioService {
         return ur.save(original);
     }
 
-    @Scheduled(cron = "* * * * * ?")
+    @Scheduled(cron = "0 0 * * * ?")
     public void exclusaoGeralAgendada() {
         ArrayList<PedidoExclusaoConta> pedidos = new ArrayList<>(pecs.encontrarTodosPedidosDeExclusao());
         Instant agora = Instant.now();
-        pedidos.removeIf(p -> p.getDataPedido().toInstant().plus(0, ChronoUnit.DAYS).isAfter(agora));
+        pedidos.removeIf(p -> p.getDataPedido().toInstant().plus(30, ChronoUnit.DAYS).isAfter(agora));
         logger.info("Encontrado " + pedidos.size() + " marcados para deleção na data de hoje.");
         pedidos.forEach(p -> {deletarPeloId(p.getUsuarioPedido().getIdUsuario());});
     }
