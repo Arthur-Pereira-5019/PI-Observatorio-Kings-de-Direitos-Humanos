@@ -1,18 +1,18 @@
 html,
 body,
-#blur {
+#blur_nova_imagem {
   width: 100vw;
   height: 100vh;
   margin: 0;
 }
 
-#blur {
+#blur_nova_imagem {
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 10000;
   display: none;
 }
 
-#container {
+#container_nova_imagem {
   background-color: white;
   position: relative;
   width: 50%;

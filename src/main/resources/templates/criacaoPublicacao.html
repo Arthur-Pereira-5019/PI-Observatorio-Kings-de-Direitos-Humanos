@@ -186,8 +186,14 @@
 
     async function iniciar() {
         await carregarHTML("inserirImagem", "/nova_imagem", "rodapeStyle.css");
-        const botaoImagem = document.getElementById("botaoImagem");
-        
+        const botaoImagem = document.getElementById("pic");
+
+        pic.addEventListener("click", function() {
+            const blur_nova_imagem = document.getElementById("blur_nova_imagem");
+            const container_nova_imagem = document.getElementById("container_nova_imagem");
+            blur_nova_imagem.style.display = "inline";
+            container_nova_imagem.style.display = "flex";
+        })
 
     }
 
