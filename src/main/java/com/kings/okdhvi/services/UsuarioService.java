@@ -62,6 +62,7 @@ public class UsuarioService {
             pecs.deletarPedidoDeExclusaoPeloId(pecExistente.getId());
         }
         PedidoExclusaoConta pec = new PedidoExclusaoConta(u);
+        pecs.salvarPedidoExclusao(pec);
         u.setPedidoExclusao(pec);
         return pec;
     }

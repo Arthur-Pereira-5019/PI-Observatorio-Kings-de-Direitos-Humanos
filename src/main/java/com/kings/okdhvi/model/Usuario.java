@@ -1,7 +1,9 @@
 package com.kings.okdhvi.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @Entity
 @Table(name="Usuario")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idUsuario")
 public class Usuario implements Serializable, UserDetails {
 
     @Id
@@ -46,6 +49,9 @@ public class Usuario implements Serializable, UserDetails {
     @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(nullable = false)
     private Date dataDeNascimento;
+
+    @OneToOne
+    private PedidoExclusaoConta pedidoExclusao;
 
     @JsonIgnore()
     @ManyToMany(mappedBy = "revisor")
@@ -218,5 +224,13 @@ public class Usuario implements Serializable, UserDetails {
 
     public void setNotificacoesPorEmail(boolean notificacoesPorEmail) {
         this.notificacoesPorEmail = notificacoesPorEmail;
+    }
+
+    public PedidoExclusaoConta getPedidoExclusao() {
+        return pedidoExclusao;
+    }
+
+    public void setPedidoExclusao(PedidoExclusaoConta pedidoExclusao) {
+        this.pedidoExclusao = pedidoExclusao;
     }
 }
