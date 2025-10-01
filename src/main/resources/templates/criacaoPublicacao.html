@@ -122,9 +122,10 @@
 
 <body>
     <div id="header"></div>
-    <div id="container-criacao-publicacao">
+    <div id="fundoImagem">
         <div id="inserirImagem"></div>
-
+    </div>
+    <div id="container-criacao-publicacao">
         <p id="titulo">Nova Publicação</p>
         <p class="textoBase">Título: *</p>
         <input id="campoTitulo">
@@ -161,14 +162,21 @@
         <div id="campoTags"></div>
     </div>
 
-    <div id="registro"></div>
-    <div id="login"></div>
+    <div id="posPopUp">
+        <div id="registro"></div>
+
+    </div>
+
+    <div id="posPopUpLogin">
+        <div id="login"></div>
+    </div>
     <div id="footer"></div>
 
 </body>
 <script src="includeHtmlExterno.js" defer></script>
 <script src="includePopUpRegistro.js" defer></script>
 <script src="includePopUpLogin.js" defer></script>
+<script src="popupNovaImagemLogic.js" defer></script>
 <script>
     async function carregarHTML(id, url, cssFile) {
         const response = await fetch(url);
@@ -185,10 +193,13 @@
 
 
     async function iniciar() {
-        await carregarHTML("inserirImagem", "/nova_imagem", "rodapeStyle.css");
+        await carregarHTML("inserirImagem", "/nova_imagem", "popUpNovaImagemStyle.css");
+
         const botaoImagem = document.getElementById("pic");
 
-        pic.addEventListener("click", function() {
+        
+
+        pic.addEventListener("click", function () {
             const blur_nova_imagem = document.getElementById("blur_nova_imagem");
             const container_nova_imagem = document.getElementById("container_nova_imagem");
             blur_nova_imagem.style.display = "inline";

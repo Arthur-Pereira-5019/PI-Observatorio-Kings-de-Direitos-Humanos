@@ -19,62 +19,10 @@
       <input id="arquivo" type="file" enctype="multipart/form-data" accept=".jpg, .png, .gif">
       <img id="canva" src="">
       <p>Isto é apenas uma pré visualização, a imagem vai manter seu tamanho real na Publicação!</p>
-      <textarea id="titulo" maxlength="128" placeholder="Título"></textarea>
+      <textarea id="titulo_nova_imagem" maxlength="128" placeholder="Título"></textarea>
       <textarea id="desc" maxlength="256" rows="4" cols="50" placeholder="Descreva a imagem"></textarea>
       <button id="inserir">Inserir</button>
     </div>
   </div>
 </body>
-<script>
-  const file = document.getElementById("arquivo");
-  const campoDescricao = document.getElementById("desc");
-  const campoTitulo = document.getElementById("titulo");
-
-  file.addEventListener("input", function () {
-    const entrada = document.getElementById("arquivo");
-    const canva = document.getElementById("canva");
-    const inserir = document.getElementById("inserir");
-
-    const arquivo = entrada.files[0];
-
-    if (arquivo && arquivo.name.endsWith(".png") || arquivo.name.endsWith(".jpg")) {
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        const base64StringWithPrefix = e.target.result;
-        canva.src = base64StringWithPrefix;
-      };
-
-      reader.readAsDataURL(arquivo);
-    }
-  });
-
-  inserir.addEventListener("click", function () {
-    let imageData = canva.src;
-    let endPosition = imageData.indexOf(",");
-    endPosition++;
-    imageData = imageData.replace(imageData.substring(0, endPosition), "");
-
-    const requestBody = {
-      imageBase64: imageData,
-      descricao: campoDescricao.value,
-      titulo: campoTitulo.value
-    };
-
-    fetch("http://localhost:8080/api/imagem", {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(requestBody)
-    })
-      .then(res => {
-        if (!res.ok) throw new Error("Erro no servidor");
-        return res.json();
-      })
-      .then(data => {
-      })
-      .catch(err => console.error(err));
-  });
-
-</script>
-
 </html>
