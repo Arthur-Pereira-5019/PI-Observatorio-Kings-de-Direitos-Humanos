@@ -9,13 +9,15 @@ import java.time.Instant;
 import java.util.Date;
 
 @Entity
+@Table
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class PedidoExclusaoConta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     @JsonIdentityReference(alwaysAsId = true)
     private Usuario usuarioPedido;
 

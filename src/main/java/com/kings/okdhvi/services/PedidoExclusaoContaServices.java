@@ -24,7 +24,6 @@ public class PedidoExclusaoContaServices {
 
     Logger logger = LoggerFactory.getLogger(PedidoExclusaoContaServices.class);
 
-
     public PedidoExclusaoConta salvarPedidoExclusao(PedidoExclusaoConta pec) {
         return pecr.save(pec);
     }

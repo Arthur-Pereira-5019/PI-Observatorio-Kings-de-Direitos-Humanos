@@ -94,7 +94,7 @@ public class UsuarioService {
     public void exclusaoGeralAgendada() {
         ArrayList<PedidoExclusaoConta> pedidos = new ArrayList<>(pecs.encontrarTodosPedidosDeExclusao());
         Instant agora = Instant.now();
-        pedidos.removeIf(p -> p.getDataPedido().toInstant().plus(30, ChronoUnit.DAYS).isAfter(agora));
+        pedidos.removeIf(p -> p.getDataPedido().toInstant().plus(0, ChronoUnit.DAYS).isAfter(agora));
         logger.info("Encontrado " + pedidos.size() + " marcados para deleção na data de hoje.");
         pedidos.forEach(p -> {deletarPeloId(p.getUsuarioPedido().getIdUsuario());});
     }
