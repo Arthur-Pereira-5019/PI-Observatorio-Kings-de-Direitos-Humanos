@@ -1,12 +1,23 @@
-async function iniciar() {
-    let file = document.getElementById("arquivo");
-    let campoDescricao = document.getElementById("desc");
-    let campoTitulo = document.getElementById("titulo_nova_imagem");
+let file = document.getElementById("arquivo");
+let campoDescricao = document.getElementById("desc");
+let campoTitulo = document.getElementById("titulo_nova_imagem");
+let canva = document.getElementById("canva");
+let inserir = document.getElementById("inserir");
+
+window.iniciarPopupNovaImagem = function() {
+
+    file = document.getElementById("arquivo");
+    campoDescricao = document.getElementById("desc");
+    campoTitulo = document.getElementById("titulo_nova_imagem");
+    canva = document.getElementById("canva");
+    inserir = document.getElementById("inserir");
+
+    console.log("Arquivo:", document.getElementById("arquivo"));
+    console.log("Inserir:", document.getElementById("inserir"));
+
 
     function file_input() {
         const entrada = document.getElementById("arquivo");
-        const canva = document.getElementById("canva");
-        const inserir = document.getElementById("inserir");
 
         const arquivo = entrada.files[0];
 
@@ -51,7 +62,5 @@ async function iniciar() {
     file.addEventListener("input", file_input);
     inserir.addEventListener("click", img_insert);
 
-    
-}
 
-document.addEventListener("DOMContentLoaded", iniciar);
+}

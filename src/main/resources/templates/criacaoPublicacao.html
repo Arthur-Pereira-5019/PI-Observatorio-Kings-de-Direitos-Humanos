@@ -178,7 +178,7 @@
 <script src="includePopUpLogin.js" defer></script>
 <script src="popupNovaImagemLogic.js" defer></script>
 <script>
-    async function carregarHTML(id, url, cssFile) {
+    async function carregarHTML(id, url, cssFile, jsFile) {
         const response = await fetch(url);
         const data = await response.text();
         document.getElementById(id).innerHTML = data;
@@ -189,104 +189,117 @@
             link.href = cssFile;
             document.head.appendChild(link);
         }
-    }
+
+        if (jsFile) {
+            let script = document.createElement("script");
+            script.src = jsFile;
+                script.onload = () => {
+                    console.log("Script carregado:", jsFile);
+                    if (typeof window.iniciarPopupNovaImagem === "function") {
+                        console.log("Chamando iniciarPopupNovaImagem()");
+                        window.iniciarPopupNovaImagem();
+                    } else {
+                        console.error("Função iniciarPopupNovaImagem não encontrada em", jsFile);
+                    }
+                };
+                document.body.appendChild(script);
+            }
+        }
 
 
-    async function iniciar() {
-        await carregarHTML("inserirImagem", "/nova_imagem", "popUpNovaImagemStyle.css");
+        async function iniciar() {
+            await carregarHTML("inserirImagem", "/nova_imagem", "popUpNovaImagemStyle.css", "popupNovaImagemLogic.js");
 
-        const botaoImagem = document.getElementById("pic");
+            const botaoImagem = document.getElementById("pic");
 
-        
+            pic.addEventListener("click", function () {
+                const blur_nova_imagem = document.getElementById("blur_nova_imagem");
+                const container_nova_imagem = document.getElementById("container_nova_imagem");
+                blur_nova_imagem.style.display = "inline";
+                container_nova_imagem.style.display = "flex";
+            })
 
-        pic.addEventListener("click", function () {
-            const blur_nova_imagem = document.getElementById("blur_nova_imagem");
-            const container_nova_imagem = document.getElementById("container_nova_imagem");
-            blur_nova_imagem.style.display = "inline";
-            container_nova_imagem.style.display = "flex";
+        }
+
+        document.addEventListener("DOMContentLoaded", iniciar);
+
+        const textoPublicacao = document.getElementById("textoPublicacao");
+
+        const btnLink = document.getElementById("link");
+        const btnBold = document.getElementById("bold");
+        const btnUnderlined = document.getElementById("underlined");
+        const btnItalic = document.getElementById("italic");
+        btnLink.addEventListener("click", function () {
+            createLink();
+        })
+        btnBold.addEventListener("click", function () {
+            createBold();
+        })
+        btnUnderlined.addEventListener("click", function () {
+            createUnderline();
+        })
+        btnItalic.addEventListener("click", function () {
+            createItalic();
         })
 
-    }
 
-    document.addEventListener("DOMContentLoaded", iniciar);
-
-    const textoPublicacao = document.getElementById("textoPublicacao");
-
-    const btnLink = document.getElementById("link");
-    const btnBold = document.getElementById("bold");
-    const btnUnderlined = document.getElementById("underlined");
-    const btnItalic = document.getElementById("italic");
-    btnLink.addEventListener("click", function () {
-        createLink();
-    })
-    btnBold.addEventListener("click", function () {
-        createBold();
-    })
-    btnUnderlined.addEventListener("click", function () {
-        createUnderline();
-    })
-    btnItalic.addEventListener("click", function () {
-        createItalic();
-    })
-
-
-    // Pegar o texto
-    function getText() {
-        return textoPublicacao.innerText;
-    }
-
-    // Pegar o HTML formatado
-    function getHTML() {
-        return textoPublicacao.innerHTML;
-    }
-
-    textoPublicacao.addEventListener("keydown", function (e) {
-        // Ctrl + B → Negrito
-        if (e.ctrlKey && e.key === "b") {
-            createBold();
-            e.preventDefault();
+        // Pegar o texto
+        function getText() {
+            return textoPublicacao.innerText;
         }
 
-        // Ctrl + I → Itálico
-        if (e.ctrlKey && e.key === "i") {
-            createItalic();
-            e.preventDefault();
+        // Pegar o HTML formatado
+        function getHTML() {
+            return textoPublicacao.innerHTML;
         }
 
-        // Ctrl + U → Sublinhado
-        if (e.ctrlKey && e.key === "u") {
-            createUnderline();
-            e.preventDefault();
+        textoPublicacao.addEventListener("keydown", function (e) {
+            // Ctrl + B → Negrito
+            if (e.ctrlKey && e.key === "b") {
+                createBold();
+                e.preventDefault();
+            }
+
+            // Ctrl + I → Itálico
+            if (e.ctrlKey && e.key === "i") {
+                createItalic();
+                e.preventDefault();
+            }
+
+            // Ctrl + U → Sublinhado
+            if (e.ctrlKey && e.key === "u") {
+                createUnderline();
+                e.preventDefault();
+            }
+
+            // Ctrl + S → Salvar (exemplo)
+            if (e.ctrlKey && e.key === "s") {
+                console.log("Salvando conteúdo:", getHTML());
+                e.preventDefault();
+            }
+
+            if (e.ctrlKey && e.key === "l") {
+                createLink();
+                e.preventDefault();
+            }
+        });
+
+        function createLink() {
+            document.execCommand("createLink", true, window.getSelection().toString())
+            console.log(window.getSelection().toString())
         }
 
-        // Ctrl + S → Salvar (exemplo)
-        if (e.ctrlKey && e.key === "s") {
-            console.log("Salvando conteúdo:", getHTML());
-            e.preventDefault();
+        function createItalic() {
+            document.execCommand("italic");
         }
 
-        if (e.ctrlKey && e.key === "l") {
-            createLink();
-            e.preventDefault();
+        function createBold() {
+            document.execCommand("bold");
         }
-    });
 
-    function createLink() {
-        document.execCommand("createLink", true, window.getSelection().toString())
-        console.log(window.getSelection().toString())
-    }
-
-    function createItalic() {
-        document.execCommand("italic");
-    }
-
-    function createBold() {
-        document.execCommand("bold");
-    }
-
-    function createUnderline() {
-        document.execCommand("underline");
-    }
+        function createUnderline() {
+            document.execCommand("underline");
+        }
 </script>
 
 </html>
