@@ -41,12 +41,11 @@ public class PostagemServices {
     }
 
     @Transactional
-    public Postagem criarPostagem(PostagemRequest p) {
-        if(p == null) {
+    public Postagem criarPostagem(Postagem post, Long usuarioId) {
+        if(post == null) {
             throw new NullResourceException("Postagem nula submetida!");
         }
-        Postagem post = p.postagem();
-        post.setAutor(us.encontrarPorId(p.id(), false));
+        post.setAutor(us.encontrarPorId(usuarioId, false));
         post.setDataDaPostagem(Date.from(Instant.now()));
         post.setRevisor(null);
         return pr.save(post);

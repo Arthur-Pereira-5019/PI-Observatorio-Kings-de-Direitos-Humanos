@@ -39,10 +39,9 @@ public class UsuarioController {
         return us.saveUsuario(u);
     }
 
-
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Usuario encontrarUsuarioPeloId(@AuthenticationPrincipal UserDetails user) {
-        Long id = buscarId(user);
+        Long id = us.buscarId(user);
         return us.encontrarPorId(id, false);
     }
 
@@ -55,7 +54,7 @@ public class UsuarioController {
     @PreAuthorize("hasRole('PADRAO')")
     @PutMapping(value = "/atualizarUsuario", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
     public Usuario atualizarUsuario(@RequestBody Usuario u, @AuthenticationPrincipal UserDetails user) {
-        Long idRequisicao = buscarId(user);
+        Long idRequisicao = us.buscarId(user);
         return us.atualizarUsuario(u, idRequisicao);
     }
 
@@ -96,11 +95,9 @@ public class UsuarioController {
 
     @PostMapping("/requisitar_exclusao")
     public PedidoExclusaoConta requisitarExclusao(@AuthenticationPrincipal UserDetails user) {
-        return us.requisitarExclusao(buscarId(user));
+        return us.requisitarExclusao(us.buscarId(user));
     }
 
-    public Long buscarId(UserDetails ud) {
-        return us.encontrarPorEmail(ud.getUsername(), false).getIdUsuario();
-    }
+
 
 }

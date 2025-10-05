@@ -36,8 +36,8 @@ public class Usuario implements Serializable, UserDetails {
     @Column(nullable = false, length = 11, unique = true)
     private String cpf;
 
-    @Column
-    private boolean notificacoesPorEmail;
+    @Column()
+    private Boolean notificacoesPorEmail = false;
 
     @OneToOne
     @JoinColumn(name="id_foto_perfil")

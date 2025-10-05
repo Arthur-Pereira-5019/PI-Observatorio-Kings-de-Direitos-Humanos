@@ -7,117 +7,7 @@
     <title>Nova Publicação</title>
     <link rel="stylesheet" href="cabecalhoStyle.css">
     <link rel="stylesheet" href="rodapeStyle.css">
-    <style>
-        body,
-        html {
-            overflow-x: hidden;
-            margin: 0;
-            width: 100vw;
-            height: 200vh;
-
-        }
-
-        #container-criacao-publicacao {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            width: 64%;
-            left: 50%;
-            transform: translateX(-50%);
-            position: relative;
-            gap: 1vh;
-            height: 200vh;
-        }
-
-        #titulo {
-            font-weight: 800;
-            font-size: 42px;
-            color: darkred;
-            align-self: center;
-            margin-top: 2.5%;
-            margin-bottom: 2.5%;
-        }
-
-        #campoEdicao {
-            gap: 0;
-            width: 100%;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            margin: 1vh;
-        }
-
-        #campoEdicao * {
-            width: 3%
-        }
-
-        #bold {
-            font-weight: bolder;
-        }
-
-        #underlined {
-            text-decoration: underline;
-        }
-
-        #italic {
-            font-style: italic;
-        }
-
-        #campoTitulo {
-            background-color: lightgray;
-            border-radius: 10em;
-            width: 100%;
-            height: 4vh;
-        }
-
-        #elementosEdicao {
-            display: flex;
-            flex-direction: row;
-            background-color: gray;
-            width: 100%;
-        }
-
-        #elementosEdicao>* {
-            border: 1px solid black;
-            text-align: center;
-            background-color: gray;
-        }
-
-        #textoPublicacao {
-            background-color: lightgray;
-            border: 1px solid black;
-            width: 100%;
-            overflow-wrap: break-word;
-            flex: 20
-        }
-
-        #botoes {
-            display: flex;
-            flex-direction: row;
-            gap: 22vw
-        }
-
-        #botoes * {
-            border-radius: 20em;
-        }
-
-        #campoTags {
-            background-color: lightgray;
-            width: 100%;
-            border-radius: 20em;
-        }
-
-        .textoBase {
-            margin-top: 0;
-            margin-bottom: 0;
-            font-size: 24px;
-        }
-
-        #elementosEdicao img {
-            height: 100%;
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="criacaoPublicacaoStyle.css">
 </head>
 
 <body>
@@ -129,6 +19,12 @@
         <p id="titulo">Nova Publicação</p>
         <p class="textoBase">Título: *</p>
         <input id="campoTitulo">
+
+        <label id="capaPostagem" label for="capaPostagemInput">
+            <img src="" id="capaPostagemPreview">
+            <input id="capaPostagemInput" type="file" enctype="multipart/form-data" accept=".jpg, .png">
+        </label>
+
         <div id="campoEdicao">
             <div id="elementosEdicao">
                 <button id="bold">B</button>
@@ -155,7 +51,7 @@
 
         <div id="botoes">
             <button id="botaoCancelar">Cancelar</button>
-            <button id="botaoSalvar">Publicar</button>
+            <button id="botaoPublicar">Publicar</button>
             <button id="botaoSalvar">Salvar</button>
         </div>
 
@@ -176,130 +72,6 @@
 <script src="includeHtmlExterno.js" defer></script>
 <script src="includePopUpRegistro.js" defer></script>
 <script src="includePopUpLogin.js" defer></script>
-<script src="popupNovaImagemLogic.js" defer></script>
-<script>
-    async function carregarHTML(id, url, cssFile, jsFile) {
-        const response = await fetch(url);
-        const data = await response.text();
-        document.getElementById(id).innerHTML = data;
-
-        if (cssFile) {
-            let link = document.createElement("link");
-            link.rel = "stylesheet";
-            link.href = cssFile;
-            document.head.appendChild(link);
-        }
-
-        if (jsFile) {
-            let script = document.createElement("script");
-            script.src = jsFile;
-                script.onload = () => {
-                    console.log("Script carregado:", jsFile);
-                    if (typeof window.iniciarPopupNovaImagem === "function") {
-                        console.log("Chamando iniciarPopupNovaImagem()");
-                        window.iniciarPopupNovaImagem();
-                    } else {
-                        console.error("Função iniciarPopupNovaImagem não encontrada em", jsFile);
-                    }
-                };
-                document.body.appendChild(script);
-            }
-        }
-
-
-        async function iniciar() {
-            await carregarHTML("inserirImagem", "/nova_imagem", "popUpNovaImagemStyle.css", "popupNovaImagemLogic.js");
-
-            const botaoImagem = document.getElementById("pic");
-
-            pic.addEventListener("click", function () {
-                const blur_nova_imagem = document.getElementById("blur_nova_imagem");
-                const container_nova_imagem = document.getElementById("container_nova_imagem");
-                blur_nova_imagem.style.display = "inline";
-                container_nova_imagem.style.display = "flex";
-            })
-
-        }
-
-        document.addEventListener("DOMContentLoaded", iniciar);
-
-        const textoPublicacao = document.getElementById("textoPublicacao");
-
-        const btnLink = document.getElementById("link");
-        const btnBold = document.getElementById("bold");
-        const btnUnderlined = document.getElementById("underlined");
-        const btnItalic = document.getElementById("italic");
-        btnLink.addEventListener("click", function () {
-            createLink();
-        })
-        btnBold.addEventListener("click", function () {
-            createBold();
-        })
-        btnUnderlined.addEventListener("click", function () {
-            createUnderline();
-        })
-        btnItalic.addEventListener("click", function () {
-            createItalic();
-        })
-
-
-        // Pegar o texto
-        function getText() {
-            return textoPublicacao.innerText;
-        }
-
-        // Pegar o HTML formatado
-        function getHTML() {
-            return textoPublicacao.innerHTML;
-        }
-
-        textoPublicacao.addEventListener("keydown", function (e) {
-            // Ctrl + B → Negrito
-            if (e.ctrlKey && e.key === "b") {
-                createBold();
-                e.preventDefault();
-            }
-
-            // Ctrl + I → Itálico
-            if (e.ctrlKey && e.key === "i") {
-                createItalic();
-                e.preventDefault();
-            }
-
-            // Ctrl + U → Sublinhado
-            if (e.ctrlKey && e.key === "u") {
-                createUnderline();
-                e.preventDefault();
-            }
-
-            // Ctrl + S → Salvar (exemplo)
-            if (e.ctrlKey && e.key === "s") {
-                console.log("Salvando conteúdo:", getHTML());
-                e.preventDefault();
-            }
-
-            if (e.ctrlKey && e.key === "l") {
-                createLink();
-                e.preventDefault();
-            }
-        });
-
-        function createLink() {
-            document.execCommand("createLink", true, window.getSelection().toString())
-            console.log(window.getSelection().toString())
-        }
-
-        function createItalic() {
-            document.execCommand("italic");
-        }
-
-        function createBold() {
-            document.execCommand("bold");
-        }
-
-        function createUnderline() {
-            document.execCommand("underline");
-        }
-</script>
+<script src="criacaoPublicacaoLogic.js" defer></script>
 
 </html>
