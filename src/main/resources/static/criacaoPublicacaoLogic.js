@@ -3,13 +3,11 @@ async function carregarHTMLCP(id, url, cssFile, jsFile) {
     const data = await response.text();
     document.getElementById(id).innerHTML = data;
 
-
     if (cssFile) {
         let link = document.createElement("link");
         link.rel = "stylesheet";
         link.href = cssFile;
         document.head.appendChild(link);
-
     }
 
     if (jsFile) {
@@ -27,10 +25,13 @@ async function carregarHTMLCP(id, url, cssFile, jsFile) {
 
 
 async function iniciarCriacaoPublicacao() {
+    const capaPostagemInput = document.getElementById("capaPostagemInput");
+    capaPostagemInput.addEventListener("input", input_capa);
     await carregarHTMLCP("inserirImagem", "/nova_imagem", "popUpNovaImagemStyle.css", "popupNovaImagemLogic.js");
 
     const botaoImagem = document.getElementById("pic");
-    const botaoPublicar = document.getElementById("botaoSalvar")
+    const botaoPublicar = document.getElementById("botaoPublicar")
+
 
     pic.addEventListener("click", function () {
         const blur_nova_imagem = document.getElementById("blur_nova_imagem");
@@ -40,22 +41,29 @@ async function iniciarCriacaoPublicacao() {
     })
 
     botaoPublicar.addEventListener("click", function () {
-         publicarDocumento();
+        publicarDocumento();
     })
 
 }
 
-async function publicarDocumento() {
+async function publicarDocumento(finalizada) {
     const textoPublicacao = document.getElementById("textoPublicacao");
 
     const campoTituloPostagem = document.getElementById("campoTitulo");
     const campoTextoPostagem = textoPublicacao.innerHTML;
     const campoTags = document.getElementById("campoTags");
+    let campoImagem = document.getElementById("capaPostagemInput").src;
+    let endPosition = campoImagem.indexOf(",");
+    endPosition++;
+
+    campoImagem = campoImagem.replace(campoImagem.substring(0, endPosition), "");
 
     const requestBody = {
+        capaBase64: campoImagem,
         tituloPostagem: campoTituloPostagem.value,
         textoPostagem: campoTextoPostagem,
-        tags: campoTags.value
+        tags: campoTags.value,
+        publicada: finalizada
     };
 
     fetch("http://localhost:8080/api/postagem", {
@@ -69,7 +77,24 @@ async function publicarDocumento() {
         })
         .then(data => {
         })
+}
 
+function input_capa() {
+    const entrada = document.getElementById("capaPostagemInput");
+    capaPostagemPreview = document.getElementById("capaPostagemPreview");
+
+    const imagemSubmetida = entrada.files[0];
+
+    if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg")) {
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            const base64StringWithPrefix = e.target.result;
+            capaPostagemPreview.src = base64StringWithPrefix;
+        };
+
+        reader.readAsDataURL(imagemSubmetida);
+    }
 }
 
 document.addEventListener("DOMContentLoaded", iniciarCriacaoPublicacao);

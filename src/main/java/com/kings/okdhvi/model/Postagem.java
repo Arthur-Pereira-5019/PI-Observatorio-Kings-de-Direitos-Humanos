@@ -42,8 +42,8 @@ public class Postagem {
     boolean oculto;
 
     @OneToOne
-    @JoinColumn(name="id_foto_perfil")
-    private Imagem fotoDePerfil;
+    @JoinColumn(name="id_capa")
+    private Imagem capa;
 
     public String getTituloPostagem() {
         return tituloPostagem;
@@ -109,11 +109,11 @@ public class Postagem {
         this.idPostagem = idPostagem;
     }
 
-    public Imagem getFotoDePerfil() {
-        return fotoDePerfil;
+    public Imagem getCapa() {
+        return capa;
     }
 
-    public void setFotoDePerfil(Imagem fotoDePerfil) {
-        this.fotoDePerfil = fotoDePerfil;
+    public void setCapa(Imagem capa) {
+        this.capa = capa;
     }
 }

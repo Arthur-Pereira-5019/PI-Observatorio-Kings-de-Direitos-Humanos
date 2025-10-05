@@ -46,7 +46,7 @@ async function iniciarCriacaoPublicacao() {
 
 }
 
-async function publicarDocumento() {
+async function publicarDocumento(finalizada) {
     const textoPublicacao = document.getElementById("textoPublicacao");
 
     const campoTituloPostagem = document.getElementById("campoTitulo");
@@ -59,10 +59,11 @@ async function publicarDocumento() {
     campoImagem = campoImagem.replace(campoImagem.substring(0, endPosition), "");
 
     const requestBody = {
-        imageBase64: campoImagem,
+        capaBase64: campoImagem,
         tituloPostagem: campoTituloPostagem.value,
         textoPostagem: campoTextoPostagem,
-        tags: campoTags.value
+        tags: campoTags.value,
+        publicada: finalizada
     };
 
     fetch("http://localhost:8080/api/postagem", {

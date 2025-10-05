@@ -26,7 +26,7 @@ public class PostagemController {
     }
 
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Postagem criarPostagem(@RequestBody Postagem p, @AuthenticationPrincipal UserDetails user) {
+    public Postagem criarPostagem(@RequestBody PostagemCDTO p, @AuthenticationPrincipal UserDetails user) {
         return ps.criarPostagem(p, us.buscarId(user));
     }
 

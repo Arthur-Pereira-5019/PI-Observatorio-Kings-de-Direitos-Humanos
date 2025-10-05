@@ -27,16 +27,12 @@ public class ImagemService {
     @Autowired
     TokenService ts;
 
-    public Imagem criarImagem(CriarImagemRequest cir, String token) {
+    public Imagem criarImagem(CriarImagemRequest cir, Long id) {
         if(cir == null) {
             throw new NullResourceException("Request de Criação de Imagem nula submetido");
         }
-        if(token == null || token.isBlank()) {
-            throw new UnableToAuthenticateUser("Token de Autenticação Vazio!");
-        }
 
-        var login = ts.validateToken(token);
-        Usuario u = us.encontrarPorEmail(login,false);
+        Usuario u = us.encontrarPorId(id, false);
 
         Imagem i = new Imagem();
         byte[] imageByte = new byte[0];

@@ -4,6 +4,7 @@ import com.kings.okdhvi.exception.NullResourceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.postagem.RevisaoPostagemException;
 import com.kings.okdhvi.model.*;
+import com.kings.okdhvi.model.requests.CriarImagemRequest;
 import com.kings.okdhvi.model.requests.OcultarRecursoRequest;
 import com.kings.okdhvi.model.requests.PostagemRequest;
 import com.kings.okdhvi.model.requests.RevisorPostagemRequest;
@@ -23,6 +24,8 @@ public class PostagemServices {
     PostagemRepository pr;
     @Autowired
     UsuarioService us;
+    @Autowired
+    ImagemService is;
 
     public Postagem mockPostagem() {
         Postagem p = new Postagem();
@@ -41,10 +44,25 @@ public class PostagemServices {
     }
 
     @Transactional
-    public Postagem criarPostagem(Postagem post, Long usuarioId) {
-        if(post == null) {
+    public Postagem criarPostagem(PostagemCDTO pcdto, Long usuarioId) {
+        if(pcdto == null) {
             throw new NullResourceException("Postagem nula submetida!");
         }
+
+        if(pcdto.capaBase64() == null) {
+            throw new NullResourceException("Postagem sem capa submetida!");
+        }
+        Postagem post = new Postagem();
+        CriarImagemRequest cir = new CriarImagemRequest(pcdto.capaBase64(), "Capa", "Capa da publicacao" + pcdto.tituloPostagem());
+        Imagem i = is.criarImagem(cir, usuarioId);
+
+        post.setCapa(i);
+
+        post.setTextoPostagem(pcdto.textoPostagem());
+        post.setTituloPostagem(pcdto.tituloPostagem());
+        post.setTags(pcdto.tags());
+
+
         post.setAutor(us.encontrarPorId(usuarioId, false));
         post.setDataDaPostagem(Date.from(Instant.now()));
         post.setRevisor(null);

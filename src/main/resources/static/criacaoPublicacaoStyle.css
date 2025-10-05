@@ -127,3 +127,27 @@ html {
     color: rgb(0, 0, 0);
     border: 2px rgb(64, 148, 0) solid;
 }
+
+#capaPostagemInput {
+    position: absolute;
+    width: 24vw;
+    height: 16vw;
+    visibility: hidden;
+    z-index: 2;
+}
+
+#capaPostagem {
+    position: relative;
+    align-self: center;
+    border: solid black 2px;
+    background-color: rgb(211, 211, 211);
+    width: 24vw;
+    height: 16vw;
+}
+
+#capaPostagemPreview {
+    position: absolute;
+    z-index: 1;
+    width: 24vw;
+    height: 16vw;
+}
