@@ -3,6 +3,7 @@ let campoDescricao = document.getElementById("desc");
 let campoTitulo = document.getElementById("titulo_nova_imagem");
 let canva = document.getElementById("canva");
 let inserir = document.getElementById("inserir");
+let blur_nova_imagem = document.getElementById("blur_nova_imagem")
 
 window.iniciarPopupNovaImagem = function() {
 
@@ -11,10 +12,6 @@ window.iniciarPopupNovaImagem = function() {
     campoTitulo = document.getElementById("titulo_nova_imagem");
     canva = document.getElementById("canva");
     inserir = document.getElementById("inserir");
-
-    console.log("Arquivo:", document.getElementById("arquivo"));
-    console.log("Inserir:", document.getElementById("inserir"));
-
 
     function file_input() {
         const entrada = document.getElementById("arquivo");
@@ -62,5 +59,10 @@ window.iniciarPopupNovaImagem = function() {
     file.addEventListener("input", file_input);
     inserir.addEventListener("click", img_insert);
 
+    blur_nova_imagem.addEventListener("click", (e) => {
+        if (e.target === blur_nova_imagem) {
+            blur_nova_imagem.style.display = "none";
+        }
+    });
 
 }

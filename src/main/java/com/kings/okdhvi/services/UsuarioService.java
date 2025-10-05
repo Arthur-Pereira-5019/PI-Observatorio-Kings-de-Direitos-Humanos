@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,10 @@ public class UsuarioService {
     String CPFRepetidoRegex = "(.)\1{11}";
     String telefoneRegex = "[0-9]{2}9[1-9][0-9]{7}";
     Date dataMinima = new Date(0,Calendar.JANUARY,1);
+
+    public Long buscarId(UserDetails ud) {
+        return encontrarPorEmail(ud.getUsername(), false).getIdUsuario();
+    }
 
     public Usuario saveUsuario(Usuario u) {
         if(u == null) {

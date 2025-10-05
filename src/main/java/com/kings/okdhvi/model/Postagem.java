@@ -37,8 +37,13 @@ public class Postagem {
 
     @Column(nullable = true, length = 256)
     String tags;
+
     @Column
     boolean oculto;
+
+    @OneToOne
+    @JoinColumn(name="id_foto_perfil")
+    private Imagem fotoDePerfil;
 
     public String getTituloPostagem() {
         return tituloPostagem;
@@ -102,5 +107,13 @@ public class Postagem {
 
     public void setIdPostagem(Long idPostagem) {
         this.idPostagem = idPostagem;
+    }
+
+    public Imagem getFotoDePerfil() {
+        return fotoDePerfil;
+    }
+
+    public void setFotoDePerfil(Imagem fotoDePerfil) {
+        this.fotoDePerfil = fotoDePerfil;
     }
 }
