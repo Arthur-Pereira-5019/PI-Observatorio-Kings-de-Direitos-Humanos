@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet">
+
+        <style>
+            *{
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Inter", sans-serif;
+        }
+
+        body{
+            background-color: burlywood;
+        }
+
+        .fundo-popup-auditoria{
+            display: flex;
+            flex-direction: column;
+            gap: 2%;
+            padding: 2%;
+            height: 80vh;
+            width: 60vw;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); 
+            border: solid 5px #AA009F;
+            background-color: rgb(209, 209, 209);
+            justify-content: flex-start;
+            align-items: center;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .container-acao-cometida{
+            display: flex;
+            border-radius: 5px;
+            width: 100%;
+            height: 20%;
+            padding: 0.5rem;
+            border: 2px solid #AA009F;
+            background-color: rgb(235, 235, 235);
+        }
+
+        .container-foto-usuario-auditoria{
+            height: 100%;
+            width: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .foto-usuario-auditoria{
+            height: 50%;
+            width: auto;
+            border-radius: 50%;
+        }
+
+        .container-geral-data-user-motivacao-auditoria{
+            display: flex;
+            flex-direction: column;
+            margin-left: 1.5%;
+            height: 100%;
+            width: 90%;
+            position: relative;
+        }
+        
+        .container-nome-usuario-auditoria{
+            height: 30%;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            
+        }
+
+        .span-usuario{
+            font-size: 1.3rem;
+            font-weight: 600;
+
+        }
+
+        .container-data-motivacao-auditoria{
+            display: flex;
+            align-items: center;
+            height: 70%;
+            width: 100%;
+
+        }
+
+        .motivacao-motivacao-auditoria{
+            display: flex;
+            align-items: center;
+            width: 11%;
+            height: 100%;
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: rgb(48, 48, 48);
+
+        }
+
+        .motivacao-texto-auditoria{
+            display: flex;
+            align-items: center;
+            height: 100%;
+            width: 90%;
+            margin-left: 1%;
+            font-weight: 200;
+            font-size: 0.8rem;
+        }
+
+        </style>
+
+        </head>
+        <body>
+            <div class="fundo-popup-auditoria">
+                <div class="container-acao-cometida">
+                    <div class="container-foto-usuario-auditoria">
+                    <img src="https://randomuser.me/api/portraits/men/62.jpg" class="foto-usuario-auditoria" alt=""></div>
+                    <div class="container-geral-data-user-motivacao-auditoria">
+                        <div class="container-nome-usuario-auditoria"><span class="span-usuario">Emanuel Subtil de Oliveira Farias</span> silenciou <span class="span-usuario">Daniel Stamm Pessoa de Oliveira</span></div>
+                        <div class="container-data-motivacao-auditoria">
+                            <div class="motivacao-motivacao-auditoria">Motivação:</div>
+                            <div class="motivacao-texto-auditoria">
+                                A postagem foi ocultada por conter conteúdo que vai contra as diretrizes da comunidade, incluindo linguagem inapropriada e comentários ofensivos que poderiam gerar desconforto entre os membros. Nosso objetivo é manter um ambiente respeitoso, seguro e colaborativo para todos. A moderação entende a importância da liberdade de expressão, mas reforça que ela deve ser exercida com responsabilidade e empatia. Essa ação visa preservar a integridade da plataforma e o bem-estar dos participantes
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </body>
+        </html>
