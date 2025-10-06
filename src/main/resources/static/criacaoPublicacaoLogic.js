@@ -110,6 +110,10 @@ const btnLink = document.getElementById("link");
 const btnBold = document.getElementById("bold");
 const btnUnderlined = document.getElementById("underlined");
 const btnItalic = document.getElementById("italic");
+const btnFont_increase = document.getElementById("font_increase");
+const btnFont_reduce = document.getElementById("font_reduce");
+
+
 btnLink.addEventListener("click", function () {
     createLink();
 })
@@ -120,6 +124,12 @@ btnUnderlined.addEventListener("click", function () {
     createUnderline();
 })
 btnItalic.addEventListener("click", function () {
+    createItalic();
+})
+btnFont_increase.addEventListener("click", function () {
+    createItalic();
+})
+btnFont_reduce.addEventListener("click", function () {
     createItalic();
 })
 
@@ -135,7 +145,11 @@ function getHTML() {
 }
 
 textoPublicacao.addEventListener("keydown", function (e) {
-    // Ctrl + B → Negrito
+    if (e.key === "Enter") {
+        e.preventDefault();
+        document.execCommand("insertHTML", false, "<br><br>");
+    }
+
     if (e.ctrlKey && e.key === "b") {
         createBold();
         e.preventDefault();
@@ -165,6 +179,12 @@ textoPublicacao.addEventListener("keydown", function (e) {
     }
 });
 
+textoPublicacao.addEventListener("paste", function (e) {
+    e.preventDefault();
+    const text = (e.clipboardData || window.clipboardData).getData("text/plain");
+    document.execCommand("insertText", false, text);
+});
+
 function createLink() {
     document.execCommand("createLink", true, window.getSelection().toString())
     console.log(window.getSelection().toString())
@@ -180,4 +200,20 @@ function createBold() {
 
 function createUnderline() {
     document.execCommand("underline");
+}
+
+function aumentarTamanho() {
+    const campo = document.querySelector("textoPublicacao");
+    const span = document.createElement("span");
+    span.id = "tamanho"
+    span.textContent = "👉 inserido aqui";
+    inserir(span, campo, 10);
+}
+
+function inserirElemento(element, parent, position) {
+    const range = document.createRange();
+    const textNode = parent.firstChild;
+    range.setStart(textNode, position);
+    range.collapse(true);
+    range.insertNode(element);
 }

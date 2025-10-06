@@ -1,0 +1,66 @@
+body,
+html {
+    overflow-x: hidden;
+    margin: 0;
+    width: 100vw;
+    height: 200vh;
+
+}
+
+#container_publicacao {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 84%;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+    gap: 1vh;
+    height: 200vh;
+}
+
+#titulo {
+    font-weight: 800;
+    font-size: 42px;
+    color: darkred;
+    align-self: center;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+}
+
+#campoEdicao {
+    gap: 0;
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 1vh;
+}
+
+#campoEdicao * {
+    width: 3%
+}
+
+#textoPublicacao {
+    background-color: #ffffff;
+    width: 100%;
+    overflow-wrap: break-word;
+    flex: 20
+}
+
+#campoTags {
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    border-radius: 20em;
+}
+
+.textoBase {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 24px;
+}
+
+#capaPostagem {
+    width: 40vw;
+    aspect-ratio: 16/9;
+}

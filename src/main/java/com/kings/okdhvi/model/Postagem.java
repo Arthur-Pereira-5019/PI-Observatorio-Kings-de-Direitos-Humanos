@@ -20,9 +20,8 @@ public class Postagem {
     @Column(nullable = false)
     Date dataDaPostagem;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="idUsuario")
-    @PrimaryKeyJoinColumn
     Usuario autor;
     @Column(nullable = false, length = 32768)
     String textoPostagem;

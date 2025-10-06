@@ -40,7 +40,6 @@ seta_esquerda.addEventListener("click", function () {
                 return res.json();
             })
             .then(data => {
-                console.log(data);
                 textoEsquerda.textContent = data[0].titulo
                 textoDireita.textContent = data[1].titulo
 
