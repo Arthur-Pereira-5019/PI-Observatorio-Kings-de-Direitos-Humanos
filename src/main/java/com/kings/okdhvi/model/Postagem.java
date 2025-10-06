@@ -27,7 +27,7 @@ public class Postagem {
     @Column(nullable = false, length = 32768)
     String textoPostagem;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "revisores",
             joinColumns = @JoinColumn(name = "idPostagem"),
