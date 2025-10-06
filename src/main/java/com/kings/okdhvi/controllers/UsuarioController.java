@@ -2,6 +2,7 @@ package com.kings.okdhvi.controllers;
 
 import com.kings.okdhvi.infra.security.TokenService;
 import com.kings.okdhvi.model.Imagem;
+import com.kings.okdhvi.model.PedidoExclusaoConta;
 import com.kings.okdhvi.model.requests.PedidoLogin;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.services.UsuarioService;
@@ -13,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins="")
@@ -21,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 public class UsuarioController {
 
-    //AuthenticationPrincipal CustomUserDetails user
+    //AuthenticationPrincipal UserDetails user
     //Long userId = user.getId();
 
     @Autowired
@@ -36,9 +39,9 @@ public class UsuarioController {
         return us.saveUsuario(u);
     }
 
-
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Usuario encontrarUsuarioPeloId(@PathVariable("id") Long id) {
+    public Usuario encontrarUsuarioPeloId(@AuthenticationPrincipal UserDetails user) {
+        Long id = us.buscarId(user);
         return us.encontrarPorId(id, false);
     }
 
@@ -49,11 +52,11 @@ public class UsuarioController {
     }
 
     @PreAuthorize("hasRole('PADRAO')")
-    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
-    public Usuario atualizarUsuario(@RequestBody Usuario u) {
-        return us.atualizarUsuario(u);
+    @PutMapping(value = "/atualizarUsuario", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
+    public Usuario atualizarUsuario(@RequestBody Usuario u, @AuthenticationPrincipal UserDetails user) {
+        Long idRequisicao = us.buscarId(user);
+        return us.atualizarUsuario(u, idRequisicao);
     }
-
 
     @PreAuthorize("hasRole('PADRAO')")
     @PutMapping(value = "/{id}")
@@ -89,5 +92,12 @@ public class UsuarioController {
     public Usuario register(@RequestBody Usuario u) {
         return us.saveUsuario(u);
     }
+
+    @PostMapping("/requisitar_exclusao")
+    public PedidoExclusaoConta requisitarExclusao(@AuthenticationPrincipal UserDetails user) {
+        return us.requisitarExclusao(us.buscarId(user));
+    }
+
+
 
 }

@@ -1,55 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>Página Inicial</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-   
     <link rel="stylesheet" href="paginaInicialStyle.css">
     <link rel="stylesheet" href="cabecalhoStyle.css">
     <link rel="stylesheet" href="rodapeStyle.css">
 </head>
+
 <body>
 
-    
     <div id="header"></div>
 
-   
     <div class="container">
         <img class="logo" src="./imagens/logoObservatorio.png" alt="Logo">
     </div>
 
     <div class="container-noticias">
-        <img class="botao-seta" style="transform: scaleX(-1);" src="./imagens/setaIcon.png" alt="Seta para esquerda">
+        <img class="botao-seta" id="seta_esquerda" style="transform: scaleX(-1);" src="./imagens/setaIcon.png" alt="Seta para esquerda">
         <div class="noticia-container">
-            <img class="noticia" src="https://placehold.co/620x420" alt="Notícia">
-            <p class="texto-noticia">Notícia é noticiada em tal lugar em tal hora e momento tal além de tudo tal coisa</p>
+            <img class="noticia" id="imagem_esquerda" src="https://placehold.co/620x420" alt="Notícia">
+            <p class="texto-noticia" id="texto_esquerda">Notícia é noticiada em tal lugar em tal hora e momento tal além de tudo tal coisa
+            </p>
         </div>
         <div class="noticia-container">
-            <img class="noticia" src="https://placehold.co/620x420" alt="Notícia">
-            <p class="texto-noticia">Novos dados descobertos referente à tal coisa</p>
+            <img class="noticia" id="imagem_direita" src="https://placehold.co/620x420" alt="Notícia">
+            <p class="texto-noticia" id="texto_direita">Novos dados descobertos referente à tal coisa</p>
         </div>
-        <img class="botao-seta" src="./imagens/setaIcon.png" alt="Seta para direita">
+        <img class="botao-seta" id="seta_direita" src="./imagens/setaIcon.png" alt="Seta para direita">
     </div>
 
-    
-    <div id="posPopUp" style="display: none;">
+
+    <div id="posPopUp">
         <div id="registro"></div>
+
     </div>
 
-    
-    <div id="posPopUpLogin" style="display: none;">
+    <div id="posPopUpLogin">
         <div id="login"></div>
     </div>
 
-   
     <div id="footer"></div>
 
-  
     <script src="includeHtmlExterno.js" defer></script>
     <script src="includePopUpRegistro.js" defer></script>
     <script src="includePopUpLogin.js" defer></script>
+    <script src="telaInicialLogic.js" defer></script>
 
 </body>
+
 </html>

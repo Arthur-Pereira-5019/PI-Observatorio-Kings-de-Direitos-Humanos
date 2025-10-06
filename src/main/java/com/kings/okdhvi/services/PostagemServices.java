@@ -4,12 +4,16 @@ import com.kings.okdhvi.exception.NullResourceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.postagem.RevisaoPostagemException;
 import com.kings.okdhvi.model.*;
+import com.kings.okdhvi.model.requests.CriarImagemRequest;
 import com.kings.okdhvi.model.requests.OcultarRecursoRequest;
-import com.kings.okdhvi.model.requests.PostagemRequest;
 import com.kings.okdhvi.model.requests.RevisorPostagemRequest;
 import com.kings.okdhvi.repositories.PostagemRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -23,6 +27,21 @@ public class PostagemServices {
     PostagemRepository pr;
     @Autowired
     UsuarioService us;
+    @Autowired
+    ImagemService is;
+
+    public List<PostagemESDTO> encontrarPostagens(BuscaPaginada bp) {
+        Pageable pageable = PageRequest.of(bp.numeroPagina(), bp.numeroResultados(), Sort.by(bp.parametro()).descending());
+        if(bp.ascending()) {
+            pageable = PageRequest.of(bp.numeroPagina(), bp.numeroResultados(), Sort.by(bp.parametro()).ascending());
+        }
+        Page<Postagem> buscaPaginada = pr.findAll(pageable);
+
+        ArrayList<PostagemESDTO> retorno = new ArrayList<>();
+        List<Postagem> postagens = buscaPaginada.getContent();
+        postagens.forEach(p -> {retorno.add(parsePostagemToESDTO(p));});
+        return retorno;
+    }
 
     public Postagem mockPostagem() {
         Postagem p = new Postagem();
@@ -41,12 +60,26 @@ public class PostagemServices {
     }
 
     @Transactional
-    public Postagem criarPostagem(PostagemRequest p) {
-        if(p == null) {
+    public Postagem criarPostagem(PostagemCDTO pcdto, Long usuarioId) {
+        if(pcdto == null) {
             throw new NullResourceException("Postagem nula submetida!");
         }
-        Postagem post = p.postagem();
-        post.setAutor(us.encontrarPorId(p.id(), false));
+
+        if(pcdto.capaBase64() == null) {
+            throw new NullResourceException("Postagem sem capa submetida!");
+        }
+        Postagem post = new Postagem();
+        CriarImagemRequest cir = new CriarImagemRequest(pcdto.capaBase64(), "Capa", "Capa da publicacao" + pcdto.tituloPostagem());
+        Imagem i = is.criarImagem(cir, usuarioId);
+
+        post.setCapa(i);
+
+        post.setTextoPostagem(pcdto.textoPostagem());
+        post.setTituloPostagem(pcdto.tituloPostagem());
+        post.setTags(pcdto.tags());
+
+
+        post.setAutor(us.encontrarPorId(usuarioId, false));
         post.setDataDaPostagem(Date.from(Instant.now()));
         post.setRevisor(null);
         return pr.save(post);
@@ -94,5 +127,9 @@ public class PostagemServices {
         dm.setTipo("Postagem");
         dm.setUsuarioModerado(r.moderado());
         dm.setNomeModerado(p.getTituloPostagem());
+    }
+
+    public PostagemESDTO parsePostagemToESDTO(Postagem p) {
+       return new PostagemESDTO(p.getTituloPostagem(), p.getCapa());
     }
 }

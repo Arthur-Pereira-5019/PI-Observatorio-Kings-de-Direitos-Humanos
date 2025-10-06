@@ -1,7 +1,9 @@
 package com.kings.okdhvi.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @Entity
 @Table(name="Usuario")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idUsuario")
 public class Usuario implements Serializable, UserDetails {
 
     @Id
@@ -27,9 +30,6 @@ public class Usuario implements Serializable, UserDetails {
     @Column(nullable = false, length = 100)
     private String senha;
 
-    @OneToOne
-    private PedidoExclusaoConta pedidoExclusao;
-
     @Column(length = 14)
     private String telefone;
 
@@ -37,7 +37,7 @@ public class Usuario implements Serializable, UserDetails {
     private String cpf;
 
     @Column
-    private boolean notificacoesPorEmail;
+    private Boolean notificacoesPorEmail = false;
 
     @OneToOne
     @JoinColumn(name="id_foto_perfil")
@@ -49,6 +49,9 @@ public class Usuario implements Serializable, UserDetails {
     @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(nullable = false)
     private Date dataDeNascimento;
+
+    @OneToOne(cascade = CascadeType.REMOVE)
+    private PedidoExclusaoConta pedidoExclusao;
 
     @JsonIgnore()
     @ManyToMany(mappedBy = "revisor")
@@ -207,14 +210,6 @@ public class Usuario implements Serializable, UserDetails {
         this.oculto = oculto;
     }
 
-    public PedidoExclusaoConta getPedidoExclusao() {
-        return pedidoExclusao;
-    }
-
-    public void setPedidoExclusao(PedidoExclusaoConta pedidoExclusao) {
-        this.pedidoExclusao = pedidoExclusao;
-    }
-
     public Imagem getFotoDePerfil() {
         return fotoDePerfil;
     }
@@ -229,5 +224,13 @@ public class Usuario implements Serializable, UserDetails {
 
     public void setNotificacoesPorEmail(boolean notificacoesPorEmail) {
         this.notificacoesPorEmail = notificacoesPorEmail;
+    }
+
+    public PedidoExclusaoConta getPedidoExclusao() {
+        return pedidoExclusao;
+    }
+
+    public void setPedidoExclusao(PedidoExclusaoConta pedidoExclusao) {
+        this.pedidoExclusao = pedidoExclusao;
     }
 }

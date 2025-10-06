@@ -1,17 +1,24 @@
 package com.kings.okdhvi.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.Instant;
 import java.util.Date;
 
 @Entity
+@Table
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class PedidoExclusaoConta {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @JsonIdentityReference(alwaysAsId = true)
     private Usuario usuarioPedido;
 
     @Column
@@ -44,5 +51,14 @@ public class PedidoExclusaoConta {
 
     public void setDataPedido(Date dataPedido) {
         this.dataPedido = dataPedido;
+    }
+
+    public PedidoExclusaoConta(Long id, Usuario usuarioPedido, Date dataPedido) {
+        this.id = id;
+        this.usuarioPedido = usuarioPedido;
+        this.dataPedido = dataPedido;
+    }
+
+    public PedidoExclusaoConta() {
     }
 }

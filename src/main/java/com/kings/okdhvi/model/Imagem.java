@@ -1,5 +1,6 @@
 package com.kings.okdhvi.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -18,11 +19,15 @@ public class Imagem {
     @Column
     Date dataImagem;
 
+    @Column
+    String tipoImagem;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long idImagem;
 
     @Lob
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     byte[] imagem;
 
     public String getTituloImagem() {
@@ -71,5 +76,13 @@ public class Imagem {
 
     public void setImagem(byte[] imagem) {
         this.imagem = imagem;
+    }
+
+    public String getTipoImagem() {
+        return tipoImagem;
+    }
+
+    public void setTipoImagem(String tipoImagem) {
+        this.tipoImagem = tipoImagem;
     }
 }

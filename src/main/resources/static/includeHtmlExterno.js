@@ -1,5 +1,9 @@
 const iconButton = document.getElementById("iconButton");
 
+const seta_esquerda = document.getElementById("seta_esquerda");
+const seta_direita = document.getElementById("seta_direita");
+
+let page = 0;
 
 async function carregarHTML(id, url, cssFile) {
     const response = await fetch(url);
@@ -17,16 +21,16 @@ async function carregarHTML(id, url, cssFile) {
 
 
 async function iniciar() {
-    await carregarHTML("header", "/cabecalho", "rodapeStyle.css"); 
+    await carregarHTML("header", "/cabecalho", "rodapeStyle.css");
     await carregarHTML("footer", "/rodape", "cabecalhoStyle.css");
-
 
     if (iconButton) {
         iconButton.addEventListener("click", function () {
-            
 
         });
-    } 
+    }
+
+    
 }
 
 document.addEventListener("DOMContentLoaded", iniciar);

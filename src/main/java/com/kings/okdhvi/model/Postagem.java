@@ -27,7 +27,7 @@ public class Postagem {
     @Column(nullable = false, length = 32768)
     String textoPostagem;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "revisores",
             joinColumns = @JoinColumn(name = "idPostagem"),
@@ -37,8 +37,13 @@ public class Postagem {
 
     @Column(nullable = true, length = 256)
     String tags;
+
     @Column
     boolean oculto;
+
+    @OneToOne
+    @JoinColumn(name="id_capa")
+    private Imagem capa;
 
     public String getTituloPostagem() {
         return tituloPostagem;
@@ -102,5 +107,13 @@ public class Postagem {
 
     public void setIdPostagem(Long idPostagem) {
         this.idPostagem = idPostagem;
+    }
+
+    public Imagem getCapa() {
+        return capa;
+    }
+
+    public void setCapa(Imagem capa) {
+        this.capa = capa;
     }
 }
