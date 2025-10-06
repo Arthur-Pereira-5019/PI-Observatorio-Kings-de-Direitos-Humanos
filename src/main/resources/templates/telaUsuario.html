@@ -2,333 +2,16 @@
 <html lang="pt-BR">
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="/usuarioStyle.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link
             href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
             rel="stylesheet">
-
-        <style>
-
-        *{
-            margin: 0;
-            box-sizing: border-box;
-            font-family: "Inter", sans-serif;
-        }
-
-        .container-universal{
-            width: 100%;
-            height: 100%;
-            display: flex;
-        }
-
-        .container-menu-usuario-geral{
-            height: 100vh;
-            width: 20%;
-            display: flex;
-            flex-shrink: 0;
-            align-items: center;
-        }
-
-        .container-menu-usuario-info{
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            width: 99%;
-            justify-content: left;
-            padding: 5%;
-            gap: 4%;
-        }
-
-        .container-imagem-user{
-            width: 100%;
-            height: auto;
-            display: flex;
-            justify-content: center;
-        }
-
-        .icon-user{
-            width: 75%;
-        }
-
-        .nome-usuario{
-            width: 100%;
-            height: auto;
-            padding-left: 5%;
-            font-size: 2.3rem;
-            font-weight: 900;
-            word-break: break-word;
-            font-family: "Inter", sans-serif;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .container-cargos{
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            height: 4.5%;
-            padding-left: 3%;
-        }
-        
-        .cargos{
-            position: absolute ;
-            text-align: center;     
-            width: 13%;
-            height: auto;
-            color: #ffffff;
-            font-size: 2rem;
-            font-weight: 100;   
-            border-radius: 100px;
-            font-family: "Inter", sans-serif;
-        }
-
-        #usuario{
-            background-color: #8C8C8C;
-            height: auto;
-            
-        }
-
-        #moderador{
-            background-color: #FF7B7B;
-            height: auto;
-        }
-
-        #especialista{
-            background-color: #C00003;
-            height: auto;
-        }
-
-        #administrador{
-            background-color: #560000;
-            height: auto;
-        }
-
-        #fundador{
-            background-color: #000000;
-            height: auto;
-        }
-
-        .container-botoes{
-            display: flex;
-            width: 100%;
-            height: auto;
-            gap: 5%;
-            padding-left: 5%;
-        }
-
-        .botao-add-cargo{
-            height: 8vh;
-            width: 8vh;
-            background-color: #AE00FF;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .barra-vertical{
-            border: solid 1px black;
-            height: 95vh;
-        }
-        .configuracao-usuario{
-            height: 8vh;
-            width: 8vh;
-            cursor: pointer;
-        }
-
-        .botao-requisitar{
-            height: 8vh;
-            width: 8vh;
-            background-color: #FF0004;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-        
-        .mais{
-            width: 70%;
-            height: 70%;
-        }
-
-        .botao-atividade-usuario{
-            height: 10vh;
-            width: 10vh;
-            background-color: #AA00FF;
-            border-radius: 50%;
-            position: absolute;
-            right: 1%;
-            top: 2%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        .icon-atividade{
-            height: 70%;
-        }
-
-        .container-geral-atividades{
-            display: flex;
-            height: 100vh;
-            width: 80%;
-            padding: 3%;
-            gap: 5%;
-            flex-direction: column;
-        }
-
-        .container-foruns{
-            display: flex;
-            width: 100%;
-            padding: 0.5%;
-            height: 8vh;
-            background-color: #252525;
-        }
-        .foto-forum{
-            height: 100%;
-        }
-
-        .container-info-forum{
-            width: 50%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            margin-left: 0.5%;
-        }
-        .titulo-forum{
-            display: flex;
-            align-items: flex-end;
-            width: 100%;
-            height: 70%;
-            color: #E40000;
-            font-size: 1.7rem;
-            font-weight: 400;
-        }
-        .container-nome-data{
-            margin-left: 0.5%;
-            display: flex;
-            width: 100%;
-            height: 50%;
-            gap: 3%;
-            
-        }
-        .nome-usuario-forum{
-            color: white;
-        }
-        .data-forum{
-            color: #C8C8C8;
-        }
-        .container-forum-justificacao{
-            display: flex;  
-            justify-content: flex-end;
-            width: 100%;
-            height: 100%;
-
-        }
-        .container-info-numero-forum{
-            display: flex;  
-            width: 20%;
-            height: 100%;
-        }
-        .container-resposta-forum{
-            display: flex;
-            flex-direction: column;
-            gap: 10%;
-            width: 90%;
-            height: 100%;
-            align-items: start;
-            justify-content: center;
-            color: white;
-            font-weight: 400;
-        }
-        .container-quantidade-forum{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            color: white;
-            gap: 10%;
-            width: 10%;
-            height: 100%;
-        }
-
-         /* Aqui começa o de publicacao */
-
-        .container-geral-publicacao{
-            height: 40vh;
-            width: 100%;
-            display: flex;
-            margin-top: 2%;
-            flex-direction: column;
-        }
-        .container-titulo-publicacao {
-            width: 100%;
-            height: 17%;
-            font-size: 3rem;
-            font-weight: 800;
-            color: #C00003;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-}
-
-        .container-imagem-publicacao{
-            margin-top: 0.75%;
-            height: 100%;
-            width: 35%;
-        }
-
-        .container-inferior-publicacao{
-            height: 83%;
-            width: 100%;
-            display: flex;
-            overflow: hidden;
-        }
-
-        .container-descricao-publicacao{
-            height: 100%;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            padding: 1%;
-            font-family: "Inter", sans-serif;
-        }
-
-        .imagem-publicacao{
-            height: 100%;
-            width: 100%;
-        }
-
-        .autor-publicacao{
-            font-size: 2.0rem;
-            font-weight: 500;
-        }
-
-        .data-publicacao{
-            font-size: 0.5;
-            font-weight: 100;
-
-        }
-
-        .primeiro-paragrafo-publicacao{
-            font-size: 1rem;
-            font-weight: 200;
-            margin-top: 1%;
-            word-break: break-word;
-        }
-
         
 
 
-        
-    </style>
     </head>
     <body>
         <div class="container-universal">
@@ -338,7 +21,7 @@
                 <div class="container-menu-usuario-info">
 
                     <div class="container-imagem-user">
-                        <img src="./imagens/icon-user.png" class="icon-user"
+                        <img src="/imagens/icon-user.png" class="icon-user"
                             alt="icone de usuário">
                     </div>
 
@@ -359,12 +42,12 @@
                         <img src="/imagens/engrenagem.png" class="configuracao-usuario" alt="engrenagem">
 
                         <div class="botao-requisitar">
-                            <img src="./imagens/mais-branco.png" class="mais"
+                            <img src="/imagens/mais-branco.png" class="mais"
                                 alt="sinal de mais">
                         </div>
 
                         <div class="botao-add-cargo">
-                            <img src="./imagens/mais-branco.png" class="mais"
+                            <img src="/imagens/mais-branco.png" class="mais"
                                 alt="sinal de mais">
                         </div>
 
@@ -403,7 +86,7 @@
                     </div>
                 </div>
 
-                <!-- Aqui vai as publicacao -->
+                
 
                 <div class="container-geral-publicacao">
 
@@ -465,9 +148,9 @@
 
         </div>
 
-        <!-- tem que ser a ultima linha -->
+        
         <div class="botao-atividade-usuario">
-            <img src="./imagens/atividades.png" class="icon-atividade"
+            <img src="/imagens/icon-prancheta.png" class="icon-atividade"
                  alt="icone de prancheta">
         </div>
 

@@ -39,14 +39,13 @@ public class UsuarioController {
         return us.saveUsuario(u);
     }
 
-    @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Usuario encontrarUsuarioLogado(@PathVariable("id") Long id, @Auth) {
-        return us.encontrarPorId(id, false);
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Usuario encontrarUsuarioLogado(@AuthenticationPrincipal UserDetails ud) {
+        return us.encontrarPorId(us.buscarId(ud), false);
     }
 
-    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Usuario encontrarUsuarioPeloId(@AuthenticationPrincipal UserDetails user) {
-        Long id = us.buscarId(user);
+    @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Usuario encontrarUsuarioPeloId(@PathVariable("id") Long id) {
         return us.encontrarPorId(id, false);
     }
 
