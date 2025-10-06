@@ -18,7 +18,7 @@ async function iniciar() {
     if (fundoPopupLogin) fundoPopupLogin.style.display = "none";
 
     const botaoAbrirLogin = document.getElementById("loginButtonCabc");
-    const botaoVoltarRegistro = document.getElementById("registerButtonCabc");
+    const botaoVoltarRegistro = document.getElementById("textoRegistrar");
     const fundoPopupRegistro = document.getElementById("posPopUp");
 
     if (botaoAbrirLogin && fundoPopupLogin) {
@@ -76,6 +76,7 @@ async function iniciar() {
                     }
                     
                 })
+
                 .catch(err => console.error(err));
         });
     }

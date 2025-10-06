@@ -39,11 +39,17 @@ public class UsuarioController {
         return us.saveUsuario(u);
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Usuario encontrarUsuarioLogado(@PathVariable("id") Long id, @Auth) {
+        return us.encontrarPorId(id, false);
+    }
+
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public Usuario encontrarUsuarioPeloId(@AuthenticationPrincipal UserDetails user) {
         Long id = us.buscarId(user);
         return us.encontrarPorId(id, false);
     }
+
 
     //@PreAuthorize("hasRole('MODER')")
     @GetMapping(value = "/mock", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -89,8 +95,10 @@ public class UsuarioController {
     }
 
     @PostMapping("/registrar")
-    public Usuario register(@RequestBody Usuario u) {
-        return us.saveUsuario(u);
+    public ResponseEntity<?> register(@RequestBody Usuario u, HttpServletResponse response) {
+        us.saveUsuario(u);
+        return login(new PedidoLogin(u.getEmail(), u.getSenha()), response);
+
     }
 
     @PostMapping("/requisitar_exclusao")
