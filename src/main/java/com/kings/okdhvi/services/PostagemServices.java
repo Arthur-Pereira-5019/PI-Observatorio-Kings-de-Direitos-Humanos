@@ -30,9 +30,12 @@ public class PostagemServices {
     @Autowired
     ImagemService is;
 
-    public List<Postagem> encontrarPostagens(int pageNumber, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("Date").descending());
-        Page<Postagem> buscaPaginada = pr.buscaPaginada(pageable);
+    public List<Postagem> encontrarPostagens(BuscaPaginada bp) {
+        Pageable pageable = PageRequest.of(bp.numeroPagina(), bp.numeroResultados(), Sort.by(bp.parametro()).descending());
+        if(bp.ascending()) {
+            pageable = PageRequest.of(bp.numeroPagina(), bp.numeroResultados(), Sort.by(bp.parametro()).ascending());
+        }
+        Page<Postagem> buscaPaginada = pr.findAll(pageable);
 
         return buscaPaginada.getContent();
     }
