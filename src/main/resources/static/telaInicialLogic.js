@@ -44,8 +44,8 @@ seta_esquerda.addEventListener("click", function () {
                 textoEsquerda.textContent = data[0].titulo
                 textoDireita.textContent = data[1].titulo
 
-                ImagemEsquerda.src = data[1].capa.imagem;
-                ImagemDireita.src = data[0].capa.imagem;
+                ImagemEsquerda.src = "data:image/"+data[1].capa.tipoImagem+";base64," + data[1].capa.imagem;
+                ImagemDireita.src = "data:image/"+data[0].capa.tipoImagem+";base64," + data[0].capa.imagem;
             })
     }
 }

@@ -55,6 +55,10 @@ async function publicarDocumento(finalizada) {
     let canva = document.getElementById("capaPostagemPreview");
     let campoImagem = canva.src;
     let endPosition = campoImagem.indexOf(",");
+    let fimPrefixo = imageData.indexOf(";")
+    let inicioPrefixo = imageData.indexOf("/")
+    prefixo = imageData.substring(inicioPrefixo, fimPrefixo);
+
     endPosition++;
     campoImagem = campoImagem.replace(campoImagem.substring(0, endPosition), "");
 
@@ -63,7 +67,8 @@ async function publicarDocumento(finalizada) {
         tituloPostagem: campoTituloPostagem.value,
         textoPostagem: campoTextoPostagem,
         tags: campoTags.value,
-        publicada: finalizada
+        publicada: finalizada,
+        tipoImagem: prefixo
     };
 
     fetch("http://localhost:8080/api/postagem", {
