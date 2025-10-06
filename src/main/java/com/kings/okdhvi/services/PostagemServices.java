@@ -6,11 +6,14 @@ import com.kings.okdhvi.exception.postagem.RevisaoPostagemException;
 import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.model.requests.CriarImagemRequest;
 import com.kings.okdhvi.model.requests.OcultarRecursoRequest;
-import com.kings.okdhvi.model.requests.PostagemRequest;
 import com.kings.okdhvi.model.requests.RevisorPostagemRequest;
 import com.kings.okdhvi.repositories.PostagemRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -26,6 +29,13 @@ public class PostagemServices {
     UsuarioService us;
     @Autowired
     ImagemService is;
+
+    public List<Postagem> encontrarPostagens(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("Date").descending());
+        Page<Postagem> buscaPaginada = pr.buscaPaginada(pageable);
+
+        return buscaPaginada.getContent();
+    }
 
     public Postagem mockPostagem() {
         Postagem p = new Postagem();
