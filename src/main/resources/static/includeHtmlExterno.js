@@ -23,8 +23,6 @@ async function carregarHTML(id, url, cssFile) {
 async function iniciar() {
     await carregarHTML("header", "/cabecalho", "rodapeStyle.css");
     await carregarHTML("footer", "/rodape", "cabecalhoStyle.css");
-    updateNews();
-
 
     if (iconButton) {
         iconButton.addEventListener("click", function () {
@@ -32,52 +30,7 @@ async function iniciar() {
         });
     }
 
-    seta_esquerda.addEventListener("click", function () {
-        if (page > 0) {
-            page--;
-            updateNews();
-        }
-    })
-
-    seta_direita.addEventListener("click", function () {
-        if (page < 3) {
-            page++;
-            updateNews();
-        }
-    })
-
-    function updateNews() {
-        const textoEsquerda = document.getElementById("texto_esquerda");
-        const textoDireita = document.getElementById("texto_direita");
-
-        const ImagemEsquerda = document.getElementById("imagem_esquerda");
-        const ImagemDireita = document.getElementById("imagem_direita");
-
-        const requestBody = {
-            numeroPagina: page,
-            numeroResultados: 2,
-            parametro: "dataDaPostagem",
-            ascending: false
-        };
-
-        fetch("http://localhost:8080/api/postagem/busca_paginada", {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(requestBody)
-        })
-            .then(res => {
-                if (!res.ok) throw new Error("Erro no servidor");
-                return res.json();
-            })
-            .then(data => {
-                console.log(data);
-                textoEsquerda.textContent = data[0].titulo
-                textoDireita.textContent = data[1].titulo
-
-                ImagemEsquerda = document.getElementById("imagem_esquerda");
-                ImagemDireita = document.getElementById("imagem_direita");
-            })
-    }
+    
 }
 
 document.addEventListener("DOMContentLoaded", iniciar);

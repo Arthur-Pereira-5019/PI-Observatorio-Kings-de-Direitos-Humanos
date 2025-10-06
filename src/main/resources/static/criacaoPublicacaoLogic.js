@@ -52,10 +52,10 @@ async function publicarDocumento(finalizada) {
     const campoTituloPostagem = document.getElementById("campoTitulo");
     const campoTextoPostagem = textoPublicacao.innerHTML;
     const campoTags = document.getElementById("campoTags");
-    let campoImagem = document.getElementById("capaPostagemInput").src;
+    let canva = document.getElementById("capaPostagemPreview");
+    let campoImagem = canva.src;
     let endPosition = campoImagem.indexOf(",");
     endPosition++;
-
     campoImagem = campoImagem.replace(campoImagem.substring(0, endPosition), "");
 
     const requestBody = {
