@@ -1,4 +1,4 @@
 package com.kings.okdhvi.model;
 
-public record PostagemESDTO (String titulo, String capa){
+public record PostagemESDTO (String titulo, Imagem capa){
 }

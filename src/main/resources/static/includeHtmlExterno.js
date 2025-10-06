@@ -23,6 +23,7 @@ async function carregarHTML(id, url, cssFile) {
 async function iniciar() {
     await carregarHTML("header", "/cabecalho", "rodapeStyle.css");
     await carregarHTML("footer", "/rodape", "cabecalhoStyle.css");
+    updateNews();
 
 
     if (iconButton) {
@@ -34,20 +35,28 @@ async function iniciar() {
     seta_esquerda.addEventListener("click", function () {
         if (page > 0) {
             page--;
+            updateNews();
         }
     })
 
     seta_direita.addEventListener("click", function () {
         if (page < 3) {
             page++;
+            updateNews();
         }
     })
 
     function updateNews() {
+        const textoEsquerda = document.getElementById("texto_esquerda");
+        const textoDireita = document.getElementById("texto_direita");
+
+        const ImagemEsquerda = document.getElementById("imagem_esquerda");
+        const ImagemDireita = document.getElementById("imagem_direita");
+
         const requestBody = {
-            numeroPagina: campoImagem,
+            numeroPagina: page,
             numeroResultados: 2,
-            parametro: "Date",
+            parametro: "dataDaPostagem",
             ascending: false
         };
 
@@ -61,7 +70,12 @@ async function iniciar() {
                 return res.json();
             })
             .then(data => {
-                data
+                console.log(data);
+                textoEsquerda.textContent = data[0].titulo
+                textoDireita.textContent = data[1].titulo
+
+                ImagemEsquerda = document.getElementById("imagem_esquerda");
+                ImagemDireita = document.getElementById("imagem_direita");
             })
     }
 }

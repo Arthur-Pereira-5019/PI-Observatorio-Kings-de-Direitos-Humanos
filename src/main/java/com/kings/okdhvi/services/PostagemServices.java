@@ -30,14 +30,17 @@ public class PostagemServices {
     @Autowired
     ImagemService is;
 
-    public List<Postagem> encontrarPostagens(BuscaPaginada bp) {
+    public List<PostagemESDTO> encontrarPostagens(BuscaPaginada bp) {
         Pageable pageable = PageRequest.of(bp.numeroPagina(), bp.numeroResultados(), Sort.by(bp.parametro()).descending());
         if(bp.ascending()) {
             pageable = PageRequest.of(bp.numeroPagina(), bp.numeroResultados(), Sort.by(bp.parametro()).ascending());
         }
         Page<Postagem> buscaPaginada = pr.findAll(pageable);
 
-        return buscaPaginada.getContent();
+        ArrayList<PostagemESDTO> retorno = new ArrayList<>();
+        List<Postagem> postagens = buscaPaginada.getContent();
+        postagens.forEach(p -> {retorno.add(parsePostagemToESDTO(p));});
+        return retorno;
     }
 
     public Postagem mockPostagem() {
@@ -124,5 +127,9 @@ public class PostagemServices {
         dm.setTipo("Postagem");
         dm.setUsuarioModerado(r.moderado());
         dm.setNomeModerado(p.getTituloPostagem());
+    }
+
+    public PostagemESDTO parsePostagemToESDTO(Postagem p) {
+       return new PostagemESDTO(p.getTituloPostagem(), p.getCapa());
     }
 }

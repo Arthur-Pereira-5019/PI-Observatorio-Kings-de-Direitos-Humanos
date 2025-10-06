@@ -54,7 +54,7 @@ public class PostagemController {
     }
 
     @PostMapping(value = "busca_paginada", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<Postagem> buscaPaginada(@RequestBody BuscaPaginada bp) {
+    public List<PostagemESDTO> buscaPaginada(@RequestBody BuscaPaginada bp) {
         return ps.encontrarPostagens(bp);
     }
 }
