@@ -2,9 +2,12 @@ package com.kings.okdhvi.controllers;
 
 import com.kings.okdhvi.infra.security.TokenService;
 import com.kings.okdhvi.model.Imagem;
+import com.kings.okdhvi.model.PedidoDeTitulacaoDTO;
 import com.kings.okdhvi.model.PedidoExclusaoConta;
+import com.kings.okdhvi.model.requests.AdicionarCargoRequest;
 import com.kings.okdhvi.model.requests.PedidoLogin;
 import com.kings.okdhvi.model.Usuario;
+import com.kings.okdhvi.model.requests.UsuarioADTO;
 import com.kings.okdhvi.services.UsuarioService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -58,7 +61,7 @@ public class UsuarioController {
 
     @PreAuthorize("hasRole('PADRAO')")
     @PutMapping(value = "/atualizarUsuario", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
-    public Usuario atualizarUsuario(@RequestBody Usuario u, @AuthenticationPrincipal UserDetails user) {
+    public Usuario atualizarUsuario(@RequestBody UsuarioADTO u, @AuthenticationPrincipal UserDetails user) {
         Long idRequisicao = us.buscarId(user);
         return us.atualizarUsuario(u, idRequisicao);
     }
@@ -71,10 +74,20 @@ public class UsuarioController {
 
     @PreAuthorize("hasRole('MODER')")
     @DeleteMapping(value = "/{id}")
-    public void deletarUsuario(@PathVariable Long id) {
-        us.deletarPeloId(id);
+    public void deletarUsuario(@PathVariable Long id, @AuthenticationPrincipal UserDetails ud) {
+        us.delecaoPorAdministrador(id, us.buscarId(ud));
     }
 
+    @PreAuthorize("hasRole('MODER')")
+    @PutMapping(value ="/{update_cargo}")
+    public void atualizarCargo(@AuthenticationPrincipal UserDetails ud, AdicionarCargoRequest adr) {
+        us.alterarTitulacao(us.buscarId(ud), adr);
+    }
+
+    @PostMapping(value="/requistar_cargo")
+    public void requisitarCargo(@AuthenticationPrincipal UserDetails ud, @RequestBody PedidoDeTitulacaoDTO pdtDTO) {
+        us.gerarPedidoDeTitulacao(us.buscarId(ud), pdtDTO);
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody PedidoLogin pl, HttpServletResponse response) {

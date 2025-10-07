@@ -32,14 +32,19 @@ window.iniciarPopupNovaImagem = function() {
 
     function img_insert() {
         let imageData = canva.src;
+        let fimPrefixo = imageData.indexOf(";")
+        let inicioPrefixo = imageData.indexOf("/")
         let endPosition = imageData.indexOf(",");
         endPosition++;
+        prefixo = imageData.substring(inicioPrefixo, fimPrefixo);
         imageData = imageData.replace(imageData.substring(0, endPosition), "");
+        
 
         const requestBody = {
             imageBase64: imageData,
             descricao: campoDescricao.value,
-            titulo: campoTitulo.value
+            titulo: campoTitulo.value,
+            tipoImagem: prefixo
         };
 
         fetch("http://localhost:8080/api/imagem", {

@@ -22,17 +22,14 @@ public class ImagemService {
 
     @Autowired
     ImagemRepository ir;
-    @Autowired
-    UsuarioService us;
+
     @Autowired
     TokenService ts;
 
-    public Imagem criarImagem(CriarImagemRequest cir, Long id) {
+    public Imagem criarImagem(CriarImagemRequest cir, Usuario u) {
         if(cir == null) {
             throw new NullResourceException("Request de Criação de Imagem nula submetido");
         }
-
-        Usuario u = us.encontrarPorId(id, false);
 
         Imagem i = new Imagem();
         byte[] imageByte = new byte[0];
@@ -41,6 +38,7 @@ public class ImagemService {
         } catch (Exception e) {
             throw new InvalidBase64ImageEncoding("A imagem não foi codificada na Base 64 corretamente! " + e.getMessage());
         }
+        i.setTipoImagem(cir.tipoImagem());
         i.setImagem(imageByte);
         i.setDonoImagem("("+u.getIdUsuario()+")" + u.getNome());
         i.setTituloImagem(cir.titulo());

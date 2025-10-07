@@ -26,7 +26,7 @@ public class ImagemController {
 
     @PostMapping(value = "")
     public Imagem criarImagem(@RequestBody CriarImagemRequest cir, @AuthenticationPrincipal UserDetails ud){
-        return is.criarImagem(cir, us.buscarId(ud));
+        return is.criarImagem(cir, us.encontrarPorId(us.buscarId(ud), false));
     }
 
     @GetMapping("/{id}")

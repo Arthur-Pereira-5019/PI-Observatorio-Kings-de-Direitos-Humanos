@@ -2,10 +2,11 @@ package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.NullResourceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
-import com.kings.okdhvi.exception.login.InvalidLoginInfoException;
 import com.kings.okdhvi.exception.usuario.*;
 import com.kings.okdhvi.model.*;
-import com.kings.okdhvi.repositories.PedidoDeTitulacaoRepository;
+import com.kings.okdhvi.model.requests.AdicionarCargoRequest;
+import com.kings.okdhvi.model.requests.CriarImagemRequest;
+import com.kings.okdhvi.model.requests.UsuarioADTO;
 import com.kings.okdhvi.repositories.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -30,7 +32,13 @@ public class UsuarioService {
     PedidoExclusaoContaServices pecs;
 
     @Autowired
+    ImagemService is;
+
+    @Autowired
     PedidoDeTitulacaoServices pets;
+
+    @Autowired
+            DecisaoModeradoraService dms;
 
     Logger logger = LoggerFactory.getLogger(UsuarioService.class);
 
@@ -49,7 +57,7 @@ public class UsuarioService {
         if(u == null) {
             throw new NullResourceException("Usuário nulo submetido");
         }
-        validarDados(u);
+        validarDados(u, true);
         u.setSenha(new BCryptPasswordEncoder().encode(u.getSenha()));
         u.setEstadoDaConta(EstadoDaContaEnum.PADRAO);
         return ur.save(u);
@@ -75,26 +83,50 @@ public class UsuarioService {
         return pec;
     }
 
-    /*public PedidoDeTitulacao requisitarPedidoDeTitulacao(Long id) {
+    @Transactional
+    public Usuario gerarPedidoDeTitulacao(Long id, PedidoDeTitulacaoDTO pdtDTO) {
+        PedidoDeTitulacao pet = new PedidoDeTitulacao();
         Usuario u = encontrarPorId(id, false);
-    }*/
 
-    public Usuario atualizarUsuario (Usuario novo, Long idTentado) {
-        if(!Objects.equals(idTentado, novo.getIdUsuario())) {
-            throw new InvalidLoginInfoException("Tentativa de atualização inválida!");
+
+        String anexo = pdtDTO.anexoBase64();
+        Imagem i = null;
+        if(anexo != null && !anexo.isEmpty()) {
+            CriarImagemRequest cir = new CriarImagemRequest(anexo, "Documento anexado pelo usuário " +
+                    u.getIdUsuario() + "- " + u.getNome(), "Documento de anexo", pdtDTO.tipoAnexo());
+            i = is.criarImagem(cir, u);
         }
+
+        pet.setAnexo(i);
+        EstadoDaContaEnum edce = EstadoDaContaEnum.MODERADOR;
+        switch (pdtDTO.cargoRequisitado()) {
+            case 5:
+                edce = EstadoDaContaEnum.ADMNISTRADOR;
+                break;
+            case 4:
+                edce = EstadoDaContaEnum.ESPECIALISTA;
+                break;
+        }
+        pet.setCargoRequisitado(edce);
+        pet.setMotivacao(pdtDTO.motivacao());
+        pet.setRequisitor(u);
+        pets.salvarPedidoTitulacao(pet);
+        u.setPedidoDeTitulacao(pet);
+        pets.salvarPedidoTitulacao(pet);
+        return ur.save(u);
+    }
+
+
+    public Usuario atualizarUsuario (UsuarioADTO novo, Long id) {
         if(novo.equals(null)) {
             throw new NullResourceException("Usuário nulo submetido");
         }
-        Usuario original = encontrarPorId(novo.getIdUsuario(), false);
-        original.setCpf(novo.getCpf());
-        original.setEmail(novo.getEmail());
-        original.setNome(novo.getNome());
-        original.setEmail(novo.getEmail());
-        original.setOculto(novo.isOculto());
-        original.setTelefone(novo.getTelefone());
-        original.setDataDeNascimento(novo.getDataDeNascimento());
-        original.setSenha(novo.getSenha());
+        Usuario original = encontrarPorId(id, false);
+        original.setNome(novo.nome());
+        original.setTelefone(novo.telefone());
+        original.setNotificacoesPorEmail(novo.notificacoesPorEmail());
+        original.setSenha(novo.senha());
+        validarDados(original, false);
         return ur.save(original);
     }
 
@@ -104,12 +136,14 @@ public class UsuarioService {
         Instant agora = Instant.now();
         pedidos.removeIf(p -> p.getDataPedido().toInstant().plus(30, ChronoUnit.DAYS).isAfter(agora));
         logger.info("Encontrado " + pedidos.size() + " marcados para deleção na data de hoje.");
-        pedidos.forEach(p -> {deletarPeloId(p.getUsuarioPedido().getIdUsuario());});
+        pedidos.forEach(p -> {delecaoProgramada(p.getUsuarioPedido().getIdUsuario());});
     }
 
-    public void validarDados(Usuario u) {
-        if(encontrarPorEmail(u.getEmail(), true) != null || encontrarPorCPF(u.getCpf(), true) != null) {
-            throw new DuplicatedResource("Usuário já existente!");
+    public void validarDados(Usuario u, boolean novo) {
+        if(novo) {
+            if(encontrarPorEmail(u.getEmail(), true) != null || encontrarPorCPF(u.getCpf(), true) != null) {
+                throw new DuplicatedResource("Usuário já existente!");
+            }
         }
 
         verificarCPF(u.getCpf());
@@ -135,9 +169,70 @@ public class UsuarioService {
         return u;
     }
 
-    public void deletarPeloId(Long id) {
-        ur.delete(encontrarPorId(id, false));
+    public void alterarTitulacao(Long id, AdicionarCargoRequest acr) {
+        Usuario r = encontrarPorId(id, false);
+        Usuario u = encontrarPorId(acr.id(), false);
+        if(u.getPedidoDeTitulacao() != null) {
+            pets.deletarPedidoDeTitulacaoPeloId(u.getPedidoDeTitulacao().getId());
+        }
+        EstadoDaContaEnum edc = EstadoDaContaEnum.PADRAO;
+        //Só pode ser 4 ou 6 (Poder de administrador, para garantir que ele possa adicionar novos admimnistrador) graças ao Pré-Authorize
+        int poder = r.getEstadoDaConta() == EstadoDaContaEnum.MODERADOR ? 4 : 6;
+        if(acr.idCargo() >= poder) {
+            throw new UnauthorizedActionException("O usuário não possui poder o suficiente para realizar tal operação.");
+        }
+        switch(acr.idCargo())
+        {
+            case 1:
+                edc = EstadoDaContaEnum.SUSPENSO;
+                u.setOculto(true);
+                break;
+            case 2:
+                edc = EstadoDaContaEnum.PADRAO;
+                break;
+            case 3:
+                edc = EstadoDaContaEnum.ESPECIALISTA;
+                break;
+            case 4:
+                edc = EstadoDaContaEnum.MODERADOR;
+                break;
+            case 5:
+                edc = EstadoDaContaEnum.ADMNISTRADOR;
+        }
+        u.setEstadoDaConta(edc);
+
     }
+
+    @Transactional
+    public void delecaoPorAdministrador(Long id, Long idRequisitor) {
+        Usuario u = encontrarPorId(id, false);
+        Usuario r = encontrarPorId(idRequisitor, false);
+        DecisaoModeradora dm = new DecisaoModeradora();
+        dm.setNomeModerado(u.getNome());
+        dm.setTipo("Usuário");
+        dm.setData(Date.from(Instant.now()));
+        dm.setResponsavel(r);
+        dm.setUsuarioModerado(u);
+        dm.setMotivacao("Usuário requisitou a própria deleção.");
+
+        dms.criarDecisaoModeradora(dm);
+        ur.deleteById(id);
+        ur.flush();
+    }
+
+    @Transactional
+    public void delecaoProgramada(Long id) {
+        Usuario u = encontrarPorId(id, false);
+        DecisaoModeradora dm = new DecisaoModeradora();
+        dm.setNomeModerado(u.getNome());
+        dm.setTipo("Usuário");
+        dm.setData(Date.from(Instant.now()));
+        dm.setResponsavel(null);
+        dm.setMotivacao("Deleção requisistada pelo usuário e auto-executada pelo sistema.");
+        dms.criarDecisaoModeradora(dm);
+        ur.delete(u);
+    }
+
 
     public Usuario encontrarPorId(Long id, boolean anulavel) {
         var u = ur.findById(id);

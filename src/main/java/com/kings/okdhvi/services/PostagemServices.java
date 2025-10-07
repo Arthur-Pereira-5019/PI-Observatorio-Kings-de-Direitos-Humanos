@@ -4,9 +4,7 @@ import com.kings.okdhvi.exception.NullResourceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.postagem.RevisaoPostagemException;
 import com.kings.okdhvi.model.*;
-import com.kings.okdhvi.model.requests.CriarImagemRequest;
-import com.kings.okdhvi.model.requests.OcultarRecursoRequest;
-import com.kings.okdhvi.model.requests.RevisorPostagemRequest;
+import com.kings.okdhvi.model.requests.*;
 import com.kings.okdhvi.repositories.PostagemRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,8 +67,9 @@ public class PostagemServices {
             throw new NullResourceException("Postagem sem capa submetida!");
         }
         Postagem post = new Postagem();
-        CriarImagemRequest cir = new CriarImagemRequest(pcdto.capaBase64(), "Capa", "Capa da publicacao" + pcdto.tituloPostagem());
-        Imagem i = is.criarImagem(cir, usuarioId);
+        CriarImagemRequest cir = new CriarImagemRequest(pcdto.capaBase64(), "Capa", "Capa da publicacao" + pcdto.tituloPostagem(), pcdto.tipoCapa());
+        Usuario u = us.encontrarPorId(usuarioId, false);
+        Imagem i = is.criarImagem(cir, u);
 
         post.setCapa(i);
 
@@ -79,7 +78,7 @@ public class PostagemServices {
         post.setTags(pcdto.tags());
 
 
-        post.setAutor(us.encontrarPorId(usuarioId, false));
+        post.setAutor(u);
         post.setDataDaPostagem(Date.from(Instant.now()));
         post.setRevisor(null);
         return pr.save(post);

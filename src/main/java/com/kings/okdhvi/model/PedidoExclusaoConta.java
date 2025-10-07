@@ -16,7 +16,7 @@ public class PedidoExclusaoConta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     @JsonIdentityReference(alwaysAsId = true)
     private Usuario usuarioPedido;
