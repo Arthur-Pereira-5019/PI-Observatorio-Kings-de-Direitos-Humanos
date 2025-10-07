@@ -21,12 +21,7 @@ async function iniciar() {
     const botaoVoltarRegistro = document.getElementById("btnIrRegistro");
     const fundoPopupRegistro = document.getElementById("posPopUp");
 
-    if (botaoAbrirLogin && fundoPopupLogin) {
-        botaoAbrirLogin.addEventListener("click", () => {
-            fundoPopupLogin.style.display = "flex";
-            if (fundoPopupRegistro) fundoPopupRegistro.style.display = "none";
-        });
-    }
+    
 
     if (botaoVoltarRegistro && fundoPopupRegistro) {
         botaoVoltarRegistro.addEventListener("click", () => {

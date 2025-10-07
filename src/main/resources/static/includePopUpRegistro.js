@@ -23,6 +23,36 @@ async function iniciar() {
 
     if (botaoAbrirRegistro && fundoPopupRegistro) {
         botaoAbrirRegistro.addEventListener("click", () => {
+
+        fetch("http://localhost:8080/api/user", {
+            method: 'GET', 
+            headers: {
+                'Content-Type': 'application/json',   
+                'Authorization': 'Bearer seu-token-aqui', 
+
+            }
+        })
+
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na requisição');
+            }
+            return response.json(); 
+        })
+
+        .then(data => {
+            usuarioId = data.id;
+            console.log('ID do usuário logado:', usuarioId);
+        })
+        
+        .catch(error => {
+            console.error('Erro:', error);
+        });
+
+
+
+
+
             fundoPopupRegistro.style.display = "flex";
         });
     }
