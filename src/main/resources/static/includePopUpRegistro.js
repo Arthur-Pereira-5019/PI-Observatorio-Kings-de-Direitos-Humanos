@@ -35,28 +35,32 @@ async function iniciar() {
 
         .then(response => {
             if (!response.ok) {
+                
                 throw new Error('Erro na requisição');
+                
             }
             return response.json(); 
         })
 
         .then(data => {
-            usuarioId = data.id;
+            usuarioId = data.idUsuario;
+            window.location.href = '/usuario/' + usuarioId;
             console.log('ID do usuário logado:', usuarioId);
         })
         
         .catch(error => {
+            fundoPopupRegistro.style.display = "flex";
             console.error('Erro:', error);
         });
 
+            
 
-
-
-
-            fundoPopupRegistro.style.display = "flex";
         });
+
     }
 
+
+    
     if (botaoAbrirLogin && fundoPopupLogin) {
         botaoAbrirLogin.addEventListener("click", () => {
             fundoPopupRegistro.style.display = "none";
