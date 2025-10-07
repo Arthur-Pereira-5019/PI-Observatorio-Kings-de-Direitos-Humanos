@@ -129,6 +129,6 @@ public class PostagemServices {
     }
 
     public PostagemESDTO parsePostagemToESDTO(Postagem p) {
-       return new PostagemESDTO(p.getTituloPostagem(), p.getCapa());
+       return new PostagemESDTO(p.getIdPostagem(), p.getTituloPostagem(), p.getCapa());
     }
 }

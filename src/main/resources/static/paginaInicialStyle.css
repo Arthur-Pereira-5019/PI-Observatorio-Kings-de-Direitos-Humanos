@@ -35,6 +35,7 @@
      margin: 0;
      padding: 0;
      width: 620px;
+     cursor: pointer;
  }
 
  .texto-noticia {

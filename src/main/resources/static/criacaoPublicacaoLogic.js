@@ -180,9 +180,16 @@ textoPublicacao.addEventListener("keydown", function (e) {
 });
 
 textoPublicacao.addEventListener("paste", function (e) {
-    e.preventDefault();
+        e.preventDefault();
     const text = (e.clipboardData || window.clipboardData).getData("text/plain");
-    document.execCommand("insertText", false, text);
+
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    selection.deleteFromDocument();
+    selection.getRangeAt(0).insertNode(document.createTextNode(text));
+
+    selection.collapseToEnd();
 });
 
 function createLink() {

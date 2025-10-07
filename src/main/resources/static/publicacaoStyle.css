@@ -3,7 +3,7 @@ html {
     overflow-x: hidden;
     margin: 0;
     width: 100vw;
-    height: 200vh;
+    height: auto;
 
 }
 
@@ -16,7 +16,8 @@ html {
     transform: translateX(-50%);
     position: relative;
     gap: 1vh;
-    height: 200vh;
+    height: auto;
+    padding-bottom: 2vh;
 }
 
 #titulo {
@@ -45,7 +46,6 @@ html {
     background-color: #ffffff;
     width: 100%;
     overflow-wrap: break-word;
-    flex: 20
 }
 
 #campoTags {

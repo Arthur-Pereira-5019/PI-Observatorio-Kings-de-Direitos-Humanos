@@ -1,22 +1,27 @@
+let linkNoticiaEsquerda;
+let linkNoticiaDireita;
+
 async function iniciarTelaInicial() {
     let page = 0;
     updateNews();
+    const noticiaDireita = document.getElementById("noticia_direita");
+    const noticiaEsquerda = document.getElementById("noticia_esquerda");
 
-seta_esquerda.addEventListener("click", function () {
+    seta_esquerda.addEventListener("click", function () {
         if (page > 0) {
             page--;
             updateNews();
         }
     })
 
-    seta_direita.addEventListener("click", function () {
+    seta_direita.addEventListener("click", async function () {
         if (page < 3) {
             page++;
             updateNews();
         }
     })
 
-    function updateNews() {
+    async function updateNews() {
         const textoEsquerda = document.getElementById("texto_esquerda");
         const textoDireita = document.getElementById("texto_direita");
 
@@ -43,10 +48,20 @@ seta_esquerda.addEventListener("click", function () {
                 textoEsquerda.textContent = data[0].titulo
                 textoDireita.textContent = data[1].titulo
 
-                ImagemEsquerda.src = "data:image/"+data[0].capa.tipoImagem+";base64," + data[0].capa.imagem;
-                ImagemDireita.src = "data:image/"+data[1].capa.tipoImagem+";base64," + data[1].capa.imagem;
+                linkNoticiaEsquerda = "http://localhost:8080/publicacao/" + data[0].idPostagem;
+                linkNoticiaDireita = "http://localhost:8080/publicacao/" + data[1].idPostagem;                
+
+                ImagemEsquerda.src = "data:image/" + data[0].capa.tipoImagem + ";base64," + data[0].capa.imagem;
+                ImagemDireita.src = "data:image/" + data[1].capa.tipoImagem + ";base64," + data[1].capa.imagem;
             })
+
     }
+    noticiaDireita.addEventListener("click", function () {
+        window.location.href = linkNoticiaDireita;
+    });
+    noticiaEsquerda.addEventListener("click", function () {
+        window.location.href = linkNoticiaEsquerda;
+    })
 }
 
-    document.addEventListener("DOMContentLoaded", iniciarTelaInicial);
+document.addEventListener("DOMContentLoaded", iniciarTelaInicial);
