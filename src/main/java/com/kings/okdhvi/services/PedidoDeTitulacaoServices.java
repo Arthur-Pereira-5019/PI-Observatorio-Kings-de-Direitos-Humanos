@@ -15,8 +15,8 @@ public class PedidoDeTitulacaoServices {
     @Autowired
     PedidoDeTitulacaoRepository petr;
 
-    public PedidoDeTitulacao salvarPedidoTitulacao(PedidoDeTitulacao pec) {
-        return petr.save(pec);
+    public PedidoDeTitulacao salvarPedidoTitulacao(PedidoDeTitulacao pet) {
+        return petr.save(pet);
     }
 
     public PedidoDeTitulacao encontrarPedidoDeTitulacao(Long id) {

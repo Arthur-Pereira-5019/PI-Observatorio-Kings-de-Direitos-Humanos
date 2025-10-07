@@ -96,6 +96,12 @@ public class ExceptionHandlerCustomizado {
 
     //Usuario
 
+    @ExceptionHandler(UnauthorizedActionException.class)
+    public final ResponseEntity<ExceptionResponse> handleUnauthorizedActionException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.UNAUTHORIZED);
+    }
+
     @ExceptionHandler(InvalidCPFException.class)
     public final ResponseEntity<ExceptionResponse> handleInvalidCPFException(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));

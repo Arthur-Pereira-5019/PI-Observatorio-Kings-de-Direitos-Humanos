@@ -5,7 +5,7 @@ import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.login.InvalidLoginInfoException;
 import com.kings.okdhvi.exception.usuario.*;
 import com.kings.okdhvi.model.*;
-import com.kings.okdhvi.repositories.PedidoDeTitulacaoRepository;
+import com.kings.okdhvi.model.requests.AdicionarCargoRequest;
 import com.kings.okdhvi.repositories.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -31,6 +31,9 @@ public class UsuarioService {
 
     @Autowired
     PedidoDeTitulacaoServices pets;
+
+    @Autowired
+            DecisaoModeradoraService dms;
 
     Logger logger = LoggerFactory.getLogger(UsuarioService.class);
 
@@ -75,9 +78,14 @@ public class UsuarioService {
         return pec;
     }
 
-    /*public PedidoDeTitulacao requisitarPedidoDeTitulacao(Long id) {
+    public PedidoDeTitulacao gerarPedidoDeTitulacao(Long id, PedidoDeTitulacao pet) {
         Usuario u = encontrarPorId(id, false);
-    }*/
+        pet.setRequisitor(u);
+        pets.salvarPedidoTitulacao(pet);
+        u.setPedidoDeTitulacao(pet);
+        ur.save(u);
+        return pets.salvarPedidoTitulacao(pet);
+    }
 
     public Usuario atualizarUsuario (Usuario novo, Long idTentado) {
         if(!Objects.equals(idTentado, novo.getIdUsuario())) {
@@ -135,8 +143,46 @@ public class UsuarioService {
         return u;
     }
 
-    public void deletarPeloId(Long id) {
-        ur.delete(encontrarPorId(id, false));
+    public void alterarTitulacao(Long id, AdicionarCargoRequest acr) {
+        Usuario r = encontrarPorId(id, false);
+        Usuario u = encontrarPorId(acr.id(), false);
+        if(u.getPedidoDeTitulacao() != null) {
+            pets.deletarPedidoDeTitulacaoPeloId(u.getPedidoDeTitulacao().getId());
+        }
+        EstadoDaContaEnum edc = EstadoDaContaEnum.PADRAO;
+        //Só pode ser 4 ou 6 (Poder de administrador, para garantir que ele possa adicionar novos admimnistrador) graças ao Pré-Authorize
+        int poder = r.getEstadoDaConta() == EstadoDaContaEnum.MODERADOR ? 4 : 6;
+        if(acr.idCargo() >= poder) {
+            throw new UnauthorizedActionException("O usuário não possui poder o suficiente para realizar tal operação.");
+        }
+        switch(acr.idCargo())
+        {
+            case 1:
+                edc = EstadoDaContaEnum.SUSPENSO;
+            case 2:
+                edc = EstadoDaContaEnum.PADRAO;
+            case 3:
+                edc = EstadoDaContaEnum.ESPECIALISTA;
+            case 4:
+                edc = EstadoDaContaEnum.MODERADOR;
+            case 5:
+                edc = EstadoDaContaEnum.ADMNISTRADOR;
+        }
+        u.setEstadoDaConta(edc);
+
+    }
+
+    public void deletarPeloId(Long id, Long idRequisitor) {
+        Usuario u = encontrarPorId(id, false);
+        Usuario r = encontrarPorId(idRequisitor, false);
+        DecisaoModeradora dm = new DecisaoModeradora();
+        dm.setNomeModerado(u.getNome());
+        dm.setTipo("Usuário");
+        dm.setData(Date.from(Instant.now()));
+        dm.setResponsavel(r);
+        dms.criarDecisaoModeradora(dm);
+        dm.setMotivacao("Usuário requisitou a própria deleção.");
+        ur.delete(u);
     }
 
     public Usuario encontrarPorId(Long id, boolean anulavel) {

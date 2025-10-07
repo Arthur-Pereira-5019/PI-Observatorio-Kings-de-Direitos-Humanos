@@ -43,6 +43,10 @@ public class Usuario implements Serializable, UserDetails {
     @JoinColumn(name="id_foto_perfil")
     private Imagem fotoDePerfil;
 
+    @OneToOne
+    @JoinColumn(name="id_pedido_titulacao")
+    private PedidoDeTitulacao pedidoDeTitulacao;
+
     @Column(nullable = false, length = 100, unique = true)
     private String email;
 
@@ -57,6 +61,8 @@ public class Usuario implements Serializable, UserDetails {
     @ManyToMany(mappedBy = "revisor")
     private List<Postagem> revisoes = new ArrayList<>();
 
+    @Column
+    @Enumerated(EnumType.STRING)
     public EstadoDaContaEnum getEstadoDaConta() {
         return estadoDaConta;
     }
@@ -218,19 +224,27 @@ public class Usuario implements Serializable, UserDetails {
         this.fotoDePerfil = fotoDePerfil;
     }
 
-    public boolean isNotificacoesPorEmail() {
-        return notificacoesPorEmail;
-    }
-
-    public void setNotificacoesPorEmail(boolean notificacoesPorEmail) {
-        this.notificacoesPorEmail = notificacoesPorEmail;
-    }
-
     public PedidoExclusaoConta getPedidoExclusao() {
         return pedidoExclusao;
     }
 
     public void setPedidoExclusao(PedidoExclusaoConta pedidoExclusao) {
         this.pedidoExclusao = pedidoExclusao;
+    }
+
+    public Boolean getNotificacoesPorEmail() {
+        return notificacoesPorEmail;
+    }
+
+    public void setNotificacoesPorEmail(Boolean notificacoesPorEmail) {
+        this.notificacoesPorEmail = notificacoesPorEmail;
+    }
+
+    public PedidoDeTitulacao getPedidoDeTitulacao() {
+        return pedidoDeTitulacao;
+    }
+
+    public void setPedidoDeTitulacao(PedidoDeTitulacao pedidoDeTitulacao) {
+        this.pedidoDeTitulacao = pedidoDeTitulacao;
     }
 }
