@@ -2,11 +2,11 @@ package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.NullResourceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
-import com.kings.okdhvi.exception.login.InvalidLoginInfoException;
 import com.kings.okdhvi.exception.usuario.*;
 import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.model.requests.AdicionarCargoRequest;
 import com.kings.okdhvi.model.requests.CriarImagemRequest;
+import com.kings.okdhvi.model.requests.UsuarioADTO;
 import com.kings.okdhvi.repositories.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -57,7 +57,7 @@ public class UsuarioService {
         if(u == null) {
             throw new NullResourceException("Usuário nulo submetido");
         }
-        validarDados(u);
+        validarDados(u, true);
         u.setSenha(new BCryptPasswordEncoder().encode(u.getSenha()));
         u.setEstadoDaConta(EstadoDaContaEnum.PADRAO);
         return ur.save(u);
@@ -83,22 +83,29 @@ public class UsuarioService {
         return pec;
     }
 
+    @Transactional
     public Usuario gerarPedidoDeTitulacao(Long id, PedidoDeTitulacaoDTO pdtDTO) {
         PedidoDeTitulacao pet = new PedidoDeTitulacao();
         Usuario u = encontrarPorId(id, false);
 
-        CriarImagemRequest cir = new CriarImagemRequest(pdtDTO.anexoBase64(), "Documento anexado pelo usuário " +
-                u.getIdUsuario() + "- " + u.getNome(), "Documento de anexo", pdtDTO.tipoAnexo());
 
-        Imagem i = is.criarImagem(cir, u);
+        String anexo = pdtDTO.anexoBase64();
+        Imagem i = null;
+        if(anexo != null && !anexo.isEmpty()) {
+            CriarImagemRequest cir = new CriarImagemRequest(anexo, "Documento anexado pelo usuário " +
+                    u.getIdUsuario() + "- " + u.getNome(), "Documento de anexo", pdtDTO.tipoAnexo());
+            i = is.criarImagem(cir, u);
+        }
 
         pet.setAnexo(i);
         EstadoDaContaEnum edce = EstadoDaContaEnum.MODERADOR;
         switch (pdtDTO.cargoRequisitado()) {
             case 5:
                 edce = EstadoDaContaEnum.ADMNISTRADOR;
+                break;
             case 4:
                 edce = EstadoDaContaEnum.ESPECIALISTA;
+                break;
         }
         pet.setCargoRequisitado(edce);
         pet.setMotivacao(pdtDTO.motivacao());
@@ -109,22 +116,17 @@ public class UsuarioService {
         return ur.save(u);
     }
 
-    public Usuario atualizarUsuario (Usuario novo, Long idTentado) {
-        if(!Objects.equals(idTentado, novo.getIdUsuario())) {
-            throw new InvalidLoginInfoException("Tentativa de atualização inválida!");
-        }
+
+    public Usuario atualizarUsuario (UsuarioADTO novo, Long id) {
         if(novo.equals(null)) {
             throw new NullResourceException("Usuário nulo submetido");
         }
-        Usuario original = encontrarPorId(novo.getIdUsuario(), false);
-        original.setCpf(novo.getCpf());
-        original.setEmail(novo.getEmail());
-        original.setNome(novo.getNome());
-        original.setEmail(novo.getEmail());
-        original.setOculto(novo.isOculto());
-        original.setTelefone(novo.getTelefone());
-        original.setDataDeNascimento(novo.getDataDeNascimento());
-        original.setSenha(novo.getSenha());
+        Usuario original = encontrarPorId(id, false);
+        original.setNome(novo.nome());
+        original.setTelefone(novo.telefone());
+        original.setNotificacoesPorEmail(novo.notificacoesPorEmail());
+        original.setSenha(novo.senha());
+        validarDados(original, false);
         return ur.save(original);
     }
 
@@ -137,9 +139,11 @@ public class UsuarioService {
         pedidos.forEach(p -> {delecaoProgramada(p.getUsuarioPedido().getIdUsuario());});
     }
 
-    public void validarDados(Usuario u) {
-        if(encontrarPorEmail(u.getEmail(), true) != null || encontrarPorCPF(u.getCpf(), true) != null) {
-            throw new DuplicatedResource("Usuário já existente!");
+    public void validarDados(Usuario u, boolean novo) {
+        if(novo) {
+            if(encontrarPorEmail(u.getEmail(), true) != null || encontrarPorCPF(u.getCpf(), true) != null) {
+                throw new DuplicatedResource("Usuário já existente!");
+            }
         }
 
         verificarCPF(u.getCpf());
@@ -181,12 +185,17 @@ public class UsuarioService {
         {
             case 1:
                 edc = EstadoDaContaEnum.SUSPENSO;
+                u.setOculto(true);
+                break;
             case 2:
                 edc = EstadoDaContaEnum.PADRAO;
+                break;
             case 3:
                 edc = EstadoDaContaEnum.ESPECIALISTA;
+                break;
             case 4:
                 edc = EstadoDaContaEnum.MODERADOR;
+                break;
             case 5:
                 edc = EstadoDaContaEnum.ADMNISTRADOR;
         }
