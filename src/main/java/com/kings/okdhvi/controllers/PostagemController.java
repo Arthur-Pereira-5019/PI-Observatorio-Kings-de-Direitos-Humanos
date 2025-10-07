@@ -1,7 +1,9 @@
 package com.kings.okdhvi.controllers;
 
 import com.kings.okdhvi.model.*;
-import com.kings.okdhvi.model.requests.PostagemRequest;
+import com.kings.okdhvi.model.requests.BuscaPaginada;
+import com.kings.okdhvi.model.requests.PostagemCDTO;
+import com.kings.okdhvi.model.requests.PostagemESDTO;
 import com.kings.okdhvi.model.requests.RevisorPostagemRequest;
 import com.kings.okdhvi.services.PostagemServices;
 import com.kings.okdhvi.services.UsuarioService;

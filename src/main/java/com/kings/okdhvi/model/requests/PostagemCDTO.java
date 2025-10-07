@@ -1,10 +1,4 @@
-package com.kings.okdhvi.model;
-
-import jakarta.persistence.*;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+package com.kings.okdhvi.model.requests;
 
 public record PostagemCDTO(
         String tituloPostagem,

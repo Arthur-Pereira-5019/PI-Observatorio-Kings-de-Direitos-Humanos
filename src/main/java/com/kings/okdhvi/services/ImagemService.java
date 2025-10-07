@@ -22,17 +22,14 @@ public class ImagemService {
 
     @Autowired
     ImagemRepository ir;
-    @Autowired
-    UsuarioService us;
+
     @Autowired
     TokenService ts;
 
-    public Imagem criarImagem(CriarImagemRequest cir, Long id) {
+    public Imagem criarImagem(CriarImagemRequest cir, Usuario u) {
         if(cir == null) {
             throw new NullResourceException("Request de Criação de Imagem nula submetido");
         }
-
-        Usuario u = us.encontrarPorId(id, false);
 
         Imagem i = new Imagem();
         byte[] imageByte = new byte[0];

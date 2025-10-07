@@ -6,6 +6,7 @@ import com.kings.okdhvi.exception.login.InvalidLoginInfoException;
 import com.kings.okdhvi.exception.usuario.*;
 import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.model.requests.AdicionarCargoRequest;
+import com.kings.okdhvi.model.requests.CriarImagemRequest;
 import com.kings.okdhvi.repositories.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -28,6 +30,9 @@ public class UsuarioService {
 
     @Autowired
     PedidoExclusaoContaServices pecs;
+
+    @Autowired
+    ImagemService is;
 
     @Autowired
     PedidoDeTitulacaoServices pets;
@@ -78,13 +83,30 @@ public class UsuarioService {
         return pec;
     }
 
-    public PedidoDeTitulacao gerarPedidoDeTitulacao(Long id, PedidoDeTitulacao pet) {
+    public Usuario gerarPedidoDeTitulacao(Long id, PedidoDeTitulacaoDTO pdtDTO) {
+        PedidoDeTitulacao pet = new PedidoDeTitulacao();
         Usuario u = encontrarPorId(id, false);
+
+        CriarImagemRequest cir = new CriarImagemRequest(pdtDTO.anexoBase64(), "Documento anexado pelo usuário " +
+                u.getIdUsuario() + "- " + u.getNome(), "Documento de anexo", pdtDTO.tipoAnexo());
+
+        Imagem i = is.criarImagem(cir, u);
+
+        pet.setAnexo(i);
+        EstadoDaContaEnum edce = EstadoDaContaEnum.MODERADOR;
+        switch (pdtDTO.cargoRequisitado()) {
+            case 5:
+                edce = EstadoDaContaEnum.ADMNISTRADOR;
+            case 4:
+                edce = EstadoDaContaEnum.ESPECIALISTA;
+        }
+        pet.setCargoRequisitado(edce);
+        pet.setMotivacao(pdtDTO.motivacao());
         pet.setRequisitor(u);
         pets.salvarPedidoTitulacao(pet);
         u.setPedidoDeTitulacao(pet);
-        ur.save(u);
-        return pets.salvarPedidoTitulacao(pet);
+        pets.salvarPedidoTitulacao(pet);
+        return ur.save(u);
     }
 
     public Usuario atualizarUsuario (Usuario novo, Long idTentado) {
@@ -112,7 +134,7 @@ public class UsuarioService {
         Instant agora = Instant.now();
         pedidos.removeIf(p -> p.getDataPedido().toInstant().plus(30, ChronoUnit.DAYS).isAfter(agora));
         logger.info("Encontrado " + pedidos.size() + " marcados para deleção na data de hoje.");
-        pedidos.forEach(p -> {deletarPeloId(p.getUsuarioPedido().getIdUsuario());});
+        pedidos.forEach(p -> {delecaoProgramada(p.getUsuarioPedido().getIdUsuario());});
     }
 
     public void validarDados(Usuario u) {
@@ -172,7 +194,8 @@ public class UsuarioService {
 
     }
 
-    public void deletarPeloId(Long id, Long idRequisitor) {
+    @Transactional
+    public void delecaoPorAdministrador(Long id, Long idRequisitor) {
         Usuario u = encontrarPorId(id, false);
         Usuario r = encontrarPorId(idRequisitor, false);
         DecisaoModeradora dm = new DecisaoModeradora();
@@ -180,10 +203,27 @@ public class UsuarioService {
         dm.setTipo("Usuário");
         dm.setData(Date.from(Instant.now()));
         dm.setResponsavel(r);
-        dms.criarDecisaoModeradora(dm);
+        dm.setUsuarioModerado(u);
         dm.setMotivacao("Usuário requisitou a própria deleção.");
+
+        dms.criarDecisaoModeradora(dm);
+        ur.deleteById(id);
+        ur.flush();
+    }
+
+    @Transactional
+    public void delecaoProgramada(Long id) {
+        Usuario u = encontrarPorId(id, false);
+        DecisaoModeradora dm = new DecisaoModeradora();
+        dm.setNomeModerado(u.getNome());
+        dm.setTipo("Usuário");
+        dm.setData(Date.from(Instant.now()));
+        dm.setResponsavel(null);
+        dm.setMotivacao("Deleção requisistada pelo usuário e auto-executada pelo sistema.");
+        dms.criarDecisaoModeradora(dm);
         ur.delete(u);
     }
+
 
     public Usuario encontrarPorId(Long id, boolean anulavel) {
         var u = ur.findById(id);

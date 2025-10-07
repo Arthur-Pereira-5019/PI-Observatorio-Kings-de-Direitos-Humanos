@@ -2,6 +2,7 @@ package com.kings.okdhvi.controllers;
 
 import com.kings.okdhvi.infra.security.TokenService;
 import com.kings.okdhvi.model.Imagem;
+import com.kings.okdhvi.model.PedidoDeTitulacaoDTO;
 import com.kings.okdhvi.model.PedidoExclusaoConta;
 import com.kings.okdhvi.model.requests.AdicionarCargoRequest;
 import com.kings.okdhvi.model.requests.PedidoLogin;
@@ -68,13 +69,18 @@ public class UsuarioController {
     @PreAuthorize("hasRole('MODER')")
     @DeleteMapping(value = "/{id}")
     public void deletarUsuario(@PathVariable Long id, @AuthenticationPrincipal UserDetails ud) {
-        us.deletarPeloId(id, us.buscarId(ud));
+        us.delecaoPorAdministrador(id, us.buscarId(ud));
     }
 
     @PreAuthorize("hasRole('MODER')")
     @PutMapping(value ="/{update_cargo}")
     public void atualizarCargo(@AuthenticationPrincipal UserDetails ud, AdicionarCargoRequest adr) {
         us.alterarTitulacao(us.buscarId(ud), adr);
+    }
+
+    @PostMapping
+    public void requisitarCargo(@AuthenticationPrincipal UserDetails ud, PedidoDeTitulacaoDTO pdtDTO) {
+        us.gerarPedidoDeTitulacao(us.buscarId(ud), pdtDTO);
     }
 
     @PostMapping("/login")

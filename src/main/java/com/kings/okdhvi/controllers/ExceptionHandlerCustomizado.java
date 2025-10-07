@@ -42,7 +42,7 @@ public class ExceptionHandlerCustomizado {
 
     @ExceptionHandler(AuthorizationDeniedException.class)
     public final Object handleAuthorizationDenied(Exception ex, WebRequest request) {
-        if(!srequest.getRequestURL().toString().contains("/api")) {
+        if(srequest.getRequestURL().toString().contains("/api")) {
             ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
             return new ResponseEntity<>(exceptionResponse, HttpStatus.UNAUTHORIZED);
         }

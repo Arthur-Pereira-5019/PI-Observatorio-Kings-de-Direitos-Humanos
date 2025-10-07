@@ -20,8 +20,9 @@ public class DecisaoModeradora {
     @Column(length = 100)
     String nomeModerado;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     Usuario usuarioModerado;
+
 
     @ManyToOne
     Usuario responsavel;

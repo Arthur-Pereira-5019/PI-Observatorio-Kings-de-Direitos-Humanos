@@ -13,15 +13,17 @@ public class PedidoDeTitulacao {
     @Column
     private String motivacao;
 
-    @OneToMany
-    private ArrayList<Imagem> anexos = new ArrayList<>();
-
     @OneToOne
+    private Imagem anexo;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Usuario requisitor;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+
 
     public EstadoDaContaEnum getCargoRequisitado() {
         return cargoRequisitado;
@@ -39,12 +41,12 @@ public class PedidoDeTitulacao {
         this.motivacao = motivacao;
     }
 
-    public ArrayList<Imagem> getAnexos() {
-        return anexos;
+    public Imagem getAnexo() {
+        return anexo;
     }
 
-    public void setAnexos(ArrayList<Imagem> anexos) {
-        this.anexos = anexos;
+    public void setAnexo(Imagem anexo) {
+        this.anexo = anexo;
     }
 
     public Usuario getRequisitor() {

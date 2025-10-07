@@ -20,7 +20,7 @@ public class Postagem {
     @Column(nullable = false)
     Date dataDaPostagem;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="idUsuario")
     Usuario autor;
     @Column(nullable = false, length = 32768)
