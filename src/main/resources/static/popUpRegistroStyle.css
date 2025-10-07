@@ -128,6 +128,13 @@
 
 }
 
+#btnIrLogin{
+    color: #2e52c7;
+    cursor: pointer;
+    text-decoration: underline;
+
+}
+
 .container-instrucoes {
     display: flex;
     width: 18vw;

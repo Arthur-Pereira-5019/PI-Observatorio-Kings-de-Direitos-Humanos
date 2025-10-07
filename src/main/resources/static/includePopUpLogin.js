@@ -18,7 +18,7 @@ async function iniciar() {
     if (fundoPopupLogin) fundoPopupLogin.style.display = "none";
 
     const botaoAbrirLogin = document.getElementById("loginButtonCabc");
-    const botaoVoltarRegistro = document.getElementById("textoRegistrar");
+    const botaoVoltarRegistro = document.getElementById("btnIrRegistro");
     const fundoPopupRegistro = document.getElementById("posPopUp");
 
     if (botaoAbrirLogin && fundoPopupLogin) {
@@ -69,14 +69,6 @@ async function iniciar() {
                     return res.json();
                 })
                 .then(() => window.location.href = "http://localhost:8080/")
-                .then(res => {
-                    if (res.ok){
-                        fundoPopupLogin.style.display = "none";
-
-                    }
-                    
-                })
-
                 .catch(err => console.error(err));
         });
     }
