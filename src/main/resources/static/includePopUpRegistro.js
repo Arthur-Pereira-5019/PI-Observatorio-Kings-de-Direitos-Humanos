@@ -18,15 +18,49 @@ async function iniciar() {
     if (fundoPopupRegistro) fundoPopupRegistro.style.display = "none";
 
     const botaoAbrirRegistro = document.getElementById("iconButton");
-    const botaoAbrirLogin = document.getElementById("loginButtonCabc");
+    const botaoAbrirLogin = document.getElementById("btnIrLogin");
     const fundoPopupLogin = document.getElementById("posPopUpLogin");
 
     if (botaoAbrirRegistro && fundoPopupRegistro) {
         botaoAbrirRegistro.addEventListener("click", () => {
+
+        fetch("http://localhost:8080/api/user", {
+            method: 'GET', 
+            headers: {
+                'Content-Type': 'application/json',   
+                'Authorization': 'Bearer seu-token-aqui', 
+
+            }
+        })
+
+        .then(response => {
+            if (!response.ok) {
+                
+                throw new Error('Erro na requisição');
+                
+            }
+            return response.json(); 
+        })
+
+        .then(data => {
+            usuarioId = data.idUsuario;
+            window.location.href = '/usuario/' + usuarioId;
+            console.log('ID do usuário logado:', usuarioId);
+        })
+        
+        .catch(error => {
             fundoPopupRegistro.style.display = "flex";
+            console.error('Erro:', error);
         });
+
+            
+
+        });
+
     }
 
+
+    
     if (botaoAbrirLogin && fundoPopupLogin) {
         botaoAbrirLogin.addEventListener("click", () => {
             fundoPopupRegistro.style.display = "none";
@@ -81,15 +115,6 @@ async function iniciar() {
                     inputDataNascRegistro.value = "";
                     window.location.href = "http://localhost:8080/";
                 })
-
-                .then(res => {
-                    if (res.ok){
-                        fundoPopupRegistro.style.display = "none";
-
-                    }
-                    
-                })
-
                 .catch(err => console.error(err));
         });
     }
