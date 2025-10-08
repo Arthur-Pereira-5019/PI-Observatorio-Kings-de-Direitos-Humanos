@@ -24,10 +24,6 @@ public class PostagemController {
     @Autowired
     UsuarioService us;
 
-    @GetMapping("/usuario/{id}")
-    public Postagem encontrarPeloUsuario(@PathVariable Long id) {
-        return ps.encontrarPeloUsuario(id);
-    }
 
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Postagem criarPostagem(@RequestBody PostagemCDTO p, @AuthenticationPrincipal UserDetails user) {
