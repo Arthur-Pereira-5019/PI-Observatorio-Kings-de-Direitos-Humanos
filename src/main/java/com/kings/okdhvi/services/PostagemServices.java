@@ -41,20 +41,9 @@ public class PostagemServices {
         return retorno;
     }
 
-    public Postagem mockPostagem() {
-        Postagem p = new Postagem();
-
-            Usuario u = us.mockUsuario();
-            p.setAutor(u);
-            p.setTags("noticia;crime");
-            List<Usuario> lu = new ArrayList<>();
-            lu.add(u);
-            p.setRevisor(lu);
-            p.setTextoPostagem("Mais um negro assassinado.");
-            p.setOculto(false);
-            p.setTituloPostagem("Morte");
-            p.setIdPostagem(1234L);
-        return p;
+    public Postagem encontrarPeloUsuario(Long id) {
+        Usuario u = us.encontrarPorId(id, false);
+        return pr.findByUsuario(u).orElseThrow(() -> new ResourceNotFoundException("Usuário sem nenhuma postagem"));
     }
 
     @Transactional

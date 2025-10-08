@@ -10,4 +10,5 @@ import java.util.Date;
 import java.util.Optional;
 
 public interface PostagemRepository extends JpaRepository<Postagem, Long> {
+    public Optional<Postagem> findByUsuario(Usuario u);
 }
