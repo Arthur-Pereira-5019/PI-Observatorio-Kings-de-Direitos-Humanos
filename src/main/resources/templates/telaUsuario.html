@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="/usuarioStyle.css">
         <link rel="stylesheet" href="/cabecalhoStyle.css">
         <link rel="stylesheet" href="/rodapeStyle.css">
+        <link rel="stylesheet" href="/configuracaoUsuarioPopupStyle.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,7 +46,7 @@
 
                     <div class="container-botoes">
 
-                        <img src="/imagens/engrenagem.png" class="configuracao-usuario" alt="engrenagem">
+                        <img src="/imagens/engrenagem.png" class="configuracao-usuario" id="btnConfigUser" alt="engrenagem">
 
                         <div class="botao-requisitar">
                             <img src="/imagens/mais-branco.png" class="mais"
@@ -154,6 +155,11 @@
 
         </div>
 
+        <div id="posPopUpConfigUser">
+            <div id="editarPerfil"></div>
+        </div>
+
+
         
         <div class="botao-atividade-usuario" id="btnAtvUser">
             <img src="/imagens/icon-prancheta.png" class="icon-atividade"
@@ -164,6 +170,7 @@
 
         <script src="/includeHtmlExterno.js" defer></script>
         <script src="/perfilLogic.js" defer></script>
+        <script src="/perfilIncludeLogic.js" defer></script>
 
 
     </body>

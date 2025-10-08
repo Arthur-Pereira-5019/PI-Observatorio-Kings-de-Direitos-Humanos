@@ -1,3 +1,4 @@
+
 async function iniciarPerfil() {
     const nomeUsuario = document.getElementById("nomeUsuario");
 
@@ -40,6 +41,8 @@ async function iniciarPerfil() {
     } catch (error) {
         console.error('Erro:', error);
     }
+
+
 }
 
 
