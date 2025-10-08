@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet">
+
+        <style>
+            *{
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Inter", sans-serif;
+        }
+
+        .container-foto-user-comentario-comentarios{
+            display: flex;
+            flex-direction: column;
+            width: 40%;
+            height: auto;
+            gap:0.2rem;
+        }
+
+        .container-usuario-foto-comentarios{
+            width: 100%;
+            height: 5vh;
+            gap: 1%;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.5rem;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .foto-usuario-comentarios{
+            height: 100%;
+            width: auto;
+            border-radius: 50%;
+        }
+        .container-texto-comentario{
+            position: relative;
+            border: solid 3.5px black;
+            border-radius: 30px;
+            text-align: justify;
+            padding: 2%;
+            font-size: 1rem;
+            font-weight: 400;
+            width: 100%;
+            height: auto;
+
+        }
+
+
+
+        </style>
+
+        </head>
+        <body>
+            
+            <div class="container-foto-user-comentario-comentarios">
+
+                <div class="container-usuario-foto-comentarios"> <img src="https://randomuser.me/api/portraits/men/94.jpg" class="foto-usuario-comentarios" alt="">Emanuel Subtil de Oliveira Farias</div>
+                <div class="container-texto-comentario">Comentários maiores que ocupam o texto de várias linhas terão essa aparência, o site deve ajustar o tamanho da caixa de comentários conforme o tamanho do comentário. Entretanto não tenho o que escrever aqui para ocupar isso tudo de espaço, apenas imaginem que o texto alcança o limite abaixo. Agora sigo escrevendo qualquer coisa apenas para preencher o espaço necessário e garantir que a contagem de caracteres alcance exatamente o total desejado que é quinhentos e doze.</div>
+            </div>
+
+            <div class="container-foto-user-comentario-comentarios">
+
+                <div class="container-usuario-foto-comentarios"> <img src="https://randomuser.me/api/portraits/men/94.jpg" class="foto-usuario-comentarios" alt="">Emanuel Subtil de Oliveira Farias</div>
+                <div class="container-texto-comentario">Comentários menores ficam assim.</div>
+            </div>
+
+            <div class="container-foto-user-comentario-comentarios">
+
+                <div class="container-usuario-foto-comentarios"> <img src="https://randomuser.me/api/portraits/men/94.jpg" class="foto-usuario-comentarios" alt="">Emanuel Subtil de Oliveira Farias</div>
+                <div class="container-texto-comentario">Comentários médios ficam geralmente dessa forma. E agora estou enrolando cada vez mais para que o texto fique médio e você possa ver como ele fique caso alguém não digite muito nem pouco</div>
+            </div>
+            
+
+        </body>
+        </html>
