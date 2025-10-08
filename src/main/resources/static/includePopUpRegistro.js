@@ -1,4 +1,4 @@
-    async function carregarHTML(id, url, cssFile) {
+async function carregarHTML(id, url, cssFile) {
     const response = await fetch(url);
     const data = await response.text();
     document.getElementById(id).innerHTML = data;

@@ -24,6 +24,43 @@ async function iniciarConfigUser() {
             console.log("oie")
         })
 
+        nomeAlterar = document.getElementById("campoNomeConfigUser")
+        senhaAlterar = document.getElementById("campoSenhaConfigUser")
+        senhaConfAlterar = document.getElementById("campoConfSenhaConfigUser")
+        telefoneAlterar = document.getElementById("campoTelefoneConfigUser")
+
+    const btnDeleteUser = document.getElementById("btnAplicar")
+    btnDeleteUser.addEventListener("click", ()=>{
+
+        const novoPut = {
+            telefone: telefoneAlterar.value,
+            nome: nomeAlterar.value,
+            notificacoesPorEmail: false,
+            senha: senhaAlterar.value
+            
+        }
+
+        fetch("http://localhost:8080/api/user/atualizarUsuario", {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'}, 
+            body: JSON.stringify(novoPut) 
+                
+        })
+          .then(res => {
+                    if (!res.ok) throw new Error("Erro no servidor");
+                    return res.json();
+                })
+                .then(() => {
+                    telefoneAlterar.value = ""
+                    nomeAlterar.value = ""
+                    senhaAlterar.value = ""
+                    senhaConfAlterar.value = ""
+                    
+                })
+                .catch(err => console.error(err));
+
+    })
+
         fundoPopupConfigUser.addEventListener("click", (e) => {
         if (e.target === fundoPopupConfigUser) {
             fundoPopupConfigUser.style.display = "none";
@@ -32,19 +69,7 @@ async function iniciarConfigUser() {
 
     }
 
-    /*if (botaoAbrirDeleteUser && fundoPopupDeleteUser) {
-        botaoAbrirDeleteUser.addEventListener("click", () => {
-            fundoPopupConfigUser.style.display = "none";
-            fundoPopupDeleteUser.style.display = "flex";
-        });
-    }
-
-    fundoPopupConfigUser.addEventListener("click", (e) => {
-        if (e.target === fundoPopupConfigUser) {
-            fundoPopupConfigUser.style.display = "none";
-        }
-    });
-*/
+    
 
 }
 
