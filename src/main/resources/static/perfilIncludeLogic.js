@@ -24,6 +24,12 @@ async function iniciarConfigUser() {
             console.log("oie")
         })
 
+        fundoPopupConfigUser.addEventListener("click", (e) => {
+        if (e.target === fundoPopupConfigUser) {
+            fundoPopupConfigUser.style.display = "none";
+        }
+    });
+
     }
 
     /*if (botaoAbrirDeleteUser && fundoPopupDeleteUser) {
