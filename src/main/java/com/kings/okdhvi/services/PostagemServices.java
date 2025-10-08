@@ -41,6 +41,20 @@ public class PostagemServices {
         return retorno;
     }
 
+    public List<PostagemESDTO> encontrarPostagensRefinada(BuscaPaginadaTexto bp) {
+        Pageable pageable = PageRequest.of(bp.numeroPagina(), bp.numeroResultados(), Sort.by(bp.parametro()).descending());
+        if(bp.ascending()) {
+            pageable = PageRequest.of(bp.numeroPagina(), bp.numeroResultados(), Sort.by(bp.parametro()).ascending());
+        }
+        Page<Postagem> buscaPaginada = pr.findAll(pageable);
+
+        ArrayList<PostagemESDTO> retorno = new ArrayList<>();
+        List<Postagem> postagens = buscaPaginada.getContent();
+        postagens.forEach(p -> {retorno.add(parsePostagemToESDTO(p));});
+
+        return retorno;
+    }
+
     public List<Postagem> encontrarPeloUsuario(Long id) {
         Usuario u = us.encontrarPorId(id, false);
         return pr.findByAutor(u);

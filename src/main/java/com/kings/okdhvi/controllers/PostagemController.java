@@ -1,10 +1,7 @@
 package com.kings.okdhvi.controllers;
 
 import com.kings.okdhvi.model.*;
-import com.kings.okdhvi.model.requests.BuscaPaginada;
-import com.kings.okdhvi.model.requests.PostagemCDTO;
-import com.kings.okdhvi.model.requests.PostagemESDTO;
-import com.kings.okdhvi.model.requests.RevisorPostagemRequest;
+import com.kings.okdhvi.model.requests.*;
 import com.kings.okdhvi.services.PostagemServices;
 import com.kings.okdhvi.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +55,10 @@ public class PostagemController {
     @PostMapping(value = "busca_paginada", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<PostagemESDTO> buscaPaginada(@RequestBody BuscaPaginada bp) {
         return ps.encontrarPostagens(bp);
+    }
+
+    @PostMapping(value = "busca_paginada_refinada", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public List<PostagemESDTO> buscaPaginada(@RequestBody BuscaPaginadaTexto bpt) {
+        return ps.encontrarPostagensRefinada(bpt);
     }
 }

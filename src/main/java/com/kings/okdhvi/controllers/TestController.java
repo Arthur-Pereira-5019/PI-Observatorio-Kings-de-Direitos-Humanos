@@ -36,7 +36,7 @@ public class TestController {
         return "publicacao";
     }
 
-    @RequestMapping("/publicacoes")
+    @RequestMapping("/publicacoes/{texto}")
     public String returnPublicacoes() {
         return "publicacoes";
     }
