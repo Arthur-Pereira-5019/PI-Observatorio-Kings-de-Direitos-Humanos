@@ -59,7 +59,7 @@ public class UsuarioController {
         return us.mockUsuario();
     }
 
-    @PreAuthorize("hasRole('PADRAO')")
+    @PreAuthorize("hasRole('ROLE_ESPEC')")
     @PutMapping(value = "/atualizarUsuario", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
     public Usuario atualizarUsuario(@RequestBody UsuarioADTO u, @AuthenticationPrincipal UserDetails user) {
         Long idRequisicao = us.buscarId(user);

@@ -9,6 +9,7 @@ import com.kings.okdhvi.services.PostagemServices;
 import com.kings.okdhvi.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ public class PostagemController {
     UsuarioService us;
 
 
+    @PreAuthorize("hasR")
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Postagem criarPostagem(@RequestBody PostagemCDTO p, @AuthenticationPrincipal UserDetails user) {
         return ps.criarPostagem(p, us.buscarId(user));

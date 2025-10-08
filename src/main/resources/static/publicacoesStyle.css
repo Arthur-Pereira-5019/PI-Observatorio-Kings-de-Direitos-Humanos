@@ -23,13 +23,13 @@
      width: 95%;
  }
 
- .botao-moderador {
+ #botao-moderador {
      margin-right: 1%;
      height: 10vh;
      width: 10vh;
      background-color: orange;
      border-radius: 50%;
-     display: flex;
+     display: none;
      justify-content: center;
      align-items: center;
      cursor: pointer;
