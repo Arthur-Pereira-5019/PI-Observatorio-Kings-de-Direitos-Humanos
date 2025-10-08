@@ -21,6 +21,21 @@ async function iniciar() {
             texto.innerHTML = data.textoPostagem
         })
 
+    botaoOcultar = document.getElementById("botao_ocultar")
+    fetch("http://localhost:8080/api/user", {
+        headers: { 'Content-Type': 'application/json' },
+    })
+        .then(res => {
+            if (!res.ok) throw new Error("Erro no servidor");
+            return res.json();
+        })
+        .then(data => {
+            if (data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMNISTRADOR") {
+                botaoOcultar.style.display = "flex";
+            }
+
+        })
+        .catch(err => console.error(err));
 }
 
 document.addEventListener("DOMContentLoaded", iniciar)
