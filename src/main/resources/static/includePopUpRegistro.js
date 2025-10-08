@@ -4,7 +4,7 @@ async function carregarHTML(id, url, cssFile) {
     document.getElementById(id).innerHTML = data;
 
     if (cssFile) {
-        let link = document.createElement("link");
+        const link = document.createElement("link");
         link.rel = "stylesheet";
         link.href = cssFile;
         document.head.appendChild(link);
@@ -12,84 +12,108 @@ async function carregarHTML(id, url, cssFile) {
 }
 
 async function iniciar() {
-    
     await carregarHTML("registro", "/popupRegistro", "popUpRegistroStyle.css");
 
-    const fundoPopup = document.getElementById("posPopUp");
-    if (fundoPopup) fundoPopup.style.display = "none";
+    const fundoPopupRegistro = document.getElementById("posPopUp");
+    if (fundoPopupRegistro) fundoPopupRegistro.style.display = "none";
 
-    
-    const iconButton = document.getElementById("iconButton");
-    if (iconButton && fundoPopup) {
-        iconButton.addEventListener("click", () => {
-            fundoPopup.style.display = "flex";
+    const botaoAbrirRegistro = document.getElementById("iconButton");
+    const botaoAbrirLogin = document.getElementById("btnIrLogin");
+    const fundoPopupLogin = document.getElementById("posPopUpLogin");
+
+    if (botaoAbrirRegistro && fundoPopupRegistro) {
+        botaoAbrirRegistro.addEventListener("click", () => {
+
+        fetch("http://localhost:8080/api/user", {
+            method: 'GET', 
+            headers: {
+                'Content-Type': 'application/json',   
+                
+            }
+        })
+
+            .then(response => {
+                if (!response.ok) {
+                    
+                    throw new Error('Erro na requisição');
+                    
+                }
+                return response.json(); 
+            })
+
+            .then(data => {            
+                usuarioId = data.idUsuario;
+                
+                window.location.href = '/usuario/' + usuarioId;
+                
+            })
+            
+            .catch(error => {
+                fundoPopupRegistro.style.display = "flex";
+                console.error('Erro:', error);
+            });
+
+        });
+
+    }
+
+    if (botaoAbrirLogin && fundoPopupLogin) {
+        botaoAbrirLogin.addEventListener("click", () => {
+            fundoPopupRegistro.style.display = "none";
+            fundoPopupLogin.style.display = "flex";
         });
     }
 
-    
-    const fechar = document.querySelector(".botao-fechar");
-    if (fechar && fundoPopup) {
-        fechar.addEventListener("click", () => {
-            fundoPopup.style.display = "none";
-        });
-    }
-
-    
-    fundoPopup.addEventListener("click", (e) => {
-        if (e.target === fundoPopup) {
-            fundoPopup.style.display = "none";
+    fundoPopupRegistro.addEventListener("click", (e) => {
+        if (e.target === fundoPopupRegistro) {
+            fundoPopupRegistro.style.display = "none";
         }
     });
 
-const registerButton = document.getElementById("registerButton");
+    const registerButton = document.getElementById("registerButton");
+    const senhaInputRegistro = document.getElementById("senhaInputRegistro");
+    const confSenhaInputRegistro = document.getElementById("confSenhaInputRegistro");
+    const inputNomeRegistro = document.getElementById("inputNomeRegistro");
+    const inputTelefoneRegistro = document.getElementById("inputTelefoneRegistro");
+    const inputCpfRegistro = document.getElementById("inputCpfRegistro");
+    const inputEmailRegistro = document.getElementById("inputEmailRegistro");
+    const inputDataNascRegistro = document.getElementById("inputDataNascRegistro");
 
-const senhaInputRegistro = document.getElementById("senhaInputRegistro");
-const confSenhaInputRegistro = document.getElementById("confSenhaInputRegistro");
-const inputNomeRegistro = document.getElementById("inputNomeRegistro");
-const inputTelefoneRegistro = document.getElementById("inputTelefoneRegistro");
-const inputCpfRegistro = document.getElementById("inputCpfRegistro");
-const inputEmailRegistro = document.getElementById("inputEmailRegistro");
-const inputDataNascRegistro = document.getElementById("inputDataNascRegistro");
+    if (registerButton) {
+        registerButton.addEventListener("click", () => {
+            if (senhaInputRegistro.value !== confSenhaInputRegistro.value) return;
 
-registerButton.addEventListener("click", () => {
-  const novoPost = {
-    title: 'dadosRegistro',
-    nome: inputNomeRegistro.value,
-    senha: senhaInputRegistro.value,
-    telefone: inputTelefoneRegistro.value,
-    cpf: inputCpfRegistro.value,
-    email: inputEmailRegistro.value,
-    dataDeNascimento: inputDataNascRegistro.value
-  };
+            const novoPost = {
+                nome: inputNomeRegistro.value,
+                senha: senhaInputRegistro.value,
+                telefone: inputTelefoneRegistro.value,
+                cpf: inputCpfRegistro.value,
+                email: inputEmailRegistro.value,
+                dataDeNascimento: inputDataNascRegistro.value
+            };
 
-
-  fetch("http://localhost:8080/api/user", {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(novoPost)
-  })
-  .then(res => {
-    if (!res.ok) throw new Error("Erro no servidor");
-    return res.json();
-  })
-  .then(data => {
-    console.log("Registro feito:", data);
-    inputNomeRegistro.value = '';
-    senhaInputRegistro.value = '';
-    confSenhaInputRegistro.value = '';
-    inputTelefoneRegistro.value = '';
-    inputCpfRegistro.value = '';
-    inputEmailRegistro.value = '';
-    inputDataNascRegistro.value = '';
-
-    window.location.href = "http://localhost:8080/"
-
-  })
-  .catch(err => console.error(err));
-});
-
+            fetch("http://localhost:8080/api/user", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(novoPost)
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error("Erro no servidor");
+                    return res.json();
+                })
+                .then(() => {
+                    inputNomeRegistro.value = "";
+                    senhaInputRegistro.value = "";
+                    confSenhaInputRegistro.value = "";
+                    inputTelefoneRegistro.value = "";
+                    inputCpfRegistro.value = "";
+                    inputEmailRegistro.value = "";
+                    inputDataNascRegistro.value = "";
+                    window.location.href = "http://localhost:8080/";
+                })
+                .catch(err => console.error(err));
+        });
+    }
 }
 
-
 document.addEventListener("DOMContentLoaded", iniciar);
-

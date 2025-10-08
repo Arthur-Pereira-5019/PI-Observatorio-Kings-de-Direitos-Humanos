@@ -121,6 +121,19 @@
     accent-color: #cf3561;
 }
 
+#textoEntrar{
+    color: rgb(81, 96, 231);
+    cursor: pointer;
+    text-decoration: underline;
+
+}
+
+#btnIrLogin{
+    color: #2e52c7;
+    cursor: pointer;
+    text-decoration: underline;
+
+}
 
 .container-instrucoes {
     display: flex;

@@ -26,6 +26,11 @@ async function iniciar() {
 
     if (iconButton) {
         iconButton.addEventListener("click", function () {
+            fetch("http://localhost:8080/api/user", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+        
+            })
 
         });
     }
