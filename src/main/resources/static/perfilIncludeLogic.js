@@ -39,6 +39,7 @@ async function iniciarConfigUser() {
             senha: senhaAlterar.value
             
         }
+        console.log(senhaAlterar.value)
 
         fetch("http://localhost:8080/api/user/atualizarUsuario", {
             method: 'PUT',
@@ -55,21 +56,31 @@ async function iniciarConfigUser() {
                     nomeAlterar.value = ""
                     senhaAlterar.value = ""
                     senhaConfAlterar.value = ""
+
+                    fundoPopupConfigUser.style.display = "none";
                     
                 })
                 .catch(err => console.error(err));
-
+                
     })
 
         fundoPopupConfigUser.addEventListener("click", (e) => {
         if (e.target === fundoPopupConfigUser) {
             fundoPopupConfigUser.style.display = "none";
         }
+    
+        const fundoPopupDelete = document.getElementById("posPopUpDelete");
+        const btnDeleteUser = document.getElementById("btnDelete")
+
+        if (btnDeleteUser && fundoPopupDelete) {
+            btnDeleteUser.addEventListener("click", () => {
+                fundoPopupDelete.style.display = "flex";
+            });
+        }
+
     });
 
     }
-
-    
 
 }
 
