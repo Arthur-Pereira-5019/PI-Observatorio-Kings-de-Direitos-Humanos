@@ -37,6 +37,11 @@ public class PageControllers {
         return "popupLogin";
     }
 
+    @GetMapping("/popupEditarPerfil")
+    public String popupEditarPerfil() {
+        return "configuracaoUsuarioPopup";
+    }
+
     @GetMapping("/imagem/{id}")
     public String imageView() {
         return "imagem";
