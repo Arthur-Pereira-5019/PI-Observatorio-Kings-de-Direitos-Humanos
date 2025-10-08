@@ -27,6 +27,8 @@ public class PostagemServices {
     UsuarioService us;
     @Autowired
     ImagemService is;
+    @Autowired
+    DecisaoModeradoraService dems;
 
     public List<PostagemESDTO> encontrarPostagens(BuscaPaginada bp) {
         Pageable pageable = PageRequest.of(bp.numeroPagina(), bp.numeroResultados(), Sort.by(bp.parametro()).descending());
@@ -66,6 +68,20 @@ public class PostagemServices {
         post.setDataDaPostagem(Date.from(Instant.now()));
         post.setRevisor(null);
         return pr.save(post);
+    }
+
+    public DecisaoModeradora ocultarPostagem(Long idPost, Long idUsuario, DecisaoModeradoraOPDTO dmopdto) {
+        Postagem p = encontrarPostagemPeloId(idPost);
+        Usuario u = us.encontrarPorId(idUsuario, false);
+        p.setOculto(true);
+        DecisaoModeradora dem = new DecisaoModeradora();
+        dem.setData(Date.from(Instant.now()));
+        dem.setMotivacao(dmopdto.motivacao());
+        dem.setTipo("Publicação");
+        dem.setNomeModerado(p.getAutor().getIdUsuario() + " " + p.getAutor().getNome());
+        dem.setResponsavel(u);
+        pr.save(p);
+        return dems.criarDecisaoModeradora(dem);
     }
 
     public Postagem atualizarPostagem (Postagem p, Long id) {

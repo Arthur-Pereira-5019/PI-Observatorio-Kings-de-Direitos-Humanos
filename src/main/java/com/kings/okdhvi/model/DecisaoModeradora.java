@@ -23,7 +23,6 @@ public class DecisaoModeradora {
     @ManyToOne(cascade = CascadeType.PERSIST)
     Usuario usuarioModerado;
 
-
     @ManyToOne
     Usuario responsavel;
 

@@ -7,6 +7,10 @@ async function iniciar() {
     const url = window.location.href;
     const id = url.substring(url.lastIndexOf('/') + 1)
 
+    function ocultar() {
+
+    }
+
     fetch("http://localhost:8080/api/postagem/" + id, {
         headers: { 'Content-Type': 'application/json' }
     })
