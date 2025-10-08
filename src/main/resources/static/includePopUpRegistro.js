@@ -32,35 +32,31 @@ async function iniciar() {
             }
         })
 
-        .then(response => {
-            if (!response.ok) {
-                
-                throw new Error('Erro na requisição');
-                
-            }
-            return response.json(); 
-        })
+            .then(response => {
+                if (!response.ok) {
+                    
+                    throw new Error('Erro na requisição');
+                    
+                }
+                return response.json(); 
+            })
 
-        .then(data => {            
-            usuarioId = data.idUsuario;
+            .then(data => {            
+                usuarioId = data.idUsuario;
+                
+                window.location.href = '/usuario/' + usuarioId;
+                
+            })
             
-            window.location.href = '/usuario/' + usuarioId;
-            
-        })
-        
-        .catch(error => {
-            fundoPopupRegistro.style.display = "flex";
-            console.error('Erro:', error);
-        });
-
-            
+            .catch(error => {
+                fundoPopupRegistro.style.display = "flex";
+                console.error('Erro:', error);
+            });
 
         });
 
     }
 
-
-    
     if (botaoAbrirLogin && fundoPopupLogin) {
         botaoAbrirLogin.addEventListener("click", () => {
             fundoPopupRegistro.style.display = "none";
