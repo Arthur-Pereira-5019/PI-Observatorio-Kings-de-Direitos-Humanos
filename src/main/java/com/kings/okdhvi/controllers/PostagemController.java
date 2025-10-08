@@ -25,7 +25,7 @@ public class PostagemController {
     UsuarioService us;
 
     @GetMapping("/usuario/{id}")
-    public Postagem encontrarPeloUsuario(@PathVariable Long id) {
+    public List<Postagem> encontrarPeloUsuario(@PathVariable Long id) {
         return ps.encontrarPeloUsuario(id);
     }
 

@@ -41,9 +41,9 @@ public class PostagemServices {
         return retorno;
     }
 
-    public Postagem encontrarPeloUsuario(Long id) {
+    public List<Postagem> encontrarPeloUsuario(Long id) {
         Usuario u = us.encontrarPorId(id, false);
-        return pr.findByUsuario(u).orElseThrow(() -> new ResourceNotFoundException("Usuário sem nenhuma postagem"));
+        return pr.findByAutor(u);
     }
 
     @Transactional
