@@ -47,7 +47,7 @@ public class UsuarioController {
         return us.encontrarPorId(us.buscarId(ud), false);
     }
 
-    @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Usuario encontrarUsuarioPeloId(@PathVariable("id") Long id) {
         return us.encontrarPorId(id, false);
     }

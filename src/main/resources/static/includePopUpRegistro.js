@@ -28,8 +28,7 @@ async function iniciar() {
             method: 'GET', 
             headers: {
                 'Content-Type': 'application/json',   
-                'Authorization': 'Bearer seu-token-aqui', 
-
+                
             }
         })
 
@@ -42,10 +41,11 @@ async function iniciar() {
             return response.json(); 
         })
 
-        .then(data => {
+        .then(data => {            
             usuarioId = data.idUsuario;
+            
             window.location.href = '/usuario/' + usuarioId;
-            console.log('ID do usuário logado:', usuarioId);
+            
         })
         
         .catch(error => {

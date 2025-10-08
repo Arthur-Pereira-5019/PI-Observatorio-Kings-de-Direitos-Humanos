@@ -63,6 +63,7 @@
         }
         
         .cargos{
+            display: none;
             position: absolute ;
             text-align: center;     
             width: 13%;
@@ -74,23 +75,23 @@
             font-family: "Inter", sans-serif;
         }
 
-        #usuario{
+        #PADRAO{
             background-color: #8C8C8C;
             height: auto;
             
         }
 
-        #moderador{
+        #MODERADOR{
             background-color: #FF7B7B;
             height: auto;
         }
 
-        #especialista{
+        #ESPECIALISTA{
             background-color: #C00003;
             height: auto;
         }
 
-        #administrador{
+        #ADMINISTRADOR{
             background-color: #560000;
             height: auto;
         }
@@ -113,7 +114,7 @@
             width: 8vh;
             background-color: #AE00FF;
             border-radius: 50%;
-            display: flex;
+            display: none;
             justify-content: center;
             align-items: center;
             cursor: pointer;
@@ -153,7 +154,7 @@
             position: absolute;
             right: 1%;
             top: 2%;
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             cursor: pointer;
