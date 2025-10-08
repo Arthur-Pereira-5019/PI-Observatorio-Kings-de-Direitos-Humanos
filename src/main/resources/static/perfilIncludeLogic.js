@@ -78,6 +78,9 @@ async function iniciarConfigUser() {
             });
         }
 
+        const btnRequisitar = document.getElementById("btnRequisitar")
+
+
     });
 
     }
