@@ -42,4 +42,5 @@ async function iniciarPerfil() {
     }
 }
 
+
 document.addEventListener("DOMContentLoaded", iniciarPerfil);
