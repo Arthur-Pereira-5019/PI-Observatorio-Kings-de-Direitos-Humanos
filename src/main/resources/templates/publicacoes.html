@@ -1,238 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-        <style>
-        *{
-            margin: 0;
-            box-sizing: border-box;
-        }
-        
-        .container-moderador{
-            margin-top: 1%;
-            height: 10vh;
-            width: 100%;
-            display: flex;
-            justify-content: end;
-        }
 
-        .container-linha{
-            height: auto;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            text-align: center;
-        }
-        hr{
-            width: 95%;
-        }
-
-        .botao-moderador{
-            margin-right: 1%;
-            height: 10vh;
-            width: 10vh;
-            background-color: orange;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .mais{
-            width: 60%;
-            height: 60%;
-        }
-
-        .container-publicacoes{
-            height: 40vh;
-            width: 90vw;
-            display: flex;
-            flex-direction: column;
-            justify-content:left;
-            margin-right: 5%;
-        }
-
-        .container-geral{
-            height: 40vh;
-            width: 100%;
-            display: flex;
-            justify-content: right;
-            margin-top: 2%;
-            margin-bottom: 2%;
-        }
-
-        .titulo-publicacao{
-            font-size: 3rem;
-            font-weight: 800;
-            font-family: "Inter", sans-serif;
-            color: #C00003;
-            text-align: left;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-
-        .container-titulo{
-            width: 100%;
-            height: 17%;
-            display: flex;
-            text-align: left;
-        }
-
-        .container-imagem{
-            margin-top: 0.75%;
-            height: 100%;
-            width: 35%;
-        }
-
-        .container-baixo{
-            height: 100%;
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            overflow: hidden;
-        }
-
-        .container-descricao{
-            height: 100%;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            padding: 1%;
-            font-family: "Inter", sans-serif;
-        }
-
-        .imagem{
-            height: 100%;
-            width: 100%;
-        }
-
-        .autor{
-            font-size: 2.0rem;
-            font-weight: 500;
-        }
-
-        .data{
-            font-size: 0.5;
-            font-weight: 100;
-
-        }
-
-        .paragrafo{
-            font-size: 1rem;
-            font-weight: 200;
-            margin-top: 1%;
-        }
-
-        .container-seletores{
-            height: 5%;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 2%;
-        }
-
-        .bloquinhos{
-            height: 100%;
-            width: 2.5%;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            justify-content: center;
-            font-size: 2rem;
-            background-color: #D9D9D9;
-            cursor: pointer;
-
-        }
-
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Observatório Kings de Direitos Humanos no Vale do Itajaí</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="/publicacoesStyle.css">
+    <link rel="stylesheet" href="/cabecalhoStyle.css">
+    <link rel="stylesheet" href="/rodapeStyle.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <style>
 
     </style>
 
-    </head>
-    <body>
+</head>
 
-        <div class="container-moderador">
+<body>
 
-            <div class="botao-moderador"><img src="mais.png" class="mais"
-                    alt="sinal de mais"></div>
+    <div class="container-moderador">
 
-        </div>
+        <div class="botao-moderador"><img src="/mais.png" class="mais" alt="sinal de mais"></div>
 
-        <div class="container-geral">
+    </div>
 
-            <div class="container-publicacoes">
+    <div class="container-geral">
 
-                <div class="container-titulo">
-                    <p class="titulo-publicacao">Lorem ipsum dolor sit amet
-                        consectetur adipisicing elit. Ipsum, enim quidem iusto
-                        dolor repudiandae pariatur, incidunt, obcaecati in animi
-                        minima quod nulla quae laborum possimus numquam harum.
-                        Architecto, nisi nihil!.</p>
+        <div class="container-publicacoes">
+
+            <div class="container-titulo">
+                <p class="titulo-publicacao">Lorem ipsum dolor sit amet
+                    consectetur adipisicing elit. Ipsum, enim quidem iusto
+                    dolor repudiandae pariatur, incidunt, obcaecati in animi
+                    minima quod nulla quae laborum possimus numquam harum.
+                    Architecto, nisi nihil!.</p>
+            </div>
+
+            <div class="container-baixo">
+
+                <div class="container-imagem">
+                    <img class="imagem" src="./imagens/azul.png" alt>
                 </div>
 
-                <div class="container-baixo">
-
-                    <div class="container-imagem">
-                        <img class="imagem" src="./imagens/azul.png" alt>
-                    </div>
-
-                    <div class="container-descricao">
-                        <p class="autor">Autor</p>
-                        <p class="data">data de postagem</p>
-                        <p class="paragrafo">Primeiro parágrafo do texto contido dentro da postagem, como forma de servir como um resumo atrativo para o usuário.</p>
-                    </div>
-
+                <div class="container-descricao">
+                    <p class="autor">Autor</p>
+                    <p class="data">data de postagem</p>
+                    <p class="paragrafo">Primeiro parágrafo do texto contido dentro da postagem, como forma de servir
+                        como um resumo atrativo para o usuário.</p>
                 </div>
 
             </div>
+
         </div>
-        <div class="container-linha">
+    </div>
+    <div class="container-linha">
         <hr>
-        </div>
-        <div class="container-geral">
+    </div>
+    <div class="container-geral">
 
-            <div class="container-publicacoes">
+        <div class="container-publicacoes">
 
-                <div class="container-titulo">
-                    <p class="titulo-publicacao">Lorem ipsum dolor sit amet
-                        consectetur adipisicing elit. Ipsum, enim quidem iusto
-                        dolor repudiandae pariatur, incidunt, obcaecati in animi
-                        minima quod nulla quae laborum possimus numquam harum.
-                        Architecto, nisi nihil!.</p>
+            <div class="container-titulo">
+                <p class="titulo-publicacao">Lorem ipsum dolor sit amet
+                    consectetur adipisicing elit. Ipsum, enim quidem iusto
+                    dolor repudiandae pariatur, incidunt, obcaecati in animi
+                    minima quod nulla quae laborum possimus numquam harum.
+                    Architecto, nisi nihil!.</p>
+            </div>
+
+            <div class="container-baixo">
+
+                <div class="container-imagem">
+                    <img class="imagem" src="./imagens/mais.png" alt="imagem da notícia">
                 </div>
 
-                <div class="container-baixo">
-
-                    <div class="container-imagem">
-                        <img class="imagem" src="./imagens/mais.png" alt="imagem da notícia">
-                    </div>
-
-                    <div class="container-descricao">
-                        <p class="autor">Autor</p>
-                        <p class="data">data de postagem</p>
-                        <p class="paragrafo">Primeiro parágrafo do texto contido dentro da postagem, como forma de servir como um resumo atrativo para o usuário.</p>
-                    </div>
-
+                <div class="container-descricao">
+                    <p class="autor">Autor</p>
+                    <p class="data">data de postagem</p>
+                    <p class="paragrafo">Primeiro parágrafo do texto contido dentro da postagem, como forma de servir
+                        como um resumo atrativo para o usuário.</p>
                 </div>
 
             </div>
-        </div>
 
-        <div class="container-seletores">
-            <button class="bloquinhos">&lt;</button>
-            <button class="bloquinhos">1</button>
-            <button class="bloquinhos">atual</button>
-            <input type="text" class="bloquinhos" style="cursor: text;background-color: white ;" placeholder="__">
-            <button class="bloquinhos">99</button>
-            <button class="bloquinhos">&gt;</button>
         </div>
+    </div>
 
-    </body>
+    <div class="container-seletores">
+        <button class="bloquinhos">&lt;</button>
+        <button class="bloquinhos">1</button>
+        <button class="bloquinhos">atual</button>
+        <input type="text" class="bloquinhos" style="cursor: text;background-color: white ;" placeholder="__">
+        <button class="bloquinhos">99</button>
+        <button class="bloquinhos">&gt;</button>
+    </div>
+
+    <div id="posPopUp">
+        <div id="registro"></div>
+    </div>
+
+    <div id="posPopUpLogin">
+        <div id="login"></div>
+    </div>
+    <div id="footer"></div>
+
+
+</body>
+<script src="/includeHtmlExterno.js" defer></script>
+<script src="/includePopUpRegistro.js" defer></script>
+<script src="/includePopUpLogin.js" defer></script>
+<script src="/publicacoesLogica.js" defer></script>
+
 </html>
