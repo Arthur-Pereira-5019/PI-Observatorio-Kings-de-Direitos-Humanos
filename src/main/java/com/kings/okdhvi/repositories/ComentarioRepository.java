@@ -1,7 +1,6 @@
 package com.kings.okdhvi.repositories;
 
 import com.kings.okdhvi.model.Comentario;
-import com.kings.okdhvi.model.EstadoDaConta;
 import com.kings.okdhvi.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

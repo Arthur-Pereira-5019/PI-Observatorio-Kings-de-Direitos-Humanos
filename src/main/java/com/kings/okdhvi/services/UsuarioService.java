@@ -7,6 +7,7 @@ import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.model.requests.AdicionarCargoRequest;
 import com.kings.okdhvi.model.requests.CriarImagemRequest;
 import com.kings.okdhvi.model.requests.UsuarioADTO;
+import com.kings.okdhvi.model.requests.UsuarioApreDTO;
 import com.kings.okdhvi.repositories.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -16,7 +17,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -59,7 +59,7 @@ public class UsuarioService {
         }
         validarDados(u, true);
         u.setSenha(new BCryptPasswordEncoder().encode(u.getSenha()));
-        u.setEstadoDaConta(EstadoDaContaEnum.PADRAO);
+        u.setEstadoDaConta(EstadoDaConta.PADRAO);
         return ur.save(u);
     }
 
@@ -98,13 +98,13 @@ public class UsuarioService {
         }
 
         pet.setAnexo(i);
-        EstadoDaContaEnum edce = EstadoDaContaEnum.MODERADOR;
+        EstadoDaConta edce = EstadoDaConta.MODERADOR;
         switch (pdtDTO.cargoRequisitado()) {
             case 5:
-                edce = EstadoDaContaEnum.ADMNISTRADOR;
+                edce = EstadoDaConta.ADMINISTRADOR;
                 break;
             case 4:
-                edce = EstadoDaContaEnum.ESPECIALISTA;
+                edce = EstadoDaConta.ESPECIALISTA;
                 break;
         }
         pet.setCargoRequisitado(edce);
@@ -114,6 +114,14 @@ public class UsuarioService {
         u.setPedidoDeTitulacao(pet);
         pets.salvarPedidoTitulacao(pet);
         return ur.save(u);
+    }
+
+    public UsuarioApreDTO apresentarUsuario(Usuario u) {
+        UsuarioApreDTO uadto = new UsuarioApreDTO();
+        uadto.setEdc(u.getEstadoDaConta());
+        uadto.setFotoDePerfil(u.getFotoDePerfil());
+        uadto.setNome(u.getNome());
+        return uadto;
     }
 
 
@@ -175,29 +183,29 @@ public class UsuarioService {
         if(u.getPedidoDeTitulacao() != null) {
             pets.deletarPedidoDeTitulacaoPeloId(u.getPedidoDeTitulacao().getId());
         }
-        EstadoDaContaEnum edc = EstadoDaContaEnum.PADRAO;
+        EstadoDaConta edc = EstadoDaConta.PADRAO;
         //Só pode ser 4 ou 6 (Poder de administrador, para garantir que ele possa adicionar novos admimnistrador) graças ao Pré-Authorize
-        int poder = r.getEstadoDaConta() == EstadoDaContaEnum.MODERADOR ? 4 : 6;
+        int poder = r.getEstadoDaConta() == EstadoDaConta.MODERADOR ? 4 : 6;
         if(acr.idCargo() >= poder) {
             throw new UnauthorizedActionException("O usuário não possui poder o suficiente para realizar tal operação.");
         }
         switch(acr.idCargo())
         {
             case 1:
-                edc = EstadoDaContaEnum.SUSPENSO;
+                edc = EstadoDaConta.SUSPENSO;
                 u.setOculto(true);
                 break;
             case 2:
-                edc = EstadoDaContaEnum.PADRAO;
+                edc = EstadoDaConta.PADRAO;
                 break;
             case 3:
-                edc = EstadoDaContaEnum.ESPECIALISTA;
+                edc = EstadoDaConta.ESPECIALISTA;
                 break;
             case 4:
-                edc = EstadoDaContaEnum.MODERADOR;
+                edc = EstadoDaConta.MODERADOR;
                 break;
             case 5:
-                edc = EstadoDaContaEnum.ADMNISTRADOR;
+                edc = EstadoDaConta.ADMINISTRADOR;
         }
         u.setEstadoDaConta(edc);
 

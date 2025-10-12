@@ -2,13 +2,11 @@ package com.kings.okdhvi.model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-
 @Entity
 public class PedidoDeTitulacao {
 
     @Column
-    private EstadoDaContaEnum cargoRequisitado;
+    private EstadoDaConta cargoRequisitado;
 
     @Column
     private String motivacao;
@@ -25,11 +23,11 @@ public class PedidoDeTitulacao {
 
 
 
-    public EstadoDaContaEnum getCargoRequisitado() {
+    public EstadoDaConta getCargoRequisitado() {
         return cargoRequisitado;
     }
 
-    public void setCargoRequisitado(EstadoDaContaEnum cargoRequisitado) {
+    public void setCargoRequisitado(EstadoDaConta cargoRequisitado) {
         this.cargoRequisitado = cargoRequisitado;
     }
 

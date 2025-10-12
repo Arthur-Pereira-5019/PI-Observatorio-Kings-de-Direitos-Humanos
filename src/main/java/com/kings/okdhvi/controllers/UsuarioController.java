@@ -8,6 +8,7 @@ import com.kings.okdhvi.model.requests.AdicionarCargoRequest;
 import com.kings.okdhvi.model.requests.PedidoLogin;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.model.requests.UsuarioADTO;
+import com.kings.okdhvi.model.requests.UsuarioApreDTO;
 import com.kings.okdhvi.services.UsuarioService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -45,6 +46,11 @@ public class UsuarioController {
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public Usuario encontrarUsuarioLogado(@AuthenticationPrincipal UserDetails ud) {
         return us.encontrarPorId(us.buscarId(ud), false);
+    }
+
+    @GetMapping(value = "apresentar", produces = MediaType.APPLICATION_JSON_VALUE)
+    public UsuarioApreDTO apresentarUsuarioLogado(@AuthenticationPrincipal UserDetails ud) {
+        return us.apresentarUsuario(us.encontrarPorId(us.buscarId(ud), false));
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -31,9 +31,15 @@ public class TestController {
         return "criacaoPublicacao";
     }
 
+
     @RequestMapping("/publicacao/{id}")
     public String returnPublicacao() {
         return "publicacao";
+    }
+
+    @RequestMapping("/publicacoes")
+    public String returnPublicacoesN() {
+        return "publicacoes";
     }
 
     @RequestMapping("/publicacoes/{texto}")

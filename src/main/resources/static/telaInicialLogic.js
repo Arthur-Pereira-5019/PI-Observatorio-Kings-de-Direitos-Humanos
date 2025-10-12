@@ -58,6 +58,8 @@ async function iniciarTelaInicial() {
                                 }
             })
 
+            
+
     }
     noticiaDireita.addEventListener("click", function () {
         window.location.href = linkNoticiaDireita;
