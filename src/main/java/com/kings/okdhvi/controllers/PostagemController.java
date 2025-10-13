@@ -41,10 +41,10 @@ public class PostagemController {
         return ps.atualizarPostagem(p,id);
     }
 
-    @PostMapping(value="/listar_publicacoes")
-    public List<PostagemACDTO> atualizarPostagem(@RequestBody BuscaPaginadaTexto bpt) {
+    @PostMapping(value="/listar_publicacoes/{texto}")
+    public List<PostagemACDTO> atualizarPostagem(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto) {
         BuscaPaginada bp = new BuscaPaginada(bpt.numeroPagina(), 10, bpt.parametro(), bpt.ascending());
-        return ps.filteredSearch(bp, bpt.texto());
+        return ps.filteredSearch(bp, texto);
     }
 
     @DeleteMapping(value = "/{id}")
