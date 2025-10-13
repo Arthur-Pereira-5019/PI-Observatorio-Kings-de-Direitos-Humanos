@@ -48,6 +48,7 @@ async function iniciarPublicacoes() {
             })
             .catch(err => console.error(err));
     }
+    gerarPublicacoes();
 }
 
 
