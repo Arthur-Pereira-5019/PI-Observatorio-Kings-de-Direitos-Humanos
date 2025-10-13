@@ -8,6 +8,7 @@ import com.kings.okdhvi.model.requests.*;
 import com.kings.okdhvi.repositories.PostagemRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -50,21 +51,7 @@ public class PostagemServices {
         return retorno;
     }
 
-    public List<PostagemESDTO> encontrarPostagensRefinada(BuscaPaginadaTexto bp) {
-        Pageable pageable = PageRequest.of(bp.numeroPagina(), bp.numeroResultados(), Sort.by(bp.parametro()).descending());
-        if(bp.ascending()) {
-            pageable = PageRequest.of(bp.numeroPagina(), bp.numeroResultados(), Sort.by(bp.parametro()).ascending());
-        }
-        Page<Postagem> buscaPaginada = pr.findAll(pageable);
-
-        ArrayList<PostagemESDTO> retorno = new ArrayList<>();
-        List<Postagem> postagens = buscaPaginada.getContent();
-        postagens.forEach(p -> {retorno.add(parsePostagemToESDTO(p));});
-
-        return retorno;
-    }
-
-    public List<PostagemESDTO> filteredSearch(BuscaPaginada bp, String texto) {
+    public List<PostagemACDTO> filteredSearch(BuscaPaginada bp, String texto) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Postagem> cq = cb.createQuery(Postagem.class);
         Root<Postagem> p = cq.from(Postagem.class);
@@ -76,14 +63,18 @@ public class PostagemServices {
             Predicate titulo = cb.like(cb.lower(p.get("tituloPostagem")), "%" + texto.toLowerCase() + "%");
             Predicate autor = cb.like(cb.lower(p.get("autor").get("nome")), "%" + texto.toLowerCase() + "%");
             predicates.add(cb.or(corpo, titulo, autor));
-        } else {
-            BuscaPaginada bpn = new BuscaPaginada(0, 10, "Date", false);
-            return encontrarPostagens(bpn);
         }
 
         cq.where(predicates.toArray(new Predicate[0]));
+        cq.orderBy(cb.asc(p.get("dataDaPostagem")));
 
-        return em.createQuery(cq).getResultList();
+        TypedQuery<Postagem> busca = em.createQuery(cq);
+
+        busca.setFirstResult(bp.numeroPagina() * bp.numeroResultados());
+        busca.setMaxResults(bp.numeroResultados());
+        ArrayList<PostagemACDTO> retorno = new ArrayList<>();
+        busca.getResultList().forEach(b -> retorno.add(parsePostagemToACDTO(b)));
+        return retorno;
     }
 
     public List<Postagem> encontrarPeloUsuario(Long id) {
@@ -164,5 +155,9 @@ public class PostagemServices {
 
     public PostagemESDTO parsePostagemToESDTO(Postagem p) {
        return new PostagemESDTO(p.getIdPostagem(), p.getTituloPostagem(), p.getCapa());
+    }
+
+    public PostagemACDTO parsePostagemToACDTO(Postagem p) {
+        return new PostagemACDTO(p.getIdPostagem(), p.getTituloPostagem(), p.getCapa(), p.getTextoPostagem().substring(0, 255));
     }
 }

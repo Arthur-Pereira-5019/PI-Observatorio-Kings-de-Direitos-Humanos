@@ -41,6 +41,12 @@ public class PostagemController {
         return ps.atualizarPostagem(p,id);
     }
 
+    @PostMapping(value="/listar_publicacoes")
+    public List<PostagemACDTO> atualizarPostagem(@RequestBody BuscaPaginadaTexto bpt) {
+        BuscaPaginada bp = new BuscaPaginada(bpt.numeroPagina(), 10, bpt.parametro(), bpt.ascending());
+        return ps.filteredSearch(bp, bpt.texto());
+    }
+
     @DeleteMapping(value = "/{id}")
     public void deletarPostagem(@PathVariable Long id) {
         ps.deletarPeloId(id);
@@ -57,8 +63,4 @@ public class PostagemController {
         return ps.encontrarPostagens(bp);
     }
 
-    @PostMapping(value = "busca_paginada_refinada", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<PostagemESDTO> buscaPaginada(@RequestBody BuscaPaginadaTexto bpt) {
-        return ps.encontrarPostagensRefinada(bpt);
-    }
 }

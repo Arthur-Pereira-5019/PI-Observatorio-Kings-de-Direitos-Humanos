@@ -95,6 +95,7 @@ public class UsuarioController {
         us.gerarPedidoDeTitulacao(us.buscarId(ud), pdtDTO);
     }
 
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody PedidoLogin pl, HttpServletResponse response) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(pl.email(), pl.senha());
