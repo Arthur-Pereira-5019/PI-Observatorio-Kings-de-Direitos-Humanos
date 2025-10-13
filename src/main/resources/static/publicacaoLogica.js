@@ -12,9 +12,7 @@ async function iniciar() {
     }
 
     fetch("http://localhost:8080/api/postagem/" + id, {
-            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(requestBody)
         })
         .then(res => {
             if (!res.ok) throw new Error("Erro no servidor");

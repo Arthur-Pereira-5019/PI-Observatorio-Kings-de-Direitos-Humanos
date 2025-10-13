@@ -1,5 +1,5 @@
 let botaoNovaPostagem;
-let page = 0;
+let paginaAtual = 0;
 let inputBusca;
 
 async function iniciarPublicacoes() {
@@ -15,6 +15,9 @@ async function iniciarPublicacoes() {
         .then(data => {
             if (data.estadoDaConta == "ESPECIALISTA") {
                 botaoNovaPostagem.style.display = "flex";
+                botaoNovaPostagem.addEventListener("click", function() {
+                    window.location.href = "http://localhost:8080/nova_publicacao";
+                })
             }
 
         })
@@ -22,7 +25,7 @@ async function iniciarPublicacoes() {
 
 
         const requestBody = {
-            numeroPagina: page,
+            numeroPagina: paginaAtual,
             parametro: "dataDaPostagem",
             ascending: false
         };

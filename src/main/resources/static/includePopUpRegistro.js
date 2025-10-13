@@ -5,8 +5,6 @@ async function iniciarPopupRegistro() {
     const botaoAbrirRegistro = document.getElementById("iconButton");
     const botaoAbrirLogin = document.getElementById("btnIrLogin");
     const fundoPopupLogin = document.getElementById("posPopUpLogin");
-
-    console.log("Chegou aqui2");
     
         botaoAbrirRegistro.addEventListener("click", () => {
 
