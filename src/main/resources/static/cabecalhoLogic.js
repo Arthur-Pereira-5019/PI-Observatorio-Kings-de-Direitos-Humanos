@@ -2,6 +2,7 @@ let home;
 let menu;
 let barraPesquisa;
 async function iniciarCabecalho() {
+    
     home = document.getElementById('home');
     menu = document.getElementById("menu");
     bemvindos = document.getElementById("bemvindo");
@@ -20,7 +21,7 @@ async function iniciarCabecalho() {
     barraPesquisa.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
             event.preventDefault();
-            window.location.href = "http://localhost:8080/publicacoes/" + barraPesquisa.textContent;
+            window.location.href = "http://localhost:8080/publicacoes/" + barraPesquisa.value;
         }
     });
 

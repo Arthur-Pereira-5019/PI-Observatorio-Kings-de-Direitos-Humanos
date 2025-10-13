@@ -9,7 +9,7 @@ async function carregarHTMLExterno(id, url, cssFile, jsFile) {
     const response = await fetch(url);
     const data = await response.text();
     document.getElementById(id).innerHTML = data;
-
+    
 
     if (cssFile) {
         let link = document.createElement("link");
@@ -22,8 +22,12 @@ async function carregarHTMLExterno(id, url, cssFile, jsFile) {
         let script = document.createElement("script");
         script.src = jsFile;
         script.onload = () => {
-            if (typeof iniciarCabecalho === "function") {
+            if (jsFile === "/cabecalhoLogic.js" && typeof iniciarCabecalho === "function") {
                 iniciarCabecalho();
+            } else if (jsFile === "/includePopUpRegistro.js" && typeof iniciarCabecalho === "function") {
+                iniciarPopupRegistro();
+            } else if (jsFile === "/includePopupLogin.js" && typeof iniciarCabecalho === "function") {
+                iniciarPopupLogin();
             }
         };
         document.body.appendChild(script);
@@ -34,6 +38,8 @@ async function carregarHTMLExterno(id, url, cssFile, jsFile) {
 async function iniciarHtmlExterno() {
     await carregarHTMLExterno("header", "/cabecalho", "rodapeStyle.css", "/cabecalhoLogic.js");
     await carregarHTMLExterno("footer", "/rodape", "cabecalhoStyle.css");
+    await carregarHTMLExterno("login", "/popupLogin", "popUpLoginStyle.css", "/includePopupLogin.js");
+    await carregarHTMLExterno("registro", "/popupRegistro", "popUpRegistroStyle.css", "/includePopUpRegistro.js");
 
     if (iconButton) {
         iconButton.addEventListener("click", function () {

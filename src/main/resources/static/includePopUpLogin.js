@@ -1,19 +1,5 @@
-async function carregarHTML(id, url, cssFile) {
-    const response = await fetch(url);
-    const data = await response.text();
-    document.getElementById(id).innerHTML = data;
-
-    if (cssFile) {
-        const link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.href = cssFile;
-        document.head.appendChild(link);
-    }
-}
-
-async function iniciar() {
-    await carregarHTML("login", "/popupLogin", "popUpLoginStyle.css");
-
+async function iniciarPopupLogin() {
+    
     const fundoPopupLogin = document.getElementById("posPopUpLogin");
     if (fundoPopupLogin) fundoPopupLogin.style.display = "none";
 
@@ -69,4 +55,4 @@ async function iniciar() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", iniciar);
+document.addEventListener("DOMContentLoaded", iniciarPopupLogin);

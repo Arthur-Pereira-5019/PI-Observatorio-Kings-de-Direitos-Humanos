@@ -117,7 +117,6 @@ public class UsuarioController {
     public ResponseEntity<?> register(@RequestBody Usuario u, HttpServletResponse response) {
         us.saveUsuario(u);
         return login(new PedidoLogin(u.getEmail(), u.getSenha()), response);
-
     }
 
     @PostMapping("/requisitar_exclusao")

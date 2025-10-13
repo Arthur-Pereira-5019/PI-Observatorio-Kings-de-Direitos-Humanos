@@ -3,7 +3,7 @@ let page = 0;
 let inputBusca;
 
 async function iniciarPublicacoes() {
-    inputBusca = document.getElementById("")
+    inputBusca = document.getElementById("campoPesquisa")
     botaoNovaPostagem = document.getElementById("botao-moderador")
     fetch("http://localhost:8080/api/user", {
         headers: { 'Content-Type': 'application/json' },
@@ -28,7 +28,7 @@ async function iniciarPublicacoes() {
         };
 
     async function gerarPublicacoes() {
-        fetch("http://localhost:8080/api/postagem/busca_paginada", {
+        fetch("http://localhost:8080/api/postagem/busca_paginada"+inputBusca.value, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
