@@ -6,6 +6,12 @@ import com.kings.okdhvi.exception.postagem.RevisaoPostagemException;
 import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.model.requests.*;
 import com.kings.okdhvi.repositories.PostagemRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,6 +33,9 @@ public class PostagemServices {
     UsuarioService us;
     @Autowired
     ImagemService is;
+
+    @PersistenceContext
+    private EntityManager em;
 
     public List<PostagemESDTO> encontrarPostagens(BuscaPaginada bp) {
         Pageable pageable = PageRequest.of(bp.numeroPagina(), bp.numeroResultados(), Sort.by(bp.parametro()).descending());
@@ -53,6 +62,28 @@ public class PostagemServices {
         postagens.forEach(p -> {retorno.add(parsePostagemToESDTO(p));});
 
         return retorno;
+    }
+
+    public List<PostagemESDTO> filteredSearch(BuscaPaginada bp, String texto) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Postagem> cq = cb.createQuery(Postagem.class);
+        Root<Postagem> p = cq.from(Postagem.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if(texto != null) {
+            Predicate corpo = cb.like(cb.lower(p.get("textoPostagem")), "%" + texto.toLowerCase() + "%");
+            Predicate titulo = cb.like(cb.lower(p.get("tituloPostagem")), "%" + texto.toLowerCase() + "%");
+            Predicate autor = cb.like(cb.lower(p.get("autor").get("nome")), "%" + texto.toLowerCase() + "%");
+            predicates.add(cb.or(corpo, titulo, autor));
+        } else {
+            BuscaPaginada bpn = new BuscaPaginada(0, 10, "Date", false);
+            return encontrarPostagens(bpn);
+        }
+
+        cq.where(predicates.toArray(new Predicate[0]));
+
+        return em.createQuery(cq).getResultList();
     }
 
     public List<Postagem> encontrarPeloUsuario(Long id) {
