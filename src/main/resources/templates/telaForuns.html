@@ -26,7 +26,7 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 3rem;
+            gap: 1rem;
         }
 
         .titulo-tela-foruns{
@@ -54,7 +54,6 @@
             background-color: #313131;
             display: flex;
             padding: 0.5%;
-            position: relative;
         }
 
         .container-foto-forum-tela-foruns{
@@ -127,6 +126,36 @@
             gap: 0.5rem;
         }
 
+        /* botao */
+
+        .container-posicao-botao-tela-foruns{
+            display: flex;
+            height: auto;
+            width: 95%;
+            justify-content: flex-end;
+        }
+
+        #botao-addForum-tela-foruns{
+            background-color: #C00003;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 12vh;
+            width: 12vh;
+            border-radius: 50%;
+        }
+
+        #botao-addForum-tela-foruns:hover{
+            background-color: #E0272A;
+        }
+
+        #mais {
+            width: 70%;
+            height: 70%;
+        }
+
+
         </style>
 
     </head>
@@ -170,7 +199,7 @@
                     </div>
 
                     <div class="container-infos-tela-foruns">    
-                        <div class="titulo-forum-tela-foruns">Ea</div>
+                        <div class="titulo-forum-tela-foruns">Exemplo de quem pode ocultar</div>
                         <div class="container-data-autor-tela-foruns"><p id="nome-autor-forum-tela-foruns">Eunicia Bandeirantes Pereira da Silva</p> <p id="data-forum-tela-foruns">dd/mm/yyyy</p></div>
                     </div>
 
@@ -396,6 +425,11 @@
 
                 </div>
 
+
+            </div>
+
+            <div class="container-posicao-botao-tela-foruns">
+                <div id="botao-addForum-tela-foruns"><img src="./imagens/mais-branco.png" id="mais" alt=""></div>
 
             </div>
 
