@@ -189,6 +189,9 @@ public class UsuarioService {
         if(acr.idCargo() >= poder) {
             throw new UnauthorizedActionException("O usuário não possui poder o suficiente para realizar tal operação.");
         }
+        if(acr.idCargo() != 1) {
+            u.setOculto(false);
+        }
         switch(acr.idCargo())
         {
             case 1:

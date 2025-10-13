@@ -21,6 +21,9 @@ public class Comentario {
             @GeneratedValue(strategy = GenerationType.AUTO)
     Long idComentario;
 
+    @Column
+    boolean oculto;
+
     public Usuario getAutor() {
         return autor;
     }
@@ -51,5 +54,13 @@ public class Comentario {
 
     public void setIdComentario(Long idComentario) {
         this.idComentario = idComentario;
+    }
+
+    public boolean isOculto() {
+        return oculto;
+    }
+
+    public void setOculto(boolean oculto) {
+        this.oculto = oculto;
     }
 }

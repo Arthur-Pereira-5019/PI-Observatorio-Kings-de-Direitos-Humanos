@@ -113,10 +113,7 @@ public class PostagemServices {
         if(p == null) {
             throw new NullResourceException("Postagem nula submetido");
         }
-        Postagem original = encontrarPostagemPeloId(id);
-        original = p;
-        p.setIdPostagem(id);
-        return pr.save(original);
+        return pr.save(p);
     }
 
     public void deletarPeloId(Long id) {

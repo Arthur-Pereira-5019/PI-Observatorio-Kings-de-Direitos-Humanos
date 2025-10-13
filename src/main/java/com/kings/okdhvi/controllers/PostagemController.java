@@ -36,6 +36,7 @@ public class PostagemController {
         return ps.encontrarPostagemPeloId(id);
     }
 
+    //NÃO USAR, ESSE SUJEITO AQUI NÃO TEM MEDO DE ANULAR TODOS SEUS CAMPOS
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
     public Postagem atualizarPostagem(@RequestBody Postagem p, @PathVariable("id") Long id) {
         return ps.atualizarPostagem(p,id);

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name="postagens")
-public class Postagem {
+public class Postagem extends Comentavel{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
