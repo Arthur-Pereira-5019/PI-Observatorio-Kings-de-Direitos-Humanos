@@ -1,4 +1,4 @@
-async function carregarHTML(id, url, cssFile) {
+async function carregarHTMLConfigUser(id, url, cssFile) {
     const response = await fetch(url);
     const data = await response.text();
     document.getElementById(id).innerHTML = data;
@@ -11,7 +11,7 @@ async function carregarHTML(id, url, cssFile) {
     }
 }
 async function iniciarConfigUser() {
-    await carregarHTML("editarPerfil", "/popupEditarPerfil", "configuracaoUsuarioPopupStyle.css");
+    await carregarHTMLConfigUser("editarPerfil", "/popupEditarPerfil", "configuracaoUsuarioPopupStyle.css");
         const fundoPopupConfigUser = document.getElementById("posPopUpConfigUser");
         if (fundoPopupConfigUser) fundoPopupConfigUser.style.display = "none";
 
@@ -21,7 +21,7 @@ async function iniciarConfigUser() {
     if(botaoAbrirConfigUser && fundoPopupConfigUser){
         botaoAbrirConfigUser.addEventListener("click", ()=>{
             fundoPopupConfigUser.style.display = "flex";
-            console.log("oie")
+           
         })
 
         nomeAlterar = document.getElementById("campoNomeConfigUser")
@@ -68,15 +68,20 @@ async function iniciarConfigUser() {
         if (e.target === fundoPopupConfigUser) {
             fundoPopupConfigUser.style.display = "none";
         }
-    
+
         const fundoPopupDelete = document.getElementById("posPopUpDelete");
         const btnDeleteUser = document.getElementById("btnDelete")
 
-        if (btnDeleteUser && fundoPopupDelete) {
-            btnDeleteUser.addEventListener("click", () => {
+       
+            btnDeleteUser.onclick = () => {
                 fundoPopupDelete.style.display = "flex";
-            });
-        }
+                fundoPopupConfigUser.style.display = "none";
+                console.log("oi")
+
+            }
+        
+    
+        
 
         const btnRequisitar = document.getElementById("btnRequisitar")
 

@@ -44,7 +44,7 @@ public class PageControllers {
 
     @GetMapping("/popupDeleteUser")
     public String popupDeleteUser() {
-        return "configuracaoUsuarioPopup";
+        return "deleteUsuarioPopup";
     }
 
     @GetMapping("/imagem/{id}")

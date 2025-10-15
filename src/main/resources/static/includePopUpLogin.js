@@ -30,12 +30,6 @@ async function iniciar() {
         });
     }
 
-    const fechar = document.querySelector(".botao-fechar");
-    if (fechar && fundoPopupLogin) {
-        fechar.addEventListener("click", () => {
-            fundoPopupLogin.style.display = "none";
-        });
-    }
 
     fundoPopupLogin.addEventListener("click", (e) => {
         if (e.target === fundoPopupLogin) {

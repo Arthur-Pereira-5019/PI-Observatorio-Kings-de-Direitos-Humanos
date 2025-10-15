@@ -15,8 +15,7 @@
                 background-color: rgba(0,0,0,0.8);
                 display: none; 
                 scrollbar-width: none;
-                z-index: 999;
-
+                z-index: 980
             }
 
             #fundo-popup-configuracoes-usuario{
