@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet">
+
+        <style>
+            *{
+            margin:0;
+            box-sizing: border-box;
+            font-family: "Inter", sans-serif;
+        }
+        body{
+            padding: 2%;
+        }
+
+        .container-titulo-forum-forum{
+            display: flex;
+            width: 100%;
+            height: auto;
+            justify-content: center;
+        }
+
+        #titulo-forum-forum{
+            color: #C00003;
+            font-weight: 800;
+            font-size: 3rem;
+            text-align: center;
+        }
+
+        #data-forum-forum{
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+            height: auto;
+            font-weight: 200;
+            font-size: 1.3rem;
+
+        }
+
+        .container-resto-tela-forum{
+            display: flex;
+            flex-direction: column;
+            margin-top: 1%;
+            gap: 1rem;
+            width: 100%;
+            height: auto;
+        }
+
+        .container-geral-discussao-forum{
+            display: flex;
+            width: 80%;
+            height: 20vh;
+            border:solid 2px #313131;
+            border-radius: 24px;
+            gap: 0.1rem;
+            background-color: white;
+        }
+
+        .container-infos-usuario-discussao-forum{
+            width: 13%;
+            height: 100%;
+            background-color: #313131;
+            display: flex;
+            padding: 0.8rem;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            border-bottom-left-radius: 20px;
+            border-top-left-radius: 20px;
+        }
+
+        #foto-user-discussao-forum{
+            width: 10vh;
+            height: 10vh;
+            border-radius: 50%;
+        }
+
+        #nome-user-discussao-forum{
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* CABE 6 LINHAS */
+        .container-texto-discussao-forum{
+            display: flex;
+            width: 87%;
+            height: 100%;
+            background-color: #313131;
+            padding: 1rem;
+            color: white;
+            font-size: 1.3rem;
+            border-bottom-right-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        
+
+
+        </style>
+
+    </head>
+    <body>
+
+        <div class="container-titulo-forum-forum"> 
+            
+            <p id="titulo-forum-forum">Titulo Discussao</p>
+        </div> 
+
+        <div id="data-forum-forum">Data de criação: dd/mm/yyyy</div>
+
+        <div class="container-resto-tela-forum">
+
+            <div class="container-geral-discussao-forum">
+
+                <div class="container-infos-usuario-discussao-forum">
+
+                    <img src="https://randomuser.me/api/portraits/lego/6.jpg" id="foto-user-discussao-forum" alt="">
+                    <p id="nome-user-discussao-forum">Emanuel de Oliveira Farias</p>
+
+                </div>
+
+                <div class="container-texto-discussao-forum">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur veritatis, earum maiores fugit aut eveniet voluptas sed aspernatur distinctio eligendi asperiores quod quos, culpa tempora. Odit quasi aliquam assumenda voluptatem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit nihil illum, iure architecto veniam error soluta labore cum aliquid quos rerum. Esse fuga laudantium veniam odio! Blanditiis sit non laudantium. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque voluptatibus repellat at similique eveniet, saepe illo sint voluptas ab doloremque fugit necessitatibus quia mollitia optio! Perspiciatis quia ea repellat beatae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod nihil eveniet amet esse nesciunt ipsum consequatur cum velit nisi. Inventore repellat dicta veritatis eius, magni soluta! Nihil molestias laborum</div>
+
+            </div>
+
+
+        </div>
+
+        
+
+
+
+
+
+    </body>
+</html>
