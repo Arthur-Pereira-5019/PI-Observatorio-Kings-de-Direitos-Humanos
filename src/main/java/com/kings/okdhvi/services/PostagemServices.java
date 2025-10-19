@@ -150,6 +150,13 @@ public class PostagemServices {
 
     public PostagemECDTO parsePostagemToECDTO(Postagem p) {
         String textoPostagem = p.getTextoPostagem();
-        return new PostagemECDTO(p.getIdPostagem(), p.getTituloPostagem(), p.getCapa(), textoPostagem.substring(0, textoPostagem.length() > 255 ? 255 : textoPostagem.length()));
+        String nomeAutor = p.getAutor() == null ? "Externo" : p.getAutor().getNome();
+        return new PostagemECDTO(p.getIdPostagem(),
+                p.getTituloPostagem(),
+                p.getCapa(),
+                textoPostagem.substring(0, textoPostagem.length() > 255 ? 255 : textoPostagem.length()),
+                nomeAutor,
+                p.getDataDaPostagem()
+                );
     }
 }
