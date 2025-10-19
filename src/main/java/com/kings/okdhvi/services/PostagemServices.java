@@ -38,32 +38,28 @@ public class PostagemServices {
     @PersistenceContext
     private EntityManager em;
 
-    public List<PostagemESDTO> encontrarPostagens(BuscaPaginada bp) {
+    public List<Postagem> encontrarPostagens(BuscaPaginada bp) {
         Pageable pageable = PageRequest.of(bp.numeroPagina(), bp.numeroResultados(), Sort.by(bp.parametro()).descending());
         if(bp.ascending()) {
             pageable = PageRequest.of(bp.numeroPagina(), bp.numeroResultados(), Sort.by(bp.parametro()).ascending());
         }
         Page<Postagem> buscaPaginada = pr.findAll(pageable);
 
-        ArrayList<PostagemESDTO> retorno = new ArrayList<>();
         List<Postagem> postagens = buscaPaginada.getContent();
-        postagens.forEach(p -> {retorno.add(parsePostagemToESDTO(p));});
-        return retorno;
+        return postagens;
     }
 
-    public List<PostagemACDTO> filteredSearch(BuscaPaginada bp, String texto) {
+    public List<Postagem> buscaFiltrada(BuscaPaginada bp, String texto) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Postagem> cq = cb.createQuery(Postagem.class);
         Root<Postagem> p = cq.from(Postagem.class);
 
         List<Predicate> predicates = new ArrayList<>();
 
-        if(texto != null) {
             Predicate corpo = cb.like(cb.lower(p.get("textoPostagem")), "%" + texto.toLowerCase() + "%");
             Predicate titulo = cb.like(cb.lower(p.get("tituloPostagem")), "%" + texto.toLowerCase() + "%");
             Predicate autor = cb.like(cb.lower(p.get("autor").get("nome")), "%" + texto.toLowerCase() + "%");
             predicates.add(cb.or(corpo, titulo, autor));
-        }
 
         cq.where(predicates.toArray(new Predicate[0]));
         cq.orderBy(cb.asc(p.get("dataDaPostagem")));
@@ -72,9 +68,7 @@ public class PostagemServices {
 
         busca.setFirstResult(bp.numeroPagina() * bp.numeroResultados());
         busca.setMaxResults(bp.numeroResultados());
-        ArrayList<PostagemACDTO> retorno = new ArrayList<>();
-        busca.getResultList().forEach(b -> retorno.add(parsePostagemToACDTO(b)));
-        return retorno;
+        return busca.getResultList();
     }
 
     public List<Postagem> encontrarPeloUsuario(Long id) {
@@ -154,7 +148,8 @@ public class PostagemServices {
        return new PostagemESDTO(p.getIdPostagem(), p.getTituloPostagem(), p.getCapa());
     }
 
-    public PostagemACDTO parsePostagemToACDTO(Postagem p) {
-        return new PostagemACDTO(p.getIdPostagem(), p.getTituloPostagem(), p.getCapa(), p.getTextoPostagem().substring(0, 255));
+    public PostagemECDTO parsePostagemToECDTO(Postagem p) {
+        String textoPostagem = p.getTextoPostagem();
+        return new PostagemECDTO(p.getIdPostagem(), p.getTituloPostagem(), p.getCapa(), textoPostagem.substring(0, textoPostagem.length() > 255 ? 255 : textoPostagem.length()));
     }
 }

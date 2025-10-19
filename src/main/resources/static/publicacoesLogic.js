@@ -15,7 +15,7 @@ async function iniciarPublicacoes() {
         .then(data => {
             if (data.estadoDaConta == "ESPECIALISTA") {
                 botaoNovaPostagem.style.display = "flex";
-                botaoNovaPostagem.addEventListener("click", function() {
+                botaoNovaPostagem.addEventListener("click", function () {
                     window.location.href = "http://localhost:8080/nova_publicacao";
                 })
             }
@@ -24,14 +24,20 @@ async function iniciarPublicacoes() {
         .catch(err => console.error(err));
 
 
-        const requestBody = {
-            numeroPagina: paginaAtual,
-            parametro: "dataDaPostagem",
-            ascending: false
-        };
+    const requestBody = {
+        numeroPagina: paginaAtual,
+        parametro: "dataDaPostagem",
+        ascending: false
+    };
 
     async function gerarPublicacoes() {
-        fetch("http://localhost:8080/api/postagem/busca_paginada"+inputBusca.value, {
+        const url = window.location.href;
+        const partes = url.split('/');
+        let busca = "/" + partes.pop();
+        if(busca === '/publicacoes') {
+            busca = "/"
+        }
+        fetch("http://localhost:8080/api/postagem/listar_publicacoes" + busca, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
@@ -41,14 +47,27 @@ async function iniciarPublicacoes() {
                 return res.json();
             })
             .then(data => {
-                data.array.forEach(post => {
+                if(data.length === 0) {
+                    alert("Nenhum resultado encontrado!")
+                    if(busca != "") {
+                        inputBusca.value = ""
+                        gerarPublicacoes()
+                    }
+                } else {
+                    data.forEach(post => {
                     console.log(post.titulo);
                 });
-
+                }
+                
             })
             .catch(err => console.error(err));
     }
     gerarPublicacoes();
+    inputBusca.addEventListener("keydown", function(event) {
+        if(event.key === "enter") {
+        window.location.href = "localhost:8080/publicacoes/" + inputBusca.value;
+        }
+    })
 }
 
 

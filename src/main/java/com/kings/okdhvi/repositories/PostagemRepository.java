@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface PostagemRepository extends JpaRepository<Postagem, Long> {
     public List<Postagem> findByAutor(Usuario u);
-    //public List<Postagem> filteredSearch(BuscaPaginada bp, String texto);
+    //public List<Postagem> buscaFiltrada(BuscaPaginada bp, String texto);
 }
