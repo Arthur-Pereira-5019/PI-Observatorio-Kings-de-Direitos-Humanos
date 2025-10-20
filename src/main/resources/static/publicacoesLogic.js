@@ -50,8 +50,8 @@ async function iniciarPublicacoes() {
                 const primeiroPost = document.querySelector('.container-geral-publicacoes');
                 const containerGeral = document.getElementById("container-lista");
                 if (data.length === 0) {
-                    alert("Nenhum resultado encontrado!")
                     primeiroPost.querySelector('.container-baixo').remove()
+                    alert("Nenhum resultado encontrado!")
                     if (busca != "") {
                         inputBusca.value = ""
                         gerarPublicacoes()
@@ -75,7 +75,7 @@ async function iniciarPublicacoes() {
             publicacao.querySelector(".titulo-publicacao").textContent = dados.titulo
             publicacao.querySelector(".autor").textContent = dados.autor
             publicacao.querySelector(".data").textContent = dados.data
-            publicacao.querySelector(".paragrafo").textContent = dados.texto
+            publicacao.querySelector(".paragrafo").innerHTML = dados.texto
             publicacao.querySelector(".imagem").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
             publicacao.addEventListener("click", function () {
                 window.location.href = "localhost:8080/publicacao/" + dados.idPostagem
