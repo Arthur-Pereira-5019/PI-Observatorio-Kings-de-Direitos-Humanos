@@ -27,11 +27,11 @@ async function iniciarPublicacoes() {
         .catch(err => console.error(err));
 
     btnDireito = document.getElementById("botaodireito");
-    btnDireito.addEventListener("click", function() {
+    btnDireito.addEventListener("click", function () {
         moverUrl(1)
     })
     btnEsquerdo = document.getElementById("botaoesquerdo");
-    btnEsquerdo.addEventListener("click", function() {
+    btnEsquerdo.addEventListener("click", function () {
         moverUrl(-1)
     })
 
@@ -39,8 +39,21 @@ async function iniciarPublicacoes() {
     btnAtual.textContent = await paginaAtual()
 
     btnPrimeiro = document.getElementById("botaoprimeiro");
-    btnPrimeiro.addEventListener("click", function() {
-        moverUrl(-1 * (await paginaAtual())-1)
+    btnPrimeiro.addEventListener("click", async function () {
+        moverUrl(-1 * (await paginaAtual() - 1))
+    })
+
+    btnCampo = document.getElementById("botaocampo");
+    btnCampo.addEventListener("keydown", async function (event) {
+        if (event.key === "Enter") {
+            moverUrl(btnCampo.value - await paginaAtual())
+        }
+    })
+
+    btnLonge = document.getElementById("botaolonge");
+    btnLonge.textContent = await paginaAtual() + 5;
+    btnLonge.addEventListener("click", async function () {
+        moverUrl(await paginaAtual() + 4)
     })
 
     const requestBody = {
@@ -120,21 +133,21 @@ async function iniciarPublicacoes() {
     })
 }
 
-    async function moverUrl(d) {
-        const url = window.location.href;
-        const partes = url.split('/');
-        let busca = partes.pop();
-        busca = Number(busca) + d;
-        partes.push(busca)
-        window.location.href = partes.join("/");
-    }
+async function moverUrl(d) {
+    const url = window.location.href;
+    const partes = url.split('/');
+    let busca = partes.pop();
+    busca = Number(busca) + d;
+    partes.push(busca)
+    window.location.href = partes.join("/");
+}
 
-    async function paginaAtual() {
-        const url = window.location.href;
-        const partes = url.split('/');
-        let busca = partes.pop();
-        return Number(busca) + 1;
-    }
+async function paginaAtual() {
+    const url = window.location.href;
+    const partes = url.split('/');
+    let busca = partes.pop();
+    return Number(busca) + 1;
+}
 
 
 
