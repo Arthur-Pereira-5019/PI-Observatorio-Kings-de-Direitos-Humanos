@@ -76,7 +76,6 @@ async function iniciarConfigUser() {
             btnDeleteUser.onclick = () => {
                 fundoPopupDelete.style.display = "flex";
                 fundoPopupConfigUser.style.display = "none";
-                console.log("oi")
 
             }
         

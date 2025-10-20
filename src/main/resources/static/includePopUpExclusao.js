@@ -13,13 +13,29 @@ async function carregarHTMLExclusaoUser(id, url, cssFile) {
 async function iniciarExclusaoUser() {
     await carregarHTMLExclusaoUser("excluirPerfil", "/popupDeleteUser", "/deleteUsuarioPopupStyle.css");
 
+        const fundoPopupConfigUser = document.getElementById("posPopUpConfigUser");
         const fundoPopupDelete = document.getElementById("posPopUpDelete");
         fundoPopupDelete.addEventListener("click", (e) => {
+        if (e.target === fundoPopupDelete) {
             fundoPopupDelete.style.display = "none";
-            console.log("eba")
-
-    });
+            fundoPopupConfigUser.style.display = "flex"
+        }
         
-    }
+    })
+
+    const btnCancelar = document.getElementById("btnCancelarExclusao");
+    btnCancelar.addEventListener("click", function(){
+            fundoPopupDelete.style.display = "none";
+            fundoPopupConfigUser.style.display = "flex"
+
+    })
+
+    const btnConfirmarExclusao = document.getElementById("btnConfirmarExclusao")
+    btnConfirmarExclusao.addEventListener("click", function(){
+            console.log("moggando")
+
+    })
+
+}
 
     document.addEventListener("DOMContentLoaded", iniciarExclusaoUser);

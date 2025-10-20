@@ -64,9 +64,9 @@
 
 .cargos {
     display: none;
-    position: absolute;
     text-align: center;
-    width: 13%;
+    justify-content: center;
+    width: 80%;
     height: auto;
     color: #ffffff;
     font-size: 2rem;
