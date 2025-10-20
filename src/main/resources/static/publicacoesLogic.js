@@ -1,6 +1,9 @@
 let botaoNovaPostagem;
-let paginaAtual = 0;
-let inputBusca;
+let btnDireito;
+let btnEsquerdo;
+let btnLonge;
+let btnPrimeiro;
+let btnCampo;
 
 async function iniciarPublicacoes() {
     inputBusca = document.getElementById("campoPesquisa")
@@ -23,21 +26,43 @@ async function iniciarPublicacoes() {
         })
         .catch(err => console.error(err));
 
+    btnDireito = document.getElementById("botaodireito");
+    btnDireito.addEventListener("click", moverUrl(1))
+    btnEsquerdo = document.getElementById("botaoesquerdo");
+    btnEsquerdo.addEventListener("click", moverUrl(-1))
 
     const requestBody = {
-        numeroPagina: paginaAtual,
         parametro: "dataDaPostagem",
         ascending: false
     };
 
+    async function moverUrl(d) {
+        const url = window.location.href;
+        const partes = url.split('/');
+        let busca = partes.pop();
+        busca = Number(busca) + d;
+        partes.push(busca)
+        window.location.href = partes.join("/");
+    }
+
     async function gerarPublicacoes() {
         const url = window.location.href;
         const partes = url.split('/');
-        let busca = "/" + partes.pop();
-        if (busca === '/publicacoes') {
-            busca = "/"
+        let busca2 = "/" + partes.pop();
+
+        //Significa que já não tem nada
+        if (busca2 === '/publicacoes') {
+            buscaf = "/"
+        } else {
+            let busca = "/" + partes.pop();
+            if (busca === '/publicacoes') {
+                buscaf = "/" + busca2
+            } else {
+                buscaf = busca + busca2
+            }
         }
-        fetch("http://localhost:8080/api/postagem/listar_publicacoes" + busca, {
+
+        fetch("http://localhost:8080/api/postagem/listar_publicacoes" + buscaf, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
@@ -59,11 +84,11 @@ async function iniciarPublicacoes() {
                 } else {
                     data.forEach((post, index) => {
                         if (index == 0) {
-                            construirPublicacao(primeiroPost,post)
+                            construirPublicacao(primeiroPost, post)
                         } else {
                             const novoPost = primeiroPost.cloneNode(true);
                             containerGeral.appendChild(novoPost)
-                            construirPublicacao(novoPost,post)
+                            construirPublicacao(novoPost, post)
                         }
                     });
                 }

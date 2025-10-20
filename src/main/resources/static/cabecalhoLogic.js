@@ -42,7 +42,7 @@ async function iniciarCabecalho() {
     })
 
     btnPublicacoes.addEventListener("click", function () {
-        window.location.href = "http://localhost:8080/publicacoes";
+        window.location.href = "http://localhost:8080/publicacoes/ /0";
     })
 
     btnApoio.addEventListener("click", function () {

@@ -43,11 +43,11 @@ public class PostagemController {
         return ps.atualizarPostagem(p,id);
     }
 
-    @PostMapping(value="/listar_publicacoes/{texto}")
-    public List<PostagemECDTO> listarPostagens(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto) {
+    @PostMapping(value="/listar_publicacoes/{texto}/{pagina}")
+    public List<PostagemECDTO> listarPostagens(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @PathVariable("pagina") Integer pagina) {
         List<Postagem> postagens = new ArrayList<>();
         ArrayList<PostagemECDTO> retorno = new ArrayList<>();
-        BuscaPaginada bp = new BuscaPaginada(bpt.numeroPagina(), 10, bpt.parametro(), bpt.ascending());
+        BuscaPaginada bp = new BuscaPaginada(pagina, 2, bpt.parametro(), bpt.ascending());
 
         if(texto.isBlank() || texto == null) {
             postagens = ps.encontrarPostagens(bp);
@@ -61,7 +61,12 @@ public class PostagemController {
 
     @PostMapping(value="/listar_publicacoes/")
     public List<PostagemECDTO> listarPublicacoes(@RequestBody BuscaPaginadaTexto bpt) {
-        return listarPostagens(bpt, "");
+        return listarPostagens(bpt, "",0);
+    }
+
+    @PostMapping(value="/listar_publicacoes/{texto}")
+    public List<PostagemECDTO> listarPublicacoesTexto(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto) {
+        return listarPostagens(bpt, texto,0);
     }
 
     @DeleteMapping(value = "/{id}")
