@@ -5,11 +5,11 @@ const seta_direita = document.getElementById("seta_direita");
 
 let page = 0;
 
-async function carregarHTML(id, url, cssFile) {
+async function carregarHTMLExterno(id, url, cssFile, jsFile) {
     const response = await fetch(url);
     const data = await response.text();
     document.getElementById(id).innerHTML = data;
-
+    
 
     if (cssFile) {
         let link = document.createElement("link");
@@ -17,12 +17,29 @@ async function carregarHTML(id, url, cssFile) {
         link.href = cssFile;
         document.head.appendChild(link);
     }
+
+    if (jsFile) {
+        let script = document.createElement("script");
+        script.src = jsFile;
+        script.onload = () => {
+            if (jsFile === "/cabecalhoLogic.js" && typeof iniciarCabecalho === "function") {
+                iniciarCabecalho();
+            } else if (jsFile === "/includePopUpRegistro.js" && typeof iniciarCabecalho === "function") {
+                iniciarPopupRegistro();
+            } else if (jsFile === "/includePopupLogin.js" && typeof iniciarCabecalho === "function") {
+                iniciarPopupLogin();
+            }
+        };
+        document.body.appendChild(script);
+    }
 }
 
 
-async function iniciar() {
-    await carregarHTML("header", "/cabecalho", "rodapeStyle.css");
-    await carregarHTML("footer", "/rodape", "cabecalhoStyle.css");
+async function iniciarHtmlExterno() {
+    await carregarHTMLExterno("header", "/cabecalho", "rodapeStyle.css", "/cabecalhoLogic.js");
+    await carregarHTMLExterno("footer", "/rodape", "cabecalhoStyle.css");
+    await carregarHTMLExterno("login", "/popupLogin", "popUpLoginStyle.css", "/includePopupLogin.js");
+    await carregarHTMLExterno("registro", "/popupRegistro", "popUpRegistroStyle.css", "/includePopUpRegistro.js");
 
     if (iconButton) {
         iconButton.addEventListener("click", function () {
@@ -38,4 +55,4 @@ async function iniciar() {
     
 }
 
-document.addEventListener("DOMContentLoaded", iniciar);
+document.addEventListener("DOMContentLoaded", iniciarHtmlExterno);

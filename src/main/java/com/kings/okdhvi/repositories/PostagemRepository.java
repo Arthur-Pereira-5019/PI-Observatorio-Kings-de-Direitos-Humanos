@@ -2,15 +2,12 @@ package com.kings.okdhvi.repositories;
 
 import com.kings.okdhvi.model.Postagem;
 import com.kings.okdhvi.model.Usuario;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.kings.okdhvi.model.requests.BuscaPaginada;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 public interface PostagemRepository extends JpaRepository<Postagem, Long> {
-    public List<Postagem> findByAutor(Usuario autor);
-
+    public List<Postagem> findByAutor(Usuario u);
+    //public List<Postagem> buscaFiltrada(BuscaPaginada bp, String texto);
 }

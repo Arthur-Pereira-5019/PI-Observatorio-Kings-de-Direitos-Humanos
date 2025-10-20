@@ -1,61 +1,39 @@
-async function carregarHTML(id, url, cssFile) {
-    const response = await fetch(url);
-    const data = await response.text();
-    document.getElementById(id).innerHTML = data;
-
-    if (cssFile) {
-        const link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.href = cssFile;
-        document.head.appendChild(link);
-    }
-}
-
-async function iniciar() {
-    await carregarHTML("registro", "/popupRegistro", "popUpRegistroStyle.css");
-
+async function iniciarPopupRegistro() {
     const fundoPopupRegistro = document.getElementById("posPopUp");
     if (fundoPopupRegistro) fundoPopupRegistro.style.display = "none";
 
     const botaoAbrirRegistro = document.getElementById("iconButton");
     const botaoAbrirLogin = document.getElementById("btnIrLogin");
     const fundoPopupLogin = document.getElementById("posPopUpLogin");
-
-    if (botaoAbrirRegistro && fundoPopupRegistro) {
+    
         botaoAbrirRegistro.addEventListener("click", () => {
 
-        fetch("http://localhost:8080/api/user", {
-            method: 'GET', 
-            headers: {
-                'Content-Type': 'application/json',   
-                
-            }
-        })
-
-            .then(response => {
-                if (!response.ok) {
-                    
-                    throw new Error('Erro na requisição');
-                    
+            fetch("http://localhost:8080/api/user", {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
                 }
-                return response.json(); 
             })
+                .then(response => {
+                    if (!response.ok) {
 
-            .then(data => {            
-                usuarioId = data.idUsuario;
-                
-                window.location.href = '/usuario/' + usuarioId;
-                
-            })
-            
-            .catch(error => {
-                fundoPopupRegistro.style.display = "flex";
-                console.error('Erro:', error);
-            });
+                        throw new Error('Erro na requisição');
+
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    usuarioId = data.idUsuario;
+
+                    window.location.href = '/usuario/' + usuarioId;
+
+                })
+                .catch(error => {
+                    fundoPopupRegistro.style.display = "flex";
+                    console.error('Erro:', error);
+                });
 
         });
-
-    }
 
     if (botaoAbrirLogin && fundoPopupLogin) {
         botaoAbrirLogin.addEventListener("click", () => {
@@ -116,4 +94,4 @@ async function iniciar() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", iniciar);
+document.addEventListener("DOMContentLoaded", iniciarPopupRegistro);

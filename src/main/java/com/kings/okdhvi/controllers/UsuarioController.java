@@ -8,6 +8,7 @@ import com.kings.okdhvi.model.requests.AdicionarCargoRequest;
 import com.kings.okdhvi.model.requests.PedidoLogin;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.model.requests.UsuarioADTO;
+import com.kings.okdhvi.model.requests.UsuarioApreDTO;
 import com.kings.okdhvi.services.UsuarioService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -47,6 +48,11 @@ public class UsuarioController {
         return us.encontrarPorId(us.buscarId(ud), false);
     }
 
+    @GetMapping(value = "apresentar", produces = MediaType.APPLICATION_JSON_VALUE)
+    public UsuarioApreDTO apresentarUsuarioLogado(@AuthenticationPrincipal UserDetails ud) {
+        return us.apresentarUsuario(us.encontrarPorId(us.buscarId(ud), false));
+    }
+
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Usuario encontrarUsuarioPeloId(@PathVariable("id") Long id) {
         return us.encontrarPorId(id, false);
@@ -59,7 +65,7 @@ public class UsuarioController {
         return us.mockUsuario();
     }
 
-    @PreAuthorize("hasRole('PADRAO')")
+    @PreAuthorize("hasRole('ROLE_ESPEC')")
     @PutMapping(value = "/atualizarUsuario", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
     public Usuario atualizarUsuario(@RequestBody UsuarioADTO u, @AuthenticationPrincipal UserDetails user) {
         Long idRequisicao = us.buscarId(user);
@@ -89,6 +95,7 @@ public class UsuarioController {
         us.gerarPedidoDeTitulacao(us.buscarId(ud), pdtDTO);
     }
 
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody PedidoLogin pl, HttpServletResponse response) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(pl.email(), pl.senha());
@@ -110,7 +117,6 @@ public class UsuarioController {
     public ResponseEntity<?> register(@RequestBody Usuario u, HttpServletResponse response) {
         us.saveUsuario(u);
         return login(new PedidoLogin(u.getEmail(), u.getSenha()), response);
-
     }
 
     @PostMapping("/requisitar_exclusao")

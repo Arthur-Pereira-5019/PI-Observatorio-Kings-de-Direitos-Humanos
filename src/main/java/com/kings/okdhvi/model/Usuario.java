@@ -63,36 +63,36 @@ public class Usuario implements Serializable, UserDetails {
 
     @Column
     @Enumerated(EnumType.STRING)
-    public EstadoDaContaEnum getEstadoDaConta() {
+    public EstadoDaConta getEstadoDaConta() {
         return estadoDaConta;
     }
 
-    public void setEstadoDaConta(EstadoDaContaEnum estadoDaConta) {
+    public void setEstadoDaConta(EstadoDaConta estadoDaConta) {
         this.estadoDaConta = estadoDaConta;
     }
 
-    private EstadoDaContaEnum estadoDaConta;
+    private EstadoDaConta estadoDaConta;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         ArrayList<SimpleGrantedAuthority> roles = new ArrayList<>();
-        if(estadoDaConta == EstadoDaContaEnum.ADMNISTRADOR) {
+        if(estadoDaConta == EstadoDaConta.ADMINISTRADOR) {
             roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
             roles.add(new SimpleGrantedAuthority("ROLE_MODER"));
             roles.add(new SimpleGrantedAuthority("ROLE_PADRAO"));
         }
-        if(estadoDaConta == EstadoDaContaEnum.MODERADOR) {
+        if(estadoDaConta == EstadoDaConta.MODERADOR) {
             roles.add(new SimpleGrantedAuthority("ROLE_MODER"));
             roles.add(new SimpleGrantedAuthority("ROLE_PADRAO"));
         }
-        if(estadoDaConta == EstadoDaContaEnum.ESPECIALISTA) {
+        if(estadoDaConta == EstadoDaConta.ESPECIALISTA) {
             roles.add(new SimpleGrantedAuthority("ROLE_ESPEC"));
             roles.add(new SimpleGrantedAuthority("ROLE_PADRAO"));
         }
-        if(estadoDaConta == EstadoDaContaEnum.PADRAO) {
+        if(estadoDaConta == EstadoDaConta.PADRAO) {
             roles.add(new SimpleGrantedAuthority("ROLE_PADRAO"));
         }
-        if(estadoDaConta == EstadoDaContaEnum.SUSPENSO) {
+        if(estadoDaConta == EstadoDaConta.SUSPENSO) {
             roles.add(new SimpleGrantedAuthority("ROLE_SUSPEN"));
         }
         return roles;

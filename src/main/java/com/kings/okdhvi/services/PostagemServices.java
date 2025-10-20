@@ -6,6 +6,13 @@ import com.kings.okdhvi.exception.postagem.RevisaoPostagemException;
 import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.model.requests.*;
 import com.kings.okdhvi.repositories.PostagemRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,17 +35,40 @@ public class PostagemServices {
     @Autowired
     ImagemService is;
 
-    public List<PostagemESDTO> encontrarPostagens(BuscaPaginada bp) {
+    @PersistenceContext
+    private EntityManager em;
+
+    public List<Postagem> encontrarPostagens(BuscaPaginada bp) {
         Pageable pageable = PageRequest.of(bp.numeroPagina(), bp.numeroResultados(), Sort.by(bp.parametro()).descending());
         if(bp.ascending()) {
             pageable = PageRequest.of(bp.numeroPagina(), bp.numeroResultados(), Sort.by(bp.parametro()).ascending());
         }
         Page<Postagem> buscaPaginada = pr.findAll(pageable);
 
-        ArrayList<PostagemESDTO> retorno = new ArrayList<>();
         List<Postagem> postagens = buscaPaginada.getContent();
-        postagens.forEach(p -> {retorno.add(parsePostagemToESDTO(p));});
-        return retorno;
+        return postagens;
+    }
+
+    public List<Postagem> buscaFiltrada(BuscaPaginada bp, String texto) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Postagem> cq = cb.createQuery(Postagem.class);
+        Root<Postagem> p = cq.from(Postagem.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+            Predicate corpo = cb.like(cb.lower(p.get("textoPostagem")), "%" + texto.toLowerCase() + "%");
+            Predicate titulo = cb.like(cb.lower(p.get("tituloPostagem")), "%" + texto.toLowerCase() + "%");
+            Predicate autor = cb.like(cb.lower(p.get("autor").get("nome")), "%" + texto.toLowerCase() + "%");
+            predicates.add(cb.or(corpo, titulo, autor));
+
+        cq.where(predicates.toArray(new Predicate[0]));
+        cq.orderBy(cb.asc(p.get("dataDaPostagem")));
+
+        TypedQuery<Postagem> busca = em.createQuery(cq);
+
+        busca.setFirstResult(bp.numeroPagina() * bp.numeroResultados());
+        busca.setMaxResults(bp.numeroResultados());
+        return busca.getResultList();
     }
 
     public List<Postagem> encontrarPeloUsuario(Long id) {
@@ -77,10 +107,7 @@ public class PostagemServices {
         if(p == null) {
             throw new NullResourceException("Postagem nula submetido");
         }
-        Postagem original = encontrarPostagemPeloId(id);
-        original = p;
-        p.setIdPostagem(id);
-        return pr.save(original);
+        return pr.save(p);
     }
 
     public void deletarPeloId(Long id) {
@@ -119,5 +146,17 @@ public class PostagemServices {
 
     public PostagemESDTO parsePostagemToESDTO(Postagem p) {
        return new PostagemESDTO(p.getIdPostagem(), p.getTituloPostagem(), p.getCapa());
+    }
+
+    public PostagemECDTO parsePostagemToECDTO(Postagem p) {
+        String textoPostagem = p.getTextoPostagem();
+        String nomeAutor = p.getAutor() == null ? "Externo" : p.getAutor().getNome();
+        return new PostagemECDTO(p.getIdPostagem(),
+                p.getTituloPostagem(),
+                p.getCapa(),
+                textoPostagem.substring(0, textoPostagem.length() > 255 ? 255 : textoPostagem.length()),
+                nomeAutor,
+                p.getDataDaPostagem()
+                );
     }
 }

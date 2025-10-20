@@ -60,7 +60,7 @@ body {
     margin-left: auto;
 }
 
-#containerCabecalho {
+.containerCabecalho {
     width: 100%;
     height: auto;
     background-color: #C00003;
@@ -77,8 +77,8 @@ body {
     z-index: 700;
 }
 
-#parte-geral-menu-lateral {
-    display: none;
+.parte-geral-menu-lateral {
+    display: flex;
     height: 100vh;
     width: 20vw;
     padding: 2%;
@@ -87,7 +87,6 @@ body {
     border-right: 1px solid black;
     z-index: 1;
     position: absolute;
-    background-color: white;
 }
 
 .item-menu-lateral {
@@ -107,6 +106,6 @@ body {
 
 }
 
-.icon-item-menu-lateral {
+#icon-item-menu-lateral {
     height: 100%;
 }
