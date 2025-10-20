@@ -1,77 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Publicação</title>
-    <link rel="stylesheet" href="cabecalhoStyle.css">
-    <link rel="stylesheet" href="rodapeStyle.css">
-    <link rel="stylesheet" href="criacaoPublicacaoStyle.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nova Publicação</title>
 
-<body>
-    <div id="header"></div>
-    <div id="fundoImagem">
-        <div id="inserirImagem"></div>
-    </div>
-    <div id="container-criacao-publicacao">
-        <p id="titulo">Nova Publicação</p>
-        <p class="textoBase">Título: *</p>
-        <input id="campoTitulo">
+        <link rel="stylesheet" href="criacaoPublicacaoStyle.css">
+    </head>
 
-        <label id="capaPostagem" label for="capaPostagemInput">
-            <img src="" id="capaPostagemPreview">
-            <input id="capaPostagemInput" type="file" enctype="multipart/form-data" accept=".jpg, .png">
-        </label>
+    <body>
+        <div id="header"></div>
+        <div id="fundoImagem">
+            <div id="inserirImagem"></div>
+        </div>
+        <div id="container-criacao-publicacao">
+            <p id="titulo">Nova Publicação</p>
+            <p class="textoBase">Título: *</p>
+            <input id="campoTitulo">
 
-        <div id="campoEdicao">
-            <div id="elementosEdicao">
-                <button id="bold">B</button>
-                <button id="underlined">u</button>
-                <button id="italic">I</button>
-                <button id="link">
-                    <img src="./imagens/link.png">
-                </button>
-                <button id="font_increase">^</button>
-                <button id="font_reduce">v</button>
-                <button id="pic">
-                    <img src="./imagens/pic.png">
-                </button>
+            <label id="capaPostagem" label for="capaPostagemInput">
+                <img src id="capaPostagemPreview">
+                <input id="capaPostagemInput" type="file"
+                    enctype="multipart/form-data" accept=".jpg, .png">
+            </label>
+
+            <div id="campoEdicao">
+                <div id="elementosEdicao">
+                    <button id="bold">B</button>
+                    <button id="underlined">u</button>
+                    <button id="italic">I</button>
+                    <button id="link">
+                        <img src="./imagens/link.png">
+                    </button>
+                    <button id="font_increase">^</button>
+                    <button id="font_reduce">v</button>
+                    <button id="pic">
+                        <img src="./imagens/pic.png">
+                    </button>
+                </div>
+                <div id="textoPublicacao" contenteditable="true"
+                    title="Digite aqui o texto..."></div>
             </div>
-            <div id="textoPublicacao" contenteditable="true" title="Digite aqui o texto..."></div>
+
+            <div id="tituloTags">
+                <span class="textoBase">Adicione Tags: </span>
+                <div id="containerDicaTag">
+                    <span id="dicaTags" class="textoBase" title="Separe as tags com espaços em branco. Utilize a tag &QUOT;notícia&QUOT; para exibir a publicação na aba de notícias do site.">?</span> </div>
+            </div>
+
+            <input id="campoTags">
+
+            <div id="botoes">
+                <button id="botaoCancelar">Cancelar</button>
+                <button id="botaoPublicar">Publicar</button>
+                <button id="botaoSalvar">Salvar</button>
+            </div>
+
+            <div id="campoTags"></div>
         </div>
 
-        <div id="tituloTags">
-            <span class="textoBase">Adicione Tags: </span>
-            <span id="dicaTags" class="textoBase">?</span>
+        <div id="posPopUp">
+            <div id="registro"></div>
+
         </div>
 
-        <input id="campoTags">
-
-        <div id="botoes">
-            <button id="botaoCancelar">Cancelar</button>
-            <button id="botaoPublicar">Publicar</button>
-            <button id="botaoSalvar">Salvar</button>
+        <div id="posPopUpLogin">
+            <div id="login"></div>
         </div>
+        <div id="footer"></div>
 
-        <div id="campoTags"></div>
-    </div>
-
-    <div id="posPopUp">
-        <div id="registro"></div>
-
-    </div>
-
-    <div id="posPopUpLogin">
-        <div id="login"></div>
-    </div>
-    <div id="footer"></div>
-
-</body>
-<script src="includeHtmlExterno.js" defer></script>
-<script src="includePopUpRegistro.js" defer></script>
-<script src="includePopUpLogin.js" defer></script>
-<script src="criacaoPublicacaoLogic.js" defer></script>
+    </body>
+    <script src="includeHtmlExterno.js" defer></script>
+    <script src="criacaoPublicacaoLogic.js" defer></script>
 
 </html>

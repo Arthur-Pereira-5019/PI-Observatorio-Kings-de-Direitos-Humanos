@@ -51,7 +51,7 @@ async function iniciarPublicacoes() {
                 const containerGeral = document.getElementById("container-lista");
                 if (data.length === 0) {
                     alert("Nenhum resultado encontrado!")
-                    primeiroPost.remove
+                    primeiroPost.querySelector('.container-baixo').remove()
                     if (busca != "") {
                         inputBusca.value = ""
                         gerarPublicacoes()
