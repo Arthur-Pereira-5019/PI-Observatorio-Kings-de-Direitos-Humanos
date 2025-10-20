@@ -89,6 +89,7 @@ async function iniciarPublicacoes() {
             })
             .then(data => {
                 const primeiroPost = document.querySelector('.container-geral-publicacoes');
+                const barra = document.querySelector('.container-linha');
                 const containerGeral = document.getElementById("container-lista");
                 if (data.length === 0) {
                     primeiroPost.querySelector('.container-baixo').remove()
@@ -102,6 +103,8 @@ async function iniciarPublicacoes() {
                         if (index == 0) {
                             construirPublicacao(primeiroPost, post)
                         } else {
+                            const novaBarra = barra.cloneNode(true);
+                            containerGeral.appendChild(novaBarra)
                             const novoPost = primeiroPost.cloneNode(true);
                             containerGeral.appendChild(novoPost)
                             construirPublicacao(novoPost, post)
@@ -119,7 +122,7 @@ async function iniciarPublicacoes() {
             publicacao.querySelector(".paragrafo").innerHTML = dados.texto
             publicacao.querySelector(".imagem").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
             publicacao.addEventListener("click", function () {
-                window.location.href = "localhost:8080/publicacao/" + dados.idPostagem
+                window.location.href = "http://localhost:8080/publicacao/" + dados.idPostagem
             })
         }
     }
@@ -128,7 +131,7 @@ async function iniciarPublicacoes() {
     gerarPublicacoes();
     inputBusca.addEventListener("keydown", function (event) {
         if (event.key === "enter") {
-            window.location.href = "localhost:8080/publicacoes/" + inputBusca.value;
+            window.location.href = "http://localhost:8080/publicacao/" + inputBusca.value;
         }
     })
 }
@@ -138,8 +141,10 @@ async function moverUrl(d) {
     const partes = url.split('/');
     let busca = partes.pop();
     busca = Number(busca) + d;
-    partes.push(busca)
-    window.location.href = partes.join("/");
+    if (busca > 0) {
+        partes.push(busca)
+        window.location.href = partes.join("/");
+    }
 }
 
 async function paginaAtual() {
