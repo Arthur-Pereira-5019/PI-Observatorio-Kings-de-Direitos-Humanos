@@ -27,23 +27,26 @@ async function iniciarPublicacoes() {
         .catch(err => console.error(err));
 
     btnDireito = document.getElementById("botaodireito");
-    btnDireito.addEventListener("click", moverUrl(1))
+    btnDireito.addEventListener("click", function() {
+        moverUrl(1)
+    })
     btnEsquerdo = document.getElementById("botaoesquerdo");
-    btnEsquerdo.addEventListener("click", moverUrl(-1))
+    btnEsquerdo.addEventListener("click", function() {
+        moverUrl(-1)
+    })
+
+    btnAtual = document.getElementById("botaoatual");
+    btnAtual.textContent = await paginaAtual()
+
+    btnPrimeiro = document.getElementById("botaoprimeiro");
+    btnPrimeiro.addEventListener("click", function() {
+        moverUrl(-1 * (await paginaAtual())-1)
+    })
 
     const requestBody = {
         parametro: "dataDaPostagem",
         ascending: false
     };
-
-    async function moverUrl(d) {
-        const url = window.location.href;
-        const partes = url.split('/');
-        let busca = partes.pop();
-        busca = Number(busca) + d;
-        partes.push(busca)
-        window.location.href = partes.join("/");
-    }
 
     async function gerarPublicacoes() {
         const url = window.location.href;
@@ -107,6 +110,8 @@ async function iniciarPublicacoes() {
             })
         }
     }
+
+
     gerarPublicacoes();
     inputBusca.addEventListener("keydown", function (event) {
         if (event.key === "enter") {
@@ -114,6 +119,22 @@ async function iniciarPublicacoes() {
         }
     })
 }
+
+    async function moverUrl(d) {
+        const url = window.location.href;
+        const partes = url.split('/');
+        let busca = partes.pop();
+        busca = Number(busca) + d;
+        partes.push(busca)
+        window.location.href = partes.join("/");
+    }
+
+    async function paginaAtual() {
+        const url = window.location.href;
+        const partes = url.split('/');
+        let busca = partes.pop();
+        return Number(busca) + 1;
+    }
 
 
 
