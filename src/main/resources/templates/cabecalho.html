@@ -1,24 +1,46 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="./cabecalhoStyle.css" >
 
-    </head>
+<head>
+    <link rel="stylesheet" href="cabecalhoStyle.css">
+
+</head>
 
 <body>
-    <div class="container">
-        <header>
-            <img class="home" src="./imagens/homeIcon.png" alt="home">
-            <img class="menu" src="./imagens/menuIcon.png" alt="menu">
-            <div class="container-pesquisa">
-                <input type="text" class="label-pesquisa">
-                <img class="lupa" src="./imagens/lupaIcon.png" alt="lupa">
-            </div>
-            
-            <img class="perfil" id= "iconButton"  src="./imagens/perfilIcon.png" alt="perfil">
-
-        </header>
+<div id="containerCabecalho">
+    <img class="home" src="/imagens/homeIcon.png" id="home" alt="home">
+    <img class="menu" src="/imagens/menuIcon.png" id="menu" alt="menu">
+    <div class="container-pesquisa">
+        <input type="text" id="campoPesquisa" class="label-pesquisa">
+        <img class="lupa" src="/imagens/lupaIcon.png" alt="lupa">
     </div>
+    <p id="bemvindo"></p>
+
+    <img class="perfil" id="iconButton" src="/imagens/perfilIcon.png" alt="perfil">
+
+</div>
+<div id="parte-geral-menu-lateral">
+    <button class="item-menu-lateral" id="btnNoticias">
+        <img src="/imagens/noticia-icon.png" class="icon-item-menu-lateral" alt="icone de noticia">
+        Notícias</button>
+    <button class="item-menu-lateral" id="btnForuns">
+        <img src="/imagens/megafone-icon.png" class="icon-item-menu-lateral" alt="icone de megafone">
+        Foruns</button>
+    <button class="item-menu-lateral" id="btnPublicacoes">
+        <img src="/imagens/coracao-icon.png" class="icon-item-menu-lateral" alt="icone de coracao">
+        Publicações</button>
+    <button class="item-menu-lateral" id="btnApoio">
+        <img src="/imagens/balanca-icon.png" class="icon-item-menu-lateral" alt="icone de balanca"> Apoio</button>
+    <button class="item-menu-lateral" id="btnSobre">
+        <img src="/imagens/interrogacao.png" class="icon-item-menu-lateral" alt="icone de interrogacao">
+        Sobre</button>
+    <button class="item-menu-lateral" id="btnContato">
+        <img src="/imagens/telefone-icon.png" class="icon-item-menu-lateral" alt="icone de telefone">
+        Contato</button>
+</div>
 </body>
+<script>
+
+</script>
 
 </html>
