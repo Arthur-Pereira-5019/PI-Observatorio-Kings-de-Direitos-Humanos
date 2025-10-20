@@ -1,3 +1,5 @@
+let campoTags;
+
 async function carregarHTMLCP(id, url, cssFile, jsFile) {
     const response = await fetch(url);
     const data = await response.text();
@@ -25,6 +27,7 @@ async function carregarHTMLCP(id, url, cssFile, jsFile) {
 
 
 async function iniciarCriacaoPublicacao() {
+    campoTags = document.getElementById("campoTags");
     const capaPostagemInput = document.getElementById("capaPostagemInput");
     capaPostagemInput.addEventListener("input", input_capa);
     await carregarHTMLCP("inserirImagem", "/nova_imagem", "popUpNovaImagemStyle.css", "popupNovaImagemLogic.js");
@@ -44,6 +47,23 @@ async function iniciarCriacaoPublicacao() {
         publicarDocumento();
     })
 
+    campoTags.addEventListener("keydown",function(event) {
+        if(event.key === ",") {
+            adicionarTag();
+        }
+    })
+
+}
+
+async function adicionarTag() {
+    console.log("Ouvido");
+    
+    let novaTag = campoTags.value
+    novaTag = novaTag.substring(0,novaTag.length-2)
+    const elementoTag = document.createElement("div");
+    elementoTag.setAttribute("class", "tags");
+    elementoTag.textContent = novaTag;
+    campoTags.appendChild(elementoTag);
 }
 
 async function publicarDocumento(finalizada) {
@@ -51,7 +71,7 @@ async function publicarDocumento(finalizada) {
 
     const campoTituloPostagem = document.getElementById("campoTitulo");
     const campoTextoPostagem = textoPublicacao.innerHTML;
-    const campoTags = document.getElementById("campoTags");
+    
     let canva = document.getElementById("capaPostagemPreview");
     let campoImagem = canva.src;
     let endPosition = campoImagem.indexOf(",");
@@ -213,7 +233,7 @@ function aumentarTamanho() {
     const campo = document.querySelector("textoPublicacao");
     const span = document.createElement("span");
     span.id = "tamanho"
-    span.textContent = "👉 inserido aqui";
+    span.textContent = "inserido aqui";
     inserir(span, campo, 10);
 }
 
