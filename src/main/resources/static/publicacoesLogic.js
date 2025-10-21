@@ -6,6 +6,8 @@ let btnPrimeiro;
 let btnCampo;
 
 async function iniciarPublicacoes() {
+    consertarUrl()
+
     inputBusca = document.getElementById("campoPesquisa")
     botaoNovaPostagem = document.getElementById("botao-moderador")
     fetch("http://localhost:8080/api/user", {
@@ -66,7 +68,7 @@ async function iniciarPublicacoes() {
         const partes = url.split('/');
         let busca2 = "/" + partes.pop();
 
-        //Significa que já não tem nada
+        //Significa que já não tem nada || Isso aqui ainda vai ser útil?
         if (busca2 === '/publicacoes') {
             buscaf = "/"
         } else {
@@ -129,11 +131,6 @@ async function iniciarPublicacoes() {
 
 
     gerarPublicacoes();
-    inputBusca.addEventListener("keydown", function (event) {
-        if (event.key === "enter") {
-            window.location.href = "http://localhost:8080/publicacao/" + inputBusca.value;
-        }
-    })
 }
 
 async function moverUrl(d) {
@@ -141,9 +138,18 @@ async function moverUrl(d) {
     const partes = url.split('/');
     let busca = partes.pop();
     busca = Number(busca) + d;
-    if (busca > 0) {
+    if (busca >= 0) {
         partes.push(busca)
         window.location.href = partes.join("/");
+    }
+}
+
+function consertarUrl() {
+    const url = window.location.href;
+    const partes = url.split('/');
+    let ultima = "/" + partes.pop();
+    if (ultima === '/publicacoes') {
+        window.location.href = "http://localhost:8080/publicacoes/ /0"
     }
 }
 

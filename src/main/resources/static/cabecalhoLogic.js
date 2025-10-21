@@ -21,7 +21,7 @@ async function iniciarCabecalho() {
     barraPesquisa.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
             event.preventDefault();
-            window.location.href = "http://localhost:8080/publicacoes/" + barraPesquisa.value;
+            window.location.href = "http://localhost:8080/publicacoes/" + barraPesquisa.value +"/0";
         }
     });
 
