@@ -42,5 +42,10 @@ public class TestController {
         return "publicacoes";
     }
 
+    @RequestMapping({"/noticias/**"})
+    public String returnNoticias() {
+        return "noticias";
+    }
+
 
 }
