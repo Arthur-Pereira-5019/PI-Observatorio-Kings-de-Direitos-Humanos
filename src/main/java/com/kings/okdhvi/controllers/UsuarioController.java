@@ -116,7 +116,20 @@ public class UsuarioController {
     @PostMapping("/registrar")
     public ResponseEntity<?> register(@RequestBody Usuario u, HttpServletResponse response) {
         us.saveUsuario(u);
-        return login(new PedidoLogin(u.getEmail(), u.getSenha()), response);
+
+        var usernamePassword = new UsernamePasswordAuthenticationToken(u.getEmail(), u.getSenha());
+        var auth = this.authenticationManager.authenticate(usernamePassword);
+
+        var token = ts.gerarToken((Usuario) auth.getPrincipal());
+
+        Cookie cookie = new Cookie("jwt", token);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(1209600);
+        response.addCookie(cookie);
+
+        return ResponseEntity.ok("Registrado com sucesso!");
     }
 
     @PostMapping("/requisitar_exclusao")

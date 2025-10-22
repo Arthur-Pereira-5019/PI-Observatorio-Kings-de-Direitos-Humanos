@@ -9,13 +9,9 @@ async function carregarHTMLExterno(id, url, cssFile, jsFile) {
     const response = await fetch(url);
     const data = await response.text();
     document.getElementById(id).innerHTML = data;
-    
 
     if (cssFile) {
-        let link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.href = cssFile;
-        document.head.appendChild(link);
+        anexarCss(cssFile)
     }
 
     if (jsFile) {
@@ -34,25 +30,33 @@ async function carregarHTMLExterno(id, url, cssFile, jsFile) {
     }
 }
 
+async function anexarCss(cssFile) {
+    let link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = cssFile;
+    document.head.appendChild(link);
+}
+
 
 async function iniciarHtmlExterno() {
-    await carregarHTMLExterno("header", "/cabecalho", "rodapeStyle.css", "/cabecalhoLogic.js");
-    await carregarHTMLExterno("footer", "/rodape", "cabecalhoStyle.css");
-    await carregarHTMLExterno("login", "/popupLogin", "popUpLoginStyle.css", "/includePopupLogin.js");
-    await carregarHTMLExterno("registro", "/popupRegistro", "popUpRegistroStyle.css", "/includePopUpRegistro.js");
+    await anexarCss("/posicionamentoPopups.css")
+    await carregarHTMLExterno("header", "/cabecalho", "/cabecalhoStyle.css", "/cabecalhoLogic.js");
+    await carregarHTMLExterno("footer", "/rodape", "/rodapeStyle.css");
+    await carregarHTMLExterno("login", "/popupLogin", "/popUpLoginStyle.css", "/includePopupLogin.js");
+    await carregarHTMLExterno("registro", "/popupRegistro", "/popUpRegistroStyle.css", "/includePopUpRegistro.js");
 
     if (iconButton) {
         iconButton.addEventListener("click", function () {
             fetch("http://localhost:8080/api/user", {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
-        
+
             })
 
         });
     }
 
-    
+
 }
 
 document.addEventListener("DOMContentLoaded", iniciarHtmlExterno);

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Observatório Kings de Direitos Humanos no Vale do Itajaí</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="/publicacoesStyle.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <style>
+        body,
+        html {
+            width: 100vw;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .noticias {}
+
+        .capa {
+            width: 40%;
+        }
+
+        #container-noticias {
+            padding-top: 6vh;
+            width: 86%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #container-noticias>div {
+            display: flex;
+            flex-direction: column;
+            width: 44%;
+            gap: 6vh
+        }
+
+        .tituloNoticia {
+            color: rgb(188, 0, 0);
+            font-weight: bolder;
+            font-family: "Inter", sans-serif;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .autor {
+            font-family: "Inter", sans-serif;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: bold;
+        }
+
+        .capa {
+            position: relative;
+            width: 86%;
+            aspect-ratio: 16/9;
+        }
+
+    
+    </style>
+
+</head>
+
+<body>
+
+    <div id="header"></div>
+
+    <div id="container-noticias">
+        <div id="noticias-direita">
+            <div id="noticiaBase" class="noticias">
+                <img src="https://i.ytimg.com/vi/_io4F7HtcCA/maxresdefault.jpg" class="capa">
+                <h2 class="tituloNoticia">Título da notícia aqui pipipipi</h3>
+                <p class="autor">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate dicta assumenda
+                    deleniti maxime, ipsam, veritatis amet nulla esse possimus explicabo nemo corrupti. Assumenda,
+                    officiis a exercitationem ut facilis sunt beatae.</p>
+            </div>
+        </div>
+        <div id="noticias-esquerda">
+            <div id="noticiaBase" class="noticias">
+                <img src="" class="capa">
+                <h2 class="tituloNoticia">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa ut totam accusantium quidem in amet, magni, nesciunt, animi explicabo molestiae quod doloremque non temporibus itaque labore quis maiores soluta maxime.</h3>
+                <p class="autor">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate dicta assumenda
+                    deleniti maxime, ipsam, veritatis amet nulla esse possimus explicabo nemo corrupti. Assumenda,
+                    officiis a exercitationem ut facilis sunt beatae.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container-seletores">
+        <button class="bloquinhos" id="botaoesquerdo">&lt;</button>
+        <button class="bloquinhos" id="botaoprimeiro">1</button>
+        <button class="bloquinhos" id="botaoatual"></button>
+        <input type="text" id="botaocampo" class="bloquinhos" style="cursor: text;background-color: white ;"
+            placeholder="__">
+        <button class="bloquinhos" id="botaolonge"></button>
+        <button class="bloquinhos" id="botaodireito">&gt;</button>
+    </div>
+
+    <div id="posPopUp">
+        <div id="registro"></div>
+    </div>
+
+    <div id="posPopUpLogin">
+        <div id="login"></div>
+    </div>
+    <div id="footer"></div>
+
+
+</body>
+<script src="/includeHtmlExterno.js" defer></script>
+<script src="/publicacoesLogic.js" defer></script>
+
+</html>

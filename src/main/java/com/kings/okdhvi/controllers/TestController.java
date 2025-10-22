@@ -37,19 +37,15 @@ public class TestController {
         return "publicacao";
     }
 
-    @RequestMapping("/publicacoes/")
+    @RequestMapping({"/publicacoes/**"})
     public String returnPublicacoesN() {
         return "publicacoes";
     }
 
-    @RequestMapping("/publicacoes")
-    public String returnPublicacoesN2() {
-        return "publicacoes";
+    @RequestMapping({"/noticias/**"})
+    public String returnNoticias() {
+        return "noticias";
     }
 
-    @RequestMapping("/publicacoes/{texto}")
-    public String returnPublicacoes() {
-        return "publicacoes";
-    }
 
 }

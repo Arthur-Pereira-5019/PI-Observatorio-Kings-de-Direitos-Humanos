@@ -14,11 +14,16 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -38,31 +43,37 @@ public class PostagemServices {
     @PersistenceContext
     private EntityManager em;
 
-    public List<Postagem> encontrarPostagens(BuscaPaginada bp) {
-        Pageable pageable = PageRequest.of(bp.numeroPagina(), bp.numeroResultados(), Sort.by(bp.parametro()).descending());
-        if(bp.ascending()) {
-            pageable = PageRequest.of(bp.numeroPagina(), bp.numeroResultados(), Sort.by(bp.parametro()).ascending());
-        }
-        Page<Postagem> buscaPaginada = pr.findAll(pageable);
+    Logger logger = LoggerFactory.getLogger(PostagemServices.class);
 
-        List<Postagem> postagens = buscaPaginada.getContent();
-        return postagens;
-    }
-
-    public List<Postagem> buscaFiltrada(BuscaPaginada bp, String texto) {
+    public List<Postagem> buscaFiltrada(BuscaPaginada bp, String texto, UserDetails ud) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Postagem> cq = cb.createQuery(Postagem.class);
         Root<Postagem> p = cq.from(Postagem.class);
 
         List<Predicate> predicates = new ArrayList<>();
 
+        if (texto != null && !texto.isBlank()) {
             Predicate corpo = cb.like(cb.lower(p.get("textoPostagem")), "%" + texto.toLowerCase() + "%");
             Predicate titulo = cb.like(cb.lower(p.get("tituloPostagem")), "%" + texto.toLowerCase() + "%");
             Predicate autor = cb.like(cb.lower(p.get("autor").get("nome")), "%" + texto.toLowerCase() + "%");
             predicates.add(cb.or(corpo, titulo, autor));
+        }
+
+        boolean moderador = false;
+        if(ud != null) {
+            if(ud.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MODER"))) {
+                System.out.println("Moderador");
+                moderador = true;
+            }
+        }
+
+        if (!moderador) {
+            Predicate naoOculto = cb.equal(p.get("oculto"), false);
+            predicates.add(naoOculto);
+        }
 
         cq.where(predicates.toArray(new Predicate[0]));
-        cq.orderBy(cb.asc(p.get("dataDaPostagem")));
+        cq.orderBy(cb.desc(p.get("dataDaPostagem")));
 
         TypedQuery<Postagem> busca = em.createQuery(cq);
 
@@ -78,11 +89,11 @@ public class PostagemServices {
 
     @Transactional
     public Postagem criarPostagem(PostagemCDTO pcdto, Long usuarioId) {
-        if(pcdto == null) {
+        if (pcdto == null) {
             throw new NullResourceException("Postagem nula submetida!");
         }
 
-        if(pcdto.capaBase64() == null) {
+        if (pcdto.capaBase64() == null) {
             throw new NullResourceException("Postagem sem capa submetida!");
         }
         Postagem post = new Postagem();
@@ -103,15 +114,15 @@ public class PostagemServices {
         return pr.save(post);
     }
 
-    public Postagem atualizarPostagem (Postagem p, Long id) {
-        if(p == null) {
+    public Postagem atualizarPostagem(Postagem p, Long id) {
+        if (p == null) {
             throw new NullResourceException("Postagem nula submetido");
         }
         return pr.save(p);
     }
 
     public void deletarPeloId(Long id) {
-       pr.delete(encontrarPostagemPeloId(id));
+        pr.delete(encontrarPostagemPeloId(id));
     }
 
     public Postagem encontrarPostagemPeloId(Long id) {
@@ -124,7 +135,7 @@ public class PostagemServices {
         Postagem p = encontrarPostagemPeloId(rpr.idPostagem());
         Usuario u = us.encontrarPorId(rpr.idUsuario(), false);
 
-        if(p.getRevisor().contains(u)) {
+        if (p.getRevisor().contains(u)) {
             throw new RevisaoPostagemException("Postagem já revisada pelo usuário fornecido!");
         }
 
@@ -145,18 +156,20 @@ public class PostagemServices {
     }
 
     public PostagemESDTO parsePostagemToESDTO(Postagem p) {
-       return new PostagemESDTO(p.getIdPostagem(), p.getTituloPostagem(), p.getCapa());
+        String prefixoOculto = p.isOculto() ? "[OCULTO] " : "";
+        return new PostagemESDTO(p.getIdPostagem(), prefixoOculto + p.getTituloPostagem(), p.getCapa());
     }
 
     public PostagemECDTO parsePostagemToECDTO(Postagem p) {
         String textoPostagem = p.getTextoPostagem();
+        String prefixoOculto = p.isOculto() ? "[OCULTO] " : "";
         String nomeAutor = p.getAutor() == null ? "Externo" : p.getAutor().getNome();
         return new PostagemECDTO(p.getIdPostagem(),
-                p.getTituloPostagem(),
+                prefixoOculto + p.getTituloPostagem(),
                 p.getCapa(),
                 textoPostagem.substring(0, textoPostagem.length() > 255 ? 255 : textoPostagem.length()),
                 nomeAutor,
                 p.getDataDaPostagem()
-                );
+        );
     }
 }

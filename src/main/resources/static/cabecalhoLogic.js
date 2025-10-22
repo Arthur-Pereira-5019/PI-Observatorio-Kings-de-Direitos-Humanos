@@ -21,7 +21,7 @@ async function iniciarCabecalho() {
     barraPesquisa.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
             event.preventDefault();
-            window.location.href = "http://localhost:8080/publicacoes/" + barraPesquisa.value;
+            window.location.href = "http://localhost:8080/publicacoes/" + barraPesquisa.value +"/0";
         }
     });
 
@@ -42,7 +42,7 @@ async function iniciarCabecalho() {
     })
 
     btnPublicacoes.addEventListener("click", function () {
-        window.location.href = "http://localhost:8080/publicacoes";
+        window.location.href = "http://localhost:8080/publicacoes/ /0";
     })
 
     btnApoio.addEventListener("click", function () {
