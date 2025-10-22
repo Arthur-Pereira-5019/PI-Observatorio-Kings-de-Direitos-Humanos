@@ -51,6 +51,9 @@ public class PostagemServices {
         Root<Postagem> p = cq.from(Postagem.class);
 
         List<Predicate> predicates = new ArrayList<>();
+        List<Predicate> predicatesCorpo = new ArrayList<>();
+        List<Predicate> predicatesTitulo = new ArrayList<>();
+        List<Predicate> predicatesAutor = new ArrayList<>();
 
         if (texto != null && !texto.isBlank()) {
             Predicate corpo = cb.like(cb.lower(p.get("textoPostagem")), "%" + texto.toLowerCase() + "%");
