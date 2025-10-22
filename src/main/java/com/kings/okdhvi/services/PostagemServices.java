@@ -9,10 +9,7 @@ import com.kings.okdhvi.repositories.PostagemRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,18 +51,16 @@ public class PostagemServices {
         List<Predicate> predicates = new ArrayList<>();
 
         if (texto != null && !texto.isBlank()) {
-            Predicate predicatesCorpo =  construirTextoPredicado(texto, "textoPostagem");
+            Predicate predicatesCorpo =  construirTextoPredicado(cb, p, texto, "textoPostagem");
 
-            Predicate predicatesTitulo =  construirTextoPredicado(texto, "tituloPostagem");
+            Predicate predicatesTitulo =  construirTextoPredicado(cb, p, texto, "tituloPostagem");
 
-            Predicate predicatesAutor =  construirTextoPredicado(texto, "autor");
-
-            Predicate predicatesTags =  construirTextoPredicado(texto, "tags");
+            Predicate predicatesTags =  construirTextoPredicado(cb, p, texto, "tags");
 
 
-            predicates.add(cb.or(predicatesCorpo, predicatesTitulo, predicatesAutor, predicatesTags));
+            predicates.add(cb.or(predicatesCorpo, predicatesTitulo, predicatesTags));
             if(texto.contains("noticia")) {
-                predicates.add(cb.like(cb.lower(p.get("")), "%" + "noticia" + "%"));
+                predicates.add(cb.like(cb.lower(p.get("tags")), "%" + "noticia" + "%"));
             }
         }
 
@@ -92,17 +87,15 @@ public class PostagemServices {
         return busca.getResultList();
     }
 
-    public Predicate construirTextoPredicado(String texto, String campo) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Postagem> cq = cb.createQuery(Postagem.class);
-        Root<Postagem> p = cq.from(Postagem.class);
+    public Predicate construirTextoPredicado(CriteriaBuilder cb, Root<Postagem> p, String texto, String campo) {
 
         String[] t = texto.split(" ");
         List<Predicate> retorno = new ArrayList<>();
 
         for(int i = 0; i < t.length; i++) {
-             retorno.add(cb.like(cb.lower(p.get(campo)), "%" + texto.toLowerCase() + "%"));
+             retorno.add(cb.like(cb.lower(p.get(campo)), "%" + t[i] + "%"));
         }
+
         return cb.or(retorno.toArray(new Predicate[0]));
     }
 
