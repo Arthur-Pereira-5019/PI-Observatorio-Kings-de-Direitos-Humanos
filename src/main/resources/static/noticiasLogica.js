@@ -63,24 +63,14 @@ async function iniciarNoticias() {
         ascending: false
     };
 
-    async function gerarPublicacoes() {
+    async function gerarNoticias() {
         const url = window.location.href;
         const partes = url.split('/');
         let busca2 = "/" + partes.pop();
+        let busca = "/" + partes.pop() + " noticia";
+        buscaf = busca + busca2
 
-        //Significa que já não tem nada || Isso aqui ainda vai ser útil?
-        if (busca2 === '/noticias') {
-            buscaf = "/"
-        } else {
-            let busca = "/" + partes.pop();
-            if (busca === '/noticias') {
-                buscaf = "/" + busca2
-            } else {
-                buscaf = busca + busca2
-            }
-        }
-
-        fetch("http://localhost:8080/api/postagem/listar_noticias" + buscaf, {
+        fetch("http://localhost:8080/api/noticia/listar_noticias" + buscaf, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
@@ -90,26 +80,29 @@ async function iniciarNoticias() {
                 return res.json();
             })
             .then(data => {
-                const primeiroPost = document.querySelector('noticiaBase');
+                const primeiroPost = document.getElementById('noticiaBase');
                 const containerDireita = document.getElementById("noticias-direita");
                 const containerEsquerda = document.getElementById("noticias-esquerda");
+                console.log(data);
+                
                 if (data.length === 0) {
                     primeiroPost.querySelector('.container-baixo').remove()
                     alert("Nenhum resultado encontrado!")
                     if (busca != "") {
                         inputBusca.value = ""
-                        gerarPublicacoes()
+                        iniciarNoticias()
                     }
                 } else {
                     data.forEach((post, index) => {
                         if (index == 0) {
-                            construirPublicacao(primeiroPost, post)
+                            construirNoticia(primeiroPost, post)
                         } else {
-                                                        const novoPost = primeiroPost.cloneNode(true);
+                            const noticia = primeiroPost.cloneNode(true);
+                            construirNoticia(noticia,post)
                             if(index % 2 == 0) {
-                                containerDireita.appendChild(novoPost)
+                                containerDireita.appendChild(noticia)
                             } else {
-                                containerEsquerda.appendChild(novoPost)
+                                containerEsquerda.appendChild(noticia)
                             }
                         }
                     });
@@ -118,19 +111,18 @@ async function iniciarNoticias() {
             })
             .catch(err => console.error(err));
 
-        function construirPublicacao(publicacao, dados) {
-            publicacao.querySelector(".titulo-publicacao").textContent = dados.titulo
-            publicacao.querySelector(".autor").textContent = dados.autor
-            publicacao.querySelector(".imagem").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
-            publicacao.addEventListener("click", function () {
+        function construirNoticia(noticia, dados) {
+            noticia.querySelector(".tituloNoticia").textContent = dados.titulo
+            noticia.querySelector(".autor").textContent = dados.autor
+            noticia.querySelector(".capa").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
+            noticia.addEventListener("click", function () {
                 window.location.href = "http://localhost:8080/noticias/" + dados.idPostagem
             })
         }
     }
 
 
-    gerarPublicacoes();
-}
+    iniciarNoticias();
 
 async function moverUrl(d) {
     const url = window.location.href;

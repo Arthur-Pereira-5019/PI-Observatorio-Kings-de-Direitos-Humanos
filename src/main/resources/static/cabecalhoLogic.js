@@ -2,7 +2,7 @@ let home;
 let menu;
 let barraPesquisa;
 async function iniciarCabecalho() {
-    
+
     home = document.getElementById('home');
     menu = document.getElementById("menu");
     bemvindos = document.getElementById("bemvindo");
@@ -20,8 +20,14 @@ async function iniciarCabecalho() {
     barraPesquisa = document.getElementById('campoPesquisa');
     barraPesquisa.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
-            event.preventDefault();
-            window.location.href = "http://localhost:8080/publicacoes/" + barraPesquisa.value +"/0";
+            if (window.location.href.includes("/noticias/")) {
+                event.preventDefault();
+                window.location.href = "http://localhost:8080/noticias/" + barraPesquisa.value + "/0";
+            } else {
+                event.preventDefault();
+                window.location.href = "http://localhost:8080/publicacoes/" + barraPesquisa.value + "/0";
+            }
+
         }
     });
 
