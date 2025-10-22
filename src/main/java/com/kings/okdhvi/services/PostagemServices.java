@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -51,15 +52,21 @@ public class PostagemServices {
         Root<Postagem> p = cq.from(Postagem.class);
 
         List<Predicate> predicates = new ArrayList<>();
-        List<Predicate> predicatesCorpo = new ArrayList<>();
-        List<Predicate> predicatesTitulo = new ArrayList<>();
-        List<Predicate> predicatesAutor = new ArrayList<>();
 
         if (texto != null && !texto.isBlank()) {
-            Predicate corpo = cb.like(cb.lower(p.get("textoPostagem")), "%" + texto.toLowerCase() + "%");
-            Predicate titulo = cb.like(cb.lower(p.get("tituloPostagem")), "%" + texto.toLowerCase() + "%");
-            Predicate autor = cb.like(cb.lower(p.get("autor").get("nome")), "%" + texto.toLowerCase() + "%");
-            predicates.add(cb.or(corpo, titulo, autor));
+            Predicate predicatesCorpo =  construirTextoPredicado(texto, "textoPostagem");
+
+            Predicate predicatesTitulo =  construirTextoPredicado(texto, "tituloPostagem");
+
+            Predicate predicatesAutor =  construirTextoPredicado(texto, "autor");
+
+            Predicate predicatesTags =  construirTextoPredicado(texto, "tags");
+
+
+            predicates.add(cb.or(predicatesCorpo, predicatesTitulo, predicatesAutor, predicatesTags));
+            if(texto.contains("noticia")) {
+                predicates.add(cb.like(cb.lower(p.get("")), "%" + "noticia" + "%"));
+            }
         }
 
         boolean moderador = false;
@@ -83,6 +90,20 @@ public class PostagemServices {
         busca.setFirstResult(bp.numeroPagina() * bp.numeroResultados());
         busca.setMaxResults(bp.numeroResultados());
         return busca.getResultList();
+    }
+
+    public Predicate construirTextoPredicado(String texto, String campo) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Postagem> cq = cb.createQuery(Postagem.class);
+        Root<Postagem> p = cq.from(Postagem.class);
+
+        String[] t = texto.split(" ");
+        List<Predicate> retorno = new ArrayList<>();
+
+        for(int i = 0; i < t.length; i++) {
+             retorno.add(cb.like(cb.lower(p.get(campo)), "%" + texto.toLowerCase() + "%"));
+        }
+        return cb.or(retorno.toArray(new Predicate[0]));
     }
 
     public List<Postagem> encontrarPeloUsuario(Long id) {
