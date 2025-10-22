@@ -86,7 +86,7 @@ async function iniciarNoticias() {
                 console.log(data);
                 
                 if (data.length === 0) {
-                    primeiroPost.querySelector('.container-baixo').remove()
+                    primeiroPost.remove()
                     alert("Nenhum resultado encontrado!")
                     if (busca != "") {
                         inputBusca.value = ""
@@ -113,16 +113,20 @@ async function iniciarNoticias() {
 
         function construirNoticia(noticia, dados) {
             noticia.querySelector(".tituloNoticia").textContent = dados.titulo
-            noticia.querySelector(".autor").textContent = dados.autor
-            noticia.querySelector(".capa").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
+            noticia.querySelector(".autor").textContent = dados.nomeAutor
+            if(dados.capa.imagem == "" || dados.capa.tipoImagem) {
+                noticia.querySelector(".capa").src = "/imagens/noticia.png";
+            } else {
+                noticia.querySelector(".capa").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
+            }
             noticia.addEventListener("click", function () {
-                window.location.href = "http://localhost:8080/noticias/" + dados.idPostagem
+                window.location.href = "http://localhost:8080/publicacao/" + dados.idPostagem
             })
         }
     }
+    gerarNoticias();
 
-
-    iniciarNoticias();
+}
 
 async function moverUrl(d) {
     const url = window.location.href;

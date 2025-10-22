@@ -47,7 +47,7 @@ public class PostagemController {
     public List<PostagemECDTO> listarPostagens(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @PathVariable("pagina") Integer pagina, @AuthenticationPrincipal UserDetails ud) {
         List<Postagem> postagens;
         ArrayList<PostagemECDTO> retorno = new ArrayList<>();
-        BuscaPaginada bp = new BuscaPaginada(pagina, 2, bpt.parametro(), bpt.ascending());
+        BuscaPaginada bp = new BuscaPaginada(pagina, 10, bpt.parametro(), bpt.ascending());
             postagens = ps.buscaFiltrada(bp, texto, ud);
 
         postagens.forEach(b -> retorno.add(ps.parsePostagemToECDTO(b)));

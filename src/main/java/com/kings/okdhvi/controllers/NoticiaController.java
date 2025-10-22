@@ -29,7 +29,7 @@ public class NoticiaController {
     public List<NoticiaESDTO> listarNoticias(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @PathVariable("pagina") Integer pagina, @AuthenticationPrincipal UserDetails ud) {
         List<Postagem> postagens;
         ArrayList<NoticiaESDTO> retorno = new ArrayList<>();
-        BuscaPaginada bp = new BuscaPaginada(pagina, 2, bpt.parametro(), bpt.ascending());
+        BuscaPaginada bp = new BuscaPaginada(pagina, 16, bpt.parametro(), bpt.ascending());
         postagens = ps.buscaFiltrada(bp, texto, ud);
 
         postagens.forEach(b -> retorno.add(ns.parsePostagemToNoticiaESDTO(b)));

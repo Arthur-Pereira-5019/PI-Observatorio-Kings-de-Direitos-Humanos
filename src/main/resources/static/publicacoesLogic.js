@@ -122,7 +122,11 @@ async function iniciarPublicacoes() {
             publicacao.querySelector(".autor").textContent = dados.autor
             publicacao.querySelector(".data").textContent = dados.data
             publicacao.querySelector(".paragrafo").innerHTML = dados.texto
-            publicacao.querySelector(".imagem").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
+            if (dados.capa.imagem == "" || dados.capa.tipoImagem) {
+                publicacao.querySelector(".imagem").src = "/imagens/publicacao.png";
+            } else {
+                publicacao.querySelector(".imagem").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
+            }
             publicacao.addEventListener("click", function () {
                 window.location.href = "http://localhost:8080/publicacao/" + dados.idPostagem
             })
