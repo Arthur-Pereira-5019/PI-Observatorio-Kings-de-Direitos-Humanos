@@ -109,7 +109,6 @@ public class PostagemServices {
         if (pcdto == null) {
             throw new NullResourceException("Postagem nula submetida!");
         }
-
         if (pcdto.capaBase64() == null) {
             throw new NullResourceException("Postagem sem capa submetida!");
         }
@@ -123,6 +122,7 @@ public class PostagemServices {
         post.setTextoPostagem(pcdto.textoPostagem());
         post.setTituloPostagem(pcdto.tituloPostagem());
         post.setTags(pcdto.tags());
+        post.setExterna(false);
 
 
         post.setAutor(u);
@@ -172,21 +172,5 @@ public class PostagemServices {
         dm.setNomeModerado(p.getTituloPostagem());
     }
 
-    public PostagemESDTO parsePostagemToESDTO(Postagem p) {
-        String prefixoOculto = p.isOculto() ? "[OCULTO] " : "";
-        return new PostagemESDTO(p.getIdPostagem(), prefixoOculto + p.getTituloPostagem(), p.getCapa());
-    }
 
-    public PostagemECDTO parsePostagemToECDTO(Postagem p) {
-        String textoPostagem = p.getTextoPostagem();
-        String prefixoOculto = p.isOculto() ? "[OCULTO] " : "";
-        String nomeAutor = p.getAutor() == null ? "Externo" : p.getAutor().getNome();
-        return new PostagemECDTO(p.getIdPostagem(),
-                prefixoOculto + p.getTituloPostagem(),
-                p.getCapa(),
-                textoPostagem.substring(0, textoPostagem.length() > 255 ? 255 : textoPostagem.length()),
-                nomeAutor,
-                p.getDataDaPostagem()
-        );
-    }
 }

@@ -46,6 +46,9 @@ public class Postagem extends Comentavel{
     @JoinColumn(name="id_capa")
     private Imagem capa;
 
+    @Column
+    boolean externa;
+
     public String getTituloPostagem() {
         return tituloPostagem;
     }
@@ -116,5 +119,13 @@ public class Postagem extends Comentavel{
 
     public void setCapa(Imagem capa) {
         this.capa = capa;
+    }
+
+    public boolean isExterna() {
+        return externa;
+    }
+
+    public void setExterna(boolean externa) {
+        this.externa = externa;
     }
 }

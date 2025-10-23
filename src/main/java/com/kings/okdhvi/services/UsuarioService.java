@@ -50,6 +50,9 @@ public class UsuarioService {
     Date dataMinima = new Date(0,Calendar.JANUARY,1);
 
     public Long buscarId(UserDetails ud) {
+        if(ud == null) {
+            return null;
+        }
         return encontrarPorEmail(ud.getUsername(), false).getIdUsuario();
     }
 

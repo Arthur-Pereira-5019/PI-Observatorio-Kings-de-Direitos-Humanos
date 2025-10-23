@@ -1,11 +1,13 @@
 package com.kings.okdhvi.controllers;
 
+import com.kings.okdhvi.mapper.PostagemMapper;
 import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.model.requests.*;
 import com.kings.okdhvi.services.PostagemServices;
 import com.kings.okdhvi.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +24,15 @@ public class PostagemController {
     @Autowired
     UsuarioService us;
 
+    @Autowired
+    PostagemMapper pm;
+
     @GetMapping("/usuario/{id}")
     public List<Postagem> encontrarPeloUsuario(@PathVariable Long id) {
         return ps.encontrarPeloUsuario(id);
     }
 
+    @PreAuthorize("hasRole('ROLE_ESPEC')")
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Postagem criarPostagem(@RequestBody PostagemCDTO p, @AuthenticationPrincipal UserDetails user) {
         return ps.criarPostagem(p, us.buscarId(user));
@@ -50,7 +56,7 @@ public class PostagemController {
         BuscaPaginada bp = new BuscaPaginada(pagina, 10, bpt.parametro(), bpt.ascending());
             postagens = ps.buscaFiltrada(bp, texto, ud);
 
-        postagens.forEach(b -> retorno.add(ps.parsePostagemToECDTO(b)));
+        postagens.forEach(b -> retorno.add(pm.parsePostagemToECDTO(b)));
         return retorno;
     }
 
@@ -74,7 +80,7 @@ public class PostagemController {
     public List<? extends PostagemESDTO> buscaPaginada(@RequestBody BuscaPaginada bp, @AuthenticationPrincipal UserDetails ud) {
 
         ArrayList<PostagemESDTO> retorno = new ArrayList<>();
-         ps.buscaFiltrada(bp,null, ud).forEach(p -> {retorno.add(ps.parsePostagemToESDTO(p));});
+         ps.buscaFiltrada(bp,null, ud).forEach(p -> {retorno.add(pm.parsePostagemToESDTO(p));});
          return retorno;
     }
 

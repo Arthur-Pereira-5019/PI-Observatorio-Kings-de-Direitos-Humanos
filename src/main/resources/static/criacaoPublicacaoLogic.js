@@ -55,9 +55,7 @@ async function iniciarCriacaoPublicacao() {
 
 }
 
-async function adicionarTag() {
-    console.log("Ouvido");
-    
+async function adicionarTag() {    
     let novaTag = campoTags.value
     novaTag = novaTag.substring(0,novaTag.length-2)
     const elementoTag = document.createElement("div");
@@ -101,6 +99,8 @@ async function publicarDocumento(finalizada) {
             return res.json();
         })
         .then(data => {
+            alert("Postagem publicada com sucesso!")
+            window.location.href="http://localhost:8080/"+data.id
         })
 }
 
