@@ -10,6 +10,7 @@ async function iniciarPublicacoes() {
 
     inputBusca = document.getElementById("campoPesquisa")
     botaoNovaPostagem = document.getElementById("botao-moderador")
+    campoModerador = document.getElementById("container-moderador")
     fetch("http://localhost:8080/api/user", {
         headers: { 'Content-Type': 'application/json' },
     })
@@ -19,6 +20,7 @@ async function iniciarPublicacoes() {
         })
         .then(data => {
             if (data.estadoDaConta == "ESPECIALISTA") {
+                campoModerador.style.display = "flex"
                 botaoNovaPostagem.style.display = "flex";
                 botaoNovaPostagem.addEventListener("click", function () {
                     window.location.href = "http://localhost:8080/nova_publicacao";

@@ -7,7 +7,7 @@
      margin-top: 1%;
      height: 10vh;
      width: 100%;
-     display: flex;
+     display: none;
      justify-content: end;
  }
 
@@ -68,6 +68,15 @@
      overflow: hidden;
      white-space: nowrap;
      text-overflow: ellipsis;
+ }
+
+ #titulo {
+     font-weight: 800;
+     font-size: 60px;
+     color: darkred;
+     font-family: "Inter", sans-serif;
+     margin-top: 2.5%;
+     text-align: center;
  }
 
  .container-titulo {

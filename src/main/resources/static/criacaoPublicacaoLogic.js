@@ -175,19 +175,16 @@ textoPublicacao.addEventListener("keydown", function (e) {
         e.preventDefault();
     }
 
-    // Ctrl + I → Itálico
     if (e.ctrlKey && e.key === "i") {
         createItalic();
         e.preventDefault();
     }
 
-    // Ctrl + U → Sublinhado
     if (e.ctrlKey && e.key === "u") {
         createUnderline();
         e.preventDefault();
     }
 
-    // Ctrl + S → Salvar (exemplo)
     if (e.ctrlKey && e.key === "s") {
         console.log("Salvando conteúdo:", getHTML());
         e.preventDefault();
@@ -239,8 +236,23 @@ function aumentarTamanho() {
 
 function inserirElemento(element, parent, position) {
     const range = document.createRange();
-    const textNode = parent.firstChild;
-    range.setStart(textNode, position);
-    range.collapse(true);
-    range.insertNode(element);
+    let currentNode = parent.firstChild;
+    let offset = 0;
+
+    while (currentNode) {
+        if (currentNode.nodeType === Node.TEXT_NODE) {
+            const nextOffset = offset + currentNode.length;
+
+            if (position <= nextOffset) {
+                range.setStart(currentNode, position - offset);
+                range.collapse(true);
+                range.insertNode(element);
+                return;
+            }
+
+            offset = nextOffset;
+        }
+
+        currentNode = currentNode.nextSibling;
+    }
 }

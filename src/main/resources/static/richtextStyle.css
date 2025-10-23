@@ -1,0 +1,18 @@
+.rt_titulo {
+    font-weight: bolder;
+    font-size: 36px;
+}
+
+.rt_subtitulo {
+    font-weight: bold;
+    font-size: 29px;
+}
+
+.centralizado {
+    text-align: center;
+}
+
+.rt_citacao {
+    color: grey;
+    font-style: italic;
+}
