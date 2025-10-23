@@ -12,6 +12,6 @@ public class NoticiaServices {
         String prefixoOculto = p.isOculto() ? "[OCULTO] " : "";
         String nomeAutor = p.getAutor() == null ? "Externo" : p.getAutor().getNome();
 
-        return new NoticiaESDTO(p.getIdPostagem(), prefixoOculto + p.getTituloPostagem(), p.getCapa(), nomeAutor);
+        return new NoticiaESDTO(p.getIdPostagem(), prefixoOculto + p.getTituloPostagem(), p.getCapa(), nomeAutor, p.isExterna());
     }
 }

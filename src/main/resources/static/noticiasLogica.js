@@ -114,6 +114,9 @@ async function iniciarNoticias() {
         function construirNoticia(noticia, dados) {
             noticia.querySelector(".tituloNoticia").textContent = dados.titulo
             noticia.querySelector(".autor").textContent = dados.nomeAutor
+            if(dados.externa == true) {
+                noticia.querySelector(".logoObservatorio").src = ""
+            }
             if(dados.capa.imagem == "" || dados.capa.tipoImagem) {
                 noticia.querySelector(".capa").src = "/imagens/noticia.png";
             } else {
