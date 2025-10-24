@@ -31,8 +31,28 @@ async function iniciarExclusaoUser() {
     })
 
     const btnConfirmarExclusao = document.getElementById("btnConfirmarExclusao")
-    btnConfirmarExclusao.addEventListener("click", function(){
-            console.log("moggando")
+    
+
+    btnConfirmarExclusao.addEventListener("click", function(){    
+        const inputConfirir = document.getElementById("inputConfirir").value.trim() 
+
+        if (inputConfirir === "Sim") {
+            fetch("http://localhost:8080/api/user/requisitar_exclusao", {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error(error));
+            fundoPopupDelete.style.display = "none";
+            fundoPopupConfigUser.style.display = "flex"
+
+        }else{
+            console.log("Campo de confirmação preenchido errado")
+
+        }
 
     })
 

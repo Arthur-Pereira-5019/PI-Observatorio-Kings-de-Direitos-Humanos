@@ -132,7 +132,7 @@ public class UsuarioController {
         return ResponseEntity.ok("Registrado com sucesso!");
     }
 
-    @PostMapping("/requisitar_exclusao")
+    @GetMapping("/requisitar_exclusao")
     public PedidoExclusaoConta requisitarExclusao(@AuthenticationPrincipal UserDetails user) {
         return us.requisitarExclusao(us.buscarId(user));
     }
