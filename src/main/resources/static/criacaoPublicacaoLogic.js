@@ -16,7 +16,6 @@ async function carregarHTMLCP(id, url, cssFile, jsFile) {
         let script = document.createElement("script");
         script.src = jsFile;
         script.onload = () => {
-            console.log("Script carregado:", jsFile);
             if (typeof window.iniciarPopupNovaImagem === "function") {
                 window.iniciarPopupNovaImagem();
             }
@@ -47,17 +46,17 @@ async function iniciarCriacaoPublicacao() {
         publicarDocumento();
     })
 
-    campoTags.addEventListener("keydown",function(event) {
-        if(event.key === ",") {
+    campoTags.addEventListener("keydown", function (event) {
+        if (event.key === ",") {
             adicionarTag();
         }
     })
 
 }
 
-async function adicionarTag() {    
+async function adicionarTag() {
     let novaTag = campoTags.value
-    novaTag = novaTag.substring(0,novaTag.length-2)
+    novaTag = novaTag.substring(0, novaTag.length - 2)
     const elementoTag = document.createElement("div");
     elementoTag.setAttribute("class", "tags");
     elementoTag.textContent = novaTag;
@@ -69,7 +68,7 @@ async function publicarDocumento(finalizada) {
 
     const campoTituloPostagem = document.getElementById("campoTitulo");
     const campoTextoPostagem = textoPublicacao.innerHTML;
-    
+
     let canva = document.getElementById("capaPostagemPreview");
     let campoImagem = canva.src;
     let endPosition = campoImagem.indexOf(",");
@@ -100,7 +99,7 @@ async function publicarDocumento(finalizada) {
         })
         .then(data => {
             alert("Postagem publicada com sucesso!")
-            window.location.href="http://localhost:8080/publicacao/"+data.id
+            window.location.href = "http://localhost:8080/publicacao/" + data.id
         })
 }
 
@@ -147,7 +146,7 @@ btnItalic.addEventListener("click", function () {
     createItalic();
 })
 btnFont_increase.addEventListener("click", function () {
-    createItalic();
+    aumentarTamanho();
 })
 btnFont_reduce.addEventListener("click", function () {
     createItalic();
@@ -186,7 +185,6 @@ textoPublicacao.addEventListener("keydown", function (e) {
     }
 
     if (e.ctrlKey && e.key === "s") {
-        console.log("Salvando conteúdo:", getHTML());
         e.preventDefault();
     }
 
@@ -197,7 +195,7 @@ textoPublicacao.addEventListener("keydown", function (e) {
 });
 
 textoPublicacao.addEventListener("paste", function (e) {
-        e.preventDefault();
+    e.preventDefault();
     const text = (e.clipboardData || window.clipboardData).getData("text/plain");
 
     const selection = window.getSelection();
@@ -211,7 +209,6 @@ textoPublicacao.addEventListener("paste", function (e) {
 
 function createLink() {
     document.execCommand("createLink", true, window.getSelection().toString())
-    console.log(window.getSelection().toString())
 }
 
 function createItalic() {
@@ -227,32 +224,30 @@ function createUnderline() {
 }
 
 function aumentarTamanho() {
-    const campo = document.querySelector("textoPublicacao");
     const span = document.createElement("span");
-    span.id = "tamanho"
     span.textContent = "inserido aqui";
-    inserir(span, campo, 10);
+    inserirElemento(span, "rt_titulo", window.getSelection())
 }
 
-function inserirElemento(element, parent, position) {
-    const range = document.createRange();
-    let currentNode = parent.firstChild;
-    let offset = 0;
+function inserirElemento(elemento, classe, posicao) {
+    if (!posicao.rangeCount) return;
+    const range = posicao.getRangeAt(0);
 
-    while (currentNode) {
-        if (currentNode.nodeType === Node.TEXT_NODE) {
-            const nextOffset = offset + currentNode.length;
-
-            if (position <= nextOffset) {
-                range.setStart(currentNode, position - offset);
-                range.collapse(true);
-                range.insertNode(element);
-                return;
-            }
-
-            offset = nextOffset;
+    if (!range.collapsed) {
+        try {
+            range.surroundContents(elemento);
+        } catch (e) {
         }
-
-        currentNode = currentNode.nextSibling;
+    } else {
+        range.insertNode(elemento);
     }
+
+    elemento.classList.add(classe);
+    elemento.classList.add("rt_div");
+
+    range.setStartAfter(elemento);
+    range.collapse(true);
+
+    posicao.removeAllRanges();
+    posicao.addRange(range);
 }
