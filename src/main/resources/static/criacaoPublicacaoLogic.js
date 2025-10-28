@@ -146,10 +146,10 @@ btnItalic.addEventListener("click", function () {
     createItalic();
 })
 btnFont_increase.addEventListener("click", function () {
-    aumentarTamanho();
+    titulo();
 })
 btnFont_reduce.addEventListener("click", function () {
-    createItalic();
+    citacao();
 })
 
 
@@ -219,7 +219,7 @@ function createUnderline() {
     document.execCommand("underline");
 }
 
-function aumentarTamanho() {
+function titulo() {
     const span = document.createElement("span");
     span.classList.add("rt_titulo");
     span.textContent = "";
@@ -227,24 +227,12 @@ function aumentarTamanho() {
     inserirElemento(span, window.getSelection());
 }
 
-function gerarSeparador() {
-    const separador = document.createElement("span");
-    separador.contentEditable = false;
-    separador.className = "rt_separador";
-    return separador
-}
+function citacao() {
+    const span = document.createElement("span");
+    span.classList.add("rt_citacao");
+    span.textContent = "";
 
-function concatenarElementos(elemento0, elemento1, elemento2) {
-    const separador1 = gerarSeparador();
-    const separador2 = gerarSeparador();
-
-    elemento0.insertAdjacentElement("afterend", separador1);
-
-    separador1.insertAdjacentElement("afterend", elemento1);
-    elemento1.insertAdjacentElement("afterend", separador2);
-
-    separador2.insertAdjacentElement("afterend", elemento2);
-    elemento2.insertAdjacentElement("afterend", gerarSeparador());
+    inserirElemento(span, window.getSelection());
 }
 
 function inserirElemento(elemento, selection) {
@@ -324,7 +312,8 @@ function joinDePartes(ancestor, range, classMeio) {
 
 function insertSeparator(ref, pos) {
     const sep = document.createElement("span");
-    sep.classList.add("rt_separator");
+    sep.classList.add("rt_separador");
+    sep.classList.add("rt_geral");
     sep.contentEditable = "false";
     ref.insertAdjacentElement(pos === "before" ? "beforebegin" : "afterend", sep);
 }

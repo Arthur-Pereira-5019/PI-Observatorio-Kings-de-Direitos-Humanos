@@ -20,6 +20,7 @@
 
 .rt_geral {
     font-family: "Inter", sans-serif;
+    display: block;
 }
 
 .rt_default {
@@ -29,9 +30,17 @@
 }
 
 .rt_separador {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  pointer-events: none;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.rt_separador.rt_geral {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
 }
