@@ -1,6 +1,7 @@
 .rt_titulo {
     font-weight: bolder;
     font-size: 36px;
+    text-align: center;
 }
 
 .rt_subtitulo {
@@ -15,4 +16,20 @@
 .rt_citacao {
     color: grey;
     font-style: italic;
+}
+
+.rt_geral {
+    font-family: "Inter", sans-serif;
+}
+
+.rt_default {
+    color: black;
+    font-size: 13.3333px;
+    font-weight: normal;
+}
+
+.rt_separador {
+  display: inline-block;
+  width: 0;
+  height: 0;
 }

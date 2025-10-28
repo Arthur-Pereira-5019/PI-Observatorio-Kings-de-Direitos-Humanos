@@ -164,10 +164,6 @@ function getHTML() {
 }
 
 textoPublicacao.addEventListener("keydown", function (e) {
-    if (e.key === "Enter") {
-        e.preventDefault();
-        document.execCommand("insertHTML", false, "<br><br>");
-    }
 
     if (e.ctrlKey && e.key === "b") {
         createBold();
@@ -225,11 +221,85 @@ function createUnderline() {
 
 function aumentarTamanho() {
     const span = document.createElement("span");
-    span.textContent = "inserido aqui";
-    inserirElemento(span, "rt_titulo", window.getSelection())
+    span.classList.add("rt_titulo");
+    span.textContent = "";
+
+    inserirElemento(span, window.getSelection());
 }
 
-function inserirElemento(elemento, classe, posicao) {
+function gerarSeparador() {
+    const separador = document.createElement("span");
+    separador.contentEditable = false;
+    separador.className = "rt_separador";
+    return separador
+}
+
+function concatenarElementos(elemento0, elemento1, elemento2) {
+    const separador1 = gerarSeparador();
+    const separador2 = gerarSeparador();
+
+    elemento0.insertAdjacentElement("afterend", separador1);
+
+    separador1.insertAdjacentElement("afterend", elemento1);
+    elemento1.insertAdjacentElement("afterend", separador2);
+    
+    separador2.insertAdjacentElement("afterend", elemento2);
+    elemento2.insertAdjacentElement("afterend", gerarSeparador());
+}
+
+function inserirElemento(elemento, selection) {
+    if (!selection.rangeCount) return;
+    const range = selection.getRangeAt(0);
+
+    // Encontrar o ancestral customizado mais próximo
+    const ancestor = range.startContainer.closest?.("[class^='rt_']");
+
+    if (ancestor) {
+        // Quebrar o conteúdo do ancestral em 3 partes (antes, novo, depois)
+        const text = ancestor.textContent;
+        const start = range.startOffset;
+        const end = range.endOffset;
+
+        const beforeText = text.slice(0, start);
+        const middleText = range.toString() || "\u200B";
+        const afterText = text.slice(end);
+
+        const before = ancestor.cloneNode(false);
+        const after = ancestor.cloneNode(false);
+
+        before.textContent = beforeText;
+        after.textContent = afterText;
+        elemento.textContent = middleText;
+
+        // Inserir os novos irmãos
+        ancestor.insertAdjacentElement("beforebegin", before);
+        ancestor.insertAdjacentElement("beforebegin", elemento);
+        ancestor.insertAdjacentElement("beforebegin", after);
+        ancestor.remove();
+
+        // Inserir separadores fora
+        insertSeparator(elemento, "before");
+        insertSeparator(elemento, "after");
+    } else {
+        // Caso não haja ancestral customizado
+        range.insertNode(elemento);
+        insertSeparator(elemento, "before");
+        insertSeparator(elemento, "after");
+    }
+}
+
+function insertSeparator(ref, pos) {
+    const sep = document.createElement("span");
+    sep.classList.add("rt_separator");
+    sep.contentEditable = "false";
+    ref.insertAdjacentElement(pos === "before" ? "beforebegin" : "afterend", sep);
+}
+
+
+//Mesclar os dois métodos para manter a lógica
+//Entender como posicionar o caret melhor
+//Manter botão visualmente pressionado
+function inserirElementoAntigo(elemento, classe, posicao) {
     if (!posicao.rangeCount) return;
     const range = posicao.getRangeAt(0);
 

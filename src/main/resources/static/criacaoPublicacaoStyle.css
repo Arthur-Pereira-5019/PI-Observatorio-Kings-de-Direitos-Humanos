@@ -27,7 +27,7 @@ html {
     align-self: center;
     margin-top: 2.5%;
     margin-bottom: 2.5%;
-     font-family: "Inter", sans-serif;
+    font-family: "Inter", sans-serif;
 }
 
 #campoEdicao {
@@ -37,9 +37,10 @@ html {
     display: flex;
     flex-direction: column;
     margin: 1vh;
+    font-family: "Inter", sans-serif;
 }
 
-#campoEdicao * {
+#elementosEdicao * {
     width: 3%
 }
 
@@ -83,7 +84,15 @@ html {
     overflow-wrap: break-word;
     min-height: 40vh;
     white-space: pre-wrap;
-    display: inline-block;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+#textoPublicacao > *{
+    width: 100%;
 }
 
 #botoes {
