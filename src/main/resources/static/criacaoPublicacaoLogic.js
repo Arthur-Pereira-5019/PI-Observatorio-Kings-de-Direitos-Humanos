@@ -242,7 +242,7 @@ function concatenarElementos(elemento0, elemento1, elemento2) {
 
     separador1.insertAdjacentElement("afterend", elemento1);
     elemento1.insertAdjacentElement("afterend", separador2);
-    
+
     separador2.insertAdjacentElement("afterend", elemento2);
     elemento2.insertAdjacentElement("afterend", gerarSeparador());
 }
@@ -251,40 +251,60 @@ function inserirElemento(elemento, selection) {
     if (!selection.rangeCount) return;
     const range = selection.getRangeAt(0);
 
-    // Encontrar o ancestral customizado mais próximo
-    const ancestor = range.startContainer.closest?.("[class^='rt_']");
+    if (!range.collapsed) {
+        try {
+            range.surroundContents(elemento);
+        } catch (e) {
+        }
+        elemento.classList.add("rt_geral");
 
-    if (ancestor) {
-        // Quebrar o conteúdo do ancestral em 3 partes (antes, novo, depois)
-        const text = ancestor.textContent;
-        const start = range.startOffset;
-        const end = range.endOffset;
+        range.setStartAfter(elemento);
+        range.collapse(true);
 
-        const beforeText = text.slice(0, start);
-        const middleText = range.toString() || "\u200B";
-        const afterText = text.slice(end);
-
-        const before = ancestor.cloneNode(false);
-        const after = ancestor.cloneNode(false);
-
-        before.textContent = beforeText;
-        after.textContent = afterText;
-        elemento.textContent = middleText;
-
-        // Inserir os novos irmãos
-        ancestor.insertAdjacentElement("beforebegin", before);
-        ancestor.insertAdjacentElement("beforebegin", elemento);
-        ancestor.insertAdjacentElement("beforebegin", after);
-        ancestor.remove();
-
-        // Inserir separadores fora
-        insertSeparator(elemento, "before");
-        insertSeparator(elemento, "after");
+        selection.removeAllRanges();
+        selection.addRange(range);
     } else {
-        // Caso não haja ancestral customizado
-        range.insertNode(elemento);
-        insertSeparator(elemento, "before");
-        insertSeparator(elemento, "after");
+
+        const container = range.startContainer.nodeType === Node.TEXT_NODE
+            ? range.startContainer.parentElement
+            : range.startContainer;
+        const ancestor = container.closest("[class^='rt_']");
+
+
+        if (ancestor) {
+            const preRange = document.createRange();
+            preRange.selectNodeContents(ancestor);
+            preRange.setEnd(range.startContainer, range.startOffset);
+            const beforeText = preRange.toString();
+
+            const postRange = document.createRange();
+            postRange.selectNodeContents(ancestor);
+            postRange.setStart(range.endContainer, range.endOffset);
+            const afterText = postRange.toString();
+
+            const middleText = range.toString() || "\u200B";
+
+            const before = ancestor.cloneNode(false);
+            const after = ancestor.cloneNode(false);
+
+            before.textContent = beforeText;
+            after.textContent = afterText;
+            elemento.textContent = middleText;
+
+            // Inserir os novos irmãos
+            ancestor.insertAdjacentElement("afterend", after);
+            ancestor.insertAdjacentElement("afterend", elemento);
+            ancestor.insertAdjacentElement("afterend", before);
+            ancestor.remove();
+
+            // Inserir separadores fora
+            insertSeparator(elemento, "before");
+            insertSeparator(elemento, "after");
+        } else {
+            range.insertNode(elemento);
+            insertSeparator(elemento, "before");
+            insertSeparator(elemento, "after");
+        }
     }
 }
 
