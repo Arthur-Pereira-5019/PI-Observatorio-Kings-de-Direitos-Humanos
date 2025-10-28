@@ -251,7 +251,16 @@ function inserirElemento(elemento, selection) {
     if (!selection.rangeCount) return;
     const range = selection.getRangeAt(0);
 
+    const container = range.startContainer.nodeType === Node.TEXT_NODE
+        ? range.startContainer.parentElement
+        : range.startContainer;
+    const currentTag = container.closest("[class^='rt_']");
+
     if (!range.collapsed) {
+        if (currentTag) {
+            joinDePartes(currentTag, range, "rt_default rt_geral");
+
+        }
         try {
             range.surroundContents(elemento);
         } catch (e) {
@@ -264,48 +273,53 @@ function inserirElemento(elemento, selection) {
         selection.removeAllRanges();
         selection.addRange(range);
     } else {
-
         const container = range.startContainer.nodeType === Node.TEXT_NODE
             ? range.startContainer.parentElement
             : range.startContainer;
         const ancestor = container.closest("[class^='rt_']");
 
-
         if (ancestor) {
-            const preRange = document.createRange();
-            preRange.selectNodeContents(ancestor);
-            preRange.setEnd(range.startContainer, range.startOffset);
-            const beforeText = preRange.toString();
+            joinDePartes(currentTag, range, "rt_default rt_geral");
 
-            const postRange = document.createRange();
-            postRange.selectNodeContents(ancestor);
-            postRange.setStart(range.endContainer, range.endOffset);
-            const afterText = postRange.toString();
-
-            const middleText = range.toString() || "\u200B";
-
-            const before = ancestor.cloneNode(false);
-            const after = ancestor.cloneNode(false);
-
-            before.textContent = beforeText;
-            after.textContent = afterText;
-            elemento.textContent = middleText;
-
-            // Inserir os novos irmãos
-            ancestor.insertAdjacentElement("afterend", after);
-            ancestor.insertAdjacentElement("afterend", elemento);
-            ancestor.insertAdjacentElement("afterend", before);
-            ancestor.remove();
-
-            // Inserir separadores fora
-            insertSeparator(elemento, "before");
-            insertSeparator(elemento, "after");
         } else {
             range.insertNode(elemento);
             insertSeparator(elemento, "before");
             insertSeparator(elemento, "after");
+            if (!elemento.textContent) elemento.textContent = "\u200B", "rt_default rt_geral";
         }
     }
+}
+
+function joinDePartes(ancestor, range, classMeio) {
+    const preRange = document.createRange();
+    preRange.selectNodeContents(ancestor);
+    preRange.setEnd(range.startContainer, range.startOffset);
+    const beforeText = preRange.toString();
+
+    const postRange = document.createRange();
+    postRange.selectNodeContents(ancestor);
+    postRange.setStart(range.endContainer, range.endOffset);
+    const afterText = postRange.toString();
+
+    const before = ancestor.cloneNode(false);
+    const after = ancestor.cloneNode(false);
+    const elemento = document.createElement("span");
+
+    before.className = ancestor.className;
+    after.className = ancestor.className;
+    elemento.className = classMeio;
+
+    before.textContent = beforeText;
+    after.textContent = afterText;
+    elemento.textContent = range.toString() || "\u200B";;
+
+    ancestor.insertAdjacentElement("afterend", after);
+    ancestor.insertAdjacentElement("afterend", elemento);
+    ancestor.insertAdjacentElement("afterend", before);
+    ancestor.remove();
+
+    insertSeparator(elemento, "before");
+    insertSeparator(elemento, "after");
 }
 
 function insertSeparator(ref, pos) {
@@ -313,31 +327,4 @@ function insertSeparator(ref, pos) {
     sep.classList.add("rt_separator");
     sep.contentEditable = "false";
     ref.insertAdjacentElement(pos === "before" ? "beforebegin" : "afterend", sep);
-}
-
-
-//Mesclar os dois métodos para manter a lógica
-//Entender como posicionar o caret melhor
-//Manter botão visualmente pressionado
-function inserirElementoAntigo(elemento, classe, posicao) {
-    if (!posicao.rangeCount) return;
-    const range = posicao.getRangeAt(0);
-
-    if (!range.collapsed) {
-        try {
-            range.surroundContents(elemento);
-        } catch (e) {
-        }
-    } else {
-        range.insertNode(elemento);
-    }
-
-    elemento.classList.add(classe);
-    elemento.classList.add("rt_div");
-
-    range.setStartAfter(elemento);
-    range.collapse(true);
-
-    posicao.removeAllRanges();
-    posicao.addRange(range);
 }
