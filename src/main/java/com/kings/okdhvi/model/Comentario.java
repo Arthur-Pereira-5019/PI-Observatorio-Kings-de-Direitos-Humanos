@@ -24,6 +24,9 @@ public class Comentario {
     @Column
     boolean oculto;
 
+    @Column
+    Character tipo;
+
     public Usuario getAutor() {
         return autor;
     }
@@ -62,5 +65,13 @@ public class Comentario {
 
     public void setOculto(boolean oculto) {
         this.oculto = oculto;
+    }
+
+    public Character getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Character tipo) {
+        this.tipo = tipo;
     }
 }

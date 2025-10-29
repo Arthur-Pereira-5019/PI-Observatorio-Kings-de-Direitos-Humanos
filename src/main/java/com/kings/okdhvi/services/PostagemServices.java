@@ -142,6 +142,7 @@ public class PostagemServices {
         pr.delete(encontrarPostagemPeloId(id));
     }
 
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public Postagem encontrarPostagemPeloId(Long id) {
 
         return pr.findById(id).orElseThrow(() -> new ResourceNotFoundException("Postagem não encontrada!"));

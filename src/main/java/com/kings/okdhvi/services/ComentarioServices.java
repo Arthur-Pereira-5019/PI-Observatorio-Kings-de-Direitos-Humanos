@@ -8,6 +8,7 @@ import com.kings.okdhvi.model.Postagem;
 import com.kings.okdhvi.model.requests.ComentarioCDTO;
 import com.kings.okdhvi.repositories.ComentarioRepository;
 import com.kings.okdhvi.repositories.UsuarioRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,7 @@ public class ComentarioServices {
     @Autowired
     PostagemServices ps;
 
+    @Transactional
     public Comentario criarComentario(ComentarioCDTO ccdto, Long id) {
         Comentario c = new Comentario();
 
@@ -32,17 +34,18 @@ public class ComentarioServices {
         c.setTextComentario(ccdto.textoComentario());
         c.setDataComentario(Date.from(Instant.now()));
 
+        c = cr.save(c);
         if(ccdto.tipo() == 'P') {
             Postagem p = ps.encontrarPostagemPeloId(ccdto.idComentavel());
             if(p.isOculto()) {
                 throw new UnauthorizedActionException("A postagem está oculta, não há como comentar.");
             }
             p.getComentarios().add(c);
-            ps.atualizarPostagem((Postagem) p, id);
+            ps.atualizarPostagem(p, id);
         }else {
             Postagem p = ps.encontrarPostagemPeloId(ccdto.idComentavel());
         }
-        return cr.save(c);
+        return c;
     }
 
 

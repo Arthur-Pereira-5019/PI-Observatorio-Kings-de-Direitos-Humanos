@@ -14,10 +14,10 @@ public class Postagem{
     @Column
     boolean oculto;
 
+    @OneToMany(mappedBy = "id_dono", fetch = FetchType.EAGER)
+    List<Comentario> comentarios = new ArrayList<>();
 
-    ArrayList<Comentario> comentarios = new ArrayList<>();
-
-    public ArrayList<Comentario> getComentarios() {
+    public List<Comentario> getComentarios() {
         return comentarios;
     }
 
