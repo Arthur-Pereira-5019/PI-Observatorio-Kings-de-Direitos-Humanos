@@ -28,8 +28,8 @@
             height: auto;
             width: 100%;
             display: flex;
-            background-color: pink;
             flex-direction: column;
+            gap: 3rem;
         }
 
         #titulo-tela-apoio{
@@ -50,10 +50,28 @@
         
         .container-geral-instituicao-direita{
             width: 100%;
-            height: 20vh;
+            height: 30vh;
             background-color: aqua;
             display: flex;
             justify-content: flex-end;
+        }
+        .container-fotoEredes-tela-apoio{
+            width: 15%;
+            height: 100%;
+            padding: 0.2%;
+            display: flex;
+            gap: 1rem;
+            flex-direction: column;
+            background-color: red;
+            position: relative;
+        }
+        #foto-instituicao-tela-apoio{
+            width: 15vh;
+            border-radius: 50%;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            left: 50%;
+            top:28%;
         }
         
         </style>
@@ -64,7 +82,16 @@
     <p id="instrucao-tela-apoio">Abaixo estão uma lista de entidades que estão comprometidas com a causa social de minorias raciais e LGBTQIAPN+ que manifestaram interesses em serem divulgadas aqui.</p>
 
     <div class="container-resto-tela-apoio">
-        <div class="container-geral-instituicao-direita"></div>
+
+        <div class="container-geral-instituicao-direita">
+
+            <div class="container-fotoEredes-tela-apoio">
+                <img src="./imagens/grupo.png" id="foto-instituicao-tela-apoio" alt="">
+            </div>
+
+        </div>
+    
+    <div class="container-geral-instituicao-direita"></div>
     </div>
 
 
