@@ -27,22 +27,20 @@ public class ComentarioServices {
 
     public Comentario criarComentario(ComentarioCDTO ccdto, Long id) {
         Comentario c = new Comentario();
-        Comentavel comentavel;
 
         c.setAutor(us.encontrarPorId(id, false));
         c.setTextComentario(ccdto.textoComentario());
         c.setDataComentario(Date.from(Instant.now()));
 
         if(ccdto.tipo() == 'P') {
-            comentavel = ps.encontrarPostagemPeloId(ccdto.idComentavel());
-            if(comentavel.isOculto()) {
+            Postagem p = ps.encontrarPostagemPeloId(ccdto.idComentavel());
+            if(p.isOculto()) {
                 throw new UnauthorizedActionException("A postagem está oculta, não há como comentar.");
             }
-            comentavel.getComentarios().add(c);
-            ps.atualizarPostagem((Postagem) comentavel, id);
+            p.getComentarios().add(c);
+            ps.atualizarPostagem((Postagem) p, id);
         }else {
-            //Implementar para fóruns
-            comentavel = ps.encontrarPostagemPeloId(ccdto.idComentavel());
+            Postagem p = ps.encontrarPostagemPeloId(ccdto.idComentavel());
         }
         return cr.save(c);
     }

@@ -1,4 +1,4 @@
-async function iniciar() {
+async function iniciarPublicacao() {
     const capa = document.getElementById("capaPostagem");
     const titulo = document.getElementById("titulo");
     const dadosPublicacao = document.getElementById("dados_publicacao");
@@ -45,11 +45,11 @@ async function iniciar() {
         .catch(err => console.error(err));
 
     cComentario.addEventListener("keydown", function () {
-        caracteres.textContent = cComentario.value.length(); +"/512"
+        caracteres.textContent = cComentario.value.length + "/512";
     })
 
     pComentario.addEventListener("click", function () {
-        if (cComentario.value.length() > 512) {
+        if (cComentario.value.length > 512) {
             alert("O seu comentário está grande de mais!")
             return;
         }
@@ -60,7 +60,7 @@ async function iniciar() {
             idComentavel: id,
         };
 
-        fetch("http://localhost:8080/api/postagem", {
+        fetch("http://localhost:8080/api/com/", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
@@ -78,4 +78,4 @@ async function iniciar() {
 
 }
 
-document.addEventListener("DOMContentLoaded", iniciar)
+document.addEventListener("DOMContentLoaded", iniciarPublicacao)

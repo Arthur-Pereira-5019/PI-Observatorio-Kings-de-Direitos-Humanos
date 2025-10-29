@@ -9,7 +9,21 @@ import java.util.List;
 
 @Entity
 @Table(name="postagens")
-public class Postagem extends Comentavel{
+public class Postagem{
+
+    @Column
+    boolean oculto;
+
+
+    ArrayList<Comentario> comentarios = new ArrayList<>();
+
+    public ArrayList<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(ArrayList<Comentario> comentarios) {
+        this.comentarios = comentarios;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -118,5 +132,13 @@ public class Postagem extends Comentavel{
 
     public void setExterna(boolean externa) {
         this.externa = externa;
+    }
+
+    public boolean isOculto() {
+        return oculto;
+    }
+
+    public void setOculto(boolean oculto) {
+        this.oculto = oculto;
     }
 }
