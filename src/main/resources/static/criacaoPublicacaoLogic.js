@@ -98,8 +98,10 @@ async function publicarDocumento(finalizada) {
             return res.json();
         })
         .then(data => {
+                        console.log(data);
             alert("Postagem publicada com sucesso!")
-            window.location.href = "http://localhost:8080/publicacao/" + data.id
+        
+            window.location.href = "http://localhost:8080/publicacao/" + data.idPostagem
         })
 }
 

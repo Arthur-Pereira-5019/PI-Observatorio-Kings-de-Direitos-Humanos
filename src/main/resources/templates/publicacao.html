@@ -28,22 +28,27 @@
             </div>
             <div id="dados_publicacao"></div>
             <div id="textoPublicacao"></div>
-            <p id="listaTags">
+            <div class="fundo-criacao-comentario-forum">
+                <textarea name="comentario" placeholder="Comente!" id="text-area-comentario-forum"></textarea>
+
+                <div class="container-botaoElimite-comentario-forum"><p id="limite-caracteres-criacao-comentario-forum">x/512</p> <button id="botao-enviar-comentario-forum">Enviar</button></div>
+
             </div>
+        </div>
 
-            <div id="posPopUp">
-                <div id="registro"></div>
-            </div>
+        <div id="posPopUp">
+            <div id="registro"></div>
+        </div>
 
-            <div id="posPopUpLogin">
-                <div id="login"></div>
-            </div>
-            <div id="footer"></div>
+        <div id="posPopUpLogin">
+            <div id="login"></div>
+        </div>
+        <div id="footer"></div>
 
-        </body>
-        <script src="/includeHtmlExterno.js" defer></script>
-        <script src="/includePopUpRegistro.js" defer></script>
-        <script src="/includePopUpLogin.js" defer></script>
-        <script src="/publicacaoLogica.js" defer></script>
+    </body>
+    <script src="/includeHtmlExterno.js" defer></script>
+    <script src="/includePopUpRegistro.js" defer></script>
+    <script src="/includePopUpLogin.js" defer></script>
+    <script src="/publicacaoLogica.js" defer></script>
 
-    </html>
+</html>
