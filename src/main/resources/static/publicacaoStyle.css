@@ -91,3 +91,62 @@ html {
     width: 40vw;
     aspect-ratio: 16/9;
 }
+
+.fundo-criacao-comentario-forum {
+     height: 23vh;
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+     gap: 1rem;
+     margin-top: 5%;
+     background-color: #2F2F2F;
+     border: solid 4px #000000;
+     border-radius: 40px;
+     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+
+ }
+
+ #text-area-comentario-forum {
+     height: 60%;
+     width: 100%;
+     color: white;
+     background-color: transparent;
+     border: none;
+     outline: none;
+     padding-top: 1%;
+     padding-left: 1%;
+     font-size: 1.45rem;
+     resize: none;
+ }
+
+ .container-botaoElimite-comentario-forum {
+     height: 40%;
+     width: 100%;
+     padding-right: 0.5%;
+     gap: 1%;
+     display: flex;
+     justify-content: flex-end;
+     align-items: center;
+ }
+
+ #limite-caracteres-criacao-comentario-forum {
+     color: white;
+     font-weight: 200;
+     font-size: 1.5rem;
+ }
+
+ #botao-enviar-comentario-forum {
+     height: 95%;
+     width: 20%;
+     background-color: #D20000;
+     cursor: pointer;
+     color: white;
+     font-size: 3rem;
+     font-weight: 800;
+     border-radius: 100px;
+     border: solid 2px black;
+ }
+
+ #botao-enviar-comentario-forum:hover {
+     background-color: #FF4D66;
+ }
