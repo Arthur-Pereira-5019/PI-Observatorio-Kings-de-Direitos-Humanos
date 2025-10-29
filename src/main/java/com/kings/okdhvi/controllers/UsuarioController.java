@@ -90,7 +90,7 @@ public class UsuarioController {
         us.alterarTitulacao(us.buscarId(ud), adr);
     }
 
-    @PostMapping(value="/requistar_cargo")
+    @PostMapping(value="/requisitar_cargo")
     public void requisitarCargo(@AuthenticationPrincipal UserDetails ud, @RequestBody PedidoDeTitulacaoDTO pdtDTO) {
         us.gerarPedidoDeTitulacao(us.buscarId(ud), pdtDTO);
     }
