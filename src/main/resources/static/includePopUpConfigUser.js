@@ -78,12 +78,6 @@ async function iniciarConfigUser() {
                 fundoPopupConfigUser.style.display = "none";
 
             }
-        
-    
-        
-
-        const btnRequisitar = document.getElementById("btnRequisitar")
-
 
     });
 
