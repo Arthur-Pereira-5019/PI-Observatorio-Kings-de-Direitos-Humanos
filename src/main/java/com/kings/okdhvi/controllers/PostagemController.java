@@ -50,18 +50,23 @@ public class PostagemController {
     }
 
     @PostMapping(value="/listar_publicacoes/{texto}/{pagina}")
-    public List<PostagemECDTO> listarPostagens(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @PathVariable("pagina") Integer pagina, @AuthenticationPrincipal UserDetails ud) {
+    public BuscaPaginadaResultado<PostagemECDTO> listarPostagens(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @PathVariable("pagina") Integer pagina, @AuthenticationPrincipal UserDetails ud) {
         List<Postagem> postagens;
-        ArrayList<PostagemECDTO> retorno = new ArrayList<>();
+        List<PostagemECDTO> resultadosDTO = new ArrayList<>();
         BuscaPaginada bp = new BuscaPaginada(pagina, 10, bpt.parametro(), bpt.ascending());
-            postagens = ps.buscaFiltrada(bp, texto, ud);
+        BuscaPaginadaResultado<Postagem> bpr = ps.buscaFiltrada(bp, texto, ud);
+        postagens = bpr.getResultado();
 
-        postagens.forEach(b -> retorno.add(pm.parsePostagemToECDTO(b)));
+        postagens.forEach(b -> resultadosDTO.add(pm.parsePostagemToECDTO(b)));
+
+        BuscaPaginadaResultado<PostagemECDTO> retorno = new BuscaPaginadaResultado<>();
+        retorno.setResultado(resultadosDTO);
+        retorno.setProximosIndexes(bpr.getProximosIndexes());
         return retorno;
     }
 
     @PostMapping(value="/listar_publicacoes/{texto}")
-    public List<PostagemECDTO> listarPublicacoesTexto(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @AuthenticationPrincipal UserDetails ud) {
+    public BuscaPaginadaResultado<PostagemECDTO> listarPublicacoesTexto(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @AuthenticationPrincipal UserDetails ud) {
         return listarPostagens(bpt, texto,0, ud);
     }
 
@@ -74,14 +79,6 @@ public class PostagemController {
     @PutMapping(value = "revisar", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
     public Postagem revisarPostagem(@RequestBody RevisorPostagemRequest rpr) {
         return ps.revisarPostagem(rpr);
-    }
-
-    @PostMapping(value = "busca_paginada", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<? extends PostagemESDTO> buscaPaginada(@RequestBody BuscaPaginada bp, @AuthenticationPrincipal UserDetails ud) {
-
-        ArrayList<PostagemESDTO> retorno = new ArrayList<>();
-         ps.buscaFiltrada(bp,null, ud).forEach(p -> {retorno.add(pm.parsePostagemToESDTO(p));});
-         return retorno;
     }
 
 }

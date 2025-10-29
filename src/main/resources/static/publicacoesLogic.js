@@ -40,24 +40,24 @@ async function iniciarPublicacoes() {
     })
 
     btnAtual = document.getElementById("botaoatual");
-    btnAtual.textContent = await paginaAtual()
+    btnAtual.textContent = paginaAtual()
 
     btnPrimeiro = document.getElementById("botaoprimeiro");
-    btnPrimeiro.addEventListener("click", async function () {
-        moverUrl(-1 * (await paginaAtual() - 1))
+    btnPrimeiro.addEventListener("click", function () {
+        moverUrl(-1 * (paginaAtual() - 1))
     })
 
     btnCampo = document.getElementById("botaocampo");
     btnCampo.addEventListener("keydown", async function (event) {
         if (event.key === "Enter") {
-            moverUrl(btnCampo.value - await paginaAtual())
+            moverUrl(btnCampo.value - paginaAtual())
         }
     })
 
     btnLonge = document.getElementById("botaolonge");
-    btnLonge.textContent = await paginaAtual() + 5;
+    btnLonge.textContent = paginaAtual() + 5;
     btnLonge.addEventListener("click", async function () {
-        moverUrl(await paginaAtual() + 4)
+        moverUrl(paginaAtual() + 4)
     })
 
     const requestBody = {
@@ -95,7 +95,9 @@ async function iniciarPublicacoes() {
                 const primeiroPost = document.querySelector('.container-geral-publicacoes');
                 const barra = document.querySelector('.container-linha');
                 const containerGeral = document.getElementById("container-lista");
-                if (data.length === 0) {
+                console.log(data);
+                
+                if (data.resultado.length === 0) {
                     primeiroPost.querySelector('.container-baixo').remove()
                     alert("Nenhum resultado encontrado!")
                     if (busca != "") {
@@ -103,7 +105,8 @@ async function iniciarPublicacoes() {
                         gerarPublicacoes()
                     }
                 } else {
-                    data.forEach((post, index) => {
+                    btnLonge.textContent = paginaAtual() + data.proximosIndexes % 10;
+                    data.resultado.forEach((post, index) => {
                         if (index == 0) {
                             construirPublicacao(primeiroPost, post)
                         } else {
@@ -159,7 +162,7 @@ function consertarUrl() {
     }
 }
 
-async function paginaAtual() {
+function paginaAtual() {
     const url = window.location.href;
     const partes = url.split('/');
     let busca = partes.pop();

@@ -1,4 +1,8 @@
 let campoTags;
+const TAGS_REMOVIVEIS = [
+  "rt_titulo",
+  "rt_citacao"
+];
 
 async function carregarHTMLCP(id, url, cssFile, jsFile) {
     const response = await fetch(url);
@@ -98,9 +102,9 @@ async function publicarDocumento(finalizada) {
             return res.json();
         })
         .then(data => {
-                        console.log(data);
+            console.log(data);
             alert("Postagem publicada com sucesso!")
-        
+
             window.location.href = "http://localhost:8080/publicacao/" + data.idPostagem
         })
 }
@@ -241,15 +245,11 @@ function inserirElemento(elemento, selection) {
     if (!selection.rangeCount) return;
     const range = selection.getRangeAt(0);
 
-    const container = range.startContainer.nodeType === Node.TEXT_NODE
-        ? range.startContainer.parentElement
-        : range.startContainer;
-    const currentTag = container.closest("[class^='rt_']");
+    const currentTag = testarTag(range.startContainer);
 
     if (!range.collapsed) {
         if (currentTag) {
             joinDePartes(currentTag, range, "rt_default rt_geral");
-
         }
         try {
             range.surroundContents(elemento);
@@ -310,6 +310,20 @@ function joinDePartes(ancestor, range, classMeio) {
 
     insertSeparator(elemento, "before");
     insertSeparator(elemento, "after");
+}
+
+function testarTag(container) {
+    let el = container.nodeType === Node.TEXT_NODE
+        ? container.parentElement
+        : container;
+
+    while (el && el !== document) {
+        const match = TAGS_REMOVIVEIS.find(cls => el.classList.contains(cls));
+        if (match) return el;
+        el = el.parentElement;
+    }
+
+    return null;
 }
 
 function insertSeparator(ref, pos) {

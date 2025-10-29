@@ -43,7 +43,7 @@ public class PostagemServices {
 
     Logger logger = LoggerFactory.getLogger(PostagemServices.class);
 
-    public List<Postagem> buscaFiltrada(BuscaPaginada bp, String texto, UserDetails ud) {
+    public BuscaPaginadaResultado<Postagem> buscaFiltrada(BuscaPaginada bp, String texto, UserDetails ud) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Postagem> cq = cb.createQuery(Postagem.class);
         Root<Postagem> p = cq.from(Postagem.class);
@@ -81,10 +81,17 @@ public class PostagemServices {
         cq.orderBy(cb.desc(p.get("dataDaPostagem")));
 
         TypedQuery<Postagem> busca = em.createQuery(cq);
+        BuscaPaginadaResultado<Postagem> bpr = new BuscaPaginadaResultado<>();
 
         busca.setFirstResult(bp.numeroPagina() * bp.numeroResultados());
-        busca.setMaxResults(bp.numeroResultados());
-        return busca.getResultList();
+        busca.setMaxResults(bp.numeroResultados() * 5);
+
+        List<Postagem> resultadosDaBusca = busca.getResultList();
+        int tamanhoTotal = resultadosDaBusca.size();
+
+        bpr.setResultado(resultadosDaBusca.subList(0,Math.min(bp.numeroResultados(), resultadosDaBusca.size() - 1)));
+        bpr.setProximosIndexes(tamanhoTotal-bpr.getResultado().size());
+        return bpr;
     }
 
     public Predicate construirTextoPredicado(CriteriaBuilder cb, Root<Postagem> p, String texto, String campo) {
