@@ -45,7 +45,10 @@ async function iniciarPublicacao() {
         .catch(err => console.error(err));
 
     cComentario.addEventListener("keydown", function () {
-        caracteres.textContent = cComentario.value.length+1 + "/512";
+        setTimeout(function() {
+            caracteres.textContent = cComentario.value.length+1 + "/512";
+        }, 2000)
+        
     })
 
     pComentario.addEventListener("click", function () {

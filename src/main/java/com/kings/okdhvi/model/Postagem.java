@@ -14,7 +14,7 @@ public class Postagem{
     @Column
     boolean oculto;
 
-    @OneToMany(mappedBy = "id_dono", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "postagem", fetch = FetchType.EAGER)
     List<Comentario> comentarios = new ArrayList<>();
 
     public List<Comentario> getComentarios() {
@@ -27,7 +27,7 @@ public class Postagem{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long idPostagem;
+    Long id;
 
     @Column(nullable = false, length = 512)
     String tituloPostagem;
@@ -110,12 +110,12 @@ public class Postagem{
 
 
 
-    public Long getIdPostagem() {
-        return idPostagem;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdPostagem(Long idPostagem) {
-        this.idPostagem = idPostagem;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Imagem getCapa() {

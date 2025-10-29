@@ -2,7 +2,6 @@ package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.model.Postagem;
 import com.kings.okdhvi.model.requests.NoticiaESDTO;
-import com.kings.okdhvi.model.requests.PostagemESDTO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,6 +11,6 @@ public class NoticiaServices {
         String prefixoOculto = p.isOculto() ? "[OCULTO] " : "";
         String nomeAutor = p.getAutor() == null ? "Externo" : p.getAutor().getNome();
 
-        return new NoticiaESDTO(p.getIdPostagem(), prefixoOculto + p.getTituloPostagem(), p.getCapa(), nomeAutor, p.isExterna());
+        return new NoticiaESDTO(p.getId(), prefixoOculto + p.getTituloPostagem(), p.getCapa(), nomeAutor, p.isExterna());
     }
 }

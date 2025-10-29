@@ -27,6 +27,10 @@ public class Comentario {
     @Column
     Character tipo;
 
+    @ManyToOne
+    @JoinColumn(name = "id_dono")
+    Postagem postagem ;
+
     public Usuario getAutor() {
         return autor;
     }
