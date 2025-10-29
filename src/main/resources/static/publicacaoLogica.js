@@ -44,17 +44,37 @@ async function iniciar() {
         })
         .catch(err => console.error(err));
 
-        cComentario.addEventListener("keydown", function() {
-            caracteres.textContent = cComentario.value.length();+"/512"
-        })
+    cComentario.addEventListener("keydown", function () {
+        caracteres.textContent = cComentario.value.length(); +"/512"
+    })
 
-        pComentario.addEventListener("click", function() {
-            if(cComentario.value.length() > 512) {
-                alert("O seu comentário está grande de mais!")
-                return;
-            }
-            
+    pComentario.addEventListener("click", function () {
+        if (cComentario.value.length() > 512) {
+            alert("O seu comentário está grande de mais!")
+            return;
+        }
+
+        const requestBody = {
+            textoComentario: cComentario.value,
+            tipo: 'P',
+            idComentavel: id,
+        };
+
+        fetch("http://localhost:8080/api/postagem", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody)
         })
+            .then(res => {
+                if (!res.ok) throw new Error("Erro no servidor");
+                return res.json();
+            })
+            .then(data => {
+                console.log(data);
+
+                window.location.reload()
+            })
+    })
 
 }
 

@@ -1,6 +1,7 @@
 package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.ResourceNotFoundException;
+import com.kings.okdhvi.exception.usuario.UnauthorizedActionException;
 import com.kings.okdhvi.model.Comentario;
 import com.kings.okdhvi.model.Comentavel;
 import com.kings.okdhvi.model.Postagem;
@@ -8,11 +9,12 @@ import com.kings.okdhvi.model.requests.ComentarioCDTO;
 import com.kings.okdhvi.repositories.ComentarioRepository;
 import com.kings.okdhvi.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.Date;
 
-
+@Service
 public class ComentarioServices {
     @Autowired
     ComentarioRepository cr;
@@ -33,6 +35,9 @@ public class ComentarioServices {
 
         if(ccdto.tipo() == 'P') {
             comentavel = ps.encontrarPostagemPeloId(ccdto.idComentavel());
+            if(comentavel.isOculto()) {
+                throw new UnauthorizedActionException("A postagem está oculta, não há como comentar.");
+            }
             comentavel.getComentarios().add(c);
             ps.atualizarPostagem((Postagem) comentavel, id);
         }else {

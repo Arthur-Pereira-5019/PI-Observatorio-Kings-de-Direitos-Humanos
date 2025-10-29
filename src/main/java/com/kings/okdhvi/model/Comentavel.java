@@ -2,7 +2,7 @@ package com.kings.okdhvi.model;
 
 import java.util.ArrayList;
 
-public abstract class Comentavel {
+public abstract class Comentavel extends Moderavel{
     ArrayList<Comentario> comentarios = new ArrayList<>();
 
     public ArrayList<Comentario> getComentarios() {
