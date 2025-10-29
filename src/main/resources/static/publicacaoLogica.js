@@ -3,6 +3,9 @@ async function iniciar() {
     const titulo = document.getElementById("titulo");
     const dadosPublicacao = document.getElementById("dados_publicacao");
     const texto = document.getElementById("textoPublicacao");
+    const cComentario = document.getElementById("text-area-comentario-forum");
+    const caracteres = document.getElementById("limite-caracteres-criacao-comentario-forum");
+    const pComentario = document.getElementById("botao-enviar-comentario-forum");
 
     const url = window.location.href;
     const id = url.substring(url.lastIndexOf('/') + 1)
@@ -12,8 +15,8 @@ async function iniciar() {
     }
 
     fetch("http://localhost:8080/api/postagem/" + id, {
-            headers: { 'Content-Type': 'application/json' },
-        })
+        headers: { 'Content-Type': 'application/json' },
+    })
         .then(res => {
             if (!res.ok) throw new Error("Erro no servidor");
             return res.json();
@@ -40,6 +43,19 @@ async function iniciar() {
 
         })
         .catch(err => console.error(err));
+
+        cComentario.addEventListener("keydown", function() {
+            caracteres.textContent = cComentario.value.length();+"/512"
+        })
+
+        pComentario.addEventListener("click", function() {
+            if(cComentario.value.length() > 512) {
+                alert("O seu comentário está grande de mais!")
+                return;
+            }
+            
+        })
+
 }
 
 document.addEventListener("DOMContentLoaded", iniciar)
