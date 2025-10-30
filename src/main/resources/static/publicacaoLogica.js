@@ -44,11 +44,15 @@ async function iniciarPublicacao() {
         })
         .catch(err => console.error(err));
 
+    window.addEventListener('scroll', function () {
+        console.log('Scroll position:', window.scrollY);
+    });
+
     cComentario.addEventListener("keydown", function () {
-        setTimeout(function() {
-            caracteres.textContent = cComentario.value.length+1 + "/512";
-        }, 2000)
-        
+        setTimeout(function () {
+            caracteres.textContent = cComentario.value.length + 1 + "/512";
+        }, 1)
+
     })
 
     pComentario.addEventListener("click", function () {

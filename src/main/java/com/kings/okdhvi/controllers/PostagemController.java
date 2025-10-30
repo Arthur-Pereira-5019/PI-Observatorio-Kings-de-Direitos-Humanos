@@ -65,6 +65,15 @@ public class PostagemController {
         return retorno;
     }
 
+    @PostMapping(value = "busca_paginada", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public List<? extends PostagemESDTO> buscaPaginada(@RequestBody BuscaPaginada bp, @AuthenticationPrincipal UserDetails ud) {
+
+        ArrayList<PostagemESDTO> retorno = new ArrayList<>();
+        ps.buscaFiltrada(bp,null, ud).getResultado().forEach(p -> {retorno.add(pm.parsePostagemToESDTO(p));});
+        return retorno;
+    }
+
+
     @PostMapping(value="/listar_publicacoes/{texto}")
     public BuscaPaginadaResultado<PostagemECDTO> listarPublicacoesTexto(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @AuthenticationPrincipal UserDetails ud) {
         return listarPostagens(bpt, texto,0, ud);
