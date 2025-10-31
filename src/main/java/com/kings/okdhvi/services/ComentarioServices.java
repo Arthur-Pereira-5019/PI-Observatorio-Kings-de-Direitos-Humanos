@@ -86,7 +86,7 @@ public class ComentarioServices {
         return cr.findById(id).orElseThrow(() -> new ResourceNotFoundException("Comentário não encontrado!"));
     }
 
-    public BuscaPaginadaResultado<Comentario> buscaFiltrada(BuscaPaginada bp, Long id, Character tipo, UserDetails ud, String texto) {
+    public BuscaPaginadaResultado<Comentario> buscaFiltrada(BuscaPaginada bp, Long id, Character tipo, UserDetails ud) {
         boolean moderador = false;
 
         if(ud != null) {
@@ -108,12 +108,9 @@ public class ComentarioServices {
 
         List<Predicate> predicates = new ArrayList<>();
 
-        if (texto != null && !texto.isBlank()) {
-            Predicate predicateId =  cb.equal(c.get("id"), id);
-            Predicate predicateTipo =  cb.equal(c.get("tipo"), id);
-
-            predicates.add(cb.and(predicateId, predicateTipo));
-        }
+        Predicate predicateId =  cb.equal(c.get("id"), id);
+        Predicate predicateTipo =  cb.equal(c.get("tipo"), id);
+        predicates.add(cb.and(predicateId, predicateTipo));
 
         cq.where(predicates.toArray(new Predicate[0]));
         cq.orderBy(cb.desc(c.get("dataDaPostagem")));
