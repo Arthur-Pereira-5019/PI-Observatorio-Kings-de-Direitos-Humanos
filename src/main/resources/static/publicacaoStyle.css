@@ -155,3 +155,11 @@ html {
  #botao-enviar-comentario-forum:hover {
      background-color: #FF4D66;
  }
+
+ .autor {
+    cursor: pointer;
+ }
+
+ .autor:hover {
+    color: blue;
+ }

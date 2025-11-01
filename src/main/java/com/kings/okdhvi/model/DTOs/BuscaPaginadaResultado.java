@@ -1,4 +1,4 @@
-package com.kings.okdhvi.model.requests;
+package com.kings.okdhvi.model.DTOs;
 
 import java.util.ArrayList;
 import java.util.List;

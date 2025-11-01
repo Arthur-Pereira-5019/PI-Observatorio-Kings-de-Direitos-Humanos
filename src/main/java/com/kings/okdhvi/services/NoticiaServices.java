@@ -1,7 +1,7 @@
 package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.model.Postagem;
-import com.kings.okdhvi.model.requests.NoticiaESDTO;
+import com.kings.okdhvi.model.DTOs.NoticiaESDTO;
 import org.springframework.stereotype.Service;
 
 @Service

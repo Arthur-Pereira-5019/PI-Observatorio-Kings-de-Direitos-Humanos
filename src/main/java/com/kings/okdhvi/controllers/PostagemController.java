@@ -2,7 +2,7 @@ package com.kings.okdhvi.controllers;
 
 import com.kings.okdhvi.mapper.PostagemMapper;
 import com.kings.okdhvi.model.*;
-import com.kings.okdhvi.model.requests.*;
+import com.kings.okdhvi.model.DTOs.*;
 import com.kings.okdhvi.services.PostagemServices;
 import com.kings.okdhvi.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;

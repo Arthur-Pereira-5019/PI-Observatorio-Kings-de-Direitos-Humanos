@@ -1,13 +1,12 @@
 package com.kings.okdhvi.controllers;
 
 import com.kings.okdhvi.model.Postagem;
-import com.kings.okdhvi.model.requests.*;
+import com.kings.okdhvi.model.DTOs.*;
 import com.kings.okdhvi.services.NoticiaServices;
 import com.kings.okdhvi.services.PostagemServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

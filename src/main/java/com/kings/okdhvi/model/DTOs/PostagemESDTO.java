@@ -1,4 +1,4 @@
-package com.kings.okdhvi.model.requests;
+package com.kings.okdhvi.model.DTOs;
 
 import com.kings.okdhvi.model.Imagem;
 

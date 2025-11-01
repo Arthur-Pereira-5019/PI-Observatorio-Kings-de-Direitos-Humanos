@@ -1,14 +1,15 @@
 package com.kings.okdhvi.controllers;
 
 import com.kings.okdhvi.infra.security.TokenService;
+import com.kings.okdhvi.mapper.UsuarioMapper;
 import com.kings.okdhvi.model.Imagem;
 import com.kings.okdhvi.model.PedidoDeTitulacaoDTO;
 import com.kings.okdhvi.model.PedidoExclusaoConta;
-import com.kings.okdhvi.model.requests.AdicionarCargoRequest;
-import com.kings.okdhvi.model.requests.PedidoLogin;
+import com.kings.okdhvi.model.DTOs.AdicionarCargoRequest;
+import com.kings.okdhvi.model.DTOs.PedidoLogin;
 import com.kings.okdhvi.model.Usuario;
-import com.kings.okdhvi.model.requests.UsuarioADTO;
-import com.kings.okdhvi.model.requests.UsuarioApreDTO;
+import com.kings.okdhvi.model.DTOs.UsuarioADTO;
+import com.kings.okdhvi.model.DTOs.UsuarioApreDTO;
 import com.kings.okdhvi.services.UsuarioService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,6 +38,8 @@ public class UsuarioController {
     UsuarioService us;
     @Autowired
     TokenService ts;
+    @Autowired
+    UsuarioMapper um;
 
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Usuario criarUsuario(@RequestBody Usuario u) {
@@ -50,7 +53,7 @@ public class UsuarioController {
 
     @GetMapping(value = "apresentar", produces = MediaType.APPLICATION_JSON_VALUE)
     public UsuarioApreDTO apresentarUsuarioLogado(@AuthenticationPrincipal UserDetails ud) {
-        return us.apresentarUsuario(us.encontrarPorId(us.buscarId(ud), false));
+        return um.apresentarUsuario(us.encontrarPorId(us.buscarId(ud), false));
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

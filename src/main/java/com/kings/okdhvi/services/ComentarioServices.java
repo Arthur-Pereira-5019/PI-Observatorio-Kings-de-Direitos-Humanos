@@ -5,9 +5,9 @@ import com.kings.okdhvi.exception.usuario.UnauthorizedActionException;
 import com.kings.okdhvi.model.Comentario;
 import com.kings.okdhvi.model.Postagem;
 import com.kings.okdhvi.model.Usuario;
-import com.kings.okdhvi.model.requests.BuscaPaginada;
-import com.kings.okdhvi.model.requests.BuscaPaginadaResultado;
-import com.kings.okdhvi.model.requests.ComentarioCDTO;
+import com.kings.okdhvi.model.DTOs.BuscaPaginada;
+import com.kings.okdhvi.model.DTOs.BuscaPaginadaResultado;
+import com.kings.okdhvi.model.DTOs.ComentarioCDTO;
 import com.kings.okdhvi.repositories.ComentarioRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -76,7 +76,6 @@ public class ComentarioServices {
         return c;
     }
 
-
     public void deletarComentario(Long id) {
         Comentario c = encontrarComentario(id);
         cr.delete(c);
@@ -113,7 +112,7 @@ public class ComentarioServices {
         predicates.add(cb.and(predicateId, predicateTipo));
 
         cq.where(predicates.toArray(new Predicate[0]));
-        cq.orderBy(cb.desc(c.get("dataDaPostagem")));
+        cq.orderBy(cb.desc(c.get("dataComentario")));
 
 
         TypedQuery<Comentario> busca = em.createQuery(cq);

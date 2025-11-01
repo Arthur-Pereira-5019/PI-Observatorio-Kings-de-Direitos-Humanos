@@ -1,19 +1,15 @@
 package com.kings.okdhvi.controllers;
 
 import com.kings.okdhvi.model.Imagem;
-import com.kings.okdhvi.model.requests.CriarImagemRequest;
+import com.kings.okdhvi.model.DTOs.CriarImagemRequest;
 import com.kings.okdhvi.services.ImagemService;
 import com.kings.okdhvi.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.awt.*;
 
 @RestController
 @RequestMapping("/api/imagem")

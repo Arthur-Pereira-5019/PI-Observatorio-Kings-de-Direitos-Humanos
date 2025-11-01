@@ -11,7 +11,7 @@ async function iniciarPublicacao() {
 
     const url = window.location.href;
     const id = url.substring(url.lastIndexOf('/') + 1)
-    const com = 0;
+    let com = 0;
 
 
     function ocultar() {
@@ -48,7 +48,6 @@ async function iniciarPublicacao() {
         })
         .catch(err => console.error(err));
 
-    body.addEventListener('scroll', chamarComentarios);
 
     cComentario.addEventListener("keydown", function () {
         setTimeout(function () {
@@ -87,13 +86,23 @@ async function iniciarPublicacao() {
 
     async function chamarComentarios() {
         const rect = footer.getBoundingClientRect();
-        if (rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth)) {
+
+        if (rect.top >= 0 && rect.left >= 0 && rect.bottom-100 <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth)) {
             com++;
             await carregarComentarios()
         }
     }
 
+    body.addEventListener('scroll', chamarComentarios);
+
+
     async function carregarComentarios() {
+
+        const requestBody = {
+        parametro: "dataComentario",
+        ascending: false
+    };
+
         fetch("http://localhost:8080/api/com/listar_comentarios/" + id + "/F/" + com, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -106,13 +115,14 @@ async function iniciarPublicacao() {
             .then(data => {
                 console.log(data);
 
-                const primeiroComentario = document.querySelector('#primeirocomentario');
+                const primeiroComentario = document.querySelector('#primeiro_comentario');
                 const containerGeral = document.getElementById("container_publicacao");
                 console.log(data);
 
                 if (data.resultado.length === 0) {
-                    primeiroComentario.querySelector('.container-baixo').remove()
+                    primeiroComentario.remove()
                     body.removeEventListener('scroll', chamarComentarios);
+                    console.log("Faltam comentários");
                 } else {
                     if (data.proximosIndexes < 18) {
                         body.removeEventListener('scroll', chamarComentarios);
@@ -120,6 +130,8 @@ async function iniciarPublicacao() {
                     data.resultado.forEach((post, index) => {
                         if (index == 0) {
                             construirComentario(primeiroComentario, post)
+                            console.log("oiieee");
+
                         } else {
                             containerGeral.appendChild(novaBarra)
                             const novoComentario = primeiroComentario.cloneNode(true);
@@ -133,17 +145,20 @@ async function iniciarPublicacao() {
             .catch(err => console.error(err));
 
         function construirComentario(comentario, dados) {
-            comentario.querySelector(".titulo-publicacao").textContent = dados.titulo
-            comentario.querySelector(".autor").textContent = dados.autor
-            comentario.querySelector(".data").textContent = dados.data
+            imagem = comentario.querySelector(".imagem")
+            comentario.querySelector(".container-texto-comentario").textContent = dados.texto
+            comentario.querySelector(".autor").textContent = dados.autor.nome
+            comentario.querySelector(".autor").addEventListener("click", function () {
+                window.location.href = "https://localhost:8080/usuario/" + id;
+            })
             comentario.querySelector(".paragrafo").innerHTML = dados.texto
-            if (dados.capa.imagem == "" || dados.capa.tipoImagem) {
-                comentario.querySelector(".imagem").src = "/imagens/publicacao.png";
+            if (dados.autor.foto.imagem == "" || dados.autor.foto.tipoImagem) {
+                imagem.src = "/imagens/perfilIcon.png";
             } else {
-                comentario.querySelector(".imagem").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
+                imagem.src = "data:image/" + dados.autor.foto.tipoImagem + ";base64," + dados.autor.foto.imagem;
             }
-            comentario.addEventListener("click", function () {
-                window.location.href = "http://localhost:8080/publicacao/" + dados.idPostagem
+            imagem.addEventListener("click", function () {
+                window.location.href = "https://localhost:8080/usuario/" + id;
             })
         }
     }

@@ -4,10 +4,10 @@ import com.kings.okdhvi.exception.NullResourceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.usuario.*;
 import com.kings.okdhvi.model.*;
-import com.kings.okdhvi.model.requests.AdicionarCargoRequest;
-import com.kings.okdhvi.model.requests.CriarImagemRequest;
-import com.kings.okdhvi.model.requests.UsuarioADTO;
-import com.kings.okdhvi.model.requests.UsuarioApreDTO;
+import com.kings.okdhvi.model.DTOs.AdicionarCargoRequest;
+import com.kings.okdhvi.model.DTOs.CriarImagemRequest;
+import com.kings.okdhvi.model.DTOs.UsuarioADTO;
+import com.kings.okdhvi.model.DTOs.UsuarioApreDTO;
 import com.kings.okdhvi.repositories.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -119,13 +119,7 @@ public class UsuarioService {
         return ur.save(u);
     }
 
-    public UsuarioApreDTO apresentarUsuario(Usuario u) {
-        UsuarioApreDTO uadto = new UsuarioApreDTO();
-        uadto.setEdc(u.getEstadoDaConta());
-        uadto.setFotoDePerfil(u.getFotoDePerfil());
-        uadto.setNome(u.getNome());
-        return uadto;
-    }
+
 
 
     public Usuario atualizarUsuario (UsuarioADTO novo, Long id) {

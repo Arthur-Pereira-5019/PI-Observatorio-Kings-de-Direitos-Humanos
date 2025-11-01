@@ -1,8 +1,8 @@
 package com.kings.okdhvi.mapper;
 
 import com.kings.okdhvi.model.Postagem;
-import com.kings.okdhvi.model.requests.PostagemECDTO;
-import com.kings.okdhvi.model.requests.PostagemESDTO;
+import com.kings.okdhvi.model.DTOs.PostagemECDTO;
+import com.kings.okdhvi.model.DTOs.PostagemESDTO;
 import org.springframework.stereotype.Service;
 
 @Service

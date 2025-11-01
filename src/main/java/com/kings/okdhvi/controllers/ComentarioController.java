@@ -1,8 +1,9 @@
 package com.kings.okdhvi.controllers;
 
+import com.kings.okdhvi.mapper.ComentarioMapper;
+import com.kings.okdhvi.mapper.UsuarioMapper;
 import com.kings.okdhvi.model.Comentario;
-import com.kings.okdhvi.model.Postagem;
-import com.kings.okdhvi.model.requests.*;
+import com.kings.okdhvi.model.DTOs.*;
 import com.kings.okdhvi.services.ComentarioServices;
 import com.kings.okdhvi.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class ComentarioController {
     @Autowired
     UsuarioService us;
 
+    @Autowired
+    ComentarioMapper cm;
+
     @PostMapping("/")
     @PreAuthorize("isAuthenticated()")
     public Comentario comentar(@RequestBody ComentarioCDTO cc, @AuthenticationPrincipal UserDetails ud) {
@@ -31,14 +35,17 @@ public class ComentarioController {
     }
 
     @PostMapping(value="/listar_comentarios/{id}/{tipo}/{pagina}")
-    public BuscaPaginadaResultado<Comentario> listarPostagens(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") Long id, @PathVariable("pagina") Character tipo, @AuthenticationPrincipal UserDetails ud, @PathVariable("pagina") Integer pagina) {
+    public BuscaPaginadaResultado<ComentarioDTO> listarPostagens(@RequestBody BuscaPaginadaTexto bpt, Long id, @PathVariable("pagina") Character tipo, @AuthenticationPrincipal UserDetails ud, @PathVariable("pagina") Integer pagina) {
         List<Comentario> comentarios;
+        List<ComentarioDTO> comentariosTratados = new ArrayList<>();
+        BuscaPaginadaResultado<ComentarioDTO> retorno = new BuscaPaginadaResultado<>();
+
         BuscaPaginada bp = new BuscaPaginada(pagina, 18, bpt.parametro(), bpt.ascending());
         BuscaPaginadaResultado<Comentario> bpr = cs.buscaFiltrada(bp, id, tipo, ud);
         comentarios = bpr.getResultado();
 
-        BuscaPaginadaResultado<Comentario> retorno = new BuscaPaginadaResultado<>();
-        retorno.setResultado(comentarios);
+        comentarios.forEach(c -> {comentariosTratados.add(cm.apresentarComentario(c));});
+        retorno.setResultado(comentariosTratados);
         retorno.setProximosIndexes(bpr.getProximosIndexes());
         return retorno;
     }

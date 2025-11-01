@@ -3,14 +3,12 @@ package com.kings.okdhvi.services;
 import com.kings.okdhvi.exception.NullResourceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.imagens.InvalidBase64ImageEncoding;
-import com.kings.okdhvi.exception.usuario.UnableToAuthenticateUser;
 import com.kings.okdhvi.infra.security.TokenService;
 import com.kings.okdhvi.model.Imagem;
 import com.kings.okdhvi.model.Usuario;
-import com.kings.okdhvi.model.requests.CriarImagemRequest;
+import com.kings.okdhvi.model.DTOs.CriarImagemRequest;
 import com.kings.okdhvi.repositories.ImagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
