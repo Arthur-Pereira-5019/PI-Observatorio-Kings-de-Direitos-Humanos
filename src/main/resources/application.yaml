@@ -15,9 +15,19 @@ spring:
     open-in-view: false
     properties:
       hibernate:
+        format_sql: false
 logger:
   root: WARN
   com.kings.okdhvi: WARN
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: WARN
+        type:
+          descriptor:
+            sql:
+              BasicBinder: WARN
 api:
   security:
     token:

@@ -35,7 +35,7 @@ public class ComentarioController {
     }
 
     @PostMapping(value="/listar_comentarios/{id}/{tipo}/{pagina}")
-    public BuscaPaginadaResultado<ComentarioDTO> listarPostagens(@RequestBody BuscaPaginadaTexto bpt, Long id, @PathVariable("pagina") Character tipo, @AuthenticationPrincipal UserDetails ud, @PathVariable("pagina") Integer pagina) {
+    public BuscaPaginadaResultado<ComentarioDTO> listarPostagens(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("id") Long id, @PathVariable("tipo") Character tipo, @AuthenticationPrincipal UserDetails ud, @PathVariable("pagina") Integer pagina) {
         List<Comentario> comentarios;
         List<ComentarioDTO> comentariosTratados = new ArrayList<>();
         BuscaPaginadaResultado<ComentarioDTO> retorno = new BuscaPaginadaResultado<>();

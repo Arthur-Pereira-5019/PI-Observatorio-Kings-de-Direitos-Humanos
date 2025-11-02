@@ -163,3 +163,7 @@ html {
  .autor:hover {
     color: blue;
  }
+
+ .comentario {
+    width: 100%;
+ }

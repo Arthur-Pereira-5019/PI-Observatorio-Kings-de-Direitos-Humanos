@@ -1,5 +1,6 @@
 package com.kings.okdhvi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -19,6 +20,7 @@ public class Comentario {
 
     @Id
             @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     Long idComentario;
 
     @Column
@@ -27,9 +29,7 @@ public class Comentario {
     @Column
     Character tipo;
 
-    @ManyToOne
-    @JoinColumn(name = "id_dono")
-    Postagem postagem ;
+    Long idDono;
 
     public Usuario getAutor() {
         return autor;
@@ -77,5 +77,13 @@ public class Comentario {
 
     public void setTipo(Character tipo) {
         this.tipo = tipo;
+    }
+
+    public Long getIdDono() {
+        return idDono;
+    }
+
+    public void setIdDono(Long idDono) {
+        this.idDono = idDono;
     }
 }

@@ -48,7 +48,8 @@ public class ComentarioServices {
         c.setAutor(us.encontrarPorId(id, false));
         c.setTextComentario(ccdto.textoComentario());
         c.setDataComentario(Date.from(Instant.now()));
-
+        c.setTipo(ccdto.tipo());
+        c.setIdDono(ccdto.idComentavel());
         c = cr.save(c);
         if(ccdto.tipo() == 'P') {
             Postagem p = ps.encontrarPostagemPeloId(ccdto.idComentavel());
@@ -90,7 +91,6 @@ public class ComentarioServices {
 
         if(ud != null) {
             if(ud.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MODER"))) {
-                System.out.println("Moderador");
                 moderador = true;
             }
         }
@@ -107,15 +107,17 @@ public class ComentarioServices {
 
         List<Predicate> predicates = new ArrayList<>();
 
-        Predicate predicateId =  cb.equal(c.get("id"), id);
-        Predicate predicateTipo =  cb.equal(c.get("tipo"), id);
-        predicates.add(cb.and(predicateId, predicateTipo));
+        Predicate predicateId = cb.equal(c.get("idDono"), id);
+        Predicate predicateTipo =  cb.equal(c.get("tipo"), tipo);
+        predicates.add(predicateTipo);
+        predicates.add(predicateId);
 
         cq.where(predicates.toArray(new Predicate[0]));
         cq.orderBy(cb.desc(c.get("dataComentario")));
 
 
         TypedQuery<Comentario> busca = em.createQuery(cq);
+
         BuscaPaginadaResultado<Comentario> bpr = new BuscaPaginadaResultado<>();
 
 
@@ -126,8 +128,11 @@ public class ComentarioServices {
         List<Comentario> resultadosDaBusca = busca.getResultList();
         int tamanhoTotal = resultadosDaBusca.size();
 
-
-        bpr.setResultado(resultadosDaBusca.subList(0,Math.min(bp.numeroResultados(), resultadosDaBusca.size() - 1)));
+        if(resultadosDaBusca.isEmpty()) {
+            bpr.setResultado(resultadosDaBusca);
+        } else {
+            bpr.setResultado(resultadosDaBusca.subList(0,Math.min(bp.numeroResultados(), resultadosDaBusca.size())));
+        }
         bpr.setProximosIndexes(tamanhoTotal-bpr.getResultado().size());
         return bpr;
     }

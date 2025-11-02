@@ -39,8 +39,8 @@ public class PostagemController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Postagem encontrarPostagemPeloId(@PathVariable("id") Long id) {
-        return ps.encontrarPostagemPeloId(id);
+    public PostagemPaginaDTO encontrarPostagemPeloId(@PathVariable("id") Long id) {
+        return pm.paginaPostagem(ps.encontrarPostagemPeloId(id));
     }
 
     //NÃO USAR, ESSE SUJEITO AQUI NÃO TEM MEDO DE ANULAR TODOS SEUS CAMPOS

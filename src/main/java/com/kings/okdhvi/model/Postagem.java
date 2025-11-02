@@ -1,6 +1,7 @@
 package com.kings.okdhvi.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -14,7 +15,8 @@ public class Postagem{
     @Column
     boolean oculto;
 
-    @OneToMany(mappedBy = "postagem", fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnore
     List<Comentario> comentarios = new ArrayList<>();
 
     public List<Comentario> getComentarios() {

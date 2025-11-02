@@ -78,8 +78,6 @@ async function iniciarPublicacao() {
                 return res.json();
             })
             .then(data => {
-                console.log(data);
-
                 window.location.reload()
             })
     })
@@ -87,9 +85,9 @@ async function iniciarPublicacao() {
     async function chamarComentarios() {
         const rect = footer.getBoundingClientRect();
 
-        if (rect.top >= 0 && rect.left >= 0 && rect.bottom-100 <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth)) {
-            com++;
+        if (rect.top >= 0 && rect.left >= 0 && rect.bottom - 100 <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth)) {
             await carregarComentarios()
+            com++;
         }
     }
 
@@ -99,11 +97,11 @@ async function iniciarPublicacao() {
     async function carregarComentarios() {
 
         const requestBody = {
-        parametro: "dataComentario",
-        ascending: false
-    };
+            parametro: "dataComentario",
+            ascending: false
+        };
 
-        fetch("http://localhost:8080/api/com/listar_comentarios/" + id + "/F/" + com, {
+        fetch("http://localhost:8080/api/com/listar_comentarios/" + id + "/P/" + com, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
@@ -113,16 +111,12 @@ async function iniciarPublicacao() {
                 return res.json();
             })
             .then(data => {
-                console.log(data);
-
                 const primeiroComentario = document.querySelector('#primeiro_comentario');
                 const containerGeral = document.getElementById("container_publicacao");
-                console.log(data);
 
                 if (data.resultado.length === 0) {
                     primeiroComentario.remove()
                     body.removeEventListener('scroll', chamarComentarios);
-                    console.log("Faltam comentários");
                 } else {
                     if (data.proximosIndexes < 18) {
                         body.removeEventListener('scroll', chamarComentarios);
@@ -130,10 +124,7 @@ async function iniciarPublicacao() {
                     data.resultado.forEach((post, index) => {
                         if (index == 0) {
                             construirComentario(primeiroComentario, post)
-                            console.log("oiieee");
-
                         } else {
-                            containerGeral.appendChild(novaBarra)
                             const novoComentario = primeiroComentario.cloneNode(true);
                             containerGeral.appendChild(novoComentario)
                             construirComentario(novoComentario, post)
@@ -145,20 +136,21 @@ async function iniciarPublicacao() {
             .catch(err => console.error(err));
 
         function construirComentario(comentario, dados) {
-            imagem = comentario.querySelector(".imagem")
+            imagem = comentario.querySelector(".foto-usuario-comentarios")
             comentario.querySelector(".container-texto-comentario").textContent = dados.texto
             comentario.querySelector(".autor").textContent = dados.autor.nome
             comentario.querySelector(".autor").addEventListener("click", function () {
-                window.location.href = "https://localhost:8080/usuario/" + id;
+                window.location.href = "http://localhost:8080/usuario/" + dados.autor.id;
             })
-            comentario.querySelector(".paragrafo").innerHTML = dados.texto
-            if (dados.autor.foto.imagem == "" || dados.autor.foto.tipoImagem) {
+            if (dados.autor.foto == null) {
                 imagem.src = "/imagens/perfilIcon.png";
-            } else {
+            }else if (dados.autor.foto.imagem == "" || dados.autor.foto.tipoImagem == "") {
+                imagem.src = "/imagens/perfilIcon.png";
+            }else {
                 imagem.src = "data:image/" + dados.autor.foto.tipoImagem + ";base64," + dados.autor.foto.imagem;
             }
             imagem.addEventListener("click", function () {
-                window.location.href = "https://localhost:8080/usuario/" + id;
+                window.location.href = "http://localhost:8080/usuario/" + dados.autor;
             })
         }
     }
