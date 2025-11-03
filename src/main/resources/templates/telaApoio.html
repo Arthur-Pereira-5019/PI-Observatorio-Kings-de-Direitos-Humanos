@@ -53,12 +53,14 @@
             height: 30vh;
             display: flex;
             justify-content: flex-end;
+            position: relative;
         }
 
         .container-geral-instituicao-esquerda{
             width: 100%;
             height: 30vh;
             display: flex;
+            position: relative;
         }
 
         .info-instituicao-apoio{
@@ -112,12 +114,79 @@
         }
 
         li {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding-bottom: 1%;
-}
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding-bottom: 1%;
+        }
+
+        #add-acolhimento{
+            background-color: #AA00FF;
+            position: absolute;
+            right: 1%;
+            top: 1%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 12vh;
+            width: 12vh;
+            z-index: 10;
+            border-radius: 50%;
+        }
+
+        #add-acolhimento:hover{
+            background-color: #d174ff;
+        }
         
+        #mais-acolhimento{
+            width: 70%;
+            height: 70%;
+        }
+
+        #editar-acolhimento-direita{
+            background-color: #AA00FF;
+            position: absolute;
+            transform: translate(50%,-50%);
+            top: 0%;
+            left: 0%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 7vh;
+            width: 7vh;
+            z-index: 10;
+            border-radius: 50%;
+        }
+
+        #editar-acolhimento-direita:hover{
+            background-color: #d174ff;
+        }
+
+        #editar-acolhimento-esquerda{
+            background-color: #AA00FF;
+            position: absolute;
+            transform: translate(50%,-50%);
+            top: 0%;
+            right: 5.5%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 7vh;
+            width: 7vh;
+            z-index: 10;
+            border-radius: 50%;
+        }
+
+        #editar-acolhimento-esquerda:hover{
+            background-color: #d174ff;
+        }
+
+        #lapis{
+            width: 60%;
+        }
         </style>
 </head>
 <body>
@@ -128,6 +197,8 @@
     <div class="container-resto-tela-apoio">
 
         <div class="container-geral-instituicao-direita">
+
+            <div id="editar-acolhimento-direita"><img src="./imagens/lapis-icon.png" id="lapis" alt=""></div>
 
             <div class="info-instituicao-apoio">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum eum repudiandae adipisci autem reiciendis cum dolore! Excepturi, ducimus, laudantium praesentium, ipsa facilis vel consequatur dignissimos est ipsam iusto tempora ullam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas facere, provident qui officia quisquam et sequi dolorum, vel numquam ullam suscipit ab beatae alias voluptatibus repellat eveniet possimus quia? Quam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, voluptatum quos tempore nulla libero totam rerum aperiam enim sint, soluta suscipit earum. Iusto laborum ab aut, ratione odio velit eaque. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur maiores cupiditate, corporis enim tempore exercitationem natus, totam possimus voluptate repellat impedit id labore inventore ipsum suscipit provident voluptatem. Ipsa, fugit.</div>
 
@@ -159,6 +230,8 @@
 
         <div class="container-geral-instituicao-esquerda">
 
+            <div id="editar-acolhimento-esquerda"><img src="./imagens/lapis-icon.png" id="lapis" alt=""></div>
+
             <div class="container-fotoEredes-tela-apoio">
                 <img src="./imagens/grupo.png" id="foto-instituicao-tela-apoio" alt="">
 
@@ -189,7 +262,7 @@
     
     </div>
 
-
+    <div id="add-acolhimento"> <img src="./imagens/mais.png" id="mais-acolhimento" alt=""></div>
 
 
 </body>
