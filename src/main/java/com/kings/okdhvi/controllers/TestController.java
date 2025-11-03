@@ -31,6 +31,11 @@ public class TestController {
         return "criacaoPublicacao";
     }
 
+    @RequestMapping("/nova_decisao")
+    public String returnPopupNovaDecisao() {return "popupNovaDecisao";}
+
+    @RequestMapping("/decisao")
+    public String returnDecisao() {return "popupDecisaoModeradora";}
 
     @RequestMapping("/publicacao/{id}")
     public String returnPublicacao() {

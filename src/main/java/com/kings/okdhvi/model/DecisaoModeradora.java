@@ -15,7 +15,7 @@ public class DecisaoModeradora {
     String tipo;
     @Column(nullable = false)
     Date data;
-    @Column(nullable = false, length = 512)
+    @Column(nullable = false, length = 1024)
     String motivacao;
     @Column(length = 100)
     String nomeModerado;

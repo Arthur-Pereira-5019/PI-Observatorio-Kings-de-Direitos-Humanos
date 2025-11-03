@@ -14,6 +14,54 @@ async function iniciarPublicacao() {
     let com = 0;
     let buscando = false;
     let moderador = false;
+    let ndmcallback;
+
+    async function anexarHTMLExterno(url, cssFile, jsFile) {
+        const response = await fetch(url);
+        const novoObjeto = document.createElement("div");
+        document.body.appendChild(novoObjeto)
+
+        if (cssFile) {
+            anexarCss(cssFile)
+        }
+
+        if (jsFile) {
+            let script = document.createElement("script");
+            script.src = jsFile;
+            script.onload = () => {
+                if (jsFile === "/popupNovaDecisaoLogica.js" && typeof iniciarPopupNovaDecisao === "function") {
+                    iniciarPopupNovaDecisao(ndmcallback);
+                }
+                if (jsFile === "/popupDecisaoModeradoraLogic.js" && typeof iniciarPopupDecisao === "function") {
+                    iniciarPopupDecisao();
+                }
+            };
+            document.body.appendChild(script);
+        }
+    }
+
+    async function excluirComentario(url, proprio) {
+        if (proprio) {
+
+        }
+
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody)
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Erro no servidor");
+                alert("Comentário excluído com sucesso!")
+                window.location.reload();
+            })
+            .catch(err => console.error(err));
+    }
+
+    ndmcallback = await excluirComentario(url, proprio);
+
+    await anexarHTMLExterno("/nova_decisao", "/novaDecisaoModeradoraStyle.css", "/popupNovaDecisaoLogica.js");
+    await anexarHTMLExterno("/decisao", "/popupDecisaoModeradoraStyle.css", "/popupDecisaoModeradoraLogic.js");
 
 
     function ocultar() {
@@ -170,23 +218,13 @@ async function iniciarPublicacao() {
             })
         }
     }
-    async function excluirComentario(url, proprio) {
-        if (proprio) {
 
-        }
+    async function openCriacaoDecisao() {
 
-        fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(requestBody)
-        })
-            .then(res => {
-                if (!res.ok) throw new Error("Erro no servidor");
-                alert("Comentário excluído com sucesso!")
-                window.location.reload();
-            })
-            .catch(err => console.error(err));
     }
+
+
+    
 
     await carregarComentarios();
 
