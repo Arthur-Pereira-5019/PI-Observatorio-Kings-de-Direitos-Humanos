@@ -20,7 +20,7 @@
         .fundo-novo-apoio{
             display: flex;
             flex-direction: column;
-            gap: 1%;
+            gap: 1.5%;
             height: 90vh;
             width: 60vw;
             border-radius: 2rem;
@@ -60,14 +60,24 @@
         }
 
         .rede-label-apoio{
+            display: flex;
             width: 50%;
             height: 4vh;
+            gap: 4%;
         }
 
         .icone-rede-popup-apoio{
+            width:2vw ;
+        }
+
+        #label-link-rede{
+            width: 16vw;
             height: 100%;
-            width:auto;
-            m
+            border-radius: 18px;
+            border: none;
+            padding: 1%;
+            font-size: 1.1rem;
+            
         }
 
 
@@ -79,9 +89,51 @@
 
         <div class="nome-labels-apoio">Nome da instituição: *</div>
         <input type="text" id="label-nome-instituicao">
+
         <div style="margin-top: 1%;" class="nome-labels-apoio">Sobre a instituição: *</div>
         <textarea name="sobre" id="ta-sobre-instituicao"></textarea>
-        <div style="margin-top: 2%;" class="rede-label-apoio"></div>
+        
+        <div style="margin-top: 2%;" class="rede-label-apoio">
+            
+            <img src="./imagens/twitter.png" class="icone-rede-popup-apoio" alt="">
+            <input type="text" id="label-link-rede">
+
+        </div>
+
+        <div  class="rede-label-apoio">
+            
+            <img src="./imagens/whatsPreto.png" class="icone-rede-popup-apoio" alt="">
+            <input type="text" id="label-link-rede">
+
+        </div>
+
+        <div  class="rede-label-apoio">
+            
+            <img src="./imagens/pin.jpg" class="icone-rede-popup-apoio" alt="">
+            <input type="text" id="label-link-rede">
+
+        </div>
+
+        <div  class="rede-label-apoio">
+            
+            <img src="./imagens/internet.png" class="icone-rede-popup-apoio" alt="">
+            <input type="text" id="label-link-rede">
+
+        </div>
+
+        <div  class="rede-label-apoio">
+            
+            <img src="./imagens/instaIcon.png" class="icone-rede-popup-apoio" alt="">
+            <input type="text" id="label-link-rede">
+
+        </div>
+
+        <div  class="rede-label-apoio">
+            
+            <img src="./imagens/linkedin.png" class="icone-rede-popup-apoio" alt="">
+            <input type="text" id="label-link-rede">
+
+        </div>
 
     </div>
     
