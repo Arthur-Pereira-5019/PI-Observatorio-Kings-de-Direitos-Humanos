@@ -1,66 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <link rel="stylesheet" href="/cabecalhoStyle.css">
-    <link rel="stylesheet" href="/rodapeStyle.css">
-    <link rel="stylesheet" href="/publicacaoStyle.css">
-    <link rel="stylesheet" href="/comentario.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title></title>
+        <link rel="stylesheet" href="/cabecalhoStyle.css">
+        <link rel="stylesheet" href="/rodapeStyle.css">
+        <link rel="stylesheet" href="/publicacaoStyle.css">
+        <link rel="stylesheet" href="/comentario.css">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet">
 
-</head>
+    </head>
 
-<body>
-    <div id="header"></div>
-    <div id="botao_ocultar">
-        <div class="botao-moderador"><img src="/imagens/olhosfechados.png" class="mais" alt="Ocultar publicação"></div>
-    </div>
-    <div id="container_publicacao">
-        <p id="titulo">x</p>
-        <div id="containerImagem">
-            <img src id="capaPostagem">
+    <body>
+        <div id="header"></div>
+        <div id="botao_ocultar">
+            <div class="botao-moderador"><img src="/imagens/olhosfechados.png"
+                    class="mais" alt="Ocultar publicação"></div>
         </div>
-        <div id="dados_publicacao"></div>
-        <div id="textoPublicacao"></div>
-        <div class="fundo-criacao-comentario-forum">
-            <textarea name="comentario" placeholder="Comente!" maxlength="512"
-                id="text-area-comentario-forum"></textarea>
-
-            <div class="container-botaoElimite-comentario-forum">
-                <p id="limite-caracteres-criacao-comentario-forum">0/512</p> <button
-                    id="botao-enviar-comentario-forum">Enviar</button>
+        <div id="container_publicacao">
+            <p id="titulo">x</p>
+            <div id="containerImagem">
+                <img src id="capaPostagem">
             </div>
+            <div id="dados_publicacao"></div>
+            <div id="textoPublicacao"></div>
+            <div class="fundo-criacao-comentario-forum">
+                <textarea name="comentario" placeholder="Comente!"
+                    maxlength="512"
+                    id="text-area-comentario-forum"></textarea>
 
-        </div>
-        <div class="comentario" id="primeiro_comentario">
-            <div class="container-foto-user-comentario-comentarios">
-                <div class="container-usuario-foto-comentarios"><img
-                        src="" class="foto-usuario-comentarios"
-                        alt=""><span class="autor"></span></div>
-                <div class="container-texto-comentario">
+                <div class="container-botaoElimite-comentario-forum">
+                    <p id="limite-caracteres-criacao-comentario-forum">0/512</p>
+                    <button
+                        id="botao-enviar-comentario-forum">Enviar</button>
+                </div>
+
+            </div>
+            <div class="comentario" id="primeiro_comentario"> <div
+                    class="excluirCom"><img src="/imagens/iconelixo.png"></div>
+                <div class="container-foto-user-comentario-comentarios">
+                    <div class="container-usuario-foto-comentarios"><img src
+                            class="foto-usuario-comentarios" alt>
+                        <span class="autor"></span>
+                    </div>
+                    <div class="container-texto-comentario">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
+        <div id="posPopUp">
+            <div id="registro"></div>
+        </div>
 
+        <div id="posPopUpLogin">
+            <div id="login"></div>
+        </div>
+        <div id="footer"></div>
 
-    <div id="posPopUp">
-        <div id="registro"></div>
-    </div>
-
-    <div id="posPopUpLogin">
-        <div id="login"></div>
-    </div>
-    <div id="footer"></div>
-
-</body>
-<script src="/includeHtmlExterno.js" defer></script>
-<script src="/publicacaoLogica.js" defer></script>
+    </body>
+    <script src="/includeHtmlExterno.js" defer></script>
+    <script src="/publicacaoLogica.js" defer></script>
 
 </html>

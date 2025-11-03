@@ -26,7 +26,6 @@ html {
     display: flex;
     justify-content: end;
     cursor: pointer;
-
 }
 
 
@@ -124,6 +123,14 @@ html {
      resize: none;
  }
 
+ .excluirCom {
+    width: 1%;
+    aspect-ratio: 1/1;
+    display: absolute;
+    right: 0px;
+    top: 0px
+ }
+
  .container-botaoElimite-comentario-forum {
      height: 40%;
      width: 100%;
@@ -166,4 +173,5 @@ html {
 
  .comentario {
     width: 100%;
+    display: relative;
  }

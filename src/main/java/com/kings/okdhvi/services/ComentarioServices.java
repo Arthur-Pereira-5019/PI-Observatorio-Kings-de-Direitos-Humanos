@@ -3,6 +3,7 @@ package com.kings.okdhvi.services;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.usuario.UnauthorizedActionException;
 import com.kings.okdhvi.model.Comentario;
+import com.kings.okdhvi.model.DTOs.DecisaoModeradoraOPDTO;
 import com.kings.okdhvi.model.Postagem;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.model.DTOs.BuscaPaginada;
@@ -37,6 +38,9 @@ public class ComentarioServices {
 
     @Autowired
     PostagemServices ps;
+
+    @Autowired
+    DecisaoModeradoraService dms;
 
     @PersistenceContext
     private EntityManager em;
@@ -77,8 +81,16 @@ public class ComentarioServices {
         return c;
     }
 
-    public void deletarComentario(Long id) {
+    public void deletarComentario(Long id, Usuario u, DecisaoModeradoraOPDTO dmdto) {
         Comentario c = encontrarComentario(id);
+        if(dmdto != null) {
+            dms.criarDecisaoModeradora(dmdto, "Comentario", u, c.getAutor(), c.getAutor().getNome());
+        } else {
+            if(u != c.getAutor()) {
+                throw new UnauthorizedActionException("Tentativa de excluir comentário de outro usuário!");
+            }
+            dms.criarDecisaoModeradora(new DecisaoModeradoraOPDTO("Usuário excluiu o próprio comentário"), "Comentario", u, c.getAutor(), c.getAutor().getNome());
+        }
         cr.delete(c);
     }
 

@@ -23,8 +23,6 @@ public class DecisaoModeradoraService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-    @Autowired
-    UsuarioService us;
 
     public DecisaoModeradora mock() {
         UsuarioService us = new UsuarioService();
@@ -46,7 +44,7 @@ public class DecisaoModeradoraService {
         return dmr.save(dm);
     }
 
-    public DecisaoModeradora criarDecisaoModeradora(DecisaoModeradoraOPDTO dm, String tipo, Long idUsuario, Long idModerado, String nomeModerado) {
+    public DecisaoModeradora criarDecisaoModeradora(DecisaoModeradoraOPDTO dm, String tipo, Usuario moderador, Usuario moderado, String nomeModerado) {
         if(dm == null) {
             throw new NullResourceException("Decisão Moderadora nula submetido");
         }
@@ -54,8 +52,8 @@ public class DecisaoModeradoraService {
         d.setData(Date.from(Instant.now()));
         d.setMotivacao(d.getMotivacao());
         d.setTipo(tipo);
-        d.setResponsavel(us.encontrarPorId(idUsuario, false));
-        d.setUsuarioModerado(us.encontrarPorId(idUsuario, false));
+        d.setResponsavel(moderador);
+        d.setUsuarioModerado(moderado);
         d.setNomeModerado(nomeModerado);
         return dmr.save(d);
     }

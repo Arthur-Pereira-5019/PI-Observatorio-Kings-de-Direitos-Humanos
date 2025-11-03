@@ -53,6 +53,7 @@ public class ComentarioController {
     @DeleteMapping(value="/excluir/{id}")
     public void excluirComentario(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails ud, DecisaoModeradoraOPDTO dmdto) {
 
+        cs.deletarComentario(id, us.encontrarPorId(us.buscarId(ud), true), dmdto);
     }
 
 }

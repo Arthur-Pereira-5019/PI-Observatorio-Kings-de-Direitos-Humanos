@@ -83,7 +83,12 @@ public class PostagemServices {
         List<Postagem> resultadosDaBusca = busca.getResultList();
         int tamanhoTotal = resultadosDaBusca.size();
 
-        bpr.setResultado(resultadosDaBusca.subList(0,Math.min(bp.numeroResultados(), resultadosDaBusca.size() - 1)));
+        if(resultadosDaBusca.isEmpty()) {
+            bpr.setResultado(resultadosDaBusca);
+        } else {
+            bpr.setResultado(resultadosDaBusca.subList(0,Math.min(bp.numeroResultados(), resultadosDaBusca.size() - 1)));
+        }
+
         bpr.setProximosIndexes(tamanhoTotal-bpr.getResultado().size());
         return bpr;
     }
