@@ -124,11 +124,14 @@ html {
  }
 
  .excluirCom {
-    width: 1%;
+    width: 2.5%;
     aspect-ratio: 1/1;
-    display: absolute;
-    right: 0px;
-    top: 0px
+    margin-left: auto;
+    cursor: pointer;
+ }
+
+ .lixo {
+    width: 100%;
  }
 
  .container-botaoElimite-comentario-forum {

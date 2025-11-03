@@ -12,6 +12,7 @@ async function iniciarPublicacao() {
     const url = window.location.href;
     const id = url.substring(url.lastIndexOf('/') + 1)
     let com = 0;
+    let buscando = false;
 
 
     function ocultar() {
@@ -51,7 +52,7 @@ async function iniciarPublicacao() {
 
     cComentario.addEventListener("keydown", function () {
         setTimeout(function () {
-            caracteres.textContent = cComentario.value.length + 1 + "/512";
+            caracteres.textContent = cComentario.value.length + "/512";
         }, 1)
 
     })
@@ -85,9 +86,10 @@ async function iniciarPublicacao() {
     async function chamarComentarios() {
         const rect = footer.getBoundingClientRect();
 
-        if (rect.top >= 0 && rect.left >= 0 && rect.bottom - 100 <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth)) {
-            await carregarComentarios()
-            com++;
+        if (rect.top >= 0 && rect.top <= (window.innerHeight || document.documentElement.clientHeight)) {
+            if(!buscando) {
+                await carregarComentarios()
+            }
         }
     }
 
@@ -95,6 +97,7 @@ async function iniciarPublicacao() {
 
 
     async function carregarComentarios() {
+        buscando = true;
 
         const requestBody = {
             parametro: "dataComentario",
@@ -131,7 +134,8 @@ async function iniciarPublicacao() {
                         }
                     });
                 }
-
+                com++;
+                buscando = false;
             })
             .catch(err => console.error(err));
 
@@ -154,6 +158,7 @@ async function iniciarPublicacao() {
             })
         }
     }
+    await carregarComentarios();
 
 }
 
