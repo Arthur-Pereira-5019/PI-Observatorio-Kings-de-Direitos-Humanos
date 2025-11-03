@@ -121,7 +121,7 @@ async function iniciarPublicacao() {
                     primeiroComentario.remove()
                     body.removeEventListener('scroll', chamarComentarios);
                 } else {
-                    if (data.proximosIndexes < 18) {
+                    if (data.proximosIndexes == 0) {
                         body.removeEventListener('scroll', chamarComentarios);
                     }
                     data.resultado.forEach((post, index) => {
@@ -147,12 +147,14 @@ async function iniciarPublicacao() {
                 window.location.href = "http://localhost:8080/usuario/" + dados.autor.id;
             })
             if (dados.autor.foto == null) {
-                imagem.src = "/imagens/perfilIcon.png";
+                imagem.src = "/imagens/perfilIconDark.png";
             }else if (dados.autor.foto.imagem == "" || dados.autor.foto.tipoImagem == "") {
-                imagem.src = "/imagens/perfilIcon.png";
+                imagem.src = "/imagens/perfilIconDark.png";
             }else {
                 imagem.src = "data:image/" + dados.autor.foto.tipoImagem + ";base64," + dados.autor.foto.imagem;
             }
+            
+            comentario.querySelector(".excluirCom")
             imagem.addEventListener("click", function () {
                 window.location.href = "http://localhost:8080/usuario/" + dados.autor;
             })
