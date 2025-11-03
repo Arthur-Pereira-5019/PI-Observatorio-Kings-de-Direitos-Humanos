@@ -166,7 +166,7 @@ async function iniciarPublicacao() {
                 exclusao.style.display = 'none'
             }
             imagem.addEventListener("click", function () {
-                window.location.href = "http://localhost:8080/usuario/" + dados.autor;
+                window.location.href = "http://localhost:8080/usuario/" + dados.autor.id;
             })
         }
     }

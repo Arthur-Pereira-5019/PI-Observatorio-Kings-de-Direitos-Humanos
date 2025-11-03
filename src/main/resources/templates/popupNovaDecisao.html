@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="/popupDecisaoModeradoraStyle.css">
+        <style>
+               html,
+        body,  #blur{
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #blur {
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+        }
+
+        #container {
+            position: relative;
+            width: 56vw;
+            height: 64vh;
+            background-color: #7F00A9;
+            border-radius: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cxtexto {
+            position: relative;
+            width: 100%;
+            background-color: black;
+            left: 50%;
+            top: 4%;
+            transform: translate(-50%);
+            color: white;
+            font-size: 1vw;
+            overflow-wrap: break-word;
+            overflow: hidden;
+            padding: 0.5em;
+            margin-bottom: 2%;
+        }
+
+
+        .cxmai {
+            height: 40vh;
+        }
+
+        .cxtexto p {
+            margin: 0;
+        }
+
+        .botao-gerar {
+            background-color: black;
+            color: white;
+            width: 12%;
+        }
+
+        #container_interno {
+            width: 88%;
+            align-self: center;
+            display: flex;
+            gap: 2vh;
+            flex-direction: column;
+            align-items: center;
+        }
+
+    </style>
+    </head>
+
+    <body>
+        <div id="blur">
+            <div id="container">
+                <div id="container_interno">
+                    <div class="cxtexto cxmai">
+                        <p id="motivacao">Motivação: </p>
+                    </div>
+                    <button class="botao-gerar">Aplicar</button>
+                </div>
+            </div>
+        </div>
+        <script src="/postagemOcultaLogica.js" defer></script>
+    </body>
+
+</html>

@@ -58,12 +58,14 @@ public class ComentarioController {
         return retorno;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping(value="/excluir/{id}")
     public void excluirComentario(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails ud, DecisaoModeradoraOPDTO dmdto) {
 
         cs.deletarComentario(id, us.encontrarPorId(us.buscarId(ud), true), dmdto);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping(value="/excluir_proprio/{id}")
     public void excluirComentario(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails ud) {
 
