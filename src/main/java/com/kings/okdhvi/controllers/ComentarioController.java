@@ -4,6 +4,7 @@ import com.kings.okdhvi.mapper.ComentarioMapper;
 import com.kings.okdhvi.mapper.UsuarioMapper;
 import com.kings.okdhvi.model.Comentario;
 import com.kings.okdhvi.model.DTOs.*;
+import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.services.ComentarioServices;
 import com.kings.okdhvi.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,14 @@ public class ComentarioController {
         BuscaPaginadaResultado<Comentario> bpr = cs.buscaFiltrada(bp, id, tipo, ud);
         comentarios = bpr.getResultado();
 
-        comentarios.forEach(c -> {comentariosTratados.add(cm.apresentarComentario(c));});
+        Usuario u;
+        if(ud == null) {
+            u = null;
+        } else {
+            u = us.encontrarPorId(us.buscarId(ud),true);
+        }
+
+        comentarios.forEach(c -> {comentariosTratados.add(cm.apresentarComentario(c, u));});
         retorno.setResultado(comentariosTratados);
         retorno.setProximosIndexes(bpr.getProximosIndexes());
         return retorno;
@@ -54,6 +62,12 @@ public class ComentarioController {
     public void excluirComentario(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails ud, DecisaoModeradoraOPDTO dmdto) {
 
         cs.deletarComentario(id, us.encontrarPorId(us.buscarId(ud), true), dmdto);
+    }
+
+    @DeleteMapping(value="/excluir_proprio/{id}")
+    public void excluirComentario(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails ud) {
+
+        cs.deletarComentario(id, us.encontrarPorId(us.buscarId(ud), true), null);
     }
 
 }

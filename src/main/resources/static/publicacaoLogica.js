@@ -13,6 +13,7 @@ async function iniciarPublicacao() {
     const id = url.substring(url.lastIndexOf('/') + 1)
     let com = 0;
     let buscando = false;
+    let moderador = false;
 
 
     function ocultar() {
@@ -44,6 +45,7 @@ async function iniciarPublicacao() {
         .then(data => {
             if (data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMNISTRADOR") {
                 botaoOcultar.style.display = "flex";
+                moderador = true;
             }
 
         })
@@ -87,7 +89,7 @@ async function iniciarPublicacao() {
         const rect = footer.getBoundingClientRect();
 
         if (rect.top >= 0 && rect.top <= (window.innerHeight || document.documentElement.clientHeight)) {
-            if(!buscando) {
+            if (!buscando) {
                 await carregarComentarios()
             }
         }
@@ -141,6 +143,7 @@ async function iniciarPublicacao() {
 
         function construirComentario(comentario, dados) {
             imagem = comentario.querySelector(".foto-usuario-comentarios")
+            exclusao = comentario.querySelector(".excluirCom")
             comentario.querySelector(".container-texto-comentario").textContent = dados.texto
             comentario.querySelector(".autor").textContent = dados.autor.nome
             comentario.querySelector(".autor").addEventListener("click", function () {
@@ -148,18 +151,43 @@ async function iniciarPublicacao() {
             })
             if (dados.autor.foto == null) {
                 imagem.src = "/imagens/perfilIconDark.png";
-            }else if (dados.autor.foto.imagem == "" || dados.autor.foto.tipoImagem == "") {
+            } else if (dados.autor.foto.imagem == "" || dados.autor.foto.tipoImagem == "") {
                 imagem.src = "/imagens/perfilIconDark.png";
-            }else {
+            } else {
                 imagem.src = "data:image/" + dados.autor.foto.tipoImagem + ";base64," + dados.autor.foto.imagem;
             }
-            
-            comentario.querySelector(".excluirCom")
+            if (dados.proprio) {
+                exclusao.style.backgroundColor = 'darkred'
+                exclusao.addEventListener("click", excluirComentario("http://localhost:8080/api/com/excluir_proprio/" + dados.id, true))
+            } else if (moderador) {
+                exclusao.style.backgroundColor = 'purple'
+                exclusao.addEventListener("click", excluirComentario("http://localhost:8080/api/com/excluir/" + dados.id, false))
+            } else {
+                exclusao.style.display = 'none'
+            }
             imagem.addEventListener("click", function () {
                 window.location.href = "http://localhost:8080/usuario/" + dados.autor;
             })
         }
     }
+    async function excluirComentario(url, proprio) {
+        if (proprio) {
+
+        }
+
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody)
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Erro no servidor");
+                alert("Comentário excluído com sucesso!")
+                window.location.reload();
+            })
+            .catch(err => console.error(err));
+    }
+
     await carregarComentarios();
 
 }

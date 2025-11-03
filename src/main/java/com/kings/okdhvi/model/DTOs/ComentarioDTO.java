@@ -8,6 +8,8 @@ public class ComentarioDTO {
 
     Long id;
 
+    boolean proprio;
+
     public UsuarioComDTO getAutor() {
         return autor;
     }
@@ -24,6 +26,13 @@ public class ComentarioDTO {
         this.texto = texto;
     }
 
+    public boolean isProprio() {
+        return proprio;
+    }
+
+    public void setProprio(boolean proprio) {
+        this.proprio = proprio;
+    }
 
     public Long getId() {
         return id;
