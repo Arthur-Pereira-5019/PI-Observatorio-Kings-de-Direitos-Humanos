@@ -50,4 +50,9 @@ public class ComentarioController {
         return retorno;
     }
 
+    @DeleteMapping(value="/excluir/{id}")
+    public void excluirComentario(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails ud, DecisaoModeradoraOPDTO dmdto) {
+
+    }
+
 }

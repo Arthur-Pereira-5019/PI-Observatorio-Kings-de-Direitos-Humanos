@@ -2,6 +2,7 @@ package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.NullResourceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
+import com.kings.okdhvi.model.DTOs.DecisaoModeradoraOPDTO;
 import com.kings.okdhvi.model.DecisaoModeradora;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.repositories.DecisaoModeradoraRepository;
@@ -22,6 +23,9 @@ public class DecisaoModeradoraService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    @Autowired
+    UsuarioService us;
+
     public DecisaoModeradora mock() {
         UsuarioService us = new UsuarioService();
         DecisaoModeradora dm = new DecisaoModeradora();
@@ -40,6 +44,20 @@ public class DecisaoModeradoraService {
             throw new NullResourceException("Decisão Moderadora nula submetido");
         }
         return dmr.save(dm);
+    }
+
+    public DecisaoModeradora criarDecisaoModeradora(DecisaoModeradoraOPDTO dm, String tipo, Long idUsuario, Long idModerado, String nomeModerado) {
+        if(dm == null) {
+            throw new NullResourceException("Decisão Moderadora nula submetido");
+        }
+        DecisaoModeradora d = new DecisaoModeradora();
+        d.setData(Date.from(Instant.now()));
+        d.setMotivacao(d.getMotivacao());
+        d.setTipo(tipo);
+        d.setResponsavel(us.encontrarPorId(idUsuario, false));
+        d.setUsuarioModerado(us.encontrarPorId(idUsuario, false));
+        d.setNomeModerado(nomeModerado);
+        return dmr.save(d);
     }
 
     public DecisaoModeradora encontrarDecisaoPeloId(String hex) {
