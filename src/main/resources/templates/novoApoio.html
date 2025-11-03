@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet">
+
+        <style>
+
+        *{
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Inter", sans-serif;
+        }
+
+        .fundo-novo-apoio{
+            display: flex;
+            flex-direction: column;
+            gap: 1%;
+            height: 90vh;
+            width: 60vw;
+            border-radius: 2rem;
+            padding: 2%;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            background-color: #9F00D9;
+            overflow: hidden;
+        }
+
+        .nome-labels-apoio{
+            color: white;
+            width: 60%;
+            height: auto;
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        #label-nome-instituicao{
+            width: 60%;
+            height: 6vh;
+            border-radius: 25px;
+            border: none;
+            padding: 1%;
+            font-size: 1.3rem;
+            
+        }
+
+        #ta-sobre-instituicao{
+            width: 60%;
+            height: 20vh;
+            resize: none;
+            padding: 1%;
+        }
+
+        .rede-label-apoio{
+            width: 50%;
+            height: 4vh;
+        }
+
+        .icone-rede-popup-apoio{
+            height: 100%;
+            width:auto;
+            m
+        }
+
+
+        </style>
+</head>
+<body>
+
+    <div class="fundo-novo-apoio">
+
+        <div class="nome-labels-apoio">Nome da instituição: *</div>
+        <input type="text" id="label-nome-instituicao">
+        <div style="margin-top: 1%;" class="nome-labels-apoio">Sobre a instituição: *</div>
+        <textarea name="sobre" id="ta-sobre-instituicao"></textarea>
+        <div style="margin-top: 2%;" class="rede-label-apoio"></div>
+
+    </div>
+    
+
+</body>
+</html>
