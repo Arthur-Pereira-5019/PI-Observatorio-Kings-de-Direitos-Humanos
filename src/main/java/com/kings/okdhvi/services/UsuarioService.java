@@ -109,7 +109,12 @@ public class UsuarioService {
         pet.setCargoRequisitado(edce);
         pet.setMotivacao(pdtDTO.motivacao());
         pet.setRequisitor(u);
-        pets.salvarPedidoTitulacao(pet);
+        if(u.getPedidoDeTitulacao() != null) {
+            pet.setId(u.getPedidoDeTitulacao().getId());
+            pets.atualizarPedidoDeTitulacao(pet);
+        } else {
+            pets.criarPedidoDeTitulacao(pet);
+        }
         u.setPedidoDeTitulacao(pet);
         return ur.save(u);
     }

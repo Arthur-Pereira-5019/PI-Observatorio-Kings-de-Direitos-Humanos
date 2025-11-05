@@ -44,7 +44,6 @@ public class Usuario implements Serializable, UserDetails {
     private Imagem fotoDePerfil;
 
     @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name="id_pedido_titulacao")
     private PedidoDeTitulacao pedidoDeTitulacao;
 
     @Column(nullable = false, length = 100, unique = true)

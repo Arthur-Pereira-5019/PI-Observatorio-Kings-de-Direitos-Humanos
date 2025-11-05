@@ -14,7 +14,7 @@ public class PedidoDeTitulacao {
     @OneToOne
     private Imagem anexo;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne()
     private Usuario requisitor;
 
     @Id
