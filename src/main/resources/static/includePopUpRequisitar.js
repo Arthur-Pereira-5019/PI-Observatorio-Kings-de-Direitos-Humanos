@@ -1,4 +1,4 @@
-async function carregarHTMLRequisitar(id, url, cssFile) {
+    async function carregarHTMLRequisitar(id, url, cssFile) {
     const response = await fetch(url);
     const data = await response.text();
     document.getElementById(id).innerHTML = data;
@@ -12,78 +12,96 @@ async function carregarHTMLRequisitar(id, url, cssFile) {
 }
 
 async function iniciarRequisitar() {
+
+    console.log("laele")
+
     await carregarHTMLRequisitar("requisitar", "/popupRequisitar", "/requisitarPopupStyle.css");
 
-    const btnRequisitar = document.getElementById("btnRequisitar");
-    const fundoPopupRequisitar = document.getElementById("posPopUpRequisitar");
-    const btnConfirmarRequisicao = document.getElementById("btnConfimarRequisicao");
-    const textareaCargosRequisitar = document.getElementById("textarea-cargos-requisitar");
-    const comboboxCargosRequisitar = document.getElementById("combobox-cargos-requisitar");
-    const anexoRequisicao = document.getElementById("campoAnexoInput");
+    const btnRequisitar = document.getElementById("btnRequisitar")
+    const fundoPopupRequisitar = document.getElementById("posPopUpRequisitar")
 
-    let base64StringWithPrefix = null; 
 
+    btnRequisitar.addEventListener("click", function(){
+        fundoPopupRequisitar.style.display = "flex"
+        console.log("oie")
+
+    })
     
-    btnRequisitar.addEventListener("click", () => {
-        fundoPopupRequisitar.style.display = "flex";
-    });
-
-    fundoPopupRequisitar.addEventListener("click", (e) => {
+    fundoPopupRequisitar.addEventListener("click", (e) =>{
         if (e.target === fundoPopupRequisitar) {
             fundoPopupRequisitar.style.display = "none";
         }
-    });
 
-   
-    anexoRequisicao.addEventListener("change", () => {
-        const arquivo = anexoRequisicao.files[0];
-        if (!arquivo) return;
+    })
 
-        const reader = new FileReader();
+    const btnConfirmarRequisicao = document.getElementById("btnConfimarRequisicao")
+    const textareaCargosRequisitar = document.getElementById("textarea-cargos-requisitar")
+    const comboboxCargosRequisitar = document.getElementById("combobox-cargos-requisitar")
 
-        reader.onload = () => {
-            
-            base64StringWithPrefix = reader.result;
-        };
+    btnConfirmarRequisicao.addEventListener("click", function(){
 
-        reader.readAsDataURL(arquivo); 
-    });
+            const campoAnexo = document.getElementById("campoAnexoInput");
 
-    
-    btnConfirmarRequisicao.addEventListener("click", async () => {
+            const anexoSubmetido = campoAnexo.files[0];
+            anexoBase64 = ""
 
-        console.log("oie")
-        if (comboboxCargosRequisitar.selectedIndex === 0) return;
+            if (anexoSubmetido && anexoSubmetido.name.endsWith(".png") || anexoSubmetido.name.endsWith(".jpg")) {
+                anexoLido = new FileReader();
 
-        if (!base64StringWithPrefix) {
-            alert("Selecione um arquivo antes de confirmar!");
-            return;
-        }
+                anexoLido.onload = (e) => {
+                     anexoBase64 = e.target.result;
+                
+                };
 
-        const valorCargo = comboboxCargosRequisitar.selectedIndex + 2;
+                anexoLido.readAsDataURL(anexoSubmetido);
+            }
+        
+        
+            if(comboboxCargosRequisitar.selectedIndex == 0){
+                return
 
-        const novoPost = {
-            cargoRequisitado: valorCargo,
-            motivacao: textareaCargosRequisitar.value,
-            anexoBase64: base64StringWithPrefix 
-        };
+            }
+            console.log(comboboxCargosRequisitar.selectedIndex)
+            let valorCargo = comboboxCargosRequisitar.selectedIndex + 2
 
-        try {
-            const res = await fetch("http://localhost:8080/api/user/requisitar_cargo", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(novoPost)
-            });
 
-            if (!res.ok) throw new Error("Erro no servidor");
+            let endPositionAnexo = anexoBase64.indexOf(",");
+            let fimPrefixoAnexo = anexoBase64.indexOf(";")
+            let inicioPrefixoAnexo = anexoBase64.indexOf("/")
+            prefixoAnexo = anexoBase64.substring(inicioPrefixoAnexo, fimPrefixoAnexo);
 
-            await res.json();
-            fundoPopupRequisitar.style.display = "none";
+            endPositionAnexo++;
+            anexoBase64 = anexoBase64.replace(anexoBase64.substring(0, endPositionAnexo), "");
 
-        } catch (err) {
-            console.error("Erro ao enviar requisição:", err);
-        }
-    });
+            const novoPost = {
+                cargoRequisitado : valorCargo,
+                motivacao : textareaCargosRequisitar.value,
+                anexoBase64 : anexoBase64,
+                tipoAnexo : prefixoAnexo
+
+            }
+
+            fetch("http://localhost:8080/api/user/requisitar_cargo", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'}, 
+            body: JSON.stringify(novoPost) 
+                
+        })
+          .then(res => {
+                    if (!res.ok) throw new Error("Erro no servidor");
+                    return res.json();
+                })
+                .then(() => {
+                    
+                    fundoPopupRequisitar.style.display = "none";
+                    
+                })
+                .catch(err => console.error(err));
+
+    })
+
 }
 
 document.addEventListener("DOMContentLoaded", iniciarRequisitar);
+
+    
