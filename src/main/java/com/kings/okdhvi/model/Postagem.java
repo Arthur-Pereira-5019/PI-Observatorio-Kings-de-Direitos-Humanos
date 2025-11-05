@@ -15,7 +15,7 @@ public class Postagem{
     @Column
     boolean oculto;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinTable(
             name = "postagens_comentarios",
             joinColumns = @JoinColumn(name = "postagem_id"),

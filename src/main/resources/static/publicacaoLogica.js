@@ -214,7 +214,7 @@ async function iniciarPublicacao() {
     }
 
     async function openCriacaoDecisao(durl) {
-        await anexarHTMLExterno("/nova_decisao", "/novaDecisaoModeradoraStyle.css", "/popupDecisaoModeradoraLogic.js", durl);
+        await anexarHTMLExterno("/nova_decisao", "/novaDecisaoModeradoraStyle.css", "/popupNovaDecisaoLogica.js", durl);
     }
 
 

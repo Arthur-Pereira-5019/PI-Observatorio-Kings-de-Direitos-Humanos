@@ -60,7 +60,7 @@ public class ComentarioController {
 
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping(value="/excluir/{id}")
-    public void excluirComentario(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails ud, DecisaoModeradoraOPDTO dmdto) {
+    public void excluirComentario(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails ud, @RequestBody DecisaoModeradoraOPDTO dmdto) {
 
         cs.deletarComentario(id, us.encontrarPorId(us.buscarId(ud), true), dmdto);
     }
