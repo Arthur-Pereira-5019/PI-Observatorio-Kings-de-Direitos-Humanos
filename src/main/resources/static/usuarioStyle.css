@@ -75,14 +75,19 @@
     font-family: "Inter", sans-serif;
 }
 
+#SUSPENSO {
+    background-color: #cccccc;
+    height: auto;
+}
+
 #PADRAO {
-    background-color: #8C8C8C;
+    background-color: #560000;
     height: auto;
 
 }
 
 #MODERADOR {
-    background-color: #FF7B7B;
+    background-color: #a200ff;
     height: auto;
 }
 
@@ -92,14 +97,10 @@
 }
 
 #ADMINISTRADOR {
-    background-color: #560000;
+    background-color: #a200ff;
     height: auto;
 }
 
-#fundador {
-    background-color: #000000;
-    height: auto;
-}
 
 .container-botoes {
     display: flex;
