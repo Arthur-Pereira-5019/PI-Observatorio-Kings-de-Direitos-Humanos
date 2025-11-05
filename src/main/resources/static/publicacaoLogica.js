@@ -64,7 +64,11 @@ async function iniciarPublicacao() {
         headers: { 'Content-Type': 'application/json' },
     })
         .then(res => {
-            if (!res.ok) throw new Error("Erro no servidor");
+            if (!res.ok) {
+                carregarComentarios()
+                throw new Error("Erro no servidor");
+                
+            } 
             return res.json();
         })
         .then(data => {
@@ -72,7 +76,7 @@ async function iniciarPublicacao() {
                 botaoOcultar.style.display = "flex";
                 moderador = true;
             }
-
+            carregarComentarios();
         })
         .catch(err => console.error(err));
 
@@ -181,6 +185,7 @@ async function iniciarPublicacao() {
             } else {
                 imagem.src = "data:image/" + dados.autor.foto.tipoImagem + ";base64," + dados.autor.foto.imagem;
             }
+            console.log(dados.proprio)
             if (dados.proprio) {
                 exclusao.style.backgroundColor = 'darkred'
                 exclusao.addEventListener("click", function() {
@@ -216,10 +221,6 @@ async function iniciarPublicacao() {
     async function openCriacaoDecisao(durl) {
         await anexarHTMLExterno("/nova_decisao", "/novaDecisaoModeradoraStyle.css", "/popupNovaDecisaoLogica.js", durl);
     }
-
-
-    await carregarComentarios();
-
 }
 
 document.addEventListener("DOMContentLoaded", iniciarPublicacao)
