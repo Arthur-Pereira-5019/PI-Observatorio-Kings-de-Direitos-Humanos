@@ -115,9 +115,10 @@ public class UsuarioController {
 
     @PostMapping("/registrar")
     public ResponseEntity<?> register(@RequestBody Usuario u, HttpServletResponse response) {
+        String senhaPrevia = u.getSenha();
         us.saveUsuario(u);
 
-        var usernamePassword = new UsernamePasswordAuthenticationToken(u.getEmail(), u.getSenha());
+        var usernamePassword = new UsernamePasswordAuthenticationToken(u.getEmail(), senhaPrevia);
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
         var token = ts.gerarToken((Usuario) auth.getPrincipal());

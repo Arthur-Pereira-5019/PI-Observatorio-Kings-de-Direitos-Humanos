@@ -85,12 +85,8 @@ async function iniciarRequisitar() {
         })
             .then(res => {
                 if (!res.ok) throw new Error("Erro no servidor");
-                return res.json();
-            })
-            .then(() => {
-
+                alert("Seu pedido será processado!")
                 fundoPopupRequisitar.style.display = "none";
-
             })
             .catch(err => console.error(err));
 

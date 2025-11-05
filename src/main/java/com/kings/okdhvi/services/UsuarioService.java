@@ -60,7 +60,10 @@ public class UsuarioService {
         validarDados(u, true);
         u.setSenha(new BCryptPasswordEncoder().encode(u.getSenha()));
         u.setEstadoDaConta(EstadoDaConta.PADRAO);
-        return ur.save(u);
+
+        Usuario r = ur.save(u);
+        ur.flush();
+        return r;
     }
 
     public Usuario atualizarFoto(Long id, Imagem i) {

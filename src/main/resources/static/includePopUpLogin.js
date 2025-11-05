@@ -41,9 +41,8 @@ async function iniciarPopupLogin() {
             })
                 .then(res => {
                     if (!res.ok) throw new Error("Erro no servidor");
-                    return res.json();
+                    window.location.reload();
                 })
-                .then(() => window.location.href = "http://localhost:8080/")
                 .catch(err => console.error(err));
         });
     }
