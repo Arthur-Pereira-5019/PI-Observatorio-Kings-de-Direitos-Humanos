@@ -14,12 +14,13 @@ async function iniciarPublicacao() {
     let com = 0;
     let buscando = false;
     let moderador = false;
-    let ndmcallback;
 
-    async function anexarHTMLExterno(url, cssFile, jsFile) {
+    async function anexarHTMLExterno(url, cssFile, jsFile, durl) {
         const response = await fetch(url);
+        const data = await response.text()
         const novoObjeto = document.createElement("div");
         document.body.appendChild(novoObjeto)
+        novoObjeto.innerHTML = data;
 
         if (cssFile) {
             anexarCss(cssFile)
@@ -30,7 +31,7 @@ async function iniciarPublicacao() {
             script.src = jsFile;
             script.onload = () => {
                 if (jsFile === "/popupNovaDecisaoLogica.js" && typeof iniciarPopupNovaDecisao === "function") {
-                    iniciarPopupNovaDecisao(ndmcallback);
+                    iniciarPopupNovaDecisao(durl);
                 }
                 if (jsFile === "/popupDecisaoModeradoraLogic.js" && typeof iniciarPopupDecisao === "function") {
                     iniciarPopupDecisao();
@@ -40,33 +41,9 @@ async function iniciarPublicacao() {
         }
     }
 
-    async function excluirComentario(url, proprio) {
-        if (proprio) {
+    
 
-        }
-
-        fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(requestBody)
-        })
-            .then(res => {
-                if (!res.ok) throw new Error("Erro no servidor");
-                alert("Comentário excluído com sucesso!")
-                window.location.reload();
-            })
-            .catch(err => console.error(err));
-    }
-
-    ndmcallback = await excluirComentario(url, proprio);
-
-    await anexarHTMLExterno("/nova_decisao", "/novaDecisaoModeradoraStyle.css", "/popupNovaDecisaoLogica.js");
-    await anexarHTMLExterno("/decisao", "/popupDecisaoModeradoraStyle.css", "/popupDecisaoModeradoraLogic.js");
-
-
-    function ocultar() {
-
-    }
+    //await anexarHTMLExterno("/nova_decisao", "/novaDecisaoModeradoraStyle.css", "/popupNovaDecisaoLogica.js");
 
     fetch("http://localhost:8080/api/postagem/" + id, {
         headers: { 'Content-Type': 'application/json' },
@@ -206,10 +183,14 @@ async function iniciarPublicacao() {
             }
             if (dados.proprio) {
                 exclusao.style.backgroundColor = 'darkred'
-                exclusao.addEventListener("click", excluirComentario("http://localhost:8080/api/com/excluir_proprio/" + dados.id, true))
+                exclusao.addEventListener("click", function() {
+                    excluirProprioComentario("http://localhost:8080/api/com/excluir_proprio/" + dados.id)
+                })
             } else if (moderador) {
                 exclusao.style.backgroundColor = 'purple'
-                exclusao.addEventListener("click", excluirComentario("http://localhost:8080/api/com/excluir/" + dados.id, false))
+                exclusao.addEventListener("click", function() {
+                    openCriacaoDecisao("http://localhost:8080/api/com/excluir/" + dados.id)
+                } )
             } else {
                 exclusao.style.display = 'none'
             }
@@ -219,12 +200,23 @@ async function iniciarPublicacao() {
         }
     }
 
-    async function openCriacaoDecisao() {
-
+    async function excluirProprioComentario(url) {
+        fetch(url, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Erro no servidor");
+                alert("Comentário excluído com sucesso!")
+                window.location.reload();
+            })
+            .catch(err => console.error(err));
     }
 
+    async function openCriacaoDecisao(durl) {
+        await anexarHTMLExterno("/nova_decisao", "/novaDecisaoModeradoraStyle.css", "/popupDecisaoModeradoraLogic.js", durl);
+    }
 
-    
 
     await carregarComentarios();
 

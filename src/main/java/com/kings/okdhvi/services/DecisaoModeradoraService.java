@@ -50,7 +50,7 @@ public class DecisaoModeradoraService {
         }
         DecisaoModeradora d = new DecisaoModeradora();
         d.setData(Date.from(Instant.now()));
-        d.setMotivacao(d.getMotivacao());
+        d.setMotivacao(dm.motivacao());
         d.setTipo(tipo);
         d.setResponsavel(moderador);
         d.setUsuarioModerado(moderado);

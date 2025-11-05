@@ -86,7 +86,7 @@ public class ComentarioServices {
         if(dmdto != null) {
             dms.criarDecisaoModeradora(dmdto, "Comentario", u, c.getAutor(), c.getAutor().getNome());
         } else {
-            if(u != c.getAutor()) {
+            if(!u.getIdUsuario().equals(c.getAutor().getIdUsuario())) {
                 throw new UnauthorizedActionException("Tentativa de excluir comentário de outro usuário!");
             }
             dms.criarDecisaoModeradora(new DecisaoModeradoraOPDTO("Usuário excluiu o próprio comentário"), "Comentario", u, c.getAutor(), c.getAutor().getNome());

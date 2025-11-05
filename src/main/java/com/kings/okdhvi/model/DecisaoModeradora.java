@@ -20,7 +20,7 @@ public class DecisaoModeradora {
     @Column(length = 100)
     String nomeModerado;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     Usuario usuarioModerado;
 
     @ManyToOne

@@ -17,7 +17,7 @@ public class ComentarioMapper {
         r.setAutor(um.usuarioComentador(c.getAutor()));
         r.setId(c.getIdComentario());
         r.setTexto(c.getTextComentario());
-        r.setProprio(c.getAutor() == u);
+        r.setProprio(c.getAutor().getIdUsuario().equals(u.getIdUsuario()));
         return r;
     }
 }

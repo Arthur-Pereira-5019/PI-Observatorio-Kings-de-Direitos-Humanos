@@ -15,7 +15,17 @@ public class Postagem{
     @Column
     boolean oculto;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "postagens_comentarios",
+            joinColumns = @JoinColumn(name = "postagem_id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "comentarios_id_comentario",
+                    foreignKey = @ForeignKey(
+                            foreignKeyDefinition = "FOREIGN KEY (comentarios_id_comentario) REFERENCES comentario(idComentario) ON DELETE CASCADE"
+                    )
+            )
+    )
     @JsonIgnore
     List<Comentario> comentarios = new ArrayList<>();
 
