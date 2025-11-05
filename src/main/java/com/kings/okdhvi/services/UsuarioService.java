@@ -88,7 +88,6 @@ public class UsuarioService {
         PedidoDeTitulacao pet = new PedidoDeTitulacao();
         Usuario u = encontrarPorId(id, false);
 
-
         String anexo = pdtDTO.anexoBase64();
         Imagem i = null;
         if(anexo != null && !anexo.isEmpty()) {
@@ -112,7 +111,6 @@ public class UsuarioService {
         pet.setRequisitor(u);
         pets.salvarPedidoTitulacao(pet);
         u.setPedidoDeTitulacao(pet);
-        pets.salvarPedidoTitulacao(pet);
         return ur.save(u);
     }
 
