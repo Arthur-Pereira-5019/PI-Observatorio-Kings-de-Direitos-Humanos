@@ -86,7 +86,7 @@ public class PostagemServices {
         if(resultadosDaBusca.isEmpty()) {
             bpr.setResultado(resultadosDaBusca);
         } else {
-            bpr.setResultado(resultadosDaBusca.subList(0,Math.min(bp.numeroResultados(), resultadosDaBusca.size() - 1)));
+            bpr.setResultado(resultadosDaBusca.subList(0,Math.min(bp.numeroResultados(), resultadosDaBusca.size())));
         }
 
         bpr.setProximosIndexes(tamanhoTotal-bpr.getResultado().size());

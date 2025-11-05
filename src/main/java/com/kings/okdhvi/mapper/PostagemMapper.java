@@ -33,7 +33,7 @@ public class PostagemMapper {
 
     public PostagemPaginaDTO paginaPostagem(Postagem p) {
         return new PostagemPaginaDTO(
-                p.getId(), p.getTituloPostagem(), p.getDataDaPostagem(), um.usuarioComentador(p.getAutor()), p.getTextoPostagem(), p.getCapa()
+                p.getId(), p.getTituloPostagem(), p.getDataDaPostagem(), um.usuarioComentador(p.getAutor()), p.getTextoPostagem(), p.getCapa(), p.isOculto()
         );
     }
 

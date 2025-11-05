@@ -28,6 +28,24 @@ html {
     cursor: pointer;
 }
 
+#dec_mod_martelo {
+    width: 5vw;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    display: none;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+#dec_mod_martelo {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    left: 50%;
+    top: 50%
+}
+
+
 
 #botao_ocultar {
     margin-right: 1%;

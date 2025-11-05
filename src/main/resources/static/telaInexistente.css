@@ -5,9 +5,9 @@
              margin: 0
         }
 
-        #container {
+        #container_ti {
             width: 72%;
-            height: 100%;
+            height: 80%;
             position: relative;
             left: 50%;
             top: 50%;

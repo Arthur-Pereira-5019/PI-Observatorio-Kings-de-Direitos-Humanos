@@ -5,12 +5,17 @@ import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.model.DTOs.*;
 import com.kings.okdhvi.services.PostagemServices;
 import com.kings.okdhvi.services.UsuarioService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +44,16 @@ public class PostagemController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public PostagemPaginaDTO encontrarPostagemPeloId(@PathVariable("id") Long id) {
-        return pm.paginaPostagem(ps.encontrarPostagemPeloId(id));
+    public PostagemPaginaDTO encontrarPostagemPeloId(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails ud, HttpServletResponse response) throws NoResourceFoundException {
+        PostagemPaginaDTO retorno = pm.paginaPostagem(ps.encontrarPostagemPeloId(id));
+        if(retorno.isOculto()) {
+            if(ud==null) {
+                throw new NoResourceFoundException(HttpMethod.GET, "");
+            } else if(!ud.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MODER"))) {
+                throw new NoResourceFoundException(HttpMethod.GET, "");
+            }
+        }
+        return retorno;
     }
 
     //NÃO USAR, ESSE SUJEITO AQUI NÃO TEM MEDO DE ANULAR TODOS SEUS CAMPOS

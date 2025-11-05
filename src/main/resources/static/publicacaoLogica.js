@@ -49,11 +49,14 @@ async function iniciarPublicacao() {
         headers: { 'Content-Type': 'application/json' },
     })
         .then(res => {
-            if (!res.ok) throw new Error("Erro no servidor");
+            if (!res.ok) {
+                    window.location.href = "http://localhost:8080/tela_inexistente"
+                }
             return res.json();
         })
         .then(data => {
             titulo.textContent = data.tituloPostagem;
+            titulo.style.color = "purple";
             capa.src = "data:image/" + data.capa.tipoImagem + ";base64," + data.capa.imagem;
             dadosPublicacao.textContent = "Publicado em " + data.dataDaPostagem + " por " + data.autor.nome;
             texto.innerHTML = data.textoPostagem
