@@ -1,4 +1,4 @@
-async function iniciarPopupNovaDecisao(url) {
+async function iniciarPopupNovaDecisao(url, msg) {
     const aplicar = document.querySelector(".botao-gerar");
     const blur = document.querySelector("#blur-nova-decisao");
     const motivacao = document.querySelector("#motivacao");
@@ -9,7 +9,7 @@ async function iniciarPopupNovaDecisao(url) {
 
     aplicar.addEventListener("click", async function () {
         await excluir(url)
-        
+
     })
 
     blur.addEventListener("click", sumir)
@@ -25,14 +25,19 @@ async function iniciarPopupNovaDecisao(url) {
             "motivacao": motivacao.value
         }
 
+        let method = "PUT"
+        if (url.includes("api/com/")) {
+            method = "DELETE"
+        }
+
         fetch(url, {
-            method: 'DELETE',
+            method: method,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
         })
             .then(res => {
                 if (!res.ok) throw new Error("Erro no servidor");
-                alert("Comentário excluído com sucesso!")
+                alert(msg)
                 window.location.reload();
             })
             .catch(err => console.error(err));

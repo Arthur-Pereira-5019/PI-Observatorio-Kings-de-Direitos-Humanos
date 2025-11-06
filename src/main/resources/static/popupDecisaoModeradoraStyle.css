@@ -8,19 +8,24 @@
 
     #blur {
         background-color: rgba(0, 0, 0, 0.6);
-        display: none;
+        z-index: 10000;
     }
 
-    #container {
-        position: relative;
+    #container_dm {
         width: 56vw;
         height: 64vh;
         background-color: #7F00A9;
         border-radius: 40px;
+        position: fixed;
         left: 50%;
-        transform: translateX(-50%);
-        display: none;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
         flex-direction: column;
+        border: 1px solid black;
+        z-index: 10001;
+             font-family: "Inter", sans-serif;
+
     }
 
     .cxtexto {

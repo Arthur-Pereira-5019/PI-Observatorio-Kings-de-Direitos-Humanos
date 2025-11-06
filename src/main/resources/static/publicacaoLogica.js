@@ -6,7 +6,9 @@ async function iniciarPublicacao() {
     const cComentario = document.getElementById("text-area-comentario-forum");
     const caracteres = document.getElementById("limite-caracteres-criacao-comentario-forum");
     const pComentario = document.getElementById("botao-enviar-comentario-forum");
+    const botaoOcultar = document.getElementById("botao_ocultar");
     const body = document.querySelector("body");
+    const decmod = document.querySelector("#dec_mod_martelo");
     const footer = document.querySelector("#footer");
 
     const url = window.location.href;
@@ -15,7 +17,9 @@ async function iniciarPublicacao() {
     let buscando = false;
     let moderador = false;
 
-    async function anexarHTMLExterno(url, cssFile, jsFile, durl) {
+
+
+    async function anexarHTMLExterno(url, cssFile, jsFile, durl, msg) {
         const response = await fetch(url);
         const data = await response.text()
         const novoObjeto = document.createElement("div");
@@ -31,7 +35,7 @@ async function iniciarPublicacao() {
             script.src = jsFile;
             script.onload = () => {
                 if (jsFile === "/popupNovaDecisaoLogica.js" && typeof iniciarPopupNovaDecisao === "function") {
-                    iniciarPopupNovaDecisao(durl);
+                    iniciarPopupNovaDecisao(durl, msg);
                 }
                 if (jsFile === "/popupDecisaoModeradoraLogic.js" && typeof iniciarPopupDecisao === "function") {
                     iniciarPopupDecisao();
@@ -41,28 +45,37 @@ async function iniciarPublicacao() {
         }
     }
 
-    
-
-    //await anexarHTMLExterno("/nova_decisao", "/novaDecisaoModeradoraStyle.css", "/popupNovaDecisaoLogica.js");
 
     fetch("http://localhost:8080/api/postagem/" + id, {
         headers: { 'Content-Type': 'application/json' },
     })
         .then(res => {
             if (!res.ok) {
-                    window.location.href = "http://localhost:8080/tela_inexistente"
-                }
+                window.location.href = "http://localhost:8080/tela_inexistente"
+            }
             return res.json();
         })
         .then(data => {
             titulo.textContent = data.tituloPostagem;
-            titulo.style.color = "purple";
+            if (data.oculto) {
+                titulo.style.color = "purple";
+                decmod.style.display = "flex";
+                decmod.addEventListener("click", function () {
+                    anexarHTMLExterno("/decisao", "/popupDecisaoModeradoraStyle.css", "/popupDecisaoModeradoraLogic.js", null, null)
+                })
+            }
             capa.src = "data:image/" + data.capa.tipoImagem + ";base64," + data.capa.imagem;
             dadosPublicacao.textContent = "Publicado em " + data.dataDaPostagem + " por " + data.autor.nome;
             texto.innerHTML = data.textoPostagem
         })
 
-    botaoOcultar = document.getElementById("botao_ocultar")
+
+    botaoOcultar.addEventListener("click", async function () {
+        let durl = "http://localhost:8080/api/postagem/ocultar/" + id;
+        await openCriacaoDecisao(durl, "Postagem oculta com sucesso!");
+    })
+
+
     fetch("http://localhost:8080/api/user", {
         headers: { 'Content-Type': 'application/json' },
     })
@@ -70,8 +83,8 @@ async function iniciarPublicacao() {
             if (!res.ok) {
                 carregarComentarios()
                 throw new Error("Erro no servidor");
-                
-            } 
+
+            }
             return res.json();
         })
         .then(data => {
@@ -90,6 +103,7 @@ async function iniciarPublicacao() {
         }, 1)
 
     })
+
 
     pComentario.addEventListener("click", function () {
         if (cComentario.value.length > 512) {
@@ -116,6 +130,7 @@ async function iniciarPublicacao() {
                 window.location.reload()
             })
     })
+
 
     async function chamarComentarios() {
         const rect = footer.getBoundingClientRect();
@@ -173,6 +188,7 @@ async function iniciarPublicacao() {
             })
             .catch(err => console.error(err));
 
+
         function construirComentario(comentario, dados) {
             imagem = comentario.querySelector(".foto-usuario-comentarios")
             exclusao = comentario.querySelector(".excluirCom")
@@ -188,17 +204,16 @@ async function iniciarPublicacao() {
             } else {
                 imagem.src = "data:image/" + dados.autor.foto.tipoImagem + ";base64," + dados.autor.foto.imagem;
             }
-            console.log(dados.proprio)
             if (dados.proprio) {
                 exclusao.style.backgroundColor = 'darkred'
-                exclusao.addEventListener("click", function() {
-                    excluirProprioComentario("http://localhost:8080/api/com/excluir_proprio/" + dados.id)
+                exclusao.addEventListener("click", function () {
+                    excluirProprioComentario("http://localhost:8080/api/com/excluir_proprio/" + dados.id, "Comentário excluído com sucesso!")
                 })
             } else if (moderador) {
                 exclusao.style.backgroundColor = 'purple'
-                exclusao.addEventListener("click", function() {
+                exclusao.addEventListener("click", function () {
                     openCriacaoDecisao("http://localhost:8080/api/com/excluir/" + dados.id)
-                } )
+                })
             } else {
                 exclusao.style.display = 'none'
             }
@@ -207,6 +222,7 @@ async function iniciarPublicacao() {
             })
         }
     }
+
 
     async function excluirProprioComentario(url) {
         fetch(url, {
@@ -221,9 +237,11 @@ async function iniciarPublicacao() {
             .catch(err => console.error(err));
     }
 
-    async function openCriacaoDecisao(durl) {
-        await anexarHTMLExterno("/nova_decisao", "/novaDecisaoModeradoraStyle.css", "/popupNovaDecisaoLogica.js", durl);
+
+    async function openCriacaoDecisao(durl, msg) {
+        await anexarHTMLExterno("/nova_decisao", "/novaDecisaoModeradoraStyle.css", "/popupNovaDecisaoLogica.js", durl, msg);
     }
 }
+
 
 document.addEventListener("DOMContentLoaded", iniciarPublicacao)

@@ -56,6 +56,12 @@ public class PostagemController {
         return retorno;
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @PutMapping(value="/ocultar/{id}")
+    public void excluirComentario(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails ud, @RequestBody DecisaoModeradoraOPDTO dmdto) {
+        ps.ocultar(us.buscarId(ud), id, dmdto);
+    }
+
     //NÃO USAR, ESSE SUJEITO AQUI NÃO TEM MEDO DE ANULAR TODOS SEUS CAMPOS
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
     public Postagem atualizarPostagem(@RequestBody Postagem p, @PathVariable("id") Long id) {
