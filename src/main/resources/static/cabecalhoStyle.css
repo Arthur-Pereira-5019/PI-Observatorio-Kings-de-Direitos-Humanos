@@ -58,6 +58,7 @@ body {
     width: 53px;
     cursor: pointer;
     margin-left: auto;
+    border-radius: 100%;
 }
 
 #containerCabecalho {

@@ -15,6 +15,8 @@ spring:
     open-in-view: false
     properties:
       hibernate:
+        jdbc:
+          time: -3
         format_sql: false
 logger:
   root: WARN

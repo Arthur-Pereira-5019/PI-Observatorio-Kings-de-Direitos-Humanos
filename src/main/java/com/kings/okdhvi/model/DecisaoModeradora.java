@@ -1,5 +1,6 @@
 package com.kings.okdhvi.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -13,6 +14,7 @@ public class DecisaoModeradora {
 
     @Column(length = 32)
     String tipo;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     @Column(nullable = false)
     Date data;
     @Column(nullable = false, length = 1024)
@@ -25,6 +27,9 @@ public class DecisaoModeradora {
 
     @ManyToOne
     Usuario responsavel;
+
+    @Column
+    Long idModerado;
 
     public String getTipo() {
         return tipo;
@@ -83,4 +88,11 @@ public class DecisaoModeradora {
         this.idDecisaoModeradora = idDecisaoModeradora;
     }
 
+    public Long getIdModerado() {
+        return idModerado;
+    }
+
+    public void setIdModerado(Long idModerado) {
+        this.idModerado = idModerado;
+    }
 }

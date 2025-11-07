@@ -21,14 +21,8 @@ public class DecisaoModeradoraController {
     }
 
     @PreAuthorize("hasRole('MODER')")
-    @PostMapping("/")
-    public DecisaoModeradora criarDecisaoModeradora(@RequestBody DecisaoModeradora dm) {
-        return dms.criarDecisaoModeradora(dm);
-    }
-
-    @PreAuthorize("hasRole('MODER')")
-    @GetMapping("/{id}")
-    public DecisaoModeradora buscarDecisaoModeradoraPeloId(@PathVariable("id") String id) {
-        return dms.encontrarDecisaoPeloId(id);
+    @GetMapping("{tipo}"+"/{id}")
+    public DecisaoModeradora buscarDecisaoModeradoraPeloId(@PathVariable("id") Long id, @PathVariable("tipo") String c) {
+        return dms.encontrarDecisaoPeloId(id, c);
     }
 }

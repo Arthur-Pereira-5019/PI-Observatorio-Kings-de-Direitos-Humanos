@@ -45,7 +45,7 @@ public class TokenService {
     }
 
     private Instant gerarPrazo() {
-        return LocalDateTime.now().plusDays(14).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusDays(14).toInstant(ZoneOffset.of("00:00"));
     }
 
 }

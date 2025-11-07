@@ -32,6 +32,8 @@ public class PostagemServices {
     @Autowired
     ImagemService is;
 
+    @Autowired
+    DecisaoModeradoraService dms;
     @PersistenceContext
     private EntityManager em;
 
@@ -179,6 +181,8 @@ public class PostagemServices {
         dm.setTipo("Postagem");
         dm.setUsuarioModerado(p.getAutor());
         dm.setNomeModerado("[" + p.getId() + "]" + p.getAutor().getNome());
+        dm.setIdModerado(idPost);
+        dms.criarDecisaoModeradora(dm);
         pr.save(p);
     }
 

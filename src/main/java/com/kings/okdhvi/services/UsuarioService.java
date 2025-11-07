@@ -222,6 +222,7 @@ public class UsuarioService {
         dm.setResponsavel(r);
         dm.setUsuarioModerado(u);
         dm.setMotivacao("Usuário requisitou a própria deleção.");
+        dm.setIdModerado(id);
 
         dms.criarDecisaoModeradora(dm);
         ur.deleteById(id);
@@ -237,6 +238,7 @@ public class UsuarioService {
         dm.setData(Date.from(Instant.now()));
         dm.setResponsavel(null);
         dm.setMotivacao("Deleção requisistada pelo usuário e auto-executada pelo sistema.");
+        dm.setIdModerado(id);
         dms.criarDecisaoModeradora(dm);
         ur.delete(u);
     }

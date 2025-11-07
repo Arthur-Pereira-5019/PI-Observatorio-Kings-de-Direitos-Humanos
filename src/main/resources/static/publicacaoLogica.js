@@ -38,7 +38,7 @@ async function iniciarPublicacao() {
                     iniciarPopupNovaDecisao(durl, msg);
                 }
                 if (jsFile === "/popupDecisaoModeradoraLogic.js" && typeof iniciarPopupDecisao === "function") {
-                    iniciarPopupDecisao();
+                    iniciarPopupDecisao(durl);
                 }
             };
             document.body.appendChild(script);
@@ -61,7 +61,7 @@ async function iniciarPublicacao() {
                 titulo.style.color = "purple";
                 decmod.style.display = "flex";
                 decmod.addEventListener("click", function () {
-                    anexarHTMLExterno("/decisao", "/popupDecisaoModeradoraStyle.css", "/popupDecisaoModeradoraLogic.js", null, null)
+                    anexarHTMLExterno("/decisao", "/popupDecisaoModeradoraStyle.css", "/popupDecisaoModeradoraLogic.js", "http://localhost:8080/api/decmod/Postagem/"+id, null)
                 })
             }
             capa.src = "data:image/" + data.capa.tipoImagem + ";base64," + data.capa.imagem;

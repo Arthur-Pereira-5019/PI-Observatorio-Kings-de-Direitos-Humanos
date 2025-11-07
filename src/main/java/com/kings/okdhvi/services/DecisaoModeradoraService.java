@@ -1,7 +1,6 @@
 package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.NullResourceException;
-import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.model.DTOs.DecisaoModeradoraOPDTO;
 import com.kings.okdhvi.model.DecisaoModeradora;
 import com.kings.okdhvi.model.Usuario;
@@ -44,7 +43,7 @@ public class DecisaoModeradoraService {
         return dmr.save(dm);
     }
 
-    public DecisaoModeradora criarDecisaoModeradora(DecisaoModeradoraOPDTO dm, String tipo, Usuario moderador, Usuario moderado, String nomeModerado) {
+    public DecisaoModeradora criarDecisaoModeradora(DecisaoModeradoraOPDTO dm, String tipo, Usuario moderador, Usuario moderado, String nomeModerado, Long idModerado) {
         if(dm == null) {
             throw new NullResourceException("Decisão Moderadora nula submetido");
         }
@@ -55,12 +54,13 @@ public class DecisaoModeradoraService {
         d.setResponsavel(moderador);
         d.setUsuarioModerado(moderado);
         d.setNomeModerado(nomeModerado);
+        d.setIdModerado(idModerado);
         return dmr.save(d);
     }
 
-    public DecisaoModeradora encontrarDecisaoPeloId(String hex) {
-        Long id = Long.parseLong(hex, 16);
-        return dmr.findById(id).orElseThrow(() -> new ResourceNotFoundException("Decisão Moderadora não encontrada!"));
+    public DecisaoModeradora encontrarDecisaoPeloId(Long id, String c) {
+        List<DecisaoModeradora> todas = dmr.findByIdModeradoAndTipoOrderByDataDesc(id, c);
+        return todas.get(0);
     }
 
 
