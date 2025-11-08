@@ -3,7 +3,6 @@ html {
     margin: 0;
     width: 100vw;
     height: auto;
-
 }
 
 #container-criacao-publicacao {
@@ -90,7 +89,7 @@ html {
     align-items: flex-start;
     align-content: flex-start;
     font-family: "Inter", sans-serif;
-
+    font-size: 18.667;
 }
 
 #textoPublicacao>* {

@@ -1,7 +1,7 @@
 .rt_titulo {
-    font-weight: bolder;
-    font-size: 36px;
-    text-align: center;
+    font-weight: bolder !important;
+    font-size: 36px !important;
+    text-align: center !important;
 }
 
 .rt_subtitulo {
@@ -16,6 +16,7 @@
 .rt_citacao {
     color: grey;
     font-style: italic;
+    font-size: 16px;
 }
 
 .rt_geral {
@@ -25,8 +26,8 @@
 
 .rt_default {
     color: black;
-    font-size: 13.3333px;
     font-weight: normal;
+    font-size: 16px;
 }
 
 .rt_separador {

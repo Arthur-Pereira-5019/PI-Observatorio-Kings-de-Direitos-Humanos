@@ -5,7 +5,7 @@ let canva = document.getElementById("canva");
 let inserir = document.getElementById("inserir");
 let blur_nova_imagem = document.getElementById("blur_nova_imagem")
 
-window.iniciarPopupNovaImagem = function() {
+window.iniciarPopupNovaImagem = function () {
 
     file = document.getElementById("arquivo");
     campoDescricao = document.getElementById("desc");
@@ -38,7 +38,7 @@ window.iniciarPopupNovaImagem = function() {
         endPosition++;
         prefixo = imageData.substring(inicioPrefixo, fimPrefixo);
         imageData = imageData.replace(imageData.substring(0, endPosition), "");
-        
+
 
         const requestBody = {
             imageBase64: imageData,
@@ -57,6 +57,12 @@ window.iniciarPopupNovaImagem = function() {
                 return res.json();
             })
             .then(data => {
+                ocultarPopupNI()
+                const img = document.createElement("img");
+                img.classList.add("rt_imagem");
+                img.textContent = "";
+                img.src = canva.src
+                inserirElemento(img, window.getSelection())
             })
             .catch(err => console.error(err));
     }
@@ -66,8 +72,12 @@ window.iniciarPopupNovaImagem = function() {
 
     blur_nova_imagem.addEventListener("click", (e) => {
         if (e.target === blur_nova_imagem) {
-            blur_nova_imagem.style.display = "none";
+            ocultarPopupNI()
         }
     });
+
+    function ocultarPopupNI() {
+        blur_nova_imagem.style.display = "none";
+    }
 
 }

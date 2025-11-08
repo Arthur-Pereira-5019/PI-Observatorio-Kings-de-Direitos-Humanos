@@ -171,6 +171,11 @@ function getHTML() {
 
 textoPublicacao.addEventListener("keydown", function (e) {
 
+    if (e.key === "backspace") {
+        createBold();
+        e.preventDefault();
+    }
+
     if (e.ctrlKey && e.key === "b") {
         createBold();
         e.preventDefault();
@@ -223,6 +228,10 @@ function createBold() {
 
 function createUnderline() {
     document.execCommand("underline");
+}
+
+function backspace() {
+    
 }
 
 function titulo() {

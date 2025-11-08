@@ -29,7 +29,14 @@ body,
   border: 3px solid black;
   z-index: 10000;
   display: none;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
 
+}
+
+#container_nova_imagem * {
+  resize: none;
+  font-size: 16px;
 }
 
 #canva {
@@ -39,10 +46,19 @@ body,
 
 #titulo_nova_imagem {
   width: 90%;
-  height: 2vh
+  min-height: fit-content
 }
 
 #desc {
   width: 90%;
   height: 40vh;
+}
+
+#inserir {
+  background-color: darkred;
+  color: white;
+  border: 1px solid black;
+  font-weight: bold;
+  width: 4vw;
+  aspect-ratio: 5/3;
 }
