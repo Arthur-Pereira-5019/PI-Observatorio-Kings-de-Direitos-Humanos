@@ -7,7 +7,9 @@ import com.kings.okdhvi.model.Forum;
 import com.kings.okdhvi.model.Postagem;
 import com.kings.okdhvi.services.ComentarioServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ForumMapper {
     @Autowired
     ComentarioServices cs;

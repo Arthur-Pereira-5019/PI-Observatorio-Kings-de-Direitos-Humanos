@@ -1,5 +1,7 @@
 package com.kings.okdhvi.controllers;
 
+import com.kings.okdhvi.mapper.DecisaoModeradoraMapper;
+import com.kings.okdhvi.model.DTOs.DecisaoModeradoraPADTO;
 import com.kings.okdhvi.model.DecisaoModeradora;
 import com.kings.okdhvi.repositories.DecisaoModeradoraRepository;
 import com.kings.okdhvi.services.DecisaoModeradoraService;
@@ -14,15 +16,13 @@ public class DecisaoModeradoraController {
     @Autowired
     DecisaoModeradoraService dms;
 
-    @PreAuthorize("hasRole('MODER')")
-    @GetMapping("/mock")
-    public DecisaoModeradora mock() {
-        return dms.mock();
-    }
+    @Autowired
+    DecisaoModeradoraMapper dmm;
+
 
     @PreAuthorize("hasRole('MODER')")
     @GetMapping("{tipo}"+"/{id}")
-    public DecisaoModeradora buscarDecisaoModeradoraPeloId(@PathVariable("id") Long id, @PathVariable("tipo") String c) {
-        return dms.encontrarDecisaoPeloId(id, c);
+    public DecisaoModeradoraPADTO buscarDecisaoModeradoraPeloId(@PathVariable("id") Long id, @PathVariable("tipo") String c) {
+        return dmm.paginaAtual(dms.encontrarDecisaoPeloId(id, c));
     }
 }
