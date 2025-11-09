@@ -9,5 +9,6 @@ import java.util.List;
 
 @Repository
 public interface ComentarioRepository extends JpaRepository<Comentario, Long> {
-    public List<Comentario> findByAutor(Usuario u);
+    List<Comentario> findByAutor(Usuario u);
+    long countByTipoAndIdDono(Character tipo, Long idDono);
 }

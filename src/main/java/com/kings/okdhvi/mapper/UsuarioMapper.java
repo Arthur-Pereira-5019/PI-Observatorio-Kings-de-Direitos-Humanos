@@ -2,6 +2,7 @@ package com.kings.okdhvi.mapper;
 
 import com.kings.okdhvi.model.DTOs.UsuarioApreDTO;
 import com.kings.okdhvi.model.DTOs.UsuarioComDTO;
+import com.kings.okdhvi.model.DTOs.UsuarioForDTO;
 import com.kings.okdhvi.model.Usuario;
 import org.springframework.stereotype.Service;
 
@@ -22,4 +23,12 @@ public class UsuarioMapper {
         ucdto.setId(u.getIdUsuario());
         return ucdto;
     }
-}
+
+    public UsuarioForDTO usuarioForum(Usuario u) {
+        UsuarioForDTO ufdto = new UsuarioForDTO();
+        ufdto.setFoto(u.getFotoDePerfil());
+        ufdto.setNome(u.getNome());
+        ufdto.setId(u.getIdUsuario());
+        ufdto.setEstadoDaConta(u.getEstadoDaConta());
+        return ufdto;
+    }}

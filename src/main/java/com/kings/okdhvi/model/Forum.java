@@ -38,21 +38,17 @@ public class Forum {
 
     @Column(nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
-    Date dataDoForum;
+    Date dataDeCriacao;
+
+    @Column(nullable = true)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
+    Date dataDeAtualizacao;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="idUsuario")
     Usuario autor;
     @Column(nullable = false, length = 32768)
     String textoForum;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "revisores",
-            joinColumns = @JoinColumn(name = "idPostagem"),
-            inverseJoinColumns = @JoinColumn(name = "idUsuario")
-    )
-    List<Usuario> revisor = new ArrayList<>();
 
     public boolean isOculto() {
         return oculto;
@@ -86,12 +82,12 @@ public class Forum {
         this.tituloForum = tituloForum;
     }
 
-    public Date getDataDoForum() {
-        return dataDoForum;
+    public Date getDataDeCriacao() {
+        return dataDeCriacao;
     }
 
-    public void setDataDoForum(Date dataDoForum) {
-        this.dataDoForum = dataDoForum;
+    public void setDataDeCriacao(Date dataDeCriacao) {
+        this.dataDeCriacao = dataDeCriacao;
     }
 
     public Usuario getAutor() {
@@ -110,11 +106,11 @@ public class Forum {
         this.textoForum = textoForum;
     }
 
-    public List<Usuario> getRevisor() {
-        return revisor;
+    public Date getDataDeAtualizacao() {
+        return dataDeAtualizacao;
     }
 
-    public void setRevisor(List<Usuario> revisor) {
-        this.revisor = revisor;
+    public void setDataDeAtualizacao(Date dataDeAtualizacao) {
+        this.dataDeAtualizacao = dataDeAtualizacao;
     }
 }

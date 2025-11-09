@@ -29,6 +29,7 @@ public class Comentario {
     @Column
     Character tipo;
 
+    @Column
     Long idDono;
 
     public Usuario getAutor() {

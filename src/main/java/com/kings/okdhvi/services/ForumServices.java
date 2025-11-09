@@ -34,52 +34,45 @@ public class ForumServices {
     @PersistenceContext
     private EntityManager em;
 
-    Logger logger = LoggerFactory.getLogger(PostagemServices.class);
+    Logger logger = LoggerFactory.getLogger(ForumServices.class);
 
-    public BuscaPaginadaResultado<Postagem> buscaFiltrada(BuscaPaginada bp, String texto, UserDetails ud) {
+    public BuscaPaginadaResultado<Forum> buscaFiltrada(BuscaPaginada bp, String texto, UserDetails ud) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Postagem> cq = cb.createQuery(Postagem.class);
-        Root<Postagem> p = cq.from(Postagem.class);
+        CriteriaQuery<Forum> cq = cb.createQuery(Forum.class);
+        Root<Forum> f = cq.from(Forum.class);
 
         List<Predicate> predicates = new ArrayList<>();
 
         if (texto != null && !texto.isBlank()) {
-            Predicate predicatesCorpo =  construirTextoPredicado(cb, p, texto, "textoPostagem");
+            Predicate predicatesCorpo =  construirTextoPredicado(cb, f, texto, "textoForum");
 
-            Predicate predicatesTitulo =  construirTextoPredicado(cb, p, texto, "tituloPostagem");
+            Predicate predicatesTitulo =  construirTextoPredicado(cb, f, texto, "tituloForum");
 
-            Predicate predicatesTags =  construirTextoPredicado(cb, p, texto, "tags");
-
-
-            predicates.add(cb.or(predicatesCorpo, predicatesTitulo, predicatesTags));
-            if(texto.contains("noticia")) {
-                predicates.add(cb.like(cb.lower(p.get("tags")), "%" + "noticia" + "%"));
-            }
+            predicates.add(cb.or(predicatesCorpo, predicatesTitulo));
         }
 
         boolean moderador = false;
         if(ud != null) {
             if(ud.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MODER"))) {
-                System.out.println("Moderador");
                 moderador = true;
             }
         }
 
         if (!moderador) {
-            Predicate naoOculto = cb.equal(p.get("oculto"), false);
+            Predicate naoOculto = cb.equal(f.get("oculto"), false);
             predicates.add(naoOculto);
         }
 
         cq.where(predicates.toArray(new Predicate[0]));
-        cq.orderBy(cb.desc(p.get("dataDaPostagem")));
+        cq.orderBy(cb.desc(f.get("dataDeCriacao")));
 
-        TypedQuery<Postagem> busca = em.createQuery(cq);
-        BuscaPaginadaResultado<Postagem> bpr = new BuscaPaginadaResultado<>();
+        TypedQuery<Forum> busca = em.createQuery(cq);
+        BuscaPaginadaResultado<Forum> bpr = new BuscaPaginadaResultado<>();
 
         busca.setFirstResult(bp.numeroPagina() * bp.numeroResultados());
         busca.setMaxResults(bp.numeroResultados() * 5);
 
-        List<Postagem> resultadosDaBusca = busca.getResultList();
+        List<Forum> resultadosDaBusca = busca.getResultList();
         int tamanhoTotal = resultadosDaBusca.size();
 
         if(resultadosDaBusca.isEmpty()) {
@@ -92,7 +85,7 @@ public class ForumServices {
         return bpr;
     }
 
-    public Predicate construirTextoPredicado(CriteriaBuilder cb, Root<Postagem> p, String texto, String campo) {
+    public Predicate construirTextoPredicado(CriteriaBuilder cb, Root<Forum> p, String texto, String campo) {
 
         String[] t = texto.split(" ");
         List<Predicate> retorno = new ArrayList<>();
@@ -104,39 +97,25 @@ public class ForumServices {
         return cb.or(retorno.toArray(new Predicate[0]));
     }
 
-    public List<Postagem> encontrarPeloUsuario(Long id) {
+    public List<Forum> encontrarPeloUsuario(Long id) {
         Usuario u = us.encontrarPorId(id, false);
         return fr.findByAutor(u);
     }
 
     @Transactional
-    public Forum criarPostagem(PostagemCDTO pcdto, Long usuarioId) {
-        if (pcdto == null) {
-            throw new NullResourceException("Postagem nula submetida!");
-        }
-        if (pcdto.capaBase64() == null) {
-            throw new NullResourceException("Postagem sem capa submetida!");
-        }
-        Postagem post = new Postagem();
-        CriarImagemRequest cir = new CriarImagemRequest(pcdto.capaBase64(), "Capa", "Capa da publicacao" + pcdto.tituloPostagem(), pcdto.tipoCapa());
+    public Forum criarForum(ForumCDTO fcdto, Long usuarioId) {
+        Forum forum = new Forum();
         Usuario u = us.encontrarPorId(usuarioId, false);
-        Imagem i = is.criarImagem(cir, u);
 
-        post.setCapa(i);
+        forum.setTextoForum(fcdto.textoForum());
+        forum.setTituloForum(fcdto.tituloForum());
 
-        post.setTextoPostagem(pcdto.textoPostagem());
-        post.setTituloPostagem(pcdto.tituloPostagem());
-        post.setTags(pcdto.tags());
-        post.setExterna(false);
-
-
-        post.setAutor(u);
-        post.setDataDaPostagem(Date.from(Instant.now()));
-        post.setRevisor(null);
-        return fr.save(post);
+        forum.setAutor(u);
+        forum.setDataDeCriacao(Date.from(Instant.now()));
+        return fr.save(forum);
     }
 
-    public Forum atualizarPostagem(Forum f) {
+    public Forum atualizarForum(Forum f) {
         if (f == null) {
             throw new NullResourceException("Forum nulo submetido");
         }
@@ -148,13 +127,13 @@ public class ForumServices {
     }
 
     public Forum encontrarForumPeloId(Long id) {
-        return fr.findById(id).orElseThrow(() -> new ResourceNotFoundException("Postagem não encontrada!"));
+        return fr.findById(id).orElseThrow(() -> new ResourceNotFoundException("Forum não encontrado!"));
     }
 
 
     @Transactional
-    public void ocultar(Long idModerador, Long idPost, DecisaoModeradoraOPDTO d) {
-        Forum f = encontrarForumPeloId(idPost);
+    public void ocultar(Long idModerador, Long idForum, DecisaoModeradoraOPDTO d) {
+        Forum f = encontrarForumPeloId(idForum);
         Usuario u = us.encontrarPorId(idModerador, false);
         f.setOculto(true);
         DecisaoModeradora dm = new DecisaoModeradora();
@@ -164,7 +143,7 @@ public class ForumServices {
         dm.setTipo("Forum");
         dm.setUsuarioModerado(f.getAutor());
         dm.setNomeModerado("[" + f.getAutor().getIdUsuario() + "]" + f.getAutor().getNome());
-        dm.setIdModerado(idPost);
+        dm.setIdModerado(idForum);
         dms.criarDecisaoModeradora(dm);
         fr.save(f);
     }

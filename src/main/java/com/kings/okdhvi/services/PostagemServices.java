@@ -63,7 +63,6 @@ public class PostagemServices {
         boolean moderador = false;
         if(ud != null) {
             if(ud.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MODER"))) {
-                System.out.println("Moderador");
                 moderador = true;
             }
         }

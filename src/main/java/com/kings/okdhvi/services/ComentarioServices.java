@@ -98,6 +98,10 @@ public class ComentarioServices {
         return cr.findById(id).orElseThrow(() -> new ResourceNotFoundException("Comentário não encontrado!"));
     }
 
+    public long contarComentarios(Character t, Long id) {
+        return cr.countByTipoAndIdDono(t, id);
+    }
+
     public BuscaPaginadaResultado<Comentario> buscaFiltrada(BuscaPaginada bp, Long id, Character tipo, UserDetails ud) {
         boolean moderador = false;
 

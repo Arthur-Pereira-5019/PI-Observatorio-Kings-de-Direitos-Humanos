@@ -55,17 +55,12 @@ public class PostagemController {
         return retorno;
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_MODER')")
     @PutMapping(value="/ocultar/{id}")
     public void ocultarPostagem(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails ud, @RequestBody DecisaoModeradoraOPDTO dmdto) {
         ps.ocultar(us.buscarId(ud), id, dmdto);
     }
 
-    //NÃO USAR, ESSE SUJEITO AQUI NÃO TEM MEDO DE ANULAR TODOS SEUS CAMPOS
-    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
-    public Postagem atualizarPostagem(@RequestBody Postagem p, @PathVariable("id") Long id) {
-        return ps.atualizarPostagem(p,id);
-    }
 
     @PostMapping(value="/listar_publicacoes/{texto}/{pagina}")
     public BuscaPaginadaResultado<PostagemECDTO> listarPostagens(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @PathVariable("pagina") Integer pagina, @AuthenticationPrincipal UserDetails ud) {
@@ -97,12 +92,7 @@ public class PostagemController {
         return listarPostagens(bpt, texto,0, ud);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public void deletarPostagem(@PathVariable Long id) {
-        ps.deletarPeloId(id);
-    }
-
-
+    @PreAuthorize("hasRole('ROLE_ESPEC')")
     @PutMapping(value = "revisar", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
     public Postagem revisarPostagem(@RequestBody RevisorPostagemRequest rpr) {
         return ps.revisarPostagem(rpr);
