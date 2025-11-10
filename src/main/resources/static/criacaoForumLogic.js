@@ -19,5 +19,17 @@ btnPublicarForum.addEventListener("click", function(){
         body: JSON.stringify(novoPost)
 
     })
+        .then(res => {
+            if (res.ok){
+                alert("Forum postado!")
+                window.location.href = "http://localhost:8080/foruns";
+            }
+                   
+        })
     
+})
+
+btnCancelarForum.addEventListener("click", function(){
+    window.location.href = "http://localhost:8080/foruns";
+
 })
