@@ -5,9 +5,8 @@
 }
 
 .container-universal {
-    width: 100%;
-    height: 100%;
     display: flex;
+    height: fit-content;
 }
 
 .container-menu-usuario-geral {
@@ -168,7 +167,7 @@
 
 .container-geral-atividades {
     display: flex;
-    height: 100vh;
+    height: fit-content;
     width: 80%;
     padding: 3%;
     gap: 5%;
@@ -278,47 +277,84 @@
     text-overflow: ellipsis;
 }
 
-.container-imagem-publicacao {
-    margin-top: 0.75%;
-    height: 100%;
-    width: 35%;
-}
+ .container-titulo {
+     width: 100%;
+     height: fit-content;
+     display: flex;
+     text-align: left;
+ }
 
-.container-inferior-publicacao {
-    height: 83%;
-    width: 100%;
-    display: flex;
-    overflow: hidden;
-}
+ .container-imagem {
+     margin-top: 0.75%;
+     height: 100%;
+     width: 35%;
+ }
 
-.container-descricao-publicacao {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: 1%;
-    font-family: "Inter", sans-serif;
-}
+ .container-baixo {
+     height: 100%;
+     width: 100%;
+     display: flex;
+     flex-direction: row;
+     overflow: hidden;
+ }
 
-.imagem-publicacao {
-    height: 100%;
-    width: 100%;
-}
+ .container-descricao {
+     height: 100%;
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+     padding: 1%;
+     font-family: "Inter", sans-serif;
+ }
 
-.autor-publicacao {
-    font-size: 2.0rem;
-    font-weight: 500;
-}
+ .imagem {
+     height: 100%;
+     width: 100%;
+ }
 
-.data-publicacao {
-    font-size: 0.5;
-    font-weight: 100;
+ .autor {
+     font-size: 2.0rem;
+     font-weight: 500;
+ }
 
-}
+ .data {
+     font-size: 0.5;
+     font-weight: 100;
+
+ }
+
+ .paragrafo {
+     font-size: 1rem;
+     font-weight: 200;
+     margin-top: 1%;
+ }
+
+ .container-publicacoes {
+     height: 40vh;
+     width: 90vw;
+     display: flex;
+     flex-direction: column;
+     justify-content: left;
+     margin-right: 5%;
+ }
+
+ .container-geral-publicacoes {
+     height: 40vh;
+     width: 100%;
+     display: flex;
+     justify-content: right;
+     margin-top: 2%;
+     margin-bottom: 2%;
+     cursor: pointer;
+ }
 
 .primeiro-paragrafo-publicacao {
     font-size: 1rem;
     font-weight: 200;
     margin-top: 1%;
     word-break: break-word;
+}
+
+#container-lista {
+    height: fit-content
 }
