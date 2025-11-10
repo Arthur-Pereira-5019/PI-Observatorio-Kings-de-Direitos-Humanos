@@ -50,6 +50,9 @@ public class UsuarioController {
 
     @GetMapping(value = "apresentar", produces = MediaType.APPLICATION_JSON_VALUE)
     public UsuarioApreDTO apresentarUsuarioLogado(@AuthenticationPrincipal UserDetails ud) {
+        if(ud == null) {
+            return null;
+        }
         return um.apresentarUsuario(us.encontrarPorId(us.buscarId(ud), false));
     }
 

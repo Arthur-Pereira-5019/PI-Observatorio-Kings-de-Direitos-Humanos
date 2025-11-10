@@ -7,7 +7,26 @@ async function iniciarPopupLogin() {
     const botaoVoltarRegistro = document.getElementById("btnIrRegistro");
     const fundoPopupRegistro = document.getElementById("posPopUp");
 
-    
+    const btnOcultarLSenha = document.getElementById("ocultar_lSenha");
+    const divLSenhaMaior = document.getElementById("campoSenha");
+
+    btnOcultarLSenha.dataset.ativo = "0";
+
+    btnOcultarLSenha.addEventListener("click", function() {
+        ocultarSenha(btnOcultarLSenha, divLSenhaMaior);
+    })
+
+    function ocultarSenha(elemento, pai) {
+        ativo = Boolean(Number(elemento.dataset.ativo))
+        elemento.dataset.ativo = String(Number(!ativo));
+        if(!ativo) {
+            elemento.src = "/imagens/olhos_abertos.png"
+            pai.type = "text"
+        } else {
+            elemento.src = "/imagens/olhosfechados.png"
+            pai.type = "password"
+        }
+    }
 
     if (botaoVoltarRegistro && fundoPopupRegistro) {
         botaoVoltarRegistro.addEventListener("click", () => {

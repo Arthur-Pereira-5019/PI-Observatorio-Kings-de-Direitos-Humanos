@@ -48,6 +48,36 @@ async function iniciarPopupRegistro() {
         }
     });
 
+    const btnOcultarSenha = document.getElementById("ocultar_senha");
+    const divCSenhaMaior = document.getElementById("confSenhaInputRegistro");
+    const btnOcultarCSenha = document.getElementById("ocultar_csenha");
+    const divSenhaMaior = document.getElementById("senhaInputRegistro");
+
+    btnOcultarSenha.dataset.ativo = "0";
+    btnOcultarCSenha.dataset.ativo = "0";
+
+    btnOcultarSenha.addEventListener("click", function() {
+        ocultarSenha(btnOcultarSenha, divSenhaMaior);
+    })
+
+    btnOcultarCSenha.addEventListener("click", function() {
+        ocultarSenha(btnOcultarCSenha, divCSenhaMaior);
+    })
+
+    function ocultarSenha(elemento, pai) {
+        ativo = Boolean(Number(elemento.dataset.ativo))
+        elemento.dataset.ativo = String(Number(!ativo));
+        if(!ativo) {
+            elemento.src = "/imagens/olhos_abertos.png"
+            pai.type = "text"
+        } else {
+            elemento.src = "/imagens/olhosfechados.png"
+            pai.type = "password"
+        }
+    }
+
+
+
     const registerButton = document.getElementById("registerButton");
     const senhaInputRegistro = document.getElementById("senhaInputRegistro");
     const confSenhaInputRegistro = document.getElementById("confSenhaInputRegistro");

@@ -6,7 +6,7 @@ async function iniciarPerfil() {
     const id = path.split("/").pop();
 
     if (!id || isNaN(id)) {
-        console.error("ID do usuario invalido na URL");
+        window.location.pathname = "/telaInexistente"
         return;
     }
 
@@ -42,6 +42,8 @@ async function iniciarPerfil() {
             btnAtvUser.style.display = "flex"
             btnAddCargo.style.display = "flex"
         }
+
+        document.querySelector(".icon-user").src = "data:image/" + data.fotoDePerfil.tipoImagem + ";base64," + data.fotoDePerfil.imagem;
 
         btnAddCargo.addEventListener("click",function() {
 
