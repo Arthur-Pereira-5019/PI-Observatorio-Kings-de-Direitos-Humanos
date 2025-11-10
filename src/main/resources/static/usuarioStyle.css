@@ -152,13 +152,13 @@
     width: 10vh;
     background-color: #AA00FF;
     border-radius: 50%;
-    position: absolute;
-    right: 1%;
-    top: 2%;
+    right: 5%;
+    top: 12%;
     display: none;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    position: fixed;
 }
 
 .icon-atividade {
@@ -181,6 +181,17 @@
     height: 8vh;
     background-color: #252525;
 }
+
+ .titulo-publicacao {
+     font-size: 3rem;
+     font-weight: 800;
+     font-family: "Inter", sans-serif;
+     color: #C00003;
+     text-align: left;
+     overflow: hidden;
+     white-space: nowrap;
+     text-overflow: ellipsis;
+ }
 
 .foto-forum {
     height: 100%;
