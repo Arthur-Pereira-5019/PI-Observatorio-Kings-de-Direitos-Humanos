@@ -24,7 +24,7 @@ async function iniciarPublicacao() {
         const data = await response.text()
         const novoObjeto = document.createElement("div");
         document.body.appendChild(novoObjeto)
-        novoObjeto.innerHTML = data.querySelectorAll("img").forEach((i) => {});
+        novoObjeto.innerHTML = data;
 
         if (cssFile) {
             anexarCss(cssFile)
@@ -55,18 +55,25 @@ async function iniciarPublicacao() {
             }
             return res.json();
         })
-        .then(data => {
+        .then(async (data) => {
             titulo.textContent = data.tituloPostagem;
             if (data.oculto) {
                 titulo.style.color = "purple";
                 decmod.style.display = "flex";
                 decmod.addEventListener("click", function () {
-                    anexarHTMLExterno("/decisao", "/popupDecisaoModeradoraStyle.css", "/popupDecisaoModeradoraLogic.js", "http://localhost:8080/api/decmod/Postagem/"+id, null)
+                    anexarHTMLExterno("/decisao", "/popupDecisaoModeradoraStyle.css", "/popupDecisaoModeradoraLogic.js", "http://localhost:8080/api/decmod/Postagem/" + id, null)
                 })
             }
             capa.src = "data:image/" + data.capa.tipoImagem + ";base64," + data.capa.imagem;
             dadosPublicacao.textContent = "Publicado em " + data.dataDaPostagem + " por " + data.autor.nome;
-            texto.innerHTML = data.textoPostagem
+            let elementoSurpresa = document.createElement("div");
+            let imgs;
+            elementoSurpresa.innerHTML = data.textoPostagem;
+            imgs = elementoSurpresa.querySelectorAll("img");
+            for (const i of imgs) {                
+                i.src = await carregarSrc(i.dataset.db_id);
+            }
+            texto.innerHTML = elementoSurpresa.innerHTML;
         })
 
 
@@ -240,6 +247,21 @@ async function iniciarPublicacao() {
 
     async function openCriacaoDecisao(durl, msg) {
         await anexarHTMLExterno("/nova_decisao", "/novaDecisaoModeradoraStyle.css", "/popupNovaDecisaoLogica.js", durl, msg);
+    }
+
+    async function carregarSrc(id) {
+        fetch("http://localhost:8080/api/imagem/" + id, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Erro no servidor");
+                return res.json();
+            })
+            .then(data => {
+                return data.imagem;
+            })
+            .catch(err => console.error(err));
     }
 }
 
