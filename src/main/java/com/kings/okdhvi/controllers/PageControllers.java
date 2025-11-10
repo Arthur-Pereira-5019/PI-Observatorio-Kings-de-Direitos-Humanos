@@ -55,6 +55,9 @@ public class PageControllers {
         return "imagem";
     }
 
+    @GetMapping("/foruns")
+    public String telaForuns() {return "telaForuns"; }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/usuario/{id}")
     public String telaUsuario() {
