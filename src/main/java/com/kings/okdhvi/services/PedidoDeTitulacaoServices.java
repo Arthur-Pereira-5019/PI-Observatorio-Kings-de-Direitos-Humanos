@@ -15,7 +15,7 @@ public class PedidoDeTitulacaoServices {
     @Autowired
     PedidoDeTitulacaoRepository petr;
 
-    public PedidoDeTitulacao salvarPedidoTitulacao(PedidoDeTitulacao pet) {
+    public PedidoDeTitulacao criarPedidoDeTitulacao(PedidoDeTitulacao pet) {
         return petr.save(pet);
     }
 
@@ -29,5 +29,14 @@ public class PedidoDeTitulacaoServices {
 
     public void deletarPedidoDeTitulacaoPeloId(Long id) {
         petr.delete(encontrarPedidoDeTitulacao(id));
+    }
+
+    public PedidoDeTitulacao atualizarPedidoDeTitulacao(PedidoDeTitulacao pet) {
+       PedidoDeTitulacao velhoPet = encontrarPedidoDeTitulacao(pet.getId());
+        velhoPet.setAnexo(pet.getAnexo());
+        velhoPet.setRequisitor(pet.getRequisitor());
+        velhoPet.setMotivacao(pet.getMotivacao());
+        velhoPet.setCargoRequisitado(pet.getCargoRequisitado());
+        return petr.save(velhoPet);
     }
 }

@@ -4,8 +4,7 @@
                 font-family: "Inter", sans-serif;
             }
 
-
-            #posPopUpConfigUser{
+            #posPopUpDelete{
                 position: fixed;
                 top: 50%;
                 left: 50%;
@@ -15,33 +14,35 @@
                 background-color: rgba(0,0,0,0.8);
                 display: none; 
                 scrollbar-width: none;
-                z-index: 980
+                z-index: 999;
+
             }
 
-            #fundo-popup-configuracoes-usuario{
+            
+
+            .fundo-popup-excluir{
             display: flex;
             flex-direction: column;
-            gap: 1%;
-            height: 75vh;
-            width: 21vw;
+            gap: 5%;
+            height: 25vh;
+            width: 55vw;
             border-radius: 1rem;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            border: solid 2px #C00003;
             background-color: white;
             justify-content: flex-start;
+            border: solid 2px #C00003;
             align-items: center;
             overflow: hidden;
             position: fixed;
             transform: translate(-50%, -50%);
             top:50%;
             left: 50%;
-
         }
 
-        .titulo-popup-configuracoes-usuario{
+        .titulo-popup-excluir{
             background-color: #C00003;
             width: 100%;
-            height: 12%;
+            height: 25%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -51,68 +52,70 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        .container-titulo-labels-configuracoes-usuario{
-            width: 90%;
-            height: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            color: #4D4D4D;
-            font-size: 1.5rem;
-            gap: 0.3rem;
-            font-weight: 400;
-            
-        }
-
-        .input-configuracoes-usuario{
-            display: flex;
+        .instrucao-popup-excluir{
+            height: 10%;
             width: 100%;
-            height: 6vh;
-            align-items: center;
-            justify-content: flex-start;
-            background-color: #DFDEDE;
-            border-radius: 15px;
-            font-size: 1.2rem;
-            font-weight: 200;
-            background-color: #DFDEDE;
-            outline: transparent;
-            border: solid 2px #8D0028;
-            padding: 4%;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-            text-overflow: ellipsis;
+            font-weight: 400;
+            font-size: 1.3rem;
+            text-align: center;
         }
-
-        .container-aplicar-excluir-configuracoes-usuario{
+        
+        .container-opcoes-popup-excluir{
+            height: 45%;
+            width: 100%;
             display: flex;
-            margin-top: 25%;
+            justify-content: center;
             align-items: center;
-            width: 90%;
-            height: 13%;
-            gap: 2%;
+            gap: 3%;
+            padding: 1%;
         }
-
-        .botao-aplicar-configuracoes-usuario{
-            background-color: #C00003;
-            width: 80%;
+        .label-popup-excluir{
             height: 100%;
-            color: white;
-            font-weight: 700;
-            cursor: pointer;
-            border-radius: 20px;
-            font-size: 2.0rem;
-            border: none;
-            box-shadow: 0 8px 8px rgba(0,0,0,0.2);
+            width: 20%;
+            border: 2px solid #8D0028;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            color: #4D4D4D;
+            padding-left: 1%;
+            font-size: 1.5rem;
+            background-color: #DFDEDE;
         }
 
-        .botao-excluirconta-configuracoes-usuario{
+        .botao-confirmar-exclusao{
+            height: 98%;
+            width: 10%;
             background-color: rgb(82, 3, 4);
-            width: 20%;
-            height: 70%;
-            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.7rem;
             font-weight: 700;
-            cursor: pointer;
             border-radius: 20px;
-            font-size: 1.0rem;
+            color: white;
             border: none;
             box-shadow: 0 8px 8px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+        
+        .botao-confirmar-exclusao:hover{
+            background-color: #790d10;
+        }
+
+        .botao-cancelar-exclusao{
+            height: 100%;
+            width: 30%;
+            background-color: #C00003;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: 700;
+            border-radius: 20px;
+            color: white;
+            border: none;
+            box-shadow: 0 8px 8px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+
+        .botao-cancelar-exclusao:hover{
+            background-color: #E0272A;
         }

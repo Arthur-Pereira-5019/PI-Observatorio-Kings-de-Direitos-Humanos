@@ -93,7 +93,7 @@ public class UsuarioController {
         us.alterarTitulacao(us.buscarId(ud), adr);
     }
 
-    @PostMapping(value="/requistar_cargo")
+    @PostMapping(value="/requisitar_cargo")
     public void requisitarCargo(@AuthenticationPrincipal UserDetails ud, @RequestBody PedidoDeTitulacaoDTO pdtDTO) {
         us.gerarPedidoDeTitulacao(us.buscarId(ud), pdtDTO);
     }
@@ -118,9 +118,10 @@ public class UsuarioController {
 
     @PostMapping("/registrar")
     public ResponseEntity<?> register(@RequestBody Usuario u, HttpServletResponse response) {
+        String senhaPrevia = u.getSenha();
         us.saveUsuario(u);
 
-        var usernamePassword = new UsernamePasswordAuthenticationToken(u.getEmail(), u.getSenha());
+        var usernamePassword = new UsernamePasswordAuthenticationToken(u.getEmail(), senhaPrevia);
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
         var token = ts.gerarToken((Usuario) auth.getPrincipal());
@@ -135,7 +136,7 @@ public class UsuarioController {
         return ResponseEntity.ok("Registrado com sucesso!");
     }
 
-    @PostMapping("/requisitar_exclusao")
+    @GetMapping("/requisitar_exclusao")
     public PedidoExclusaoConta requisitarExclusao(@AuthenticationPrincipal UserDetails user) {
         return us.requisitarExclusao(us.buscarId(user));
     }

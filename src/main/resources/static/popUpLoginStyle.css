@@ -40,7 +40,7 @@
      align-items: center;
      background-color: white;
      width: 25vw;
-     height: 75vh;
+     height: 60vh;
      border-radius: 5%;
      overflow: hidden;
  }
@@ -58,11 +58,22 @@
 
  }
 
+#conteudoLogin{
+    padding-top: 4%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
  .input-fundo-login {
      display: flex;
      margin-top: 5%;
      width: 21vw;
      height: 6vh;
+     padding: 3%;
      align-items: center;
      justify-content: end;
      background-color: #DFDEDE;

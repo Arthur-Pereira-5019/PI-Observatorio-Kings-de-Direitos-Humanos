@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/kings?useTimezone=true&serverTimezone=UTC
     username: root
-    password: Art.DB25
+    password: aluno
 
   
     name: com.mysql.cj.jdbc.Driver
@@ -15,21 +15,9 @@ spring:
     open-in-view: false
     properties:
       hibernate:
-        jdbc:
-          time: -3
-        format_sql: false
 logger:
   root: WARN
   com.kings.okdhvi: WARN
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: WARN
-        type:
-          descriptor:
-            sql:
-              BasicBinder: WARN
 api:
   security:
     token:

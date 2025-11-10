@@ -42,6 +42,14 @@ public class PageControllers {
         return "configuracaoUsuarioPopup";
     }
 
+    @GetMapping("/popupDeleteUser")
+    public String popupDeleteUser() {
+        return "deleteUsuarioPopup";
+    }
+
+    @GetMapping("/popupRequisitar")
+    public String popupRequisitar() {return "requisitarPopup"; }
+
     @GetMapping("/imagem/{id}")
     public String imageView() {
         return "imagem";

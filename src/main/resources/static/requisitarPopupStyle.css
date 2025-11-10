@@ -1,0 +1,106 @@
+        *{
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Inter", sans-serif;
+        }
+        
+
+        
+        #posPopUpRequisitar{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0,0,0,0.8);
+            display: none; 
+            scrollbar-width: none;
+            z-index: 999;
+
+        }
+
+        .popup-requisitar-fundo{
+            display: flex;
+            flex-direction: column;
+            gap: 4%;
+            height: 75vh;
+            width: 21vw;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border: solid 2px #8D0028;
+            background-color: white;
+            justify-content: flex-start;
+            align-items: center;
+            overflow: hidden;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            top:50%;
+            left: 50%;
+
+        }
+
+        .popup-requisitar-titulo{
+            background-color: #8D0028;
+            width: 100%;
+            height: 12%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.6rem;
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        #combobox-cargos-requisitar{
+            background-color: #DFDEDE;
+            border: 1px solid #8D0028;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            width: 50%;
+            height: 10%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            outline: none;
+            padding: 3%;
+        }
+
+        #textarea-cargos-requisitar{
+            background-color: #DFDEDE;
+            border: 1px solid #8D0028;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            width: 90%;
+            height: 40%;
+            font-size: 1.0rem;
+            resize: none;
+            padding: 2%;
+            text-indent: 3%;
+            line-height: 1.5;
+        }
+        .anexos-requisitar{
+             width: 90%;
+            height: 8%;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #4D4D4D;
+        }
+        
+
+        .botao-confirmar-requisicao{
+            background-color: #8D0028;
+            width: 80%;
+            height: 13%;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 2.0rem;
+            border: none;
+            box-shadow: 0 8px 8px rgba(0,0,0,0.2);
+        }
+
+        .botao-requisitar:hover {
+    background-color: #a3003b; 
+}

@@ -16,12 +16,6 @@ async function iniciarPopupLogin() {
         });
     }
 
-    const fechar = document.querySelector(".botao-fechar");
-    if (fechar && fundoPopupLogin) {
-        fechar.addEventListener("click", () => {
-            fundoPopupLogin.style.display = "none";
-        });
-    }
 
     fundoPopupLogin.addEventListener("click", (e) => {
         if (e.target === fundoPopupLogin) {
@@ -47,9 +41,8 @@ async function iniciarPopupLogin() {
             })
                 .then(res => {
                     if (!res.ok) throw new Error("Erro no servidor");
-                    return res.json();
+                    window.location.reload();
                 })
-                .then(() => window.location.href = "http://localhost:8080/")
                 .catch(err => console.error(err));
         });
     }

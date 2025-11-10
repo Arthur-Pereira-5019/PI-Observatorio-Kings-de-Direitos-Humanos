@@ -70,16 +70,13 @@ async function iniciarPopupRegistro() {
                 dataDeNascimento: inputDataNascRegistro.value
             };
 
-            fetch("http://localhost:8080/api/user", {
+            fetch("http://localhost:8080/api/user/registrar", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(novoPost)
             })
                 .then(res => {
                     if (!res.ok) throw new Error("Erro no servidor");
-                    return res.json();
-                })
-                .then(() => {
                     inputNomeRegistro.value = "";
                     senhaInputRegistro.value = "";
                     confSenhaInputRegistro.value = "";
@@ -87,7 +84,7 @@ async function iniciarPopupRegistro() {
                     inputCpfRegistro.value = "";
                     inputEmailRegistro.value = "";
                     inputDataNascRegistro.value = "";
-                    window.location.href = "http://localhost:8080/";
+                    window.location.reload()
                 })
                 .catch(err => console.error(err));
         });

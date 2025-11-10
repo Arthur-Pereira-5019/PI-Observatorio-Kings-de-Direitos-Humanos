@@ -63,7 +63,10 @@ public class UsuarioService {
         validarDados(u, true);
         u.setSenha(new BCryptPasswordEncoder().encode(u.getSenha()));
         u.setEstadoDaConta(EstadoDaConta.PADRAO);
-        return ur.save(u);
+
+        Usuario r = ur.save(u);
+        ur.flush();
+        return r;
     }
 
     public Usuario atualizarFoto(Long id, Imagem i) {
@@ -91,7 +94,6 @@ public class UsuarioService {
         PedidoDeTitulacao pet = new PedidoDeTitulacao();
         Usuario u = encontrarPorId(id, false);
 
-
         String anexo = pdtDTO.anexoBase64();
         Imagem i = null;
         if(anexo != null && !anexo.isEmpty()) {
@@ -113,9 +115,13 @@ public class UsuarioService {
         pet.setCargoRequisitado(edce);
         pet.setMotivacao(pdtDTO.motivacao());
         pet.setRequisitor(u);
-        pets.salvarPedidoTitulacao(pet);
+        if(u.getPedidoDeTitulacao() != null) {
+            pet.setId(u.getPedidoDeTitulacao().getId());
+            pets.atualizarPedidoDeTitulacao(pet);
+        } else {
+            pets.criarPedidoDeTitulacao(pet);
+        }
         u.setPedidoDeTitulacao(pet);
-        pets.salvarPedidoTitulacao(pet);
         return ur.save(u);
     }
 
