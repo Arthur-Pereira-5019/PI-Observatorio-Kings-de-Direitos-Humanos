@@ -1,4 +1,5 @@
 let campoTags;
+let selecaoAntiga;
 const TAGS_REMOVIVEIS = [
   "rt_titulo",
   "rt_citacao"
@@ -35,11 +36,11 @@ async function iniciarCriacaoPublicacao() {
     capaPostagemInput.addEventListener("input", input_capa);
     await carregarHTMLCP("inserirImagem", "/nova_imagem", "popUpNovaImagemStyle.css", "popupNovaImagemLogic.js");
 
-    const botaoImagem = document.getElementById("pic");
     const botaoPublicar = document.getElementById("botaoPublicar")
 
 
     pic.addEventListener("click", function () {
+        selecaoAntiga = window.getSelection()
         const blur_nova_imagem = document.getElementById("blur_nova_imagem");
         const container_nova_imagem = document.getElementById("container_nova_imagem");
         blur_nova_imagem.style.display = "inline";
@@ -69,9 +70,15 @@ async function adicionarTag() {
 
 async function publicarDocumento(finalizada) {
     const textoPublicacao = document.getElementById("textoPublicacao");
+    const imagens = textoPublicacao.querySelectorAll("img")
 
+    imagens.forEach((i) => {
+        i.src = "";
+    })
+
+        const campoTextoPostagem = textoPublicacao.innerHTML;
     const campoTituloPostagem = document.getElementById("campoTitulo");
-    const campoTextoPostagem = textoPublicacao.innerHTML;
+
 
     let canva = document.getElementById("capaPostagemPreview");
     let campoImagem = canva.src;

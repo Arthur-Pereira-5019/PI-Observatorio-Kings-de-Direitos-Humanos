@@ -62,7 +62,9 @@ window.iniciarPopupNovaImagem = function () {
                 img.classList.add("rt_imagem");
                 img.textContent = "";
                 img.src = canva.src
-                inserirElemento(img, window.getSelection())
+                console.log(selecaoAntiga);
+                img.dataset.db_id = data.idImagem;
+                inserirElemento(img, selecaoAntiga)
             })
             .catch(err => console.error(err));
     }

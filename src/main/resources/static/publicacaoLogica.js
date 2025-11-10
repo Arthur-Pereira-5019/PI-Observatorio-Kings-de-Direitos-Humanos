@@ -24,7 +24,7 @@ async function iniciarPublicacao() {
         const data = await response.text()
         const novoObjeto = document.createElement("div");
         document.body.appendChild(novoObjeto)
-        novoObjeto.innerHTML = data;
+        novoObjeto.innerHTML = data.querySelectorAll("img").forEach((i) => {});
 
         if (cssFile) {
             anexarCss(cssFile)
