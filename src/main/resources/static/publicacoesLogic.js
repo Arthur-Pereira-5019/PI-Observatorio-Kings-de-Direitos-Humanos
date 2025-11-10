@@ -100,6 +100,7 @@ async function iniciarPublicacoes() {
                 if (data.resultado.length === 0) {
                     primeiroPost.querySelector('.container-baixo').remove()
                     alert("Nenhum resultado encontrado!")
+                    btnLonge.textContent = paginaAtual();
                     if (busca != "") {
                         inputBusca.value = ""
                         gerarPublicacoes()
