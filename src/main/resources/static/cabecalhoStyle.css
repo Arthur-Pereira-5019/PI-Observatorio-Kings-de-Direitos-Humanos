@@ -83,7 +83,7 @@ body {
     height: 100vh;
     width: 20vw;
     padding: 2%;
-    gap: 8%;
+    gap: 6.5%;
     flex-direction: column;
     border-right: 1px solid black;
     z-index: 1;
@@ -93,7 +93,8 @@ body {
 
 .item-menu-lateral {
     height: 7%;
-    width: 100%;
+    min-width: 100%;
+    width: fit-content;
     display: flex;
     cursor: pointer;
     font-size: 2.5rem;
@@ -110,4 +111,8 @@ body {
 
 .icon-item-menu-lateral {
     height: 100%;
+}
+
+#btnSair {
+    display: none;
 }

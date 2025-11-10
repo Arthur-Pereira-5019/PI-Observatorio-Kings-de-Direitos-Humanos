@@ -15,6 +15,7 @@ async function iniciarCabecalho() {
     btnApoio = document.getElementById("btnApoio");
     btnSobre = document.getElementById("btnSobre");
     btnContato = document.getElementById("btnContato");
+    btnSair = document.getElementById("btnSair");
 
     menuLateral = document.getElementById("parte-geral-menu-lateral");
     barraPesquisa = document.getElementById('campoPesquisa');
@@ -63,6 +64,11 @@ async function iniciarCabecalho() {
         window.location.href = "http://localhost:8080";
     })
 
+    btnSair.addEventListener("click", function () {
+            const dataVelha = new Date(0).toUTCString();
+            let cookieString = `jwt=; expires=${dataVelha}; path=/;`;
+            document.cookie = cookieString;
+    })
 
 
     fetch("http://localhost:8080/api/user/apresentar", {
@@ -82,6 +88,7 @@ async function iniciarCabecalho() {
             if (data.fotoDePerfil != null) {
                 pic.src = "data:image/" + data.fotoDePerfil.tipoImagem + ";base64," + data.fotoDePerfil.imagem;
             }
+            document.querySelector("#btnSair").style.display = "flex";
         })
 }
 document.addEventListener("DOMContentLoaded", iniciarCabecalho)

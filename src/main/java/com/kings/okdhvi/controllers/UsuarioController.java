@@ -114,7 +114,7 @@ public class UsuarioController {
         cookie.setHttpOnly(true);
         cookie.setSecure(true);
         cookie.setPath("/");
-        cookie.setMaxAge(1209600);
+        cookie.setMaxAge(pl.lembrar() ? 3628800 : 86400);
         response.addCookie(cookie);
 
         return ResponseEntity.ok("Logado com sucesso!");

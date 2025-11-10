@@ -45,12 +45,15 @@ async function iniciarPopupLogin() {
     const botaoAcesso = document.getElementById("botao-acessar");
     const campoSenha = document.getElementById("campoSenha");
     const campoEmail = document.getElementById("campoEmail");
+    const lembrar = document.querySelector(".checkbox")
 
     if (botaoAcesso) {
         botaoAcesso.addEventListener("click", () => {
+            console.log(botaoAcesso.checked)
             const novoPost = {
                 senha: campoSenha.value,
-                email: campoEmail.value
+                email: campoEmail.value,
+                lembrar: lembrar.checked
             };
 
             fetch("http://localhost:8080/api/user/login", {
@@ -59,8 +62,12 @@ async function iniciarPopupLogin() {
                 body: JSON.stringify(novoPost)
             })
                 .then(res => {
-                    if (!res.ok) throw new Error("Erro no servidor");
+                    if (!res.ok) {
+                        alert("Login ou senha inválidos!")
+                    } else {
                     window.location.reload();
+
+                    }
                 })
                 .catch(err => console.error(err));
         });
