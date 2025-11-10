@@ -31,12 +31,60 @@ async function iniciarPerfil() {
 
         const btnAtvUser = document.getElementById("btnAtvUser")
         const btnAddCargo = document.getElementById("btnAddCargo")
-       
-        if(data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMINISTRADOR" || data.estadoDaConta == "ESPECIALISTA"){
+
+        if (data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMINISTRADOR" || data.estadoDaConta == "ESPECIALISTA") {
             btnAtvUser.style.display = "flex"
             btnAddCargo.style.display = "flex"
         }
-        
+
+        async function gerarPublicacoes() {
+            fetch("http://localhost:8080/api/postagem/usuario/" + id, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error("Erro no servidor");
+                    return res.json();
+                })
+                .then(data => {
+                    const primeiroPost = document.querySelector('.container-geral-publicacoes');
+                    const containerGeral = document.getElementById("container-lista");
+
+                    if (data.length === 0) {
+                        primeiroPost.querySelector('.container-baixo').remove()
+                    } else {
+                        data.forEach((post, index) => {
+                            if (index == 0) {
+                                construirPublicacao(primeiroPost, post)
+                            } else {
+                                const novoPost = primeiroPost.cloneNode(true);
+                                containerGeral.appendChild(novoPost)
+                                construirPublicacao(novoPost, post)
+                            }
+                        });
+                    }
+
+                })
+                .catch(err => console.error(err));
+
+            function construirPublicacao(publicacao, dados) {
+                publicacao.querySelector(".titulo-publicacao").textContent = dados.titulo
+                publicacao.querySelector(".autor").textContent = dados.autor
+                publicacao.querySelector(".data").textContent = dados.data
+                publicacao.querySelector(".paragrafo").innerHTML = dados.texto
+                if (dados.capa.imagem == "" || dados.capa.tipoImagem) {
+                    publicacao.querySelector(".imagem").src = "/imagens/publicacao.png";
+                } else {
+                    publicacao.querySelector(".imagem").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
+                }
+                publicacao.addEventListener("click", function () {
+                    window.location.href = "http://localhost:8080/publicacao/" + dados.idPostagem
+                })
+            }
+        }
+
+        gerarPublicacoes()
+
 
     } catch (error) {
         console.error('Erro:', error);

@@ -39,6 +39,10 @@ html {
     font-family: "Inter", sans-serif;
 }
 
+.rt_imagem {
+    resize: both;
+}
+
 #elementosEdicao * {
     width: 3%
 }

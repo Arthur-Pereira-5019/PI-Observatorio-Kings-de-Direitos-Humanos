@@ -95,7 +95,6 @@ async function iniciarPublicacoes() {
                 const primeiroPost = document.querySelector('.container-geral-publicacoes');
                 const barra = document.querySelector('.container-linha');
                 const containerGeral = document.getElementById("container-lista");
-                console.log(data);
                 
                 if (data.resultado.length === 0) {
                     primeiroPost.querySelector('.container-baixo').remove()

@@ -32,8 +32,10 @@ public class PostagemController {
     PostagemMapper pm;
 
     @GetMapping("/usuario/{id}")
-    public List<Postagem> encontrarPeloUsuario(@PathVariable Long id) {
-        return ps.encontrarPeloUsuario(id);
+    public List<PostagemECDTO> encontrarPeloUsuario(@PathVariable Long id) {
+        ArrayList<PostagemECDTO> posts = new ArrayList<>();
+        ps.encontrarPeloUsuario(id).forEach(p -> {posts.add(pm.parsePostagemToECDTO(p));});
+        return posts;
     }
 
     @PreAuthorize("hasRole('ROLE_ESPEC')")
