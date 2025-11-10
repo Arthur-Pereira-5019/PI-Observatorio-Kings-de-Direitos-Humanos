@@ -1,98 +1,178 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-            rel="stylesheet">
+        <title>Nova Publicação</title>
+
+        <link rel="stylesheet" href="criacaoPublicacaoStyle.css">
+    </head>
+
+    <body>
 
         <style>
-            *{
-            margin:0;
-            box-sizing: border-box;
-            font-family: "Inter", sans-serif;
-        }
+
+html {
+    overflow-x: hidden;
+    margin: 0;
+    width: 100vw;
+    height: auto;
+}
+
+#container-criacao-publicacao {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 64%;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+    gap: 1vh;
+    height: auto;
+    padding-bottom: 2vh;
+
+}
+
+#titulo {
+    font-weight: 800;
+    font-size: 42px;
+    color: darkred;
+    align-self: center;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+    font-family: "Inter", sans-serif;
+}
+
+
+#campoTitulo {
+    background-color: lightgray;
+    border-radius: 10em;
+    width: 100%;
+    height: 4vh;
+    padding-left: 6px;
+}
+
+
+#textoPublicacao {
+    background-color: lightgray;
+    border: 1px solid black;
+    width: 100%;
+    overflow-wrap: break-word;
+    min-height: 40vh;
+    white-space: pre-wrap;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    font-family: "Inter", sans-serif;
+    font-size: 18.667;
+}
+
+#textoPublicacao>* {
+    width: 100%;
+}
+
+#botoes {
+    display: flex;
+    flex-direction: row;
+    gap: 22vw
+}
+
+#botoes * {
+    border-radius: 20em;
+    margin: 14px;
+    padding: 8px;
+}
+
+#campoTags {
+    background-color: lightgray;
+    width: 100%;
+    border-radius: 20em;
+    padding-left: 5px;
+
+}
+
+.textoBase {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 24px;
+}
+
+#elementosEdicao img {
+    height: 100%;
+    width: 100%;
+}
+
+#botaoCancelar {
+    background-color: rgb(255, 255, 255);
+    color: rgb(178, 0, 0);
+    border: 2px rgb(255, 255, 255) solid;
+}
+
+#botaoPublicar {
+    background-color: rgb(0, 213, 255);
+    color: rgb(255, 255, 255);
+    border: 2px rgb(0, 81, 139) solid;
+}
+
+#posPopUp {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+#posPopUpLogin {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+</style>
+
+        <div id="header"></div>
+        <div id="fundoImagem">
+            <div id="inserirImagem"></div>
+        </div>
+        <div id="container-criacao-publicacao">
+            <p id="titulo">Novo Forum</p>
+            <p class="textoBase">Título:</p>
+            <input id="campoTitulo">
+
+                <p class="textoBase">Texto:</p>
+                <textarea id="textoPublicacao">
+                </textarea>
         
-        body{
-            background-color: burlywood;
-        }
 
-        .fundo-popup-novo-forum{
-            position: absolute;
-            transform:translate(-50%,-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 2.5rem;
-            height: 35vh;
-            width: 65vw;
-            top: 50%;
-            left: 50%;
-            border-radius: 1rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            border: solid 2px #C00003;
-            background-color: white;
-            justify-content: flex-start;
-            align-items: center;
-            overflow: hidden;
-        }
+            <div id="botoes">
+                <button id="botaoCancelar">Cancelar</button>
+                <button id="botaoPublicar">Publicar</button>
+            </div>
 
-        .popup-novo-forum-titulo{
-            background-color: #C00003;
-            width: 100%;
-            height: auto;
-            display: flex;
-            padding: 1%;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.6rem;
-            color: white;
-            font-weight: 700;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
+            
+        </div>
 
-        #label-titulo-forum-novo{
-            width: 80%;
-            height: 6vh;
-            background-color: #DFDEDE;
-            border-radius: 20px;
-            border: solid 2px #8D0028;
-            font-size: 24px;
-            padding: 2%;
-            font-weight: lighter;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        #botao-criar-novo-forum{
-            width: 20%;
-            height: 8vh;
-            background-color: #8D0028;
-            color: white;
-            font-weight: 700;
-            cursor: pointer;
-            border-radius: 20px;
-            font-size: 3rem;
-            border: transparent;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        #botao-criar-novo-forum:hover{
-            background-color: #E0272A;
-        }
-        
-        </style>
-
-    </head>
-    <body>
-        <div class="fundo-popup-novo-forum">
-
-            <div class="popup-novo-forum-titulo">Novo Forum</div>
-            <input type="text" id="label-titulo-forum-novo" placeholder="Titulo do novo Forum">
-            <button id="botao-criar-novo-forum">Criar</button>
+        <div id="posPopUp">
+            <div id="registro"></div>
 
         </div>
 
+        <div id="posPopUpLogin">
+            <div id="login"></div>
+        </div>
+        <div id="footer"></div>
+
     </body>
+    <script src="includeHtmlExterno.js" defer></script>
+    <script src="criacaoPublicacaoLogic.js" defer></script>
+
 </html>
