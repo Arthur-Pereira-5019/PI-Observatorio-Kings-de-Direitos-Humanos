@@ -24,7 +24,7 @@
             display: flex;
             flex-direction: column;
             gap: 4%;
-            height: 75vh;
+            height: 80vh;
             width: 21vw;
             border-radius: 1rem;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
@@ -37,7 +37,6 @@
             transform: translate(-50%, -50%);
             top:50%;
             left: 50%;
-
         }
 
         .popup-requisitar-titulo{
@@ -47,7 +46,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.6rem;
+            font-size: 1.9rem;
             color: white;
             font-weight: 700;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);

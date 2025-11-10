@@ -34,7 +34,7 @@
      align-items: center;
      margin: 0;
      padding: 0;
-     width: 620px;
+     width: 40%;
      cursor: pointer;
  }
 
@@ -50,7 +50,8 @@
      overflow: hidden;
      text-overflow: ellipsis;
      line-height: 1.2;
-     max-width: 620px;
+     max-width: 100%;
+     color: #C00003
  }
 
  .botao-seta {
@@ -60,7 +61,7 @@
  }
 
  .noticia {
-     width: 620px;
+     width: 100%;
      aspect-ratio: 16/9;
  }
 

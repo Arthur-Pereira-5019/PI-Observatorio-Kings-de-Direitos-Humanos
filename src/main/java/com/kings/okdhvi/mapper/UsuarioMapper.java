@@ -3,6 +3,7 @@ package com.kings.okdhvi.mapper;
 import com.kings.okdhvi.model.DTOs.UsuarioApreDTO;
 import com.kings.okdhvi.model.DTOs.UsuarioComDTO;
 import com.kings.okdhvi.model.DTOs.UsuarioForDTO;
+import com.kings.okdhvi.model.DTOs.UsuarioPDTO;
 import com.kings.okdhvi.model.Usuario;
 import org.springframework.stereotype.Service;
 
@@ -31,4 +32,20 @@ public class UsuarioMapper {
         ufdto.setId(u.getIdUsuario());
         ufdto.setEstadoDaConta(u.getEstadoDaConta());
         return ufdto;
-    }}
+    }
+
+    public UsuarioPDTO usuarioPagina(Usuario u, Long idRequisitor) {
+        UsuarioPDTO updto = new UsuarioPDTO();
+        updto.setFotoDePerfil(u.getFotoDePerfil());
+        updto.setNome(u.getNome());
+        updto.setIdUsuario(u.getIdUsuario());
+        updto.setEstadoDaConta(u.getEstadoDaConta());
+        if(idRequisitor.equals(u.getIdUsuario())) {
+            updto.setProprio(true);
+        }
+        return updto;
+    }
+
+
+}
+

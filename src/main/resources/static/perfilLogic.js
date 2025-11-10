@@ -19,7 +19,7 @@ async function iniciarPerfil() {
         });
 
         if (!response.ok) {
-            throw new Error('Erro na requisição');
+            window.location.pathname = "/telaInexistente"
         }
 
         const data = await response.json();
@@ -28,14 +28,24 @@ async function iniciarPerfil() {
         const cargoAtual = document.getElementById(data.estadoDaConta)
         cargoAtual.style.display = "flex"
 
-
         const btnAtvUser = document.getElementById("btnAtvUser")
+        const btnRequisitar = document.getElementById("btnRequisitar")
+        const btnConfigUser = document.getElementById("btnConfigUser")
         const btnAddCargo = document.getElementById("btnAddCargo")
 
-        if (data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMINISTRADOR" || data.estadoDaConta == "ESPECIALISTA") {
+        if(data.proprio == false) {
+            btnConfigUser.remove()
+            btnRequisitar.remove()
+        }
+
+        if (data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMINISTRADOR") {
             btnAtvUser.style.display = "flex"
             btnAddCargo.style.display = "flex"
         }
+
+        btnAddCargo.addEventListener("click",function() {
+
+        })
 
         async function gerarPublicacoes() {
             fetch("http://localhost:8080/api/postagem/usuario/" + id, {
@@ -68,7 +78,11 @@ async function iniciarPerfil() {
                 .catch(err => console.error(err));
 
             function construirPublicacao(publicacao, dados) {
-                publicacao.querySelector(".titulo-publicacao").textContent = dados.titulo
+                novoT = dados.titulo
+                if(novoT.length > 32) {
+                    novoT = novoT.substring(0,32) + "..."
+                }
+                publicacao.querySelector(".titulo-publicacao").textContent = novoT
                 publicacao.querySelector(".autor").textContent = dados.autor
                 publicacao.querySelector(".data").textContent = dados.data
                 publicacao.querySelector(".paragrafo").innerHTML = dados.texto
@@ -82,6 +96,8 @@ async function iniciarPerfil() {
                 })
             }
         }
+
+        
 
         gerarPublicacoes()
 

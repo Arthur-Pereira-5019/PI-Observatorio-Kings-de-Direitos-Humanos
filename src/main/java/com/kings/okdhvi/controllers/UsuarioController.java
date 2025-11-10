@@ -2,14 +2,11 @@ package com.kings.okdhvi.controllers;
 
 import com.kings.okdhvi.infra.security.TokenService;
 import com.kings.okdhvi.mapper.UsuarioMapper;
+import com.kings.okdhvi.model.DTOs.*;
 import com.kings.okdhvi.model.Imagem;
 import com.kings.okdhvi.model.PedidoDeTitulacaoDTO;
 import com.kings.okdhvi.model.PedidoExclusaoConta;
-import com.kings.okdhvi.model.DTOs.AdicionarCargoRequest;
-import com.kings.okdhvi.model.DTOs.PedidoLogin;
 import com.kings.okdhvi.model.Usuario;
-import com.kings.okdhvi.model.DTOs.UsuarioADTO;
-import com.kings.okdhvi.model.DTOs.UsuarioApreDTO;
 import com.kings.okdhvi.services.UsuarioService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,10 +25,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/user")
 
 public class UsuarioController {
-
-    //AuthenticationPrincipal UserDetails user
-    //Long userId = user.getId();
-
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -48,7 +41,11 @@ public class UsuarioController {
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public Usuario encontrarUsuarioLogado(@AuthenticationPrincipal UserDetails ud) {
-        return us.encontrarPorId(us.buscarId(ud), false);
+        Long idBusca = null;
+        if(ud != null) {
+            idBusca = us.buscarId(ud);
+        }
+        return us.encontrarPorId(idBusca, false);
     }
 
     @GetMapping(value = "apresentar", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -57,8 +54,12 @@ public class UsuarioController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Usuario encontrarUsuarioPeloId(@PathVariable("id") Long id) {
-        return us.encontrarPorId(id, false);
+    public UsuarioPDTO encontrarUsuarioPeloId(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails ud) {
+        Long idLogado = null;
+        if(ud != null) {
+            idLogado = us.buscarId(ud);
+        }
+        return um.usuarioPagina(us.encontrarPorId(id, false), idLogado);
     }
 
 
