@@ -70,7 +70,8 @@ async function iniciarPublicacao() {
             let imgs;
             elementoSurpresa.innerHTML = data.textoPostagem;
             imgs = elementoSurpresa.querySelectorAll("img");
-            for (const i of imgs) {                
+            for (const i of imgs) {
+                console.log(i);
                 i.src = await carregarSrc(i.dataset.db_id);
             }
             texto.innerHTML = elementoSurpresa.innerHTML;
@@ -250,18 +251,22 @@ async function iniciarPublicacao() {
     }
 
     async function carregarSrc(id) {
-        fetch("http://localhost:8080/api/imagem/" + id, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
-        })
-            .then(res => {
-                if (!res.ok) throw new Error("Erro no servidor");
-                return res.json();
+        try {
+            let response = await fetch("http://localhost:8080/api/imagem/" + id, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
             })
-            .then(data => {
-                return data.imagem;
-            })
-            .catch(err => console.error(err));
+            if (!response.ok) throw new Error("Erro no servidor");
+
+            let data = await response.json();
+
+            console.log(data.imagem)
+
+            return "data:image/" + data.tipoImagem + ";base64," + data.imagem;
+        } catch (err) {
+            console.error(err);
+            return null;
+        };
     }
 }
 
