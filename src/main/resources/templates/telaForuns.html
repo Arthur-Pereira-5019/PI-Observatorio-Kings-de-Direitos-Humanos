@@ -15,12 +15,8 @@
             box-sizing: border-box;
             font-family: "Inter", sans-serif;
         }
-        body{
-            padding: 2%;
-        }
-
-        /* Visão geral da pagina */
-
+        
+        
         .container-universal-tela-foruns{
             height: 100%;
             width: 100%;
@@ -184,6 +180,8 @@
     </head>
     <body>
 
+        <div id="header"></div>
+
         <div class="container-universal-tela-foruns">
 
             <div class="titulo-tela-foruns">Fóruns</div>
@@ -215,6 +213,10 @@
                 
             </div>
 
+            <div class="container-posicao-botao-tela-foruns">
+                <div id="botao-addForum-tela-foruns"><img src="./imagens/mais-branco.png" id="mais" alt=""></div>
+
+            </div>
             
             <div class="container-seletores">
                 <button class="bloquinhos" id="botaoesquerdo">&lt;</button>
@@ -226,11 +228,13 @@
                 <button class="bloquinhos" id="botaodireito">&gt;</button>
             </div>
 
-            <div class="container-posicao-botao-tela-foruns">
-                <div id="botao-addForum-tela-foruns"><img src="./imagens/mais-branco.png" id="mais" alt=""></div>
-
-            </div>
-
+            
         </div>
+
+        <div id="footer"></div>
+
+        <script src="forumLogica.js"></script>
+        <script src="includeHtmlExterno.js"></script>
+
     </body>
 </html>
