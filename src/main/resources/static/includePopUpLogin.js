@@ -45,7 +45,7 @@ async function iniciarPopupLogin() {
     const botaoAcesso = document.getElementById("botao-acessar");
     const campoSenha = document.getElementById("campoSenha");
     const campoEmail = document.getElementById("campoEmail");
-    const lembrar = document.querySelector(".checkbox")
+    const lembrar = document.querySelector(".checkLembrar")
 
     if (botaoAcesso) {
         botaoAcesso.addEventListener("click", () => {

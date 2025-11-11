@@ -86,11 +86,18 @@ async function iniciarPopupRegistro() {
     const inputCpfRegistro = document.getElementById("inputCpfRegistro");
     const inputEmailRegistro = document.getElementById("inputEmailRegistro");
     const inputDataNascRegistro = document.getElementById("inputDataNascRegistro");
+    const checkAceitar = document.querySelector(".checkAceitar");
 
     if (registerButton) {
         registerButton.addEventListener("click", () => {
-            if (senhaInputRegistro.value !== confSenhaInputRegistro.value) return;
-
+            if (senhaInputRegistro.value !== confSenhaInputRegistro.value) {
+                alert("As senhas não são iguais!")
+                return;
+            }
+            if(!checkAceitar.checked) {
+                alert("Aceite nossos termos de uso!")
+            }
+            console.log("borabil")
             const novoPost = {
                 nome: inputNomeRegistro.value,
                 senha: senhaInputRegistro.value,
@@ -106,7 +113,9 @@ async function iniciarPopupRegistro() {
                 body: JSON.stringify(novoPost)
             })
                 .then(res => {
-                    if (!res.ok) throw new Error("Erro no servidor");
+                    if (!res.ok) {
+                        return res.json();
+                    }
                     inputNomeRegistro.value = "";
                     senhaInputRegistro.value = "";
                     confSenhaInputRegistro.value = "";
@@ -115,6 +124,8 @@ async function iniciarPopupRegistro() {
                     inputEmailRegistro.value = "";
                     inputDataNascRegistro.value = "";
                     window.location.reload()
+                }).then(data => {
+                    alert(data.mensagem)
                 })
                 .catch(err => console.error(err));
         });
