@@ -141,9 +141,12 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/requisitar_exclusao")
-    public PedidoExclusaoConta requisitarExclusao(@AuthenticationPrincipal UserDetails user, @RequestBody ExcluirUsuarioDTO eudto) {
-        Long idR = us.buscarId(user);
-        return us.requisitarExclusao(us.buscarId(user));
+    public PedidoExclusaoConta requisitarExclusao(@AuthenticationPrincipal UserDetails ud, @RequestBody ExcluirUsuarioDTO eudto) {
+        Usuario u = us.encontrarPorId(us.buscarId(ud),true);
+        var usernamePassword = new UsernamePasswordAuthenticationToken(u.getEmail(), eudto.senha());
+        this.authenticationManager.authenticate(usernamePassword);
+
+        return us.requisitarExclusao(u, eudto);
     }
 
     @GetMapping("/logout")

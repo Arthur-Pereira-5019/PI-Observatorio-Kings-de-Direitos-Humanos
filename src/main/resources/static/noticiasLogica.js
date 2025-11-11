@@ -83,7 +83,6 @@ async function iniciarNoticias() {
                 const primeiroPost = document.getElementById('noticiaBase');
                 const containerDireita = document.getElementById("noticias-direita");
                 const containerEsquerda = document.getElementById("noticias-esquerda");
-                console.log(data);
                 
                 if (data.length === 0) {
                     primeiroPost.remove()

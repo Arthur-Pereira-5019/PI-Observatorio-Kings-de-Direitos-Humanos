@@ -4,10 +4,7 @@ import com.kings.okdhvi.exception.NullResourceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.usuario.*;
 import com.kings.okdhvi.model.*;
-import com.kings.okdhvi.model.DTOs.AdicionarCargoRequest;
-import com.kings.okdhvi.model.DTOs.CriarImagemRequest;
-import com.kings.okdhvi.model.DTOs.UsuarioADTO;
-import com.kings.okdhvi.model.DTOs.UsuarioApreDTO;
+import com.kings.okdhvi.model.DTOs.*;
 import com.kings.okdhvi.repositories.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -76,8 +73,8 @@ public class UsuarioService {
     }
 
     @Transactional
-    public PedidoExclusaoConta requisitarExclusao(Long id) {
-        Usuario u = encontrarPorId(id, false);
+    public PedidoExclusaoConta requisitarExclusao(Usuario usuario, ExcluirUsuarioDTO eudto) {
+        Usuario u = encontrarPorId(usuario.getIdUsuario(), false);
         PedidoExclusaoConta pecExistente = u.getPedidoExclusao();
         if(pecExistente != null) {
             pecs.deletarPedidoDeExclusaoPeloId(pecExistente.getId());
