@@ -282,16 +282,16 @@ public class UsuarioService {
     }
 
     public void verificarSenha(String senha) {
-        if(!(senha.matches(".*[a-z]|[a-z].*"))) {
+        if(!(senha.matches(".*[a-z].*|.*[a-z]|[a-z].*"))) {
             throw new InvalidPasswordException("A senha deve conter letras minúsculas!");
         }
-        if(!(senha.matches(".*[A-Z]|[A-Z].*"))) {
+        if(!(senha.matches(".*[A-Z].*|.*[A-Z]|[A-Z].*"))) {
             throw new InvalidPasswordException("A senha deve conter pelo menos uma letra maiúscula!");
         }
-        if(!(senha.matches(".*[0-9]|[0-9].*"))) {
+        if(!(senha.matches(".*[0-9].*|.*[0-9]|[0-9].*"))) {
             throw new InvalidPasswordException("A senha deve conter pelo menos um número!");
         }
-        if(!(senha.matches(".*\\W|\\W.*"))) {
+        if(!(senha.matches(".*\\W.*|.*\\W|\\W.*"))) {
             throw new InvalidPasswordException("A senha deve conter pelo menos um caracter especial!");
         }
         if (!senha.matches(senhaRegex)) {

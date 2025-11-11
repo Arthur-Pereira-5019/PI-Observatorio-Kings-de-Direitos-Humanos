@@ -66,7 +66,7 @@ async function iniciarCabecalho() {
 
     btnSair.addEventListener("click", async function () {
         await logout();
-        window.location.reload;
+        window.location.reload();
     })
 
 
