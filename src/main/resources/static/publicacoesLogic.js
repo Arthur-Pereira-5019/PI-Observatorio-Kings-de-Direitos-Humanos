@@ -4,9 +4,12 @@ let btnEsquerdo;
 let btnLonge;
 let btnPrimeiro;
 let btnCampo;
+let limite = true;
 
 async function iniciarPublicacoes() {
     consertarUrl()
+
+
 
     inputBusca = document.getElementById("campoPesquisa")
     botaoNovaPostagem = document.getElementById("botao-moderador")
@@ -23,7 +26,7 @@ async function iniciarPublicacoes() {
                 campoModerador.style.display = "flex"
                 botaoNovaPostagem.style.display = "flex";
                 botaoNovaPostagem.addEventListener("click", function () {
-                    window.location.href = "http://localhost:8080/nova_publicacao";
+                    window.location.pathname = "nova_publicacao";
                 })
             }
 
@@ -32,12 +35,22 @@ async function iniciarPublicacoes() {
 
     btnDireito = document.getElementById("botaodireito");
     btnDireito.addEventListener("click", function () {
-        moverUrl(1)
+        if (!limite) {
+            moverUrl(1)
+        }
     })
     btnEsquerdo = document.getElementById("botaoesquerdo");
+
+
     btnEsquerdo.addEventListener("click", function () {
         moverUrl(-1)
     })
+    const url = window.location.href;
+    const partes = url.split('/');
+    if (partes.pop() == 0) {
+        btnEsquerdo.remove()
+    }
+
 
     btnAtual = document.getElementById("botaoatual");
     btnAtual.textContent = paginaAtual()
@@ -95,17 +108,25 @@ async function iniciarPublicacoes() {
                 const primeiroPost = document.querySelector('.container-geral-publicacoes');
                 const barra = document.querySelector('.container-linha');
                 const containerGeral = document.getElementById("container-lista");
-                
+
                 if (data.resultado.length === 0) {
                     primeiroPost.querySelector('.container-baixo').remove()
+                    console.log(window.location.pathname)
                     alert("Nenhum resultado encontrado!")
                     btnLonge.textContent = paginaAtual();
-                    if (busca != "") {
-                        inputBusca.value = ""
-                        gerarPublicacoes()
+                    let path = window.location.pathname
+                    if (path != "/publicacoes/%20/0") {
+                        path = "/publicacoes/ /0"
                     }
+                    limite = true;
+                    
+                    btnDireito.remove()
                 } else {
                     btnLonge.textContent = paginaAtual() + data.proximosIndexes % 10;
+                    if (Number(paginaAtual()) + 1 == Number(btnLonge.textContent)) {
+                        limite = true;
+                        btnDireito.remove()
+                    }
                     data.resultado.forEach((post, index) => {
                         if (index == 0) {
                             construirPublicacao(primeiroPost, post)
@@ -122,6 +143,8 @@ async function iniciarPublicacoes() {
             })
             .catch(err => console.error(err));
 
+
+
         function construirPublicacao(publicacao, dados) {
             publicacao.querySelector(".titulo-publicacao").textContent = dados.titulo
             publicacao.querySelector(".autor").textContent = dados.autor
@@ -137,9 +160,9 @@ async function iniciarPublicacoes() {
             })
         }
     }
-
-
     gerarPublicacoes();
+
+
 }
 
 async function moverUrl(d) {
