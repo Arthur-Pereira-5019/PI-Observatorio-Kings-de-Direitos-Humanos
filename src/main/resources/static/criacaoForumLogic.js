@@ -7,10 +7,20 @@ const textoPublicacao = document.getElementById("textoPublicacao")
 
 btnPublicarForum.addEventListener("click", function(){
     
-    const novoPost = {
+    
+    let novoPost
+
+    if(campoTitulo.value.trim() !== "" && textoPublicacao.value.trim() !== ""){
+
+        novoPost = {
         tituloForum: campoTitulo.value,
         textoForum: textoPublicacao.value,
+        }
         
+    }else{
+        alert("Preencha todos os campos!")
+        return
+
     }
 
     fetch("http://localhost:8080/api/forum", {

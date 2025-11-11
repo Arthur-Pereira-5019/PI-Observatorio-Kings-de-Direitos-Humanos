@@ -65,17 +65,11 @@ const requestBody = {
             .catch(err => console.error(err));
 
         function construirPublicacao(publicacao, dados) {
-            publicacao.querySelector(".titulo-publicacao").textContent = dados.titulo
+            publicacao.querySelector(".tituloForum").textContent = dados.titulo
             publicacao.querySelector(".autor").textContent = dados.autor
-            publicacao.querySelector(".data").textContent = dados.data
-            publicacao.querySelector(".paragrafo").innerHTML = dados.texto
-            if (dados.capa.imagem == "" || dados.capa.tipoImagem) {
-                publicacao.querySelector(".imagem").src = "/imagens/publicacao.png";
-            } else {
-                publicacao.querySelector(".imagem").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
-            }
+            publicacao.querySelector(".dataForum").textContent = dados.data
             publicacao.addEventListener("click", function () {
-                window.location.href = "http://localhost:8080/publicacao/" + dados.idPostagem
+                window.location.href = "http://localhost:8080/forum/" + dados.idPostagem
             })
         }
     }
