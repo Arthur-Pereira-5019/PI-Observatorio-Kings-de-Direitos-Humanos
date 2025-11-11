@@ -64,10 +64,8 @@ async function iniciarCabecalho() {
         window.location.href = "http://localhost:8080";
     })
 
-    btnSair.addEventListener("click", function () {
-            const dataVelha = new Date(0).toUTCString();
-            let cookieString = `jwt=; expires=${dataVelha}; path=/;`;
-            document.cookie = cookieString;
+    btnSair.addEventListener("click", async function () {
+        await logout();
     })
 
 
@@ -90,5 +88,15 @@ async function iniciarCabecalho() {
             }
             document.querySelector("#btnSair").style.display = "flex";
         })
+
+    async function logout() {
+        fetch("http://localhost:8080/api/user/logout", {
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Erro no servidor")
+
+            })
+    }
 }
-document.addEventListener("DOMContentLoaded", iniciarCabecalho)
+    document.addEventListener("DOMContentLoaded", iniciarCabecalho)

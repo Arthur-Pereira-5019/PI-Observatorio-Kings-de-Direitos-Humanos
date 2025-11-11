@@ -145,6 +145,18 @@ public class UsuarioController {
         return us.requisitarExclusao(us.buscarId(user));
     }
 
+    @GetMapping("/logout")
+    public ResponseEntity<?> logout(@AuthenticationPrincipal UserDetails ud, HttpServletResponse response) {
+        Cookie cookie = new Cookie("jwt", "");
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+
+        return ResponseEntity.ok("Deslogado com sucesso!");
+    }
+
 
 
 }
