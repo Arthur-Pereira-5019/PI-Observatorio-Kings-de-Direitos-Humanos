@@ -125,18 +125,21 @@ public class UsuarioService {
         return ur.save(u);
     }
 
-
-
-
     public Usuario atualizarUsuario (UsuarioADTO novo, Long id) {
         if(novo.equals(null)) {
             throw new NullResourceException("Usuário nulo submetido");
         }
         Usuario original = encontrarPorId(id, false);
-        original.setNome(novo.nome());
-        original.setTelefone(novo.telefone());
+        if(novo.nome() != null && !novo.nome().isBlank()) {
+            original.setNome(novo.nome());
+        }
+        if(novo.telefone() != null && !novo.telefone().isBlank()) {
+            original.setTelefone(novo.telefone());
+        }
+        if(novo.senha() != null && !novo.senha().isBlank()) {
+            original.setSenha(novo.senha());
+        }
         original.setNotificacoesPorEmail(novo.notificacoesPorEmail());
-        original.setSenha(novo.senha());
         validarDados(original, false);
         return ur.save(original);
     }
@@ -368,4 +371,7 @@ public class UsuarioService {
     }
 
 
+    public UsuarioADTO getConfigs(Usuario u) {
+        return new UsuarioADTO(u.getTelefone(), u.getNome(), u.getNotificacoesPorEmail(), null);
+    }
 }

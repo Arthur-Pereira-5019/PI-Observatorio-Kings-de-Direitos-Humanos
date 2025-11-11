@@ -50,8 +50,7 @@ async function iniciarExclusaoUser() {
             fundoPopupConfigUser.style.display = "flex"
 
         }else{
-            console.log("Campo de confirmação preenchido errado")
-
+            alert("Digite sua senha corretamente")
         }
 
     })

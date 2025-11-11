@@ -74,8 +74,9 @@ async function iniciarCabecalho() {
         headers: { 'Content-Type': 'application/json' },
     })
         .then(res => {
-            if (!res.ok) throw new Error("Erro no servidor");
-            return res.json();
+            if (res.ok) {
+                return res.json();
+            }
         })
         .then(data => {
             if (data.edc === "MODERADOR" || data.edc === "ADMINISTRADOR") {

@@ -1,5 +1,6 @@
 package com.kings.okdhvi.controllers;
 
+import com.kings.okdhvi.exception.NullResourceException;
 import com.kings.okdhvi.infra.security.TokenService;
 import com.kings.okdhvi.mapper.UsuarioMapper;
 import com.kings.okdhvi.model.DTOs.*;
@@ -51,7 +52,7 @@ public class UsuarioController {
     @GetMapping(value = "apresentar", produces = MediaType.APPLICATION_JSON_VALUE)
     public UsuarioApreDTO apresentarUsuarioLogado(@AuthenticationPrincipal UserDetails ud) {
         if(ud == null) {
-            return null;
+            throw new NullResourceException("Usuário não logado");
         }
         return um.apresentarUsuario(us.encontrarPorId(us.buscarId(ud), false));
     }
@@ -72,7 +73,6 @@ public class UsuarioController {
         return us.mockUsuario();
     }
 
-    @PreAuthorize("hasRole('ROLE_ESPEC')")
     @PutMapping(value = "/atualizarUsuario", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
     public Usuario atualizarUsuario(@RequestBody UsuarioADTO u, @AuthenticationPrincipal UserDetails user) {
         Long idRequisicao = us.buscarId(user);
@@ -140,8 +140,9 @@ public class UsuarioController {
         return ResponseEntity.ok("Registrado com sucesso!");
     }
 
-    @GetMapping("/requisitar_exclusao")
-    public PedidoExclusaoConta requisitarExclusao(@AuthenticationPrincipal UserDetails user) {
+    @DeleteMapping("/requisitar_exclusao")
+    public PedidoExclusaoConta requisitarExclusao(@AuthenticationPrincipal UserDetails user, @RequestBody ExcluirUsuarioDTO eudto) {
+        Long idR = us.buscarId(user);
         return us.requisitarExclusao(us.buscarId(user));
     }
 
@@ -155,6 +156,11 @@ public class UsuarioController {
         response.addCookie(cookie);
 
         return ResponseEntity.ok("Deslogado com sucesso!");
+    }
+
+    @GetMapping("/config")
+    public UsuarioADTO getConfigs(@AuthenticationPrincipal UserDetails ud) {
+        return us.getConfigs(us.encontrarPorId(us.buscarId(ud),true));
     }
 
 

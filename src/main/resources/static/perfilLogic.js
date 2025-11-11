@@ -36,12 +36,16 @@ async function iniciarPerfil() {
         if(data.proprio == false) {
             btnConfigUser.remove()
             btnRequisitar.remove()
+            if (data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMINISTRADOR") {
+                btnAtvUser.style.display = "flex"
+                btnAddCargo.style.display = "flex"
+            }
+        } else {
+            btnConfigUser.style.display = "flex"
+            btnRequisitar.remove = "flex"
         }
 
-        if (data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMINISTRADOR") {
-            btnAtvUser.style.display = "flex"
-            btnAddCargo.style.display = "flex"
-        }
+        
 
         if(data.fotoDePerfil != null) {
             let fotoB64 = data.fotoDePerfil.imagem
