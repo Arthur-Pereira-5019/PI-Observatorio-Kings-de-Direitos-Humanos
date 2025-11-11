@@ -111,12 +111,11 @@ async function iniciarPublicacoes() {
 
                 if (data.resultado.length === 0) {
                     primeiroPost.querySelector('.container-baixo').remove()
-                    console.log(window.location.pathname)
-                    alert("Nenhum resultado encontrado!")
                     btnLonge.textContent = paginaAtual();
                     let path = window.location.pathname
                     if (path != "/publicacoes/%20/0") {
-                        path = "/publicacoes/ /0"
+                        alert("Nenhum resultado encontrado!")
+                        window.location.pathname = "/publicacoes/ /0"
                     }
                     limite = true;
                     

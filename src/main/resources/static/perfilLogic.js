@@ -43,7 +43,12 @@ async function iniciarPerfil() {
             btnAddCargo.style.display = "flex"
         }
 
-        document.querySelector(".icon-user").src = "data:image/" + data.fotoDePerfil.tipoImagem + ";base64," + data.fotoDePerfil.imagem;
+        if(data.fotoDePerfil != null) {
+            let fotoB64 = data.fotoDePerfil.imagem
+            if(fotoB64 != "") {
+                document.querySelector(".icon-user").src = "data:image/" + data.fotoDePerfil.tipoImagem + ";base64," + fotoB64;
+            }
+        }
 
         btnAddCargo.addEventListener("click",function() {
 

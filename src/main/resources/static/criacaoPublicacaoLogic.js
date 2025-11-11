@@ -86,6 +86,7 @@ async function publicarDocumento(finalizada) {
     let fimPrefixo = campoImagem.indexOf(";")
     let inicioPrefixo = campoImagem.indexOf("/")
     prefixo = campoImagem.substring(inicioPrefixo, fimPrefixo);
+    console.log("prefixo")
 
     endPosition++;
     campoImagem = campoImagem.replace(campoImagem.substring(0, endPosition), "");
@@ -96,7 +97,6 @@ async function publicarDocumento(finalizada) {
         textoPostagem: campoTextoPostagem,
         tags: campoTags.value,
         publicada: finalizada,
-        tipoImagem: prefixo
     };
 
     fetch("http://localhost:8080/api/postagem", {
@@ -122,7 +122,7 @@ function input_capa() {
 
     const imagemSubmetida = entrada.files[0];
 
-    if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg")) {
+    if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg")  || imagemSubmetida.name.endsWith(".jpeg")) {
         const reader = new FileReader();
 
         reader.onload = (e) => {
