@@ -282,8 +282,20 @@ public class UsuarioService {
     }
 
     public void verificarSenha(String senha) {
+        if(!(senha.matches(".[a-z]") || senha.matches("[a-z]."))) {
+            throw new InvalidPasswordException("A senha deve conter letras minúsculas!");
+        }
+        if(!(senha.matches(".[A-Z]") || senha.matches("[A-Z]."))) {
+            throw new InvalidPasswordException("A senha deve conter pelo menos uma letra maiúscula!");
+        }
+        if(!(senha.matches(".[1-9]") || senha.matches("[1-9]."))) {
+            throw new InvalidPasswordException("A senha deve conter pelo menos um número!");
+        }
+        if(!(senha.matches(".\\W") || senha.matches("\\W."))) {
+            throw new InvalidPasswordException("A senha deve conter pelo menos um caracter especial!");
+        }
         if (!senha.matches(senhaRegex)) {
-            throw new InvalidPasswordException("Senha inválida!");
+            throw new InvalidPasswordException("A senha deve ter entre 8-64 dígitos!");
         }
     }
 

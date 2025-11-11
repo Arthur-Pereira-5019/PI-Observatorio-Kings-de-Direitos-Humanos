@@ -49,7 +49,6 @@ async function iniciarPopupLogin() {
 
     if (botaoAcesso) {
         botaoAcesso.addEventListener("click", () => {
-            console.log(botaoAcesso.checked)
             const novoPost = {
                 senha: campoSenha.value,
                 email: campoEmail.value,

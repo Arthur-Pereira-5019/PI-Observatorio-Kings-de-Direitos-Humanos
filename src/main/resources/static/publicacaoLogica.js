@@ -207,7 +207,7 @@ async function iniciarPublicacao() {
             })
             if (dados.autor.foto == null) {
                 imagem.src = "/imagens/perfilIconDark.png";
-            } else if (dados.autor.foto.imagem == "" || dados.autor.foto.tipoImagem == "") {
+            } else if (dados.autor.foto.imagem == "") {
                 imagem.src = "/imagens/perfilIconDark.png";
             } else {
                 imagem.src = "data:image/" + dados.autor.foto.tipoImagem + ";base64," + dados.autor.foto.imagem;

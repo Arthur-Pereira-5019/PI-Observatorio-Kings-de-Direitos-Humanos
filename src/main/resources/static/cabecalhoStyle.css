@@ -56,7 +56,7 @@ body {
 
 .perfil {
     width: 53px;
-    height: 1/1;
+    aspect-ratio: 1/1;
     cursor: pointer;
     margin-left: auto;
     border-radius: 100%;
