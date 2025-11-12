@@ -19,6 +19,7 @@ public class PedidoDeTitulacaoServices {
         return petr.save(pet);
     }
 
+
     public PedidoDeTitulacao encontrarPedidoDeTitulacao(Long id) {
         return petr.findById(id).orElseThrow(() -> new ResourceNotFoundException("Pedido de titulação não encontrado!"));
     }

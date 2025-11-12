@@ -79,7 +79,7 @@ async function iniciarPerfil() {
             btnRequisitar.style.display = "flex"
         } else if (data.proprio == 2) {
             btnAddCargo.style.display = "flex"
-            btnAtvUser.style.display = "fixed"
+            btnAtvUser.style.display = "flex"
             entrada.remove()
         } else {
             btnConfigUser.style.display = "flex"
