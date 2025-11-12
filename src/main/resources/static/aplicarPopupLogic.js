@@ -13,10 +13,6 @@ async function iniciarPopupAplicarCargo(url) {
 
     blur.addEventListener("click", sumir)
 
-    function getId() {
-        const url = window.location.href;
-        return url.substring(url.lastIndexOf('/') + 1)
-    }
 
     function sumir() {
         container_decisao.remove();
@@ -26,8 +22,7 @@ async function iniciarPopupAplicarCargo(url) {
     async function aplicar(url) {
         sumir();
         const requestBody = {
-            "motivacao": motivacao.value,
-            "id": getId()
+            "motivacao": motivacao.value
         }
 
         fetch(url, {

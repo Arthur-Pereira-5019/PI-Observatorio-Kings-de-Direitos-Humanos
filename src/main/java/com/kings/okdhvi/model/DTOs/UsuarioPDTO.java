@@ -11,7 +11,7 @@ public class UsuarioPDTO {
 
         private EstadoDaConta estadoDaConta;
 
-        private boolean proprio = false;
+        private Integer proprio = 0;
 
     public Long getIdUsuario() {
         return idUsuario;
@@ -45,11 +45,11 @@ public class UsuarioPDTO {
         this.estadoDaConta = estadoDaConta;
     }
 
-    public boolean isProprio() {
+    public Integer isProprio() {
         return proprio;
     }
 
-    public void setProprio(boolean proprio) {
+    public void setProprio(Integer proprio) {
         this.proprio = proprio;
     }
 }

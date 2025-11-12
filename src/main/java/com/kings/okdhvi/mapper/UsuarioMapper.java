@@ -5,6 +5,7 @@ import com.kings.okdhvi.model.DTOs.UsuarioComDTO;
 import com.kings.okdhvi.model.DTOs.UsuarioForDTO;
 import com.kings.okdhvi.model.DTOs.UsuarioPDTO;
 import com.kings.okdhvi.model.Usuario;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -41,7 +42,17 @@ public class UsuarioMapper {
         updto.setIdUsuario(u.getIdUsuario());
         updto.setEstadoDaConta(u.getEstadoDaConta());
         if(idRequisitor.equals(u.getIdUsuario())) {
-            updto.setProprio(true);
+            if(u.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MODER"))) {
+                updto.setProprio(3);
+            } else {
+                updto.setProprio(1);
+            }
+        } else {
+            if(u.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MODER"))) {
+                updto.setProprio(2);
+            } else {
+                updto.setProprio(0);
+            }
         }
         return updto;
     }

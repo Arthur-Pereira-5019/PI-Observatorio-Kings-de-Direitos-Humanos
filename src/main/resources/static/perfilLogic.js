@@ -5,6 +5,38 @@ async function iniciarPerfil() {
     const path = window.location.pathname;
     const id = path.split("/").pop();
 
+    async function anexarHTMLExterno(url, cssFile, jsFile, durl, msg) {
+        const response = await fetch(url);
+        const data = await response.text()
+        const novoObjeto = document.createElement("div");
+        document.body.appendChild(novoObjeto)
+        novoObjeto.innerHTML = data;
+
+        if (cssFile) {
+            anexarCss(cssFile)
+        }
+
+        if (jsFile) {
+            let script = document.createElement("script");
+            script.src = jsFile;
+            script.onload = () => {
+                if (jsFile === "/popupNovaDecisaoLogica.js" && typeof iniciarPopupNovaDecisao === "function") {
+                    iniciarPopupNovaDecisao(durl, msg);
+                }
+                if (jsFile === "/popupDecisaoModeradoraLogic.js" && typeof iniciarPopupDecisao === "function") {
+                    iniciarPopupDecisao(durl);
+                }
+                if (jsFile === "/aplicarPopupLogic.js" && typeof iniciarPopupAplicarCargo === "function") {
+                    iniciarPopupAplicarCargo(durl);
+                }
+            };
+            document.body.appendChild(script);
+        }
+    }
+
+
+
+
     if (!id || isNaN(id)) {
         window.location.pathname = "/telaInexistente"
         return;
@@ -32,30 +64,37 @@ async function iniciarPerfil() {
         const btnRequisitar = document.getElementById("btnRequisitar")
         const btnConfigUser = document.getElementById("btnConfigUser")
         const btnAddCargo = document.getElementById("btnAddCargo")
+        const btnLogModerador = document.getElementById("btnLogModerador")
 
-        if(data.proprio == false) {
+        if (data.proprio == 0) {
             btnConfigUser.remove()
             btnRequisitar.remove()
-            if (data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMINISTRADOR") {
-                btnAtvUser.style.display = "flex"
-                btnAddCargo.style.display = "flex"
-            }
+            btnAddCargo.remove()
+            btnAtvUser.remove()
+            btnLogModerador.remove()
+        } else if (data.proprio == 1) {
+            btnConfigUser.style.display = "flex"
+            btnRequisitar.style.display = "flex"
+        } else if (data.proprio == 2) {
+            btnAddCargo.style.display = "flex"
+            btnAtvUser.style.display = "fixed"
         } else {
             btnConfigUser.style.display = "flex"
-            btnRequisitar.remove = "flex"
+            btnRequisitar.style.display = "flex"
+            btnLogModerador.style.display = "flex"
         }
 
-        
 
-        if(data.fotoDePerfil != null) {
+
+        if (data.fotoDePerfil != null) {
             let fotoB64 = data.fotoDePerfil.imagem
-            if(fotoB64 != "") {
+            if (fotoB64 != "") {
                 document.querySelector(".icon-user").src = "data:image/" + data.fotoDePerfil.tipoImagem + ";base64," + fotoB64;
             }
         }
 
-        btnAddCargo.addEventListener("click",function() {
-
+        btnAddCargo.addEventListener("click", function () {
+            anexarHTMLExterno("/aplicar_cargo", "/aplicarPopupStyle.css", "/aplicarPopupLogic.js", "http://localhost:8080/api/user/aplicar_cargo/" + id)
         })
 
         async function gerarPublicacoes() {
@@ -90,8 +129,8 @@ async function iniciarPerfil() {
 
             function construirPublicacao(publicacao, dados) {
                 novoT = dados.titulo
-                if(novoT.length > 32) {
-                    novoT = novoT.substring(0,32) + "..."
+                if (novoT.length > 32) {
+                    novoT = novoT.substring(0, 32) + "..."
                 }
                 publicacao.querySelector(".titulo-publicacao").textContent = novoT
                 publicacao.querySelector(".autor").textContent = dados.autor
@@ -108,7 +147,7 @@ async function iniciarPerfil() {
             }
         }
 
-        
+
 
         gerarPublicacoes()
 
