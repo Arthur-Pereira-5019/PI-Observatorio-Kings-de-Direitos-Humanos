@@ -4,7 +4,7 @@ let campoTitulo = document.getElementById("titulo_nova_imagem");
 let canva = document.getElementById("canva");
 let inserir = document.getElementById("inserir");
 let blur_nova_imagem = document.getElementById("blur_nova_imagem")
-let sel = document.getElementById("combobox-tamanhos")
+let selBox = document.getElementById("combobox-tamanhos")
 
 window.iniciarPopupNovaImagem = function () {
 
@@ -19,7 +19,7 @@ window.iniciarPopupNovaImagem = function () {
 
         const arquivo = entrada.files[0];
 
-        if (arquivo && arquivo.name.endsWith(".png") || arquivo.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg") || imagemSubmetida.name.endsWith(".gif") || imagemSubmetida.name.endsWith(".webp")) {
+        if (arquivo && arquivo.name.endsWith(".png") || arquivo.name.endsWith(".jpg") || arquivo.name.endsWith(".jpeg") || arquivo.name.endsWith(".gif") || arquivo.name.endsWith(".webp")) {
             const reader = new FileReader();
 
             reader.onload = (e) => {
@@ -32,10 +32,19 @@ window.iniciarPopupNovaImagem = function () {
     }
 
     function img_insert() {
+        const textoPublicacao = document.getElementById("textoPublicacao");
+        textoPublicacao.focus();
+
+        if (selecaoAntiga) {
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(selecaoAntiga);
+        }
         let imageData = canva.src;
         let fimPrefixo = imageData.indexOf(";")
         let inicioPrefixo = imageData.indexOf("/")
         let endPosition = imageData.indexOf(",");
+        let sel = selBox.value
         endPosition++;
         prefixo = imageData.substring(inicioPrefixo, fimPrefixo);
         imageData = imageData.replace(imageData.substring(0, endPosition), "");

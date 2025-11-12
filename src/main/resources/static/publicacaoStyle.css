@@ -76,7 +76,6 @@ html {
     font-family: "Inter", sans-serif;
     align-self: center;
     margin-top: 2.5%;
-    margin-bottom: 2.5%;
 }
 
 #campoEdicao {
@@ -121,9 +120,15 @@ html {
     font-size: 24px;
 }
 
+#container_publicacao {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 #capaPostagem {
-    width: 40vw;
-    aspect-ratio: 16/9;
+    width: 50vw;
+    aspect-ratio: auto;
 }
 
 .fundo-criacao-comentario-forum {

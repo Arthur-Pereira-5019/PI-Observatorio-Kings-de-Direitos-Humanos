@@ -10,7 +10,7 @@
     font-size: 29px;
 }
 
-.centralizado {
+.rt_centralizado {
     text-align: center;
 }
 
@@ -49,6 +49,10 @@
 
 .rt_imagem {
     aspect-ratio: auto;
+        position: relative;
+
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .rt_Inormal {

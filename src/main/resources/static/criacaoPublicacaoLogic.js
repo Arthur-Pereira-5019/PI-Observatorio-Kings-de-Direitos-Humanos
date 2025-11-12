@@ -1,5 +1,5 @@
 let campoTags;
-let selecaoAntiga;
+let selecaoAntiga = null;
 const TAGS_REMOVIVEIS = [
     "rt_titulo",
     "rt_citacao"
@@ -29,6 +29,12 @@ async function carregarHTMLCP(id, url, cssFile, jsFile) {
     }
 }
 
+function salvarSelecao() {
+  const sel = window.getSelection();
+  if (sel && sel.rangeCount > 0) {
+    selecaoAntiga = sel.getRangeAt(0).cloneRange();
+  }
+}
 
 async function iniciarCriacaoPublicacao() {
     campoTags = document.getElementById("campoTags");
@@ -40,6 +46,7 @@ async function iniciarCriacaoPublicacao() {
 
 
     pic.addEventListener("click", function () {
+        salvarSelecao()
         const blur_nova_imagem = document.getElementById("blur_nova_imagem");
         const container_nova_imagem = document.getElementById("container_nova_imagem");
         blur_nova_imagem.style.display = "inline";
@@ -175,12 +182,27 @@ function getHTML() {
     return textoPublicacao.innerHTML;
 }
 
+
+textoPublicacao.addEventListener("keyup", salvarSelecao);
+textoPublicacao.addEventListener("mouseup", salvarSelecao);
+textoPublicacao.addEventListener("focus", salvarSelecao);
+
 textoPublicacao.addEventListener("keydown", function (e) {
     selecaoAntiga = window.getSelection()
 
-    if (e.key === "backspace") {
-        createBold();
+    if (e.key === "Enter") {
         e.preventDefault();
+
+        const selection = window.getSelection();
+        const range = selection.getRangeAt(0);
+        const br = document.createElement("br");
+
+        range.insertNode(br);
+
+        range.setStartAfter(br);
+        range.collapse(true);
+        selection.removeAllRanges();
+        selection.addRange(range);
     }
 
     if (e.ctrlKey && e.key === "b") {
@@ -249,7 +271,7 @@ function titulo() {
     span.classList.add("rt_titulo");
     span.textContent = "";
 
-    inserirElemento(span, !window.getSelection().rangeCount ? window.getSelection() : selecaoAntiga);
+    inserirElemento(span, window.getSelection());
 }
 
 function citacao() {
@@ -279,7 +301,6 @@ function limparSpansRedundantes(editor) {
             continue;
         }
 
-        // Tenta fundir com próximo irmão se tiver mesma classe
         const next = el.nextSibling;
         if (
             next &&
@@ -289,7 +310,7 @@ function limparSpansRedundantes(editor) {
         ) {
             el.textContent += next.textContent;
             next.remove();
-            i--; // reavaliar mesma posição
+            i--;
         }
     }
 }
@@ -300,7 +321,7 @@ function inserirElemento(elemento, selection) {
     const currentTag = testarTag(selection?.anchorNode);
     const editor = document.querySelector("#textoPublicacao");
 
-    // === [1] Toggle inteligente: quebra a tag atual em 3 partes ===
+    
     if (currentTag && currentTag.classList.contains(elemento.classList[0]) && range.collapsed) {
         const spanLeft = currentTag.cloneNode(false);
         const spanRight = currentTag.cloneNode(false);

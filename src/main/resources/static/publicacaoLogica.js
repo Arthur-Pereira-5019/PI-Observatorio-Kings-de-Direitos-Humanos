@@ -71,7 +71,6 @@ async function iniciarPublicacao() {
             elementoSurpresa.innerHTML = data.textoPostagem;
             imgs = elementoSurpresa.querySelectorAll("img");
             for (const i of imgs) {
-                console.log(i);
                 i.src = await carregarSrc(i.dataset.db_id);
             }
             texto.innerHTML = elementoSurpresa.innerHTML;
@@ -259,9 +258,6 @@ async function iniciarPublicacao() {
             if (!response.ok) throw new Error("Erro no servidor");
 
             let data = await response.json();
-
-            console.log(data.imagem)
-
             return "data:image/" + data.tipoImagem + ";base64," + data.imagem;
         } catch (err) {
             console.error(err);
