@@ -17,7 +17,73 @@ async function iniciarPopupLogComentarios(url) {
         blur.remove();
     }
 
-    
+    async function carregarComentarios() {
+        buscando = true;
+
+        fetch("http://localhost:8080/api/com/encontrar_comentarios", {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Erro no servidor");
+                return res.json();
+            })
+            .then(data => {
+                const primeiroComentario = document.querySelector('.container-comentario-logs');
+                const containerGeral = document.querySelector("fundo-popup-logs");
+
+                if (data.length === 0) {
+                    primeiroComentario.remove()
+                } else {
+                    data.forEach((post, index) => {
+                        if (index == 0) {
+                            construirComentario(primeiroComentario, post)
+                        } else {
+                            const novoComentario = primeiroComentario.cloneNode(true);
+                            containerGeral.appendChild(novoComentario)
+                            construirComentario(novoComentario, post)
+                        }
+                    });
+                }
+                com++;
+                buscando = false;
+            })
+            .catch(err => console.error(err));
+
+
+        function construirComentario(comentario, dados) {
+            imagem = comentario.querySelector(".foto-usuario-comentarios")
+            exclusao = comentario.querySelector(".excluirCom")
+            comentario.querySelector("textoComentario").textContent = dados.texto
+            comentario.querySelector(".autor").textContent = dados.autor.nome
+            comentario.querySelector(".autor").addEventListener("click", function () {
+                window.location.href = "http://localhost:8080/usuario/" + dados.autor.id;
+            })
+            if (dados.autor.foto == null) {
+                imagem.src = "/imagens/perfilIconDark.png";
+            } else if (dados.autor.foto.imagem == "") {
+                imagem.src = "/imagens/perfilIconDark.png";
+            } else {
+                imagem.src = "data:image/" + dados.autor.foto.tipoImagem + ";base64," + dados.autor.foto.imagem;
+            }
+            if (dados.proprio) {
+                exclusao.style.backgroundColor = 'darkred'
+                exclusao.addEventListener("click", function () {
+                    excluirProprioComentario("http://localhost:8080/api/com/excluir_proprio/" + dados.id, "Comentário excluído com sucesso!")
+                })
+            } else if (moderador) {
+                exclusao.style.backgroundColor = 'purple'
+                exclusao.addEventListener("click", function () {
+                    openCriacaoDecisao("http://localhost:8080/api/com/excluir/" + dados.id)
+                })
+            } else {
+                exclusao.style.display = 'none'
+            }
+            imagem.addEventListener("click", function () {
+                window.location.href = "http://localhost:8080/usuario/" + dados.autor.id;
+            })
+        }
+    }
 
     async function aplicarCargo(url) {
         sumir();

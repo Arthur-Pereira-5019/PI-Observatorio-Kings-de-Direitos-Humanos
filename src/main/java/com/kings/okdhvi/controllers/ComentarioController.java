@@ -35,6 +35,16 @@ public class ComentarioController {
         return cs.criarComentario(cc,us.buscarId(ud));
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping(value = "/encontrar_comentarios")
+    public List<ComentarioDTO> listarComentarios(@AuthenticationPrincipal UserDetails ud) {
+        ArrayList<ComentarioDTO> cdto = new ArrayList<>();
+        Long id = us.buscarId(ud);
+        Usuario u = us.encontrarPorId(id, false);
+        cs.encontrarPeloUsuario(id).forEach(c -> {cdto.add(cm.apresentarComentario(c, u));});
+        return cdto;
+    }
+
     @PostMapping(value="/listar_comentarios/{id}/{tipo}/{pagina}")
     public BuscaPaginadaResultado<ComentarioDTO> listarPostagens(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("id") Long id, @PathVariable("tipo") Character tipo, @AuthenticationPrincipal UserDetails ud, @PathVariable("pagina") Integer pagina) {
         List<Comentario> comentarios;
