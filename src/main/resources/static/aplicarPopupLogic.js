@@ -1,14 +1,15 @@
 async function iniciarPopupAplicarCargo(url) {
     const aplicar = document.querySelector(".botao-aplicar");
-    const blur = document.querySelector(".blur_AP");
+    const blur = document.querySelector("#blur_AP");
     const motivacao = document.querySelector("#textarea-cargos-aplicar");
-    const container_decisao = document.querySelector("#fundo-popup-aplicar");
+    const container_decisao = document.querySelector(".fundo-popup-aplicar");
+    const box = document.querySelector(".fundo-popup-aplicar");
 
     blur.display = "flex"
     container_decisao.display = "flex"
 
     aplicar.addEventListener("click", async function () {
-        await aplicar(url)
+        await aplicarCargo(url)
     })
 
     blur.addEventListener("click", sumir)
@@ -19,10 +20,33 @@ async function iniciarPopupAplicarCargo(url) {
         blur.remove();
     }
 
-    async function aplicar(url) {
+    function getId() {
+        let sel = box.value;
+        if(sel == "Titulação:") {
+            return -1;
+        } else if(sel == "Suspenso") {
+            return 1;
+        } else if(sel == "Padrão") {
+            return 2;
+        } else if(sel == "Especialista") {
+            return 3;
+        } else if(sel == "Moderador") {
+            return 4;
+        } else if(sel == "Administrador") {
+            return 5;
+        }
+    }
+
+    async function aplicarCargo(url) {
         sumir();
+        let sel = getId();
+        if(sel == -1) {
+            alert("Selecione um cargo!")
+            return;
+        }
         const requestBody = {
-            "motivacao": motivacao.value
+            "motivacao": motivacao.value,
+            "idCargo": sel
         }
 
         fetch(url, {
