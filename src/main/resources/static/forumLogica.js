@@ -1,3 +1,10 @@
+let btnDireito;
+let btnEsquerdo;
+let btnLonge;
+let btnPrimeiro;
+let btnCampo;
+let limite = true;
+
 const btnCriarForum = document.getElementById("botao-addForum-tela-foruns")
 
 btnCriarForum.addEventListener("click", function () {
@@ -6,6 +13,47 @@ btnCriarForum.addEventListener("click", function () {
 
 consertarUrl()
 
+
+
+btnDireito = document.getElementById("botaodireito");
+btnDireito.addEventListener("click", function () {
+    if (!limite) {
+        moverUrl(1)
+    }
+})
+btnEsquerdo = document.getElementById("botaoesquerdo");
+
+
+btnEsquerdo.addEventListener("click", function () {
+    moverUrl(-1)
+})
+const url = window.location.href;
+const partes = url.split('/');
+if (partes.pop() == 0) {
+    btnEsquerdo.remove()
+}
+
+
+btnAtual = document.getElementById("botaoatual");
+btnAtual.textContent = paginaAtual()
+
+btnPrimeiro = document.getElementById("botaoprimeiro");
+btnPrimeiro.addEventListener("click", function () {
+    moverUrl(-1 * (paginaAtual() - 1))
+})
+
+btnCampo = document.getElementById("botaocampo");
+btnCampo.addEventListener("keydown", async function (event) {
+    if (event.key === "Enter") {
+        moverUrl(btnCampo.value - paginaAtual())
+    }
+})
+
+btnLonge = document.getElementById("botaolonge");
+btnLonge.textContent = paginaAtual() + 5;
+btnLonge.addEventListener("click", async function () {
+    moverUrl(paginaAtual() + 4)
+})
 
 const requestBody = {
     parametro: "dataDaPostagem",
@@ -28,7 +76,7 @@ async function gerarForuns() {
         } else {
             buscaf = busca + busca2
         }
-        
+
     }
 
     console.log(buscaf)
@@ -51,13 +99,21 @@ async function gerarForuns() {
             if (data.resultado.length === 0) {
                 primeiroPost.querySelector('.forum-tela-foruns').remove()
                 alert("Nenhum resultado encontrado!")
-                //btnLonge.textContent = paginaAtual();
-                if (busca != "") {
-                    inputBusca.value = ""
-                    gerarForuns()
+                btnLonge.textContent = paginaAtual();
+                let path = window.location.pathname
+                if (path != "/foruns/%20/0") {
+                    alert("Nenhum resultado encontrado!")
+                    window.location.pathname = "/foruns/ /0"
                 }
+                limite = true;
+
+                btnDireito.remove()
             } else {
-                //btnLonge.textContent = paginaAtual() + data.proximosIndexes % 10;
+                btnLonge.textContent = paginaAtual() + data.proximosIndexes % 10;
+                if (Number(paginaAtual()) + 1 == Number(btnLonge.textContent)) {
+                    limite = true;
+                    btnDireito.remove()
+                }
                 data.resultado.forEach((post, index) => {
                     if (index == 0) {
                         construirForum(primeiroPost, post)
@@ -87,6 +143,17 @@ async function gerarForuns() {
 
 gerarForuns()
 
+async function moverUrl(d) {
+    const url = window.location.href;
+    const partes = url.split('/');
+    let busca = partes.pop();
+    busca = Number(busca) + d;
+    if (busca >= 0) {
+        partes.push(busca)
+        window.location.href = partes.join("/");
+    }
+}
+
 function consertarUrl() {
     const url = window.location.href;
     const partes = url.split('/');
@@ -94,5 +161,12 @@ function consertarUrl() {
     if (ultima === '/foruns') {
         window.location.href = "http://localhost:8080/foruns/ /0"
     }
+}
+
+function paginaAtual() {
+    const url = window.location.href;
+    const partes = url.split('/');
+    let busca = partes.pop();
+    return Number(busca) + 1;
 }
 

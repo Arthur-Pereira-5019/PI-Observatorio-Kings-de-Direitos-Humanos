@@ -18,7 +18,7 @@
         
         
         .container-universal-tela-foruns{
-            height: 100%;
+            height: fit-content;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -178,7 +178,6 @@
 
         }
 
-
         </style>
 
     </head>
@@ -189,50 +188,60 @@
         <div class="container-universal-tela-foruns">
 
             <div class="titulo-tela-foruns">Fóruns</div>
+
+            <div class="container-posicao-botao-tela-foruns">
+                <div id="botao-addForum-tela-foruns"><img
+                        src="/imagens/mais-branco.png" id="mais" alt></div>
+            </div>
+
             <div class="container-all-foruns" id="container-all-foruns">
-                
+
                 <div class="forum-tela-foruns">
-                    
+
                     <div class="container-foto-forum-tela-foruns">
-                        <img src="https://randomuser.me/api/portraits/women/90.jpg" id="foto-user-forum-tela-foruns" alt="">
+                        <img
+                            src="https://randomuser.me/api/portraits/women/90.jpg"
+                            id="foto-user-forum-tela-foruns" alt>
                     </div>
 
-                    <div class="container-infos-tela-foruns">    
-                        <div class="tituloForum"> <p class="tituloForum"></p> </div>
-                        <div class="container-data-autor-tela-foruns"><p class="autorForum textoBranco"></p> <p class="dataForum textoBranco"></p></div>
+                    <div class="container-infos-tela-foruns">
+                        <div class="tituloForum"> <p class="tituloForum"></p>
+                        </div>
+                        <div class="container-data-autor-tela-foruns"><p
+                                class="autorForum textoBranco"></p> <p
+                                class="dataForum textoBranco"></p></div>
                     </div>
 
                     <div class="container-respostas-atualizacao-tela-foruns">
-                        <p class="dados-forum-tela-foruns" id="">Respostas:</p>
-                        <p class="dados-forum-tela-foruns" >Última atualização:</p>
+                        <p class="dados-forum-tela-foruns" id>Respostas:</p>
+                        <p class="dados-forum-tela-foruns">Última
+                            atualização:</p>
                     </div>
 
-                    <div class="container-numeros-respostas-atualizacao-tela-foruns">
+                    <div
+                        class="container-numeros-respostas-atualizacao-tela-foruns">
 
-                        <p class="respostasForum textoBranco" id="respostasForum"></p>
-                        <p class="ultimaAtualizacao textoBranco" id="ultimaAtualizacao"></p>
+                        <p class="respostasForum textoBranco"
+                            id="respostasForum"></p>
+                        <p class="ultimaAtualizacao textoBranco"
+                            id="ultimaAtualizacao"></p>
                     </div>
-                    
+
                 </div>
-                
-            </div>
-
-            <div class="container-posicao-botao-tela-foruns">
-                <div id="botao-addForum-tela-foruns"><img src="/imagens/mais-branco.png" id="mais" alt=""></div>
 
             </div>
-            
+
             <div class="container-seletores">
                 <button class="bloquinhos" id="botaoesquerdo">&lt;</button>
                 <button class="bloquinhos" id="botaoprimeiro">1</button>
                 <button class="bloquinhos" id="botaoatual"></button>
-                <input type="text" id="botaocampo" class="bloquinhos" style="cursor: text;background-color: white ;"
+                <input type="text" id="botaocampo" class="bloquinhos"
+                    style="cursor: text;background-color: white ;"
                     placeholder="__">
                 <button class="bloquinhos" id="botaolonge"></button>
                 <button class="bloquinhos" id="botaodireito">&gt;</button>
             </div>
 
-            
         </div>
 
         <div id="footer"></div>
