@@ -2,6 +2,7 @@
     font-weight: bolder !important;
     font-size: 36px !important;
     text-align: center !important;
+    display: block !important;
 }
 
 .rt_subtitulo {
@@ -14,8 +15,8 @@
 }
 
 .rt_citacao {
-    color: grey;
-    font-style: italic;
+    color: grey !important;
+    font-style: italic !important;
     font-size: 16px;
 }
 

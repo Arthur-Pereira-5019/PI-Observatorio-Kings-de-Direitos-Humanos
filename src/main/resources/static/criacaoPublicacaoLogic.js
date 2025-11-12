@@ -1,8 +1,8 @@
 let campoTags;
 let selecaoAntiga;
 const TAGS_REMOVIVEIS = [
-  "rt_titulo",
-  "rt_citacao"
+    "rt_titulo",
+    "rt_citacao"
 ];
 
 async function carregarHTMLCP(id, url, cssFile, jsFile) {
@@ -40,7 +40,6 @@ async function iniciarCriacaoPublicacao() {
 
 
     pic.addEventListener("click", function () {
-        selecaoAntiga = window.getSelection()
         const blur_nova_imagem = document.getElementById("blur_nova_imagem");
         const container_nova_imagem = document.getElementById("container_nova_imagem");
         blur_nova_imagem.style.display = "inline";
@@ -76,7 +75,7 @@ async function publicarDocumento(finalizada) {
         i.src = "";
     })
 
-        const campoTextoPostagem = textoPublicacao.innerHTML;
+    const campoTextoPostagem = textoPublicacao.innerHTML;
     const campoTituloPostagem = document.getElementById("campoTitulo");
 
 
@@ -122,7 +121,7 @@ function input_capa() {
 
     const imagemSubmetida = entrada.files[0];
 
-    if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg")  || imagemSubmetida.name.endsWith(".jpeg")) {
+    if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg")) {
         const reader = new FileReader();
 
         reader.onload = (e) => {
@@ -175,6 +174,10 @@ function getText() {
 function getHTML() {
     return textoPublicacao.innerHTML;
 }
+
+textoPublicacao.addEventListener("focusout", function () {
+    selecaoAntiga = window.getSelection()
+})
 
 textoPublicacao.addEventListener("keydown", function (e) {
 
@@ -238,7 +241,7 @@ function createUnderline() {
 }
 
 function backspace() {
-    
+
 }
 
 function titulo() {
@@ -246,7 +249,7 @@ function titulo() {
     span.classList.add("rt_titulo");
     span.textContent = "";
 
-    inserirElemento(span, window.getSelection());
+    inserirElemento(span, !window.getSelection().rangeCount ? window.getSelection() : selecaoAntiga);
 }
 
 function citacao() {
@@ -257,44 +260,137 @@ function citacao() {
     inserirElemento(span, window.getSelection());
 }
 
-function inserirElemento(elemento, selection) {
-    if (!selection.rangeCount) return;
-    const range = selection.getRangeAt(0);
+function getOffsetInNode(range, ancestor) {
+    const preRange = document.createRange();
+    preRange.selectNodeContents(ancestor);
+    preRange.setEnd(range.startContainer, range.startOffset);
+    return preRange.toString().length;
+}
 
-    const currentTag = testarTag(range.startContainer);
+function limparSpansRedundantes(editor) {
+    const spans = [...editor.querySelectorAll("span")];
 
-    if (!range.collapsed) {
-        if (currentTag) {
-            joinDePartes(currentTag, range, "rt_default rt_geral");
+    for (let i = 0; i < spans.length; i++) {
+        const el = spans[i];
+
+        // Remove spans totalmente vazios (sem texto e sem filhos)
+        if (!el.textContent.trim() && !el.querySelector("*")) {
+            el.remove();
+            continue;
         }
-        try {
-            range.surroundContents(elemento);
-        } catch (e) {
-        }
-        elemento.classList.add("rt_geral");
 
-        range.setStartAfter(elemento);
-        range.collapse(true);
-
-        selection.removeAllRanges();
-        selection.addRange(range);
-    } else {
-        const container = range.startContainer.nodeType === Node.TEXT_NODE
-            ? range.startContainer.parentElement
-            : range.startContainer;
-        const ancestor = container.closest("[class^='rt_']");
-
-        if (ancestor) {
-            joinDePartes(currentTag, range, "rt_default rt_geral");
-
-        } else {
-            range.insertNode(elemento);
-            insertSeparator(elemento, "before");
-            insertSeparator(elemento, "after");
-            if (!elemento.textContent) elemento.textContent = "\u200B", "rt_default rt_geral";
+        // Tenta fundir com próximo irmão se tiver mesma classe
+        const next = el.nextSibling;
+        if (
+            next &&
+            next.nodeType === Node.ELEMENT_NODE &&
+            next.tagName === "SPAN" &&
+            next.className === el.className
+        ) {
+            el.textContent += next.textContent;
+            next.remove();
+            i--; // reavaliar mesma posição
         }
     }
 }
+
+function inserirElemento(elemento, selection) {
+    if (!selection.rangeCount) return;
+    const range = selection.getRangeAt(0);
+    const currentTag = testarTag(selection?.anchorNode);
+    const editor = document.querySelector("#textoPublicacao");
+
+    // === [1] Toggle inteligente: quebra a tag atual em 3 partes ===
+    if (currentTag && currentTag.classList.contains(elemento.classList[0]) && range.collapsed) {
+        const spanLeft = currentTag.cloneNode(false);
+        const spanRight = currentTag.cloneNode(false);
+        const spanMid = document.createElement("span");
+        spanMid.className = "rt_default rt_geral";
+
+        const text = currentTag.textContent || "";
+        const offset = getOffsetInNode(range, currentTag);
+        const leftText = text.slice(0, offset);
+        const rightText = text.slice(offset);
+
+        spanLeft.textContent = leftText || "\u200B";
+        spanMid.textContent = "\u200B";
+        spanRight.textContent = rightText || "\u200B";
+
+        currentTag.replaceWith(spanLeft, spanMid, spanRight);
+
+        const nr = document.createRange();
+        nr.selectNodeContents(spanMid);
+        nr.collapse(true);
+        selection.removeAllRanges();
+        selection.addRange(nr);
+
+        limparSpansRedundantes(editor);
+        return;
+    }
+
+    // === [2] Caso de seleção: aplicar estilo sobre texto ===
+    if (!range.collapsed) {
+        if (currentTag) joinDePartes(currentTag, range, "rt_default rt_geral");
+        try {
+            range.surroundContents(elemento);
+        } catch (e) { /* ignora fragmentos não contíguos */ }
+
+        elemento.classList.add("rt_geral");
+        range.setStartAfter(elemento);
+        range.collapse(true);
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        limparSpansRedundantes(editor);
+        return;
+    }
+
+    // === [3] Caso sem seleção: inserir novo span ===
+    const container = range.startContainer;
+
+    if (container.nodeType === Node.TEXT_NODE) {
+        const text = container.textContent;
+        const before = text.slice(0, range.startOffset);
+        const after = text.slice(range.startOffset);
+
+        const beforeNode = before ? document.createTextNode(before) : null;
+        const afterNode = after ? document.createTextNode(after) : null;
+        const parent = container.parentNode;
+
+        if (beforeNode) parent.insertBefore(beforeNode, container);
+        parent.insertBefore(elemento, container);
+        if (afterNode) parent.insertBefore(afterNode, container);
+        parent.removeChild(container);
+    } else {
+        range.insertNode(elemento);
+    }
+
+    if (!elemento.textContent) elemento.textContent = "\u200B";
+    elemento.classList.add("rt_default", "rt_geral");
+
+    if (typeof insertSeparator === "function") {
+        insertSeparator(elemento, "before");
+        insertSeparator(elemento, "after");
+    }
+
+    const newRange = document.createRange();
+    newRange.selectNodeContents(elemento);
+    newRange.collapse(true);
+    selection.removeAllRanges();
+    selection.addRange(newRange);
+
+    limparSpansRedundantes(editor);
+}
+
+
+function colocarCaretDentro(el, selection) {
+    const r = document.createRange();
+    r.selectNodeContents(el);
+    r.collapse(true);
+    selection.removeAllRanges();
+    selection.addRange(r);
+}
+
 
 function joinDePartes(ancestor, range, classMeio) {
     const preRange = document.createRange();
