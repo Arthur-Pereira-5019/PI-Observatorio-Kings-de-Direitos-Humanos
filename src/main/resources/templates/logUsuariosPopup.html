@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet">
+
+        <style>
+
+        *{
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Inter", sans-serif;
+        }
+
+        body {
+            background-color: burlywood;
+        }
+
+        .fundo-popup-logs{
+            display: flex;
+            flex-direction: column;
+            gap: 5%;
+            padding: 2%;
+            height: 80vh;
+            width: 60vw;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); 
+            border: solid 5px #AA009F;
+            background-color: white;
+            justify-content: flex-start;
+            align-items: center;
+               overflow-y: auto;
+               overflow-x: hidden;
+        }
+
+        .container-comentario-logs{
+            background-color: #862e81;
+            display: flex;
+            height: 30%;
+            width: 100%;
+            gap: 2.5px;
+            border-radius: 1.5rem;
+            overflow: visible;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            border: solid 2.5px #862e81;
+        }
+
+        .info-autor-logs{
+            height: 100%;
+            width: 22%;
+            gap: 5%;
+            border-top-left-radius: 1.5rem;
+            border-bottom-left-radius: 1.5rem;
+            background-color: #252525;
+            display: flex;
+            padding-top: 0.4%;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .foto-autor-logs{
+            height: 14vh;
+            width: 14vh;
+            border-radius: 50%;
+        }
+
+        .nome-autor-logs{
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-align: center;
+            width: 80%;
+            height: auto;
+            color: white;
+        }
+
+        .container-conteudo-logs{
+            width: 80%;
+            height: 100%;
+            padding: 1.5%;
+            border-top-right-radius: 1.5rem;
+            border-bottom-right-radius: 1.5rem;
+            background-color: #302f2f;
+            text-align: justify;
+            color: white;
+            font-size: 1rem;
+            font-weight: 400;
+            position: relative;
+            overflow: visible;
+        }
+
+        .data-log{
+            position: absolute;
+            bottom: 1%;
+            right: 1.5%;
+            color: white;
+            font-weight: 200;
+            
+        }
+
+        .botao-ocultar{
+            background-color: #AA00FF;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transform: translate(50%,-50%);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 7vh;
+            width: 7vh;
+            z-index: 10;
+            border-radius: 50%;
+
+        }
+
+        .botao-ocultar:hover{
+            background-color: #d174ff;
+        }
+
+        .zoio-log{
+            width: 80%;
+            height: auto;
+        }
+
+        
+
+        
+        </style>
+</head>
+<body>
+
+    <div class="fundo-popup-logs">
+        <div class="container-comentario-logs">
+            <div class="info-autor-logs">
+                <img src="https://randomuser.me/api/portraits/men/83.jpg" class="foto-autor-logs" alt="">
+                <div class="nome-autor-logs"> Emanuel Subtil de Oliveira Farias</div>
+            </div>
+            <div class="container-conteudo-logs">Texto da discussão, o que foi dito aqui não terá marcações de hipertexto para economizar recursos do site. Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo officia eligendi amet blanditiis ab, quidem laudantium, reprehenderit animi delectus dolores vero unde earum nobis fugiat modi, beatae asperiores repudiandae nihil?Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, corporis laborum! Dolores sed aliquid voluptatum tempora laboriosam. Modi molestias voluptates expedita ipsa vel excepturi fugiat quos, velit incidunt! Blanditiis, itaque!
+
+                <div class="data-log">dd/mm/yyyy</div>
+                <div class="botao-ocultar">
+                    <img src="./imagens/olhosfechados.png" class="zoio-log" alt="">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container-comentario-logs">
+            <div class="info-autor-logs">
+                <img src="https://randomuser.me/api/portraits/men/83.jpg" class="foto-autor-logs" alt="">
+                <div class="nome-autor-logs"> Emanuel Subtil de Oliveira Farias</div>
+            </div>
+            <div class="container-conteudo-logs">Texto da discussão, o que foi dito aqui não terá marcações de hipertexto para economizar recursos do site. Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo officia eligendi amet blanditiis ab, quidem laudantium, reprehenderit animi delectus dolores vero unde earum nobis fugiat modi, beatae asperiores repudiandae nihil?Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, corporis laborum! Dolores sed aliquid voluptatum tempora laboriosam. Modi molestias voluptates expedita ipsa vel excepturi fugiat quos, velit incidunt! Blanditiis, itaque!
+
+                <div class="data-log">dd/mm/yyyy</div>
+                <div class="botao-ocultar">
+                    <img src="./imagens/olhosfechados.png" class="zoio-log" alt="">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container-comentario-logs">
+            <div class="info-autor-logs">
+                <img src="https://randomuser.me/api/portraits/men/83.jpg" class="foto-autor-logs" alt="">
+                <div class="nome-autor-logs"> Emanuel Subtil de Oliveira Farias</div>
+            </div>
+            <div class="container-conteudo-logs">Texto da discussão, o que foi dito aqui não terá marcações de hipertexto para economizar recursos do site. Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo officia eligendi amet blanditiis ab, quidem laudantium, reprehenderit animi delectus dolores vero unde earum nobis fugiat modi, beatae asperiores repudiandae nihil?Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, corporis laborum! Dolores sed aliquid voluptatum tempora laboriosam. Modi molestias voluptates expedita ipsa vel excepturi fugiat quos, velit incidunt! Blanditiis, itaque!
+
+                <div class="data-log">dd/mm/yyyy</div>
+                <div class="botao-ocultar">
+                    <img src="./imagens/olhosfechados.png" class="zoio-log" alt="">
+                </div>
+
+            </div>
+        </div>
+        <div class="container-comentario-logs">
+            <div class="info-autor-logs">
+                <img src="https://randomuser.me/api/portraits/men/83.jpg" class="foto-autor-logs" alt="">
+                <div class="nome-autor-logs"> Emanuel Subtil de Oliveira Farias</div>
+            </div>
+            <div class="container-conteudo-logs">Texto da discussão, o que foi dito aqui não terá marcações de hipertexto para economizar recursos do site. Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo officia eligendi amet blanditiis ab, quidem laudantium, reprehenderit animi delectus dolores vero unde earum nobis fugiat modi, beatae asperiores repudiandae nihil?Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, corporis laborum! Dolores sed aliquid voluptatum tempora laboriosam. Modi molestias voluptates expedita ipsa vel excepturi fugiat quos, velit incidunt! Blanditiis, itaque!
+
+                <div class="data-log">dd/mm/yyyy</div>
+                <div class="botao-ocultar">
+                    <img src="./imagens/olhosfechados.png" class="zoio-log" alt="">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
