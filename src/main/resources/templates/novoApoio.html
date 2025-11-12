@@ -75,8 +75,8 @@
             height: 100%;
             border-radius: 18px;
             border: none;
-            padding: 1%;
-            font-size: 1.1rem;
+            padding: 2%;
+            font-size: 0.9rem;
         }
 
         #campo-twitter{
@@ -138,7 +138,25 @@
         }
 
         #botao-editar-foto{
-            
+            background-color: #F2F2F2;
+            position: absolute;
+            left: 1%;
+            top: 1%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 9.5vh;
+            width: 9.5vh;
+            z-index: 10;
+            border-radius: 50%;
+        }
+        #botao-editar-foto:hover{
+            background-color: #d8d7d7;
+        }
+
+        #lapis-edicao{
+            width: 60%;
         }
 
 
@@ -200,6 +218,7 @@
 
         <div class="div-foto-instituicao">
             <img src="./imagens/grupo.png" id="foto-perfil-instituicao" alt="">
+            <div id="botao-editar-foto"> <img src="./imagens/lapis-icon.png" id="lapis-edicao" alt=""></div>
         </div>
 
 
