@@ -74,7 +74,11 @@ public class UsuarioService {
         Usuario u = encontrarPorId(id, false);
         Imagem i = is.criarImagem(cir, u);
         if(u.getFotoDePerfil() != null) {
-            is.excluirImagemPeloId(u.getFotoDePerfil().getIdImagem());
+            try {
+                is.excluirImagemPeloId(u.getFotoDePerfil().getIdImagem());
+            } catch (Exception e) {
+                throw new
+            }
         }
         u.setFotoDePerfil(i);
         return ur.save(u);

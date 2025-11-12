@@ -26,7 +26,7 @@ public class ImagemService {
 
     public Imagem criarImagem(CriarImagemRequest cir, Usuario u) {
         if(cir == null) {
-            throw new NullResourceException("Request de Criação de Imagem nula submetido");
+            throw new NullResourceException("Ocorreu um erro no envio da imagem!");
         }
 
         Imagem i = new Imagem();
@@ -34,7 +34,7 @@ public class ImagemService {
         try {
             imageByte = Base64.getDecoder().decode(cir.imageBase64());
         } catch (Exception e) {
-            throw new InvalidBase64ImageEncoding("A imagem não foi codificada na Base 64 corretamente! " + e.getMessage());
+            throw new InvalidBase64ImageEncoding("Erro ao processar imagem! ");
         }
         i.setTipoImagem(cir.tipoImagem());
         i.setImagem(imageByte);
@@ -42,7 +42,11 @@ public class ImagemService {
         i.setTituloImagem(cir.titulo());
         i.setDataImagem(Date.from(Instant.now()));
         i.setDecricaoImagem(cir.descricao());
-        return ir.save(i);
+        try {
+            return ir.save(i);
+        } catch (Exception e) {
+            throw new InvalidBase64ImageEncoding("Erro ao salvar imagem!");
+        }
     }
 
     public Imagem retornarImagemPeloId(Long id) {

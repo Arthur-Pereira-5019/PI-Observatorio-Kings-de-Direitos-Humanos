@@ -99,7 +99,7 @@ async function iniciarPerfil() {
                 reader.onload = (e) => {
                     const base64StringWithPrefix = e.target.result;
                     requestBody = {
-                        imageBase64: base64StringWithPrefix,
+                        imageBase64: base64StringWithPrefix.replace(base64StringWithPrefix.substring(0, base64StringWithPrefix.indexOf(",")+1), ""),
                         descricao: "Foto de perfil de " + data.nome,
                         titulo: "Foto de perfil de " + data.nome
                     }
@@ -115,7 +115,7 @@ async function iniciarPerfil() {
                             window.location.reload();
                         })
                         .then(d => {
-                            alert(d)
+                            alert(d.mensagem)
                         })
                 };
 
