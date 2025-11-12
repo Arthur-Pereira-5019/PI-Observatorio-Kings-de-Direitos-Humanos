@@ -9,6 +9,10 @@
             href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
             rel="stylesheet">
 
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+
         <style>
             *{
             margin:0;
@@ -23,7 +27,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1.5%;
+            gap: 3%;
             height: 80vh;
             width: 40vw;
             border-radius: 2rem;
@@ -44,8 +48,13 @@
 
         #titulo-recuperar-senha{
             font-size: 3rem;
+            font-family: "JetBrains Mono", monospace;
             font-weight: 800;
-            
+
+        }
+
+        #instrucao-recuperar-senha{
+            font-size: 1.6rem;
         }
 
 
@@ -56,7 +65,14 @@
     <body>
 
         <div class="fundo-esqueci-senha">
+
             <img src="./imagens/cadeado.png" id="cadeado" alt="">
+
+            <p id="titulo-recuperar-senha">Recuperar Senha</p>
+
+            <p>Informe abaixo seu email para ser enviado o código para <b>redefinir sua senha</b>.</p>
+
+
         </div>
 
     </body>
