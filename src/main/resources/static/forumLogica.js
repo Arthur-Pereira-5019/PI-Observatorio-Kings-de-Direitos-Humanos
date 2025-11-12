@@ -74,7 +74,7 @@ async function gerarForuns() {
 
     function construirForum(forum, dados) {
         forum.querySelector(".tituloForum").textContent = dados.titulo
-        forum.querySelector(".autorForum").textContent = dados.autor
+        forum.querySelector(".autorForum").textContent = dados.autor.nome
         forum.querySelector(".dataForum").textContent = dados.dataCriacao
         forum.querySelector(".respostasForum").textContent = dados.respostas
         forum.querySelector(".ultimaAtualizacao").textContent = dados.ultimaAtualizacao
@@ -95,3 +95,4 @@ function consertarUrl() {
         window.location.href = "http://localhost:8080/foruns/ /0"
     }
 }
+
