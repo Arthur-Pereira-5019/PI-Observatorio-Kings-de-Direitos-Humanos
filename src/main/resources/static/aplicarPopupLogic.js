@@ -3,7 +3,7 @@ async function iniciarPopupAplicarCargo(url) {
     const blur = document.querySelector("#blur_AP");
     const motivacao = document.querySelector("#textarea-cargos-aplicar");
     const container_decisao = document.querySelector(".fundo-popup-aplicar");
-    const box = document.querySelector(".fundo-popup-aplicar");
+    const box = document.querySelector("#combobox-cargos-aplicar");
 
     blur.display = "flex"
     container_decisao.display = "flex"
@@ -22,6 +22,7 @@ async function iniciarPopupAplicarCargo(url) {
 
     function getId() {
         let sel = box.value;
+        console.log(sel)
         if(sel == "Titulação:") {
             return -1;
         } else if(sel == "Suspenso") {

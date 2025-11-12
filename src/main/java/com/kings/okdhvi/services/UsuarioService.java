@@ -180,6 +180,7 @@ public class UsuarioService {
         return u;
     }
 
+    @Transactional
     public void alterarTitulacao(Long idAlvo, Long idModerador, AdicionarCargoRequest acr) {
         Usuario r = encontrarPorId(idModerador, false);
         Usuario u = encontrarPorId(idAlvo, false);
@@ -214,7 +215,7 @@ public class UsuarioService {
                 edc = EstadoDaConta.ADMINISTRADOR;
         }
         u.setEstadoDaConta(edc);
-
+        ur.save(u);
     }
 
     @Transactional
