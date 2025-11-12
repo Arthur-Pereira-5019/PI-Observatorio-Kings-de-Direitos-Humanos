@@ -52,5 +52,7 @@ public class TestController {
         return "noticias";
     }
 
+    @RequestMapping({"/aplicar_cargo"})
+    public String returnAplicarCargo() {return "aplicarPopup";}
 
 }

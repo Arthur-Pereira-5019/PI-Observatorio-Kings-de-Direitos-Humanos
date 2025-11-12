@@ -92,9 +92,9 @@ public class UsuarioController {
     }
 
     @PreAuthorize("hasRole('MODER')")
-    @PutMapping(value ="/{update_cargo}")
-    public void atualizarCargo(@AuthenticationPrincipal UserDetails ud, AdicionarCargoRequest adr) {
-        us.alterarTitulacao(us.buscarId(ud), adr);
+    @PutMapping(value ="/update_cargo/{id}")
+    public void atualizarCargo(@AuthenticationPrincipal UserDetails ud, @PathVariable("id") Long id, @RequestBody AdicionarCargoRequest adr) {
+        us.alterarTitulacao(id, us.buscarId(ud), adr);
     }
 
     @PostMapping(value="/requisitar_cargo")

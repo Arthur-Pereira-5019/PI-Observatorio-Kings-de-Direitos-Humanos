@@ -180,9 +180,9 @@ public class UsuarioService {
         return u;
     }
 
-    public void alterarTitulacao(Long id, AdicionarCargoRequest acr) {
-        Usuario r = encontrarPorId(id, false);
-        Usuario u = encontrarPorId(acr.id(), false);
+    public void alterarTitulacao(Long idAlvo, Long idModerador, AdicionarCargoRequest acr) {
+        Usuario r = encontrarPorId(idModerador, false);
+        Usuario u = encontrarPorId(idAlvo, false);
         if(u.getPedidoDeTitulacao() != null) {
             pets.deletarPedidoDeTitulacaoPeloId(u.getPedidoDeTitulacao().getId());
         }
