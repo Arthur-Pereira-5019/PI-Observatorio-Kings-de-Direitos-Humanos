@@ -24,7 +24,11 @@ async function iniciarVerForum() {
         .then(data => {
             console.log(data)
             const tituloForum = document.getElementById("titulo-forum-forum").textContent = data.titulo
-            const dataForum = document.getElementById("data-forum-forum").textContent = data.dataCriacao
+            const dataAtualizacao = document.getElementById("data-forum-forum").textContent = data.ultimaAtualizacao
+            const nome = document.getElementById("nome-user-discussao-forum").textContent = data.autor.nome
+            const textoForum = document.getElementById("textoForum").textContent = data.textoForum
+            const dataForum = document.getElementById("textoForum").textContent = data.dataCriacao
+
 
 
         })
