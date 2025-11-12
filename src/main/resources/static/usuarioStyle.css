@@ -158,10 +158,11 @@
 
 #capaUsuarioInput {
     position: absolute;
-    width: 24vw;
-    height: 16vw;
+    width: 100%;
+    aspect-ratio: 1/1;
     visibility: hidden;
     z-index: 2;
+    border-radius: 100%;
 }
 
 .mais {

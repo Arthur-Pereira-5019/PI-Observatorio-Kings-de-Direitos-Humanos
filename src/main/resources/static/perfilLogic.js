@@ -65,6 +65,7 @@ async function iniciarPerfil() {
         const btnConfigUser = document.getElementById("btnConfigUser")
         const btnAddCargo = document.getElementById("btnAddCargo")
         const btnLogModerador = document.getElementById("btnLogModerador")
+        const entrada = document.getElementById("capaUsuarioInput");
 
         if (data.proprio == 0) {
             btnConfigUser.remove()
@@ -72,19 +73,20 @@ async function iniciarPerfil() {
             btnAddCargo.remove()
             btnAtvUser.remove()
             btnLogModerador.remove()
+            entrada.remove()
         } else if (data.proprio == 1) {
             btnConfigUser.style.display = "flex"
             btnRequisitar.style.display = "flex"
         } else if (data.proprio == 2) {
             btnAddCargo.style.display = "flex"
             btnAtvUser.style.display = "fixed"
+            entrada.remove()
         } else {
             btnConfigUser.style.display = "flex"
             btnRequisitar.style.display = "flex"
             btnLogModerador.style.display = "flex"
         }
 
-        const entrada = document.getElementById("capaUsuarioInput");
         entrada.addEventListener("input", input_capa);
 
 
@@ -104,7 +106,7 @@ async function iniciarPerfil() {
                         titulo: "Foto de perfil de " + data.nome
                     }
 
-                    fetch("http://localhost:8080/api/user/" + id, {
+                    fetch("http://localhost:8080/api/user/atualizar_imagem", {
                         method: 'PUT',
                         body: JSON.stringify(requestBody),
                         headers: { 'Content-Type': 'application/json' },

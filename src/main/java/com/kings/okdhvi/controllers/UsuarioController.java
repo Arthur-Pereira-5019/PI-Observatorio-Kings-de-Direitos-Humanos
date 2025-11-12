@@ -75,9 +75,9 @@ public class UsuarioController {
     }
 
     @PreAuthorize("hasRole('PADRAO')")
-    @PutMapping(value = "/{id}")
-    public Usuario atualizarImagem(@RequestBody CriarImagemRequest i, @PathVariable("id") Long id) {
-        return us.atualizarFoto(id, i);
+    @PutMapping(value = "/atualizar_imagem")
+    public Usuario atualizarImagem(@RequestBody CriarImagemRequest i, @AuthenticationPrincipal UserDetails ud) {
+        return us.atualizarFoto(us.buscarId(ud), i);
     }
 
     @PreAuthorize("hasRole('MODER')")
