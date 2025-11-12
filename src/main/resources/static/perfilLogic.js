@@ -66,6 +66,8 @@ async function iniciarPerfil() {
         const btnAddCargo = document.getElementById("btnAddCargo")
         const btnLogModerador = document.getElementById("btnLogModerador")
 
+        console.log(data)
+
         if (data.proprio == 0) {
             btnConfigUser.remove()
             btnRequisitar.remove()

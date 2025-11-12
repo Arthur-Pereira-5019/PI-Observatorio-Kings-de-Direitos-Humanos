@@ -145,6 +145,17 @@
     cursor: pointer;
 }
 
+.botao-log-moderador {
+    height: 8vh;
+    width: 8vh;
+    background-color: #AA00FF;
+    border-radius: 50%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
 .mais {
     width: 70%;
     height: 70%;

@@ -5,11 +5,16 @@ import com.kings.okdhvi.model.DTOs.UsuarioComDTO;
 import com.kings.okdhvi.model.DTOs.UsuarioForDTO;
 import com.kings.okdhvi.model.DTOs.UsuarioPDTO;
 import com.kings.okdhvi.model.Usuario;
+import com.kings.okdhvi.services.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UsuarioMapper {
+    @Autowired
+    UsuarioService us;
+
     public UsuarioApreDTO apresentarUsuario(Usuario u) {
         UsuarioApreDTO uadto = new UsuarioApreDTO();
         uadto.setEdc(u.getEstadoDaConta());
@@ -36,19 +41,20 @@ public class UsuarioMapper {
     }
 
     public UsuarioPDTO usuarioPagina(Usuario u, Long idRequisitor) {
+        Usuario requisitor = us.encontrarPorId(idRequisitor, false);
         UsuarioPDTO updto = new UsuarioPDTO();
         updto.setFotoDePerfil(u.getFotoDePerfil());
         updto.setNome(u.getNome());
         updto.setIdUsuario(u.getIdUsuario());
         updto.setEstadoDaConta(u.getEstadoDaConta());
         if(idRequisitor.equals(u.getIdUsuario())) {
-            if(u.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MODER"))) {
+            if(requisitor.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MODER"))) {
                 updto.setProprio(3);
             } else {
                 updto.setProprio(1);
             }
         } else {
-            if(u.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MODER"))) {
+            if(requisitor.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MODER"))) {
                 updto.setProprio(2);
             } else {
                 updto.setProprio(0);

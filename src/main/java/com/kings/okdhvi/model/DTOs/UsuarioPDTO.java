@@ -45,7 +45,7 @@ public class UsuarioPDTO {
         this.estadoDaConta = estadoDaConta;
     }
 
-    public Integer isProprio() {
+    public Integer getProprio() {
         return proprio;
     }
 
