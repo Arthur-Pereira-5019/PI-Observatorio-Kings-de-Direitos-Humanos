@@ -1,6 +1,7 @@
 package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.NullResourceException;
+import com.kings.okdhvi.exception.PersistenceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.usuario.*;
 import com.kings.okdhvi.model.*;
@@ -70,16 +71,10 @@ public class UsuarioService {
         }
     }
 
+    @Transactional
     public Usuario atualizarFoto(Long id, CriarImagemRequest cir) {
         Usuario u = encontrarPorId(id, false);
         Imagem i = is.criarImagem(cir, u);
-        if(u.getFotoDePerfil() != null) {
-            try {
-                is.excluirImagemPeloId(u.getFotoDePerfil().getIdImagem());
-            } catch (Exception e) {
-                throw new
-            }
-        }
         u.setFotoDePerfil(i);
         return ur.save(u);
     }

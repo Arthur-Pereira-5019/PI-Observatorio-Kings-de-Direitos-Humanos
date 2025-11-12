@@ -4,7 +4,6 @@ let btnEsquerdo;
 let btnLonge;
 let btnPrimeiro;
 let btnCampo;
-let limite = true;
 
 async function iniciarPublicacoes() {
     consertarUrl()
@@ -35,9 +34,7 @@ async function iniciarPublicacoes() {
 
     btnDireito = document.getElementById("botaodireito");
     btnDireito.addEventListener("click", function () {
-        if (!limite) {
             moverUrl(1)
-        }
     })
     btnEsquerdo = document.getElementById("botaoesquerdo");
 
@@ -70,7 +67,7 @@ async function iniciarPublicacoes() {
     btnLonge = document.getElementById("botaolonge");
     btnLonge.textContent = paginaAtual() + 5;
     btnLonge.addEventListener("click", async function () {
-        moverUrl(paginaAtual() + 4)
+        moverUrl(Number(btnLonge.textContent) - paginaAtual())
     })
 
     const requestBody = {
@@ -101,7 +98,7 @@ async function iniciarPublicacoes() {
             body: JSON.stringify(requestBody)
         })
             .then(res => {
-                if (!res.ok) throw new Error("Erro no servidor");
+                if (!res.ok) throw new Error("ErroPersistenceException no servidor");
                 return res.json();
             })
             .then(data => {
@@ -117,13 +114,11 @@ async function iniciarPublicacoes() {
                         alert("Nenhum resultado encontrado!")
                         window.location.pathname = "/publicacoes/ /0"
                     }
-                    limite = true;
                     
                     btnDireito.remove()
                 } else {
-                    btnLonge.textContent = paginaAtual() + data.proximosIndexes % 10;
+                    btnLonge.textContent = paginaAtual() + data.proximosIndexes % 5;
                     if (Number(paginaAtual()) + 1 == Number(btnLonge.textContent)) {
-                        limite = true;
                         btnDireito.remove()
                     }
                     data.resultado.forEach((post, index) => {

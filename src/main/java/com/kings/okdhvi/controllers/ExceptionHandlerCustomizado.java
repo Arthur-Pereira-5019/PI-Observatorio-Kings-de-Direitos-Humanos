@@ -1,9 +1,6 @@
 package com.kings.okdhvi.controllers;
 
-import com.kings.okdhvi.exception.ExceptionResponse;
-import com.kings.okdhvi.exception.NullResourceException;
-import com.kings.okdhvi.exception.ResourceNotFoundException;
-import com.kings.okdhvi.exception.TokenGenerationException;
+import com.kings.okdhvi.exception.*;
 import com.kings.okdhvi.exception.imagens.InvalidBase64ImageEncoding;
 import com.kings.okdhvi.exception.login.InvalidLoginInfoException;
 import com.kings.okdhvi.exception.postagem.RevisaoPostagemException;
@@ -57,6 +54,12 @@ public class ExceptionHandlerCustomizado {
 
     @ExceptionHandler(DuplicatedResource.class)
     public final ResponseEntity<ExceptionResponse> handleDuplicatedResource(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(PersistenceException.class)
+    public final ResponseEntity<ExceptionResponse> handlePersistenceException(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }

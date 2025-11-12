@@ -39,7 +39,7 @@ public class Usuario implements Serializable, UserDetails {
     @Column
     private Boolean notificacoesPorEmail = false;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JoinColumn(name="id_foto_perfil")
     private Imagem fotoDePerfil;
 

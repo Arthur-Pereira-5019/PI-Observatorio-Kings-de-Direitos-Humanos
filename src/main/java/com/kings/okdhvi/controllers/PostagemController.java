@@ -68,7 +68,7 @@ public class PostagemController {
     public BuscaPaginadaResultado<PostagemECDTO> listarPostagens(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @PathVariable("pagina") Integer pagina, @AuthenticationPrincipal UserDetails ud) {
         List<Postagem> postagens;
         List<PostagemECDTO> resultadosDTO = new ArrayList<>();
-        BuscaPaginada bp = new BuscaPaginada(pagina, 10, bpt.parametro(), bpt.ascending());
+        BuscaPaginada bp = new BuscaPaginada(pagina, 4, bpt.parametro(), bpt.ascending());
         BuscaPaginadaResultado<Postagem> bpr = ps.buscaFiltrada(bp, texto, ud);
         postagens = bpr.getResultado();
 
