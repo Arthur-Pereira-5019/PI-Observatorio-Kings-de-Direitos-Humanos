@@ -66,8 +66,6 @@ async function iniciarPerfil() {
         const btnAddCargo = document.getElementById("btnAddCargo")
         const btnLogModerador = document.getElementById("btnLogModerador")
 
-        console.log(data)
-
         if (data.proprio == 0) {
             btnConfigUser.remove()
             btnRequisitar.remove()
@@ -86,7 +84,26 @@ async function iniciarPerfil() {
             btnLogModerador.style.display = "flex"
         }
 
+        const entrada = document.getElementById("capaPostagemInput");
+        entrada.addEventListener("input", input_capa);
 
+
+        function input_capa() {
+            capaPreview = document.querySelector(".icon-user");
+
+            const imagemSubmetida = entrada.files[0];
+
+            if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg")) {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    const base64StringWithPrefix = e.target.result;
+                    capaPreview.src = base64StringWithPrefix;
+                };
+
+                reader.readAsDataURL(imagemSubmetida);
+            }
+        }
 
         if (data.fotoDePerfil != null) {
             let fotoB64 = data.fotoDePerfil.imagem

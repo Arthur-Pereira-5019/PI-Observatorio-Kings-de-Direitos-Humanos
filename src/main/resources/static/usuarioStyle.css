@@ -156,6 +156,14 @@
     cursor: pointer;
 }
 
+#capaUsuarioInput {
+    position: absolute;
+    width: 24vw;
+    height: 16vw;
+    visibility: hidden;
+    z-index: 2;
+}
+
 .mais {
     width: 70%;
     height: 70%;

@@ -61,9 +61,13 @@ public class UsuarioService {
         u.setSenha(new BCryptPasswordEncoder().encode(u.getSenha()));
         u.setEstadoDaConta(EstadoDaConta.PADRAO);
 
-        Usuario r = ur.save(u);
-        ur.flush();
-        return r;
+        try {
+            Usuario r = ur.save(u);
+            ur.flush();
+            return r;
+        } catch (Exception e) {
+            throw new DuplicatedResource("Usuário já cadastrado!");
+        }
     }
 
     public Usuario atualizarFoto(Long id, Imagem i) {
@@ -184,6 +188,9 @@ public class UsuarioService {
     public void alterarTitulacao(Long idAlvo, Long idModerador, AdicionarCargoRequest acr) {
         Usuario r = encontrarPorId(idModerador, false);
         Usuario u = encontrarPorId(idAlvo, false);
+        if(idModerador.equals(idAlvo)) {
+            throw new UnauthorizedActionException("Tentativa de alterar a própria titulação!");
+        }
         if(u.getPedidoDeTitulacao() != null) {
             pets.deletarPedidoDeTitulacaoPeloId(u.getPedidoDeTitulacao().getId());
         }

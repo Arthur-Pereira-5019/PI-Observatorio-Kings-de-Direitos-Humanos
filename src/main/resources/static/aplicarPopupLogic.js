@@ -22,7 +22,6 @@ async function iniciarPopupAplicarCargo(url) {
 
     function getId() {
         let sel = box.value;
-        console.log(sel)
         if(sel == "Titulação:") {
             return -1;
         } else if(sel == "Suspenso") {

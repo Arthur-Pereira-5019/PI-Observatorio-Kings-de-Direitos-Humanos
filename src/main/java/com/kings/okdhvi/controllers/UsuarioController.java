@@ -35,11 +35,6 @@ public class UsuarioController {
     @Autowired
     UsuarioMapper um;
 
-    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Usuario criarUsuario(@RequestBody Usuario u) {
-        return us.saveUsuario(u);
-    }
-
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public Usuario encontrarUsuarioLogado(@AuthenticationPrincipal UserDetails ud) {
         Long idBusca = null;
