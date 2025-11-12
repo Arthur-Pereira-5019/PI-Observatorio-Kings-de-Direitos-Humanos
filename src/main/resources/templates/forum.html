@@ -15,10 +15,14 @@
             box-sizing: border-box;
             font-family: "Inter", sans-serif;
         }
-        body{
+
+        .container-universal-tela-forum{
+            width: 100vw;
+            height: fit-content;
+            min-height: 100vh;
             padding: 2%;
         }
-
+       
         .container-titulo-forum-forum{
             display: flex;
             width: 100%;
@@ -238,80 +242,117 @@
 
     </head>
     <body>
+        <div id="header"></div>
 
-        <div id="botao-ocultar-forum">
-            <img src="./imagens/olhosfechados.png" id="zoio-log" >
-        </div>
+        <div class="container-universal-tela-forum">
 
-        <div class="container-titulo-forum-forum"> 
-            
-            <p id="titulo-forum-forum" class = "tituloForum">Titulo Discussao</p>
-        </div> 
+            <div id="botao-ocultar-forum">
+                <img src="./imagens/olhosfechados.png" id="zoio-log">
+            </div>
 
-        <div id="data-forum-forum" class="dataForum">Data de criação: dd/mm/yyyy</div>
+            <div class="container-titulo-forum-forum">
 
-        <div class="container-resto-tela-forum">
+                <p id="titulo-forum-forum" class="tituloForum">Titulo
+                    Discussao</p>
+            </div>
 
-            <div class="container-geral-discussao-forum">
+            <div id="data-forum-forum" class="dataForum">Data de criação:
+                dd/mm/yyyy</div>
 
-                <div id="botao-ocultar-comentario-forum">
-            <img src="./imagens/olhosfechados.png" id="zoio-log" >
-        </div>
+            <div class="container-resto-tela-forum">
 
-                <div class="container-infos-usuario-discussao-forum">
+                <div class="container-geral-discussao-forum">
 
-                    <img src="https://randomuser.me/api/portraits/lego/6.jpg" id="foto-user-discussao-forum" alt="">
-                    <p id="nome-user-discussao-forum">Emanuel de Oliveira Farias</p>
+                    <div id="botao-ocultar-comentario-forum">
+                        <img src="/imagens/olhosfechados.png" id="zoio-log">
+                    </div>
+
+                    <div class="container-infos-usuario-discussao-forum">
+
+                        <img
+                            src="https://randomuser.me/api/portraits/lego/6.jpg"
+                            id="foto-user-discussao-forum" alt>
+                        <p id="nome-user-discussao-forum">Emanuel de Oliveira
+                            Farias</p>
+
+                    </div>
+
+                    <div class="container-texto-discussao-forum">Lorem ipsum
+                        dolor
+                        sit amet consectetur adipisicing elit. Consequatur
+                        veritatis, earum maiores fugit aut eveniet voluptas sed
+                        aspernatur distinctio eligendi asperiores quod quos,
+                        culpa
+                        tempora. Odit quasi aliquam assumenda voluptatem. Lorem
+                        ipsum dolor sit amet consectetur adipisicing elit.
+                        Reprehenderit nihil illum, iure architecto veniam error
+                        soluta labore cum aliquid quos rerum. Esse fuga
+                        laudantium
+                        veniam odio! Blanditiis sit non laudantium. Lorem ipsum
+                        dolor, sit amet consectetur adipisicing elit. Eaqu
+                        <p id="limite-caracteres-comentario-forum">512/512</p>
+                        <p id="data-comentario-forum">dd/mm/yyyy</p>
+
+                    </div>
 
                 </div>
 
-                <div class="container-texto-discussao-forum">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur veritatis, earum maiores fugit aut eveniet voluptas sed aspernatur distinctio eligendi asperiores quod quos, culpa tempora. Odit quasi aliquam assumenda voluptatem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit nihil illum, iure architecto veniam error soluta labore cum aliquid quos rerum. Esse fuga laudantium veniam odio! Blanditiis sit non laudantium. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaqu
-                    <p id="limite-caracteres-comentario-forum">512/512</p>
-                    <p id="data-comentario-forum">dd/mm/yyyy</p>
+                <div class="container-geral-discussao-forum">
+
+                    <div id="botao-ocultar-comentario-forum">
+                        <img src="/imagens/olhosfechados.png" id="zoio-log">
+                    </div>
+
+                    <div class="container-infos-usuario-discussao-forum">
+
+                        <img
+                            src="https://randomuser.me/api/portraits/lego/6.jpg"
+                            id="foto-user-discussao-forum" alt>
+                        <p id="nome-user-discussao-forum">Emanuel de Oliveira
+                            Farias</p>
+
+                    </div>
+
+                    <div class="container-texto-discussao-forum">Lorem ipsum
+                        dolor
+                        sit amet consectetur adipisicing elit. Consequatur
+                        veritatis, earum maiores fugit aut eveniet voluptas sed
+                        aspernatur distinctio eligendi asperiores quod quos,
+                        culpa
+                        tempora. Odit quasi aliquam assumenda voluptatem. Lorem
+                        ipsum dolor sit amet consectetur adipisicing elit.
+                        Reprehenderit nihil illum, iure architecto veniam error
+                        soluta labore cum aliquid quos rerum. Esse fuga
+                        laudantium
+                        veniam odio! Blanditiis sit non laudantium. Lorem ipsum
+                        dolor, sit amet consectetur adipisicing elit. Eaqu
+                        <p id="limite-caracteres-comentario-forum">512/512</p>
+                        <p id="data-comentario-forum">dd/mm/yyyy</p>
+
+                    </div>
+
+                </div>
+
+                <div class="fundo-criacao-comentario-forum">
+                    <textarea name="comentario"
+                        placeholder="Participe da discussão!"
+                        id="text-area-comentario-forum"></textarea>
+
+                    <div class="container-botaoElimite-comentario-forum"><p
+                            id="limite-caracteres-criacao-comentario-forum">512/512</p>
+                        <button
+                            id="botao-enviar-comentario-forum">Enviar</button></div>
 
                 </div>
 
             </div>
 
-            <div class="container-geral-discussao-forum">
-
-                <div id="botao-ocultar-comentario-forum">
-            <img src="./imagens/olhosfechados.png" id="zoio-log" >
         </div>
 
-                <div class="container-infos-usuario-discussao-forum">
+        <div id="footer"></div>
 
-                    <img src="https://randomuser.me/api/portraits/lego/6.jpg" id="foto-user-discussao-forum" alt="">
-                    <p id="nome-user-discussao-forum">Emanuel de Oliveira Farias</p>
-
-                </div>
-
-                <div class="container-texto-discussao-forum">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur veritatis, earum maiores fugit aut eveniet voluptas sed aspernatur distinctio eligendi asperiores quod quos, culpa tempora. Odit quasi aliquam assumenda voluptatem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit nihil illum, iure architecto veniam error soluta labore cum aliquid quos rerum. Esse fuga laudantium veniam odio! Blanditiis sit non laudantium. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaqu
-                    <p id="limite-caracteres-comentario-forum">512/512</p>
-                    <p id="data-comentario-forum">dd/mm/yyyy</p>
-
-                </div>
-
-            </div>
-
-
-            <!-- Fazer o campo de criação de texto -->
-
-            <div class="fundo-criacao-comentario-forum">
-                <textarea name="comentario" placeholder="Participe da discussão!" id="text-area-comentario-forum"></textarea>
-
-                <div class="container-botaoElimite-comentario-forum"><p id="limite-caracteres-criacao-comentario-forum">512/512</p> <button id="botao-enviar-comentario-forum">Enviar</button></div>
-
-            </div>
-
-
-        </div>
-
-        
-
-
-
-
+        <script src="/includeHtmlExterno.js"></script>
+        <script src="/verForumLogica.js"></script>
 
     </body>
 </html>
