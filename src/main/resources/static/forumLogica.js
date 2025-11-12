@@ -12,10 +12,11 @@ const requestBody = {
     ascending: false
 };
 
-async function gerarPublicacoes() {
+async function gerarForuns() {
     const url = window.location.href;
     const partes = url.split('/');
     let busca2 = "/" + partes.pop();
+    let buscaf
 
     //Significa que já não tem nada || Isso aqui ainda vai ser útil?
     if (busca2 === '/foruns') {
@@ -27,7 +28,10 @@ async function gerarPublicacoes() {
         } else {
             buscaf = busca + busca2
         }
+        
     }
+
+    console.log(buscaf)
 
     fetch("http://localhost:8080/api/forum/listar_publicacoes" + buscaf, {
         method: 'POST',
@@ -40,27 +44,27 @@ async function gerarPublicacoes() {
             return res.json();
         })
         .then(data => {
-            const primeiroPost = document.querySelector('.container-geral-publicacoes');
-            const containerGeral = document.getElementById("container-lista");
+            const primeiroPost = document.querySelector('.forum-tela-foruns');
+            const containerGeral = document.getElementById("container-all-foruns");
             console.log(data);
 
             if (data.resultado.length === 0) {
-                primeiroPost.querySelector('.container-baixo').remove()
+                primeiroPost.querySelector('.forum-tela-foruns').remove()
                 alert("Nenhum resultado encontrado!")
-                btnLonge.textContent = paginaAtual();
+                //btnLonge.textContent = paginaAtual();
                 if (busca != "") {
                     inputBusca.value = ""
-                    gerarPublicacoes()
+                    gerarForuns()
                 }
             } else {
-                btnLonge.textContent = paginaAtual() + data.proximosIndexes % 10;
+                //btnLonge.textContent = paginaAtual() + data.proximosIndexes % 10;
                 data.resultado.forEach((post, index) => {
                     if (index == 0) {
-                        construirPublicacao(primeiroPost, post)
+                        construirForum(primeiroPost, post)
                     } else {
                         const novoPost = primeiroPost.cloneNode(true);
                         containerGeral.appendChild(novoPost)
-                        construirPublicacao(novoPost, post)
+                        construirForum(novoPost, post)
                     }
                 });
             }
@@ -68,19 +72,20 @@ async function gerarPublicacoes() {
         })
         .catch(err => console.error(err));
 
-    function construirPublicacao(publicacao, dados) {
-        publicacao.querySelector(".titulo-publicacao").textContent = dados.titulo
-        publicacao.querySelector(".autor").textContent = dados.autor
-        publicacao.querySelector(".data").textContent = dados.data
-        publicacao.querySelector(".paragrafo").innerHTML = dados.texto
-        publicacao.addEventListener("click", function () {
-            window.location.href = "http://localhost:8080/publicacao/" + dados.idPostagem
+    function construirForum(forum, dados) {
+        forum.querySelector(".tituloForum").textContent = dados.titulo
+        forum.querySelector(".autorForum").textContent = dados.autor
+        forum.querySelector(".dataForum").textContent = dados.dataCriacao
+        forum.querySelector(".respostasForum").textContent = dados.respostas
+        forum.querySelector(".ultimaAtualizacao").textContent = dados.ultimaAtualizacao
+        forum.addEventListener("click", function () {
+            window.location.href = "http://localhost:8080/forum/" + dados.idPostagem
         })
     }
 
 }
 
-gerarPublicacoes()
+gerarForuns()
 
 function consertarUrl() {
     const url = window.location.href;

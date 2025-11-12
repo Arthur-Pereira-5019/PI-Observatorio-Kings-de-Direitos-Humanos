@@ -73,7 +73,7 @@
             justify-content: center;
         }
         
-        .titulo-forum-tela-foruns{
+        .tituloForum{
             height: auto;
             width: 100%;
             overflow: hidden;
@@ -90,11 +90,11 @@
             gap: 0.5rem;
         }
 
-        #nome-autor-forum-tela-foruns{
+        #autorForum{
             color: white;
         }
 
-        #data-forum-tela-foruns{
+        #dataForum{
             color: #C8C8C8;
             font-weight: 200;
         }
@@ -185,7 +185,7 @@
         <div class="container-universal-tela-foruns">
 
             <div class="titulo-tela-foruns">Fóruns</div>
-            <div class="container-all-foruns">
+            <div class="container-all-foruns" id="container-all-foruns">
                 
                 <div class="forum-tela-foruns">
                     
@@ -194,19 +194,19 @@
                     </div>
 
                     <div class="container-infos-tela-foruns">    
-                        <div class="titulo-forum-tela-foruns" id="tituloForum"></div>
-                        <div class="container-data-autor-tela-foruns"><p id="nome-autor-forum-tela-foruns"></p> <p id="data-forum-tela-foruns">dd/mm/yyyy</p></div>
+                        <div class="tituloForum"> <p class="tituloForum"></p> </div>
+                        <div class="container-data-autor-tela-foruns"><p class="autorForum"></p> <p class="dataForum"></p></div>
                     </div>
 
                     <div class="container-respostas-atualizacao-tela-foruns">
-                        <p class="dados-forum-tela-foruns" >Respostas:</p>
+                        <p class="dados-forum-tela-foruns" id="">Respostas:</p>
                         <p class="dados-forum-tela-foruns" >Última atualização:</p>
                     </div>
 
                     <div class="container-numeros-respostas-atualizacao-tela-foruns">
 
-                        <p class="dados-forum-tela-foruns" id="respostasForum"></p>
-                        <p class="dados-forum-tela-foruns" id="dataUltimaAtualizacao">dd/mm/yyyy</p>
+                        <p class="respostasForum" id="respostasForum"></p>
+                        <p class="ultimaAtualizacao" id="ultimaAtualizacao"></p>
                     </div>
                     
                 </div>
@@ -214,7 +214,7 @@
             </div>
 
             <div class="container-posicao-botao-tela-foruns">
-                <div id="botao-addForum-tela-foruns"><img src="./imagens/mais-branco.png" id="mais" alt=""></div>
+                <div id="botao-addForum-tela-foruns"><img src="/imagens/mais-branco.png" id="mais" alt=""></div>
 
             </div>
             
@@ -233,8 +233,8 @@
 
         <div id="footer"></div>
 
-        <script src="forumLogica.js"></script>
-        <script src="includeHtmlExterno.js"></script>
+        <script src="/forumLogica.js"></script>
+        <script src="/includeHtmlExterno.js"></script>
 
     </body>
 </html>
