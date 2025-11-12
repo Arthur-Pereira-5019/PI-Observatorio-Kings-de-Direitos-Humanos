@@ -3,7 +3,6 @@ let btnEsquerdo;
 let btnLonge;
 let btnPrimeiro;
 let btnCampo;
-let limite = true;
 
 const btnCriarForum = document.getElementById("botao-addForum-tela-foruns")
 
@@ -17,9 +16,7 @@ consertarUrl()
 
 btnDireito = document.getElementById("botaodireito");
 btnDireito.addEventListener("click", function () {
-    if (!limite) {
         moverUrl(1)
-    }
 })
 btnEsquerdo = document.getElementById("botaoesquerdo");
 
@@ -52,7 +49,7 @@ btnCampo.addEventListener("keydown", async function (event) {
 btnLonge = document.getElementById("botaolonge");
 btnLonge.textContent = paginaAtual() + 5;
 btnLonge.addEventListener("click", async function () {
-    moverUrl(paginaAtual() + 4)
+    moverUrl(Number(btnLonge.textContent) - paginaAtual())
 })
 
 const requestBody = {
@@ -105,13 +102,11 @@ async function gerarForuns() {
                     alert("Nenhum resultado encontrado!")
                     window.location.pathname = "/foruns/ /0"
                 }
-                limite = true;
 
                 btnDireito.remove()
             } else {
                 btnLonge.textContent = paginaAtual() + data.proximosIndexes % 10;
-                if (Number(paginaAtual()) + 1 == Number(btnLonge.textContent)) {
-                    limite = true;
+                if (Number(paginaAtual()) == Number(btnLonge.textContent)) {
                     btnDireito.remove()
                 }
                 data.resultado.forEach((post, index) => {
@@ -135,7 +130,7 @@ async function gerarForuns() {
         forum.querySelector(".respostasForum").textContent = dados.respostas
         forum.querySelector(".ultimaAtualizacao").textContent = dados.ultimaAtualizacao
         forum.addEventListener("click", function () {
-            window.location.href = "http://localhost:8080/forum/" + dados.idPostagem
+            window.location.href = "http://localhost:8080/forum/" + dados.idForum
         })
     }
 

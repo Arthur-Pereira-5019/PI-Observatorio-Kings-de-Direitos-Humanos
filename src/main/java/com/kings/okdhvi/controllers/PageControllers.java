@@ -61,6 +61,9 @@ public class PageControllers {
     @GetMapping("/novo_forum")
     public String novoForum() {return "novoForum"; }
 
+    @GetMapping("/forum/**")
+    public String forum() {return "forum"; }
+
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/usuario/{id}")
