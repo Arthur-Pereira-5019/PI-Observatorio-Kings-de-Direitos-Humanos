@@ -70,8 +70,12 @@ public class UsuarioService {
         }
     }
 
-    public Usuario atualizarFoto(Long id, Imagem i) {
+    public Usuario atualizarFoto(Long id, CriarImagemRequest cir) {
         Usuario u = encontrarPorId(id, false);
+        Imagem i = is.criarImagem(cir, u);
+        if(u.getFotoDePerfil() != null) {
+            is.excluirImagemPeloId(u.getFotoDePerfil().getIdImagem());
+        }
         u.setFotoDePerfil(i);
         return ur.save(u);
     }

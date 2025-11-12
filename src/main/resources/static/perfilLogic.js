@@ -84,7 +84,7 @@ async function iniciarPerfil() {
             btnLogModerador.style.display = "flex"
         }
 
-        const entrada = document.getElementById("capaPostagemInput");
+        const entrada = document.getElementById("capaUsuarioInput");
         entrada.addEventListener("input", input_capa);
 
 
@@ -98,7 +98,25 @@ async function iniciarPerfil() {
 
                 reader.onload = (e) => {
                     const base64StringWithPrefix = e.target.result;
-                    capaPreview.src = base64StringWithPrefix;
+                    requestBody = {
+                        imageBase64: base64StringWithPrefix,
+                        descricao: "Foto de perfil de " + data.nome,
+                        titulo: "Foto de perfil de " + data.nome
+                    }
+
+                    fetch("http://localhost:8080/api/user/" + id, {
+                        method: 'PUT',
+                        body: JSON.stringify(requestBody),
+                        headers: { 'Content-Type': 'application/json' },
+                    })
+                        .then(res => {
+                            if (!res.ok) return res.json();
+                            alert("Imagem adicionada com sucesso!")
+                            window.location.reload();
+                        })
+                        .then(d => {
+                            alert(d)
+                        })
                 };
 
                 reader.readAsDataURL(imagemSubmetida);

@@ -76,7 +76,7 @@ public class UsuarioController {
 
     @PreAuthorize("hasRole('PADRAO')")
     @PutMapping(value = "/{id}")
-    public Usuario atualizarImagem(@RequestBody Imagem i, @PathVariable("id") Long id) {
+    public Usuario atualizarImagem(@RequestBody CriarImagemRequest i, @PathVariable("id") Long id) {
         return us.atualizarFoto(id, i);
     }
 
