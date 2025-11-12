@@ -4,6 +4,7 @@ let campoTitulo = document.getElementById("titulo_nova_imagem");
 let canva = document.getElementById("canva");
 let inserir = document.getElementById("inserir");
 let blur_nova_imagem = document.getElementById("blur_nova_imagem")
+let sel = document.getElementById("combobox-tamanhos")
 
 window.iniciarPopupNovaImagem = function () {
 
@@ -18,7 +19,7 @@ window.iniciarPopupNovaImagem = function () {
 
         const arquivo = entrada.files[0];
 
-        if (arquivo && arquivo.name.endsWith(".png") || arquivo.name.endsWith(".jpg")) {
+        if (arquivo && arquivo.name.endsWith(".png") || arquivo.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg") || imagemSubmetida.name.endsWith(".gif") || imagemSubmetida.name.endsWith(".webp")) {
             const reader = new FileReader();
 
             reader.onload = (e) => {
@@ -38,6 +39,21 @@ window.iniciarPopupNovaImagem = function () {
         endPosition++;
         prefixo = imageData.substring(inicioPrefixo, fimPrefixo);
         imageData = imageData.replace(imageData.substring(0, endPosition), "");
+        let tagT = "rt_Inormal"
+        if (imageData.naturalHeight < imageData.naturalWidth) {
+            if (sel == "Grande") {
+                tagT = "rt_Igrande"
+            } else if (sel == "Pequena") {
+                tagT = "rt_Ipequena"
+            }
+        } else {
+            tagT = "rt_IVnormal"
+            if (sel == "Grande") {
+                tagT = "rt_IVgrande"
+            } else if (sel == "Pequena") {
+                tagT = "rt_IVpequena"
+            }
+        }
 
 
         const requestBody = {
@@ -60,6 +76,7 @@ window.iniciarPopupNovaImagem = function () {
                 ocultarPopupNI()
                 const img = document.createElement("img");
                 img.classList.add("rt_imagem");
+                img.classList.add(tagT);
                 img.textContent = "";
                 img.src = canva.src
                 console.log(selecaoAntiga);

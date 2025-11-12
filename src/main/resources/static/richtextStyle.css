@@ -46,3 +46,31 @@
     overflow: hidden;
     pointer-events: none;
 }
+
+.rt_imagem {
+    aspect-ratio: auto;
+}
+
+.rt_Inormal {
+    width: 30vw;
+}
+
+.rt_Igrande {
+    width: 40vw;
+}
+
+.rt_Ipequena {
+    width: 20vw;
+}
+
+.rt_IVnormal {
+    height: 30vw;
+}
+
+.rt_IVgrande {
+    height: 40vw;
+}
+
+.rt_IVpequena {
+    height: 20vw;
+}

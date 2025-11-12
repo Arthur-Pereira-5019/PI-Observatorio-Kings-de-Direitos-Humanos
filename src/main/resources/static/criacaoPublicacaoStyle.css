@@ -85,7 +85,7 @@ html {
     border: 1px solid black;
     width: 100%;
     overflow-wrap: break-word;
-    min-height: 40vh;
+    min-height: 60vh;
     white-space: pre-wrap;
     display: flex;
     flex-wrap: wrap;

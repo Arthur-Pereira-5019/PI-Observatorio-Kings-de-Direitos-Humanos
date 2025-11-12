@@ -1,10 +1,16 @@
 <div id="blur_nova_imagem">
     <div id="container_nova_imagem">
-      <input id="arquivo" type="file" enctype="multipart/form-data" accept=".jpg, .png, .gif">
+      <input id="arquivo" type="file" enctype="multipart/form-data" accept=".jpg,.png,.gif,.jpeg,.webp">
       <img id="canva" src="">
       <p>Isto é apenas uma pré visualização, a imagem vai manter seu tamanho real na Publicação!</p>
       <textarea id="titulo_nova_imagem" maxlength="128" placeholder="Título"></textarea>
       <textarea id="desc" maxlength="256" rows="4" cols="50" placeholder="Descreva a imagem"></textarea>
+      <select name="Tamanho" id="combobox-tamanhos">
+        <option selected disabled>Tamanho:</option>
+        <option>Grande</option>
+        <option>Normal</option>
+        <option>Pequena</option>
+    </select>
       <button id="inserir">Inserir</button>
     </div>
 </div>

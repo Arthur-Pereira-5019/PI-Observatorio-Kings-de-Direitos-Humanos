@@ -121,7 +121,7 @@ function input_capa() {
 
     const imagemSubmetida = entrada.files[0];
 
-    if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg")) {
+    if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg") || imagemSubmetida.name.endsWith(".webp")) {
         const reader = new FileReader();
 
         reader.onload = (e) => {
@@ -175,11 +175,8 @@ function getHTML() {
     return textoPublicacao.innerHTML;
 }
 
-textoPublicacao.addEventListener("focusout", function () {
-    selecaoAntiga = window.getSelection()
-})
-
 textoPublicacao.addEventListener("keydown", function (e) {
+    selecaoAntiga = window.getSelection()
 
     if (e.key === "backspace") {
         createBold();
@@ -210,6 +207,9 @@ textoPublicacao.addEventListener("keydown", function (e) {
         e.preventDefault();
     }
 });
+
+textoPublicacao.addEventListener("dragover", e => e.preventDefault());
+textoPublicacao.addEventListener("drop", e => e.preventDefault());
 
 textoPublicacao.addEventListener("paste", function (e) {
     e.preventDefault();
