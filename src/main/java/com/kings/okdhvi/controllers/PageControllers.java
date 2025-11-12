@@ -55,7 +55,7 @@ public class PageControllers {
         return "imagem";
     }
 
-    @GetMapping("/foruns")
+    @GetMapping("/foruns/**")
     public String telaForuns() {return "telaForuns"; }
 
     @GetMapping("/novo_forum")
