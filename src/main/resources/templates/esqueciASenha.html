@@ -27,7 +27,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3%;
+            gap: 10%;
             height: 80vh;
             width: 40vw;
             border-radius: 2rem;
@@ -43,20 +43,26 @@
 
         #cadeado{
             width: 40%;
-
         }
 
         #titulo-recuperar-senha{
             font-size: 3rem;
             font-family: "JetBrains Mono", monospace;
             font-weight: 800;
-
         }
 
         #instrucao-recuperar-senha{
             font-size: 1.6rem;
         }
 
+         #label-email-recuperacao{
+            width: 60%;
+            height: 6vh;
+            border-radius: 20px;
+            padding: 2%;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
 
 
         </style>
@@ -71,6 +77,8 @@
             <p id="titulo-recuperar-senha">Recuperar Senha</p>
 
             <p>Informe abaixo seu email para ser enviado o código para <b>redefinir sua senha</b>.</p>
+            
+            <input type="text" id="label-email-recuperacao">
 
 
         </div>
