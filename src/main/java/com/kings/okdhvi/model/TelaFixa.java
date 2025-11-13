@@ -3,12 +3,10 @@ package com.kings.okdhvi.model;
 import jakarta.persistence.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
-@Table
 @Entity
 public class TelaFixa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column

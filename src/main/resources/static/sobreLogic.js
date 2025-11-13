@@ -1,5 +1,7 @@
 async function iniciarSobre() {
-    fetch("http://localhost:8080/api/tf/0", {
+let textp = document.getElementById("textoPublicacao");
+
+    fetch("http://localhost:8080/api/tf/1", {
         headers: { 'Content-Type': 'application/json' },
     })
         .then(res => {
@@ -16,7 +18,7 @@ async function iniciarSobre() {
             for (const i of imgs) {
                 i.src = await carregarSrc(i.dataset.db_id);
             }
-            texto.innerHTML = elementoSurpresa.innerHTML;
+            textp.innerHTML = elementoSurpresa.innerHTML;
         })
 }
 
