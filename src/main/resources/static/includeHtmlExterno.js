@@ -6,9 +6,13 @@ const seta_direita = document.getElementById("seta_direita");
 let page = 0;
 
 async function carregarHTMLExterno(id, url, cssFile, jsFile) {
+    alvo = document.getElementById(id);
+    if(alvo == null | alvo == undefined) {
+        throw "Alvo não encontrado"
+    }
     const response = await fetch(url);
     const data = await response.text();
-    document.getElementById(id).innerHTML = data;
+    alvo.innerHTML = data;
 
     if (cssFile) {
         anexarCss(cssFile)
@@ -24,6 +28,8 @@ async function carregarHTMLExterno(id, url, cssFile, jsFile) {
                 iniciarPopupRegistro();
             } else if (jsFile === "/includePopupLogin.js" && typeof iniciarCabecalho === "function") {
                 iniciarPopupLogin();
+            } else if (jsFile === "/richTextLogic.js" && typeof iniciarRichText === "function") {
+                iniciarRichText();
             }
         };
         document.body.appendChild(script);
@@ -46,7 +52,7 @@ async function iniciarHtmlExterno() {
     await carregarHTMLExterno("login", "/popupLogin", "/popUpLoginStyle.css", "/includePopupLogin.js");
     await carregarHTMLExterno("registro", "/popupRegistro", "/popUpRegistroStyle.css", "/includePopUpRegistro.js");
     try {
-        await carregarHTMLExterno("richtexteditor", "/richText", "/richTextEditorStyle.css.css", "/richTextLogic.js");
+        await carregarHTMLExterno("richtexteditor", "/rte", "/richTextEditorStyle.css", "/richTextLogic.js");
     } catch (e) {
 
     }

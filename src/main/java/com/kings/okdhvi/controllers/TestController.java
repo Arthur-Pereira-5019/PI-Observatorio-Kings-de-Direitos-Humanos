@@ -55,4 +55,7 @@ public class TestController {
     @RequestMapping({"/aplicar_cargo"})
     public String returnAplicarCargo() {return "aplicarPopup";}
 
+    @RequestMapping({"/rte"})
+    public String returnRichText() {return "richTextEditor";}
+
 }
