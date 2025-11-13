@@ -48,37 +48,46 @@
 }
 
 .rt_imagem {
-    width: auto;
-    height: auto;
-    aspect-ratio: auto;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+    display: block;
+    margin: 1em auto;
+    max-width: 100%;
+    height: auto !important;
+    width: auto !important;
+    resize: both;
 }
 
-.rt_Inormal img{
+/* força a imagem a realmente ocupar a linha toda */
+.rt_imagem::before,
+.rt_imagem::after {
+    content: "";
+    display: block;
+}
+
+/* tamanhos horizontais */
+.rt_Inormal {
     width: 30vw !important;
-
 }
 
-.rt_Igrande img{
+.rt_Igrande {
     width: 40vw !important;
-
 }
 
-.rt_Ipequena img{
+.rt_Ipequena {
     width: 20vw !important;
 }
 
-.rt_IVnormal img{
+/* tamanhos verticais */
+.rt_IVnormal {
     height: 30vw !important;
-
+    width: auto !important;
 }
 
-.rt_IVgrande img{
+.rt_IVgrande {
     height: 40vw !important;
+    width: auto !important;
 }
 
-.rt_IVpequena img{
+.rt_IVpequena {
     height: 20vw !important;
+    width: auto !important;
 }

@@ -88,7 +88,7 @@ window.iniciarPopupNovaImagem = function () {
                     const sel = window.getSelection();
                     const range = document.createRange();
                     range.selectNodeContents(editor);
-                    range.collapse(false); // coloca o cursor no final
+                    range.collapse(false);
                     sel.removeAllRanges();
                     sel.addRange(range);
                     selecaoAntiga = sel;
