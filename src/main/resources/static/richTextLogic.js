@@ -40,20 +40,6 @@ async function iniciarRichText() {
         citacao();
     });
 
-    // Pegar o texto
-    function getText() {
-        return textoPublicacao.innerText;
-    }
-
-    // Pegar o HTML formatado
-    function getHTML() {
-        return textoPublicacao.innerHTML;
-    }
-
-    //textoPublicacao.addEventListener("keyup", salvarSelecao);
-    //textoPublicacao.addEventListener("mouseup", salvarSelecao);
-    //textoPublicacao.addEventListener("focus", salvarSelecao);
-
     textoPublicacao.addEventListener("keydown", function (e) {
         selecaoAntiga = window.getSelection();
 
@@ -166,68 +152,98 @@ function limparSpansRedundantes(editor) {
             next.remove();
             i--;
         }
-        /*Solução no freezer para quebra de texto desfuncional.
-        if (next) {
-            let node = el.nextSibling;
-            let hasBR = false;
-            while (node && node.nodeType !== Node.ELEMENT_NODE) {
-                node = node.nextSibling;
-            }
-            if (node && node.tagName === "BR") hasBR = true;
-
-            if (
-                !hasBR &&
-                node &&
-                node.nodeType === Node.ELEMENT_NODE &&
-                node.tagName === "SPAN" &&
-                node.className === el.className
-            ) {
-                el.textContent += node.textContent;
-                node.remove();
-                i--;
-            }
-        }*/
     }
 }
 
-function inserirElemento(elemento, selection) {
+function posicaoCaretEmTag(range, tag) {
+    const node = range.startContainer;
+    const offset = range.startOffset;
 
+    if (node.nodeType === Node.TEXT_NODE) {
+        const noAnterior = node.previousSibling == null;
+        const noSeguinte = node.nextSibling == null;
+        return {
+            isAtStart: offset === 0 && noAnterior,
+            isAtEnd: offset === node.length && noSeguinte
+        };
+    }
+
+    return {
+        isAtStart: node === tag && offset === 0,
+        isAtEnd: node === tag && offset === tag.childNodes.length
+    };
+}
+
+function aplicarRange(novoRange, selection) {
+    selection.removeAllRanges();
+    selection.addRange(novoRange);
+}
+
+function splitTagNoCaret(tag, range) {
+    const pre = document.createRange();
+    pre.selectNodeContents(tag);
+    pre.setEnd(range.startContainer, range.startOffset);
+
+    const post = document.createRange();
+    post.selectNodeContents(tag);
+    post.setStart(range.startContainer, range.startOffset);
+
+    const left = tag.cloneNode(false);
+    const right = tag.cloneNode(false);
+    const middle = document.createElement("span");
+
+    left.className = right.className = tag.className;
+    middle.className = "rt_default rt_geral";
+
+    const fragBefore = pre.cloneContents();
+    const fragAfter = post.cloneContents();
+
+    if (fragBefore && fragBefore.childNodes.length) left.appendChild(fragBefore);
+    else left.textContent = "\u200B";
+
+    if (fragAfter && fragAfter.childNodes.length) right.appendChild(fragAfter);
+    else right.textContent = "\u200B";
+
+    middle.textContent = "\u200B";
+
+    tag.replaceWith(left, middle, right);
+    return middle;
+}
+
+function inserirElemento(elemento, selection) {
     if (!selection.rangeCount) return;
+
     const range = selection.getRangeAt(0);
     const currentTag = testarTag(selection?.anchorNode);
     const editor = document.querySelector("#textoPublicacao");
 
     if (currentTag && currentTag.classList.contains(elemento.classList[0]) && range.collapsed) {
-        // --- detecção robusta de "caret no começo" e "caret no fim" ---
-        const isAtStart = (() => {
-    // caret antes de qualquer texto real?
-    if (range.startContainer.nodeType === Node.TEXT_NODE) {
-        return range.startOffset === 0 && range.startContainer.previousSibling == null;
-    }
-    return (
-        (range.startContainer === currentTag && range.startOffset === 0) ||
-        (range.startContainer === currentTag.firstChild && range.startOffset === 0)
-    );
-})();
+        const { isAtStart, isAtEnd } = posicaoCaretEmTag(range, currentTag);
 
-const isAtEnd = (() => {
-    if (range.startContainer.nodeType === Node.TEXT_NODE) {
-        return (
-            range.startOffset === range.startContainer.length &&
-            range.startContainer.nextSibling == null
-        );
-    }
-    return (
-        (range.startContainer === currentTag &&
-            range.startOffset === currentTag.childNodes.length) ||
-        (range.startContainer === currentTag.lastChild &&
-            range.startOffset === currentTag.lastChild.textContent.length)
-    );
-})();
+        if (isAtEnd) {
+            const next = currentTag.nextSibling;
+            const precisaNovo =
+                !next ||
+                (next.nodeType === Node.ELEMENT_NODE &&
+                    next.classList.contains("rt_default") &&
+                    !next.textContent.trim());
 
-    console.log("inserirElemento: currentTag", currentTag && currentTag.className, "startContainer:", range.startContainer, "startOffset:", range.startOffset, "isAtStart:", isAtStart, "isAtEnd:", isAtEnd);
+            if (precisaNovo) {
+                const novo = document.createElement("span");
+                novo.textContent = "\u200B";
+                novo.classList.add("rt_default", "rt_geral");
 
-        // Se caret efetivamente no início ou no fim: criar bloco neutro logo após a tag
+                currentTag.insertAdjacentElement("afterend", novo);
+                const nr = document.createRange();
+                nr.selectNodeContents(novo);
+                nr.collapse(true);
+                aplicarRange(nr, selection);
+
+                if (!currentTag.textContent.trim()) currentTag.remove();
+                return;
+            }
+        }
+
         if (isAtStart || isAtEnd) {
             const novo = document.createElement("span");
             novo.textContent = "\u200B";
@@ -237,78 +253,40 @@ const isAtEnd = (() => {
             const nr = document.createRange();
             nr.selectNodeContents(novo);
             nr.collapse(true);
-            selection.removeAllRanges();
-            selection.addRange(nr);
+            aplicarRange(nr, selection);
+
+            if (!currentTag.textContent.trim()) currentTag.remove();
             return;
         }
-
-        // --- Caret no MEIO: split preservando nós (ex: <br>) ---
-        // Construir fragmentos preservando os nós DOM usando cloneContents()
-        const preRange = document.createRange();
-        preRange.selectNodeContents(currentTag);
-        preRange.setEnd(range.startContainer, range.startOffset);
-        const fragBefore = preRange.cloneContents();
-
-        const postRange = document.createRange();
-        postRange.selectNodeContents(currentTag);
-        postRange.setStart(range.startContainer, range.startOffset);
-        const fragAfter = postRange.cloneContents();
-
-        const spanLeft = currentTag.cloneNode(false);
-        const spanMid = document.createElement("span");
-        const spanRight = currentTag.cloneNode(false);
-
-        spanLeft.className = currentTag.className;
-        spanRight.className = currentTag.className;
-        spanMid.className = "rt_default rt_geral";
-
-        if (fragBefore && fragBefore.childNodes.length) {
-            spanLeft.appendChild(fragBefore);
-        } else {
-            spanLeft.textContent = "\u200B";
-        }
-
-        // middle é apenas um placeholder vazio para caret
-        spanMid.textContent = "\u200B";
-
-        if (fragAfter && fragAfter.childNodes.length) {
-            spanRight.appendChild(fragAfter);
-        } else {
-            spanRight.textContent = "\u200B";
-        }
-
-        currentTag.replaceWith(spanLeft, spanMid, spanRight);
-
-        const nr = document.createRange();
-        nr.selectNodeContents(spanMid);
-        nr.collapse(true);
-        selection.removeAllRanges();
-        selection.addRange(nr);
-
-        limparSpansRedundantes(editor);
-        return;
     }
-
-
 
     if (!range.collapsed) {
         if (currentTag) joinDePartes(currentTag, range, "rt_default rt_geral");
         try {
             range.surroundContents(elemento);
-        } catch (e) { }
+        } catch (e) {}
 
         elemento.classList.add("rt_geral");
         range.setStartAfter(elemento);
         range.collapse(true);
-        selection.removeAllRanges();
-        selection.addRange(range);
+        aplicarRange(range, selection);
+
+        limparSpansRedundantes(editor);
+        return;
+    }
+
+    if (currentTag) {
+        const spanMid = splitTagNoCaret(currentTag, range);
+        const nr = document.createRange();
+        nr.selectNodeContents(spanMid);
+        nr.collapse(true);
+        aplicarRange(nr, selection);
 
         limparSpansRedundantes(editor);
         return;
     }
 
     const container = range.startContainer;
-
     if (container.nodeType === Node.TEXT_NODE) {
         const text = container.textContent;
         const before = text.slice(0, range.startOffset);
@@ -337,11 +315,11 @@ const isAtEnd = (() => {
     const newRange = document.createRange();
     newRange.selectNodeContents(elemento);
     newRange.collapse(true);
-    selection.removeAllRanges();
-    selection.addRange(newRange);
+    aplicarRange(newRange, selection);
 
     limparSpansRedundantes(editor);
 }
+
 
 function colocarCaretDentro(el, selection) {
     const r = document.createRange();
@@ -398,7 +376,6 @@ function joinDePartes(ancestor, range, classMeio) {
     ancestor.parentNode.insertBefore(before, elemento);
     ancestor.remove();
 
-    // manter separadores (se usar)
     insertSeparator(elemento, "before");
     insertSeparator(elemento, "after");
 }
