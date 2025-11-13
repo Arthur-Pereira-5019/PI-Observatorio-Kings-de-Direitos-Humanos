@@ -8,7 +8,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/api/tf")
+@RestController
+@RequestMapping("/api/tf")
 public class TelaFixaController {
 
     @Autowired

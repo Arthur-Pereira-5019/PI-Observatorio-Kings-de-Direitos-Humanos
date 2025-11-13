@@ -5,6 +5,7 @@ import com.kings.okdhvi.exception.PersistenceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.model.TelaFixa;
 import com.kings.okdhvi.repositories.TelaFixaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +14,16 @@ public class TelaFixaServices {
     @Autowired
     TelaFixaRepository tfr;
 
+    @Transactional
     public TelaFixa saveTela(TelaFixa tf) {
-        if(tf.getId() >= 2L || tf.getId() < 0L) {
+        System.out.println(tf.getId());
+        if(tf.getId() >= 3L || tf.getId() < 1L) {
             throw new PersistenceException("Tela inexistente!");
         }
         try {
             return tfr.save(tf);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new PersistenceException("Erro ao atualizar tela");
         }
     }
