@@ -45,6 +45,11 @@ async function iniciarHtmlExterno() {
     await carregarHTMLExterno("footer", "/rodape", "/rodapeStyle.css");
     await carregarHTMLExterno("login", "/popupLogin", "/popUpLoginStyle.css", "/includePopupLogin.js");
     await carregarHTMLExterno("registro", "/popupRegistro", "/popUpRegistroStyle.css", "/includePopUpRegistro.js");
+    try {
+        await carregarHTMLExterno("richtexteditor", "/richText", "/richTextEditorStyle.css.css", "/richTextLogic.js");
+    } catch (e) {
+
+    }
 
     if (iconButton) {
         iconButton.addEventListener("click", function () {
