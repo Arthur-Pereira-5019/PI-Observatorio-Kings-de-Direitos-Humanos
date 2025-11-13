@@ -34,12 +34,6 @@ window.iniciarPopupNovaImagem = function () {
     function img_insert() {
         const textoPublicacao = document.getElementById("textoPublicacao");
         textoPublicacao.focus();
-
-        if (selecaoAntiga) {
-            const sel = window.getSelection();
-            sel.removeAllRanges();
-            sel.addRange(selecaoAntiga);
-        }
         let imageData = canva.src;
         let fimPrefixo = imageData.indexOf(";")
         let inicioPrefixo = imageData.indexOf("/")
@@ -89,6 +83,16 @@ window.iniciarPopupNovaImagem = function () {
                 img.textContent = "";
                 img.src = canva.src
                 console.log(selecaoAntiga);
+                if (!selecaoAntiga || !selecaoAntiga.rangeCount) {
+                    const editor = document.getElementById("textoPublicacao");
+                    const sel = window.getSelection();
+                    const range = document.createRange();
+                    range.selectNodeContents(editor);
+                    range.collapse(false); // coloca o cursor no final
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                    selecaoAntiga = sel;
+                }
                 img.dataset.db_id = data.idImagem;
                 inserirElemento(img, selecaoAntiga)
             })

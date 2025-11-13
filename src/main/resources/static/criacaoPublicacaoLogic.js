@@ -46,7 +46,7 @@ async function iniciarCriacaoPublicacao() {
 
 
     pic.addEventListener("click", function () {
-        salvarSelecao()
+        //salvarSelecao()
         const blur_nova_imagem = document.getElementById("blur_nova_imagem");
         const container_nova_imagem = document.getElementById("container_nova_imagem");
         blur_nova_imagem.style.display = "inline";
@@ -92,7 +92,6 @@ async function publicarDocumento(finalizada) {
     let fimPrefixo = campoImagem.indexOf(";")
     let inicioPrefixo = campoImagem.indexOf("/")
     prefixo = campoImagem.substring(inicioPrefixo, fimPrefixo);
-    console.log("prefixo")
 
     endPosition++;
     campoImagem = campoImagem.replace(campoImagem.substring(0, endPosition), "");
@@ -183,9 +182,9 @@ function getHTML() {
 }
 
 
-textoPublicacao.addEventListener("keyup", salvarSelecao);
-textoPublicacao.addEventListener("mouseup", salvarSelecao);
-textoPublicacao.addEventListener("focus", salvarSelecao);
+//textoPublicacao.addEventListener("keyup", salvarSelecao);
+//textoPublicacao.addEventListener("mouseup", salvarSelecao);
+//textoPublicacao.addEventListener("focus", salvarSelecao);
 
 textoPublicacao.addEventListener("keydown", function (e) {
     selecaoAntiga = window.getSelection()
