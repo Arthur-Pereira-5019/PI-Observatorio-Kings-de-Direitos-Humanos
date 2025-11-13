@@ -1,36 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Nova Publicação</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Publicação</title>
 
-        <link rel="stylesheet" href="criacaoPublicacaoStyle.css">
-    </head>
+    <link rel="stylesheet" href="criacaoPublicacaoStyle.css">
+</head>
 
-    <body>
-        <div id="header"></div>
-        <div id="fundoImagem">
-            <div id="inserirImagem"></div>
-        </div>
-        <div id="container-criacao-publicacao">
-            <p id="titulo">Nova Publicação</p>
-            <p class="textoBase">Título: *</p>
-            <input id="campoTitulo">
+<body>
+    <div id="header"></div>
+    <div id="fundoImagem">
+        <div id="inserirImagem"></div>
+    </div>
+    <div id="container-criacao-publicacao">
+        <p id="titulo">Nova Publicação</p>
+        <p class="textoBase">Título: *</p>
+        <input id="campoTitulo">
 
-            <label id="capaPostagem" label for="capaPostagemInput">
-                <img src id="capaPostagemPreview">
-                <input id="capaPostagemInput" type="file"
-                    enctype="multipart/form-data" accept=".jpg, .png">
-            </label>
+        <label id="capaPostagem" label for="capaPostagemInput">
+            <img src id="capaPostagemPreview">
+            <input id="capaPostagemInput" type="file" enctype="multipart/form-data" accept=".jpg, .png">
+        </label>
 
-            <div id="richtexteditor"></div>
+        <div id="richtexteditor" style="
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+">
 
             <div id="tituloTags">
                 <span class="textoBase">Adicione Tags: </span>
                 <div id="containerDicaTag">
-                    <span id="dicaTags" class="textoBase" title="Separe as tags com espaços em branco. Utilize a tag &QUOT;notícia&QUOT; para exibir a publicação na aba de notícias do site.">?</span> </div>
+                    <span id="dicaTags" class="textoBase"
+                        title="Separe as tags com espaços em branco. Utilize a tag &QUOT;notícia&QUOT; para exibir a publicação na aba de notícias do site.">?</span>
+                </div>
             </div>
 
             <input id="campoTags">
@@ -54,8 +59,8 @@
         </div>
         <div id="footer"></div>
 
-    </body>
-    <script src="includeHtmlExterno.js" defer></script>
-    <script src="criacaoPublicacaoLogic.js" defer></script>
+</body>
+<script src="includeHtmlExterno.js" defer></script>
+<script src="criacaoPublicacaoLogic.js" defer></script>
 
 </html>

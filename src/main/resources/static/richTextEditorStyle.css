@@ -51,6 +51,8 @@
     align-content: flex-start;
     font-family: "Inter", sans-serif;
     font-size: 18.667;
+    padding-left: 0.5%;
+    padding-right: 0.5%;
 }
 
 #textoPublicacao>* {

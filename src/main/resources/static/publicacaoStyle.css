@@ -10,7 +10,7 @@ html {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 84%;
+    width: 85%;
     left: 50%;
     transform: translateX(-50%);
     position: relative;

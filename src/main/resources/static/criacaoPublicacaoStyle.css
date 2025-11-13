@@ -9,7 +9,7 @@ html {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 64%;
+    width: 84.5%;
     left: 50%;
     transform: translateX(-50%);
     position: relative;
