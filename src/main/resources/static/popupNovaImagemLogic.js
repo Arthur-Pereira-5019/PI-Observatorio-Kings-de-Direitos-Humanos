@@ -6,7 +6,9 @@ let inserir = document.getElementById("inserir");
 let blur_nova_imagem = document.getElementById("blur_nova_imagem")
 let selBox = document.getElementById("combobox-tamanhos")
 
+
 window.iniciarPopupNovaImagem = function () {
+
 
     file = document.getElementById("arquivo");
     campoDescricao = document.getElementById("desc");
@@ -14,22 +16,28 @@ window.iniciarPopupNovaImagem = function () {
     canva = document.getElementById("canva");
     inserir = document.getElementById("inserir");
 
+
     function file_input() {
         const entrada = document.getElementById("arquivo");
 
+
         const arquivo = entrada.files[0];
+
 
         if (arquivo && arquivo.name.endsWith(".png") || arquivo.name.endsWith(".jpg") || arquivo.name.endsWith(".jpeg") || arquivo.name.endsWith(".gif") || arquivo.name.endsWith(".webp")) {
             const reader = new FileReader();
+
 
             reader.onload = (e) => {
                 const base64StringWithPrefix = e.target.result;
                 canva.src = base64StringWithPrefix;
             };
 
+
             reader.readAsDataURL(arquivo);
         }
     }
+
 
     function img_insert() {
         const textoPublicacao = document.getElementById("textoPublicacao");
@@ -59,12 +67,15 @@ window.iniciarPopupNovaImagem = function () {
         }
 
 
+
+
         const requestBody = {
             imageBase64: imageData,
             descricao: campoDescricao.value,
             titulo: campoTitulo.value,
             tipoImagem: prefixo
         };
+
 
         fetch("http://localhost:8080/api/imagem", {
             method: 'POST',
@@ -99,8 +110,10 @@ window.iniciarPopupNovaImagem = function () {
             .catch(err => console.error(err));
     }
 
+
     file.addEventListener("input", file_input);
     inserir.addEventListener("click", img_insert);
+
 
     blur_nova_imagem.addEventListener("click", (e) => {
         if (e.target === blur_nova_imagem) {
@@ -108,8 +121,10 @@ window.iniciarPopupNovaImagem = function () {
         }
     });
 
+
     function ocultarPopupNI() {
         blur_nova_imagem.style.display = "none";
     }
+
 
 }

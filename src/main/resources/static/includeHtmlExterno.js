@@ -53,9 +53,8 @@ async function iniciarHtmlExterno() {
     await carregarHTMLExterno("registro", "/popupRegistro", "/popUpRegistroStyle.css", "/includePopUpRegistro.js");
     try {
         await carregarHTMLExterno("richtexteditor", "/rte", "/richTextEditorStyle.css", "/richTextLogic.js");
-    } catch (e) {
+    } catch (e) {}
 
-    }
 
     if (iconButton) {
         iconButton.addEventListener("click", function () {
@@ -63,12 +62,14 @@ async function iniciarHtmlExterno() {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
 
+
             })
+
 
         });
     }
 
-
 }
+
 
 document.addEventListener("DOMContentLoaded", iniciarHtmlExterno);
