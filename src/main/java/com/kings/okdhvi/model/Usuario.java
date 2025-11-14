@@ -80,6 +80,7 @@ public class Usuario implements Serializable, UserDetails {
             roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
             roles.add(new SimpleGrantedAuthority("ROLE_MODER"));
             roles.add(new SimpleGrantedAuthority("ROLE_PADRAO"));
+            roles.add(new SimpleGrantedAuthority("ROLE_ESPEC"));
         }
         if(estadoDaConta == EstadoDaConta.MODERADOR) {
             roles.add(new SimpleGrantedAuthority("ROLE_MODER"));

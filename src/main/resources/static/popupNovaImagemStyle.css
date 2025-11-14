@@ -6,14 +6,7 @@ body,
   margin: 0;
 }
 
-#blur_nova_imagem {
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 10000;
-  position: fixed;
-  top: 0%;
-  left: 0%;
-  display: none;
-}
+
 
 #container_nova_imagem {
   background-color: white;

@@ -102,10 +102,16 @@ window.iniciarPopupNovaImagem = function () {
                     range.collapse(false);
                     sel.removeAllRanges();
                     sel.addRange(range);
-                    selecaoAntiga = sel;
+
+                    // ESSENCIAL: salvar novo range corretamente
+                    selecaoAntiga = range.cloneRange();
                 }
                 img.dataset.db_id = data.idImagem;
-                inserirElemento(img, selecaoAntiga)
+
+                const sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(selecaoAntiga.cloneRange());
+                inserirElemento(img, sel)
             })
             .catch(err => console.error(err));
     }

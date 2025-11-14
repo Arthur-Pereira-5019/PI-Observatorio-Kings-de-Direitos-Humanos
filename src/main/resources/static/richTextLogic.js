@@ -4,7 +4,42 @@ const TAGS_REMOVIVEIS = [
     "rt_citacao"
 ];
 
+function salvarSelecao() {
+    const sel = window.getSelection();
+    if (!sel || sel.rangeCount === 0) return;
+
+    selecaoAntiga = sel.getRangeAt(0).cloneRange();
+}
+
+async function carregarHTMLRT(id, url, cssFile, jsFile) {
+    const response = await fetch(url);
+    const data = await response.text();
+    document.getElementById(id).innerHTML = data;
+
+
+    if (cssFile) {
+        let link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = cssFile;
+        document.head.appendChild(link);
+    }
+
+
+    if (jsFile) {
+        let script = document.createElement("script");
+        script.src = jsFile;
+        script.onload = () => {
+            if (typeof window.iniciarPopupNovaImagem === "function") {
+                window.iniciarPopupNovaImagem();
+            }
+        };
+        document.body.appendChild(script);
+    }
+}
+
 async function iniciarRichText() {
+    await carregarHTMLRT("inserirImagem", "/nova_imagem", "/popUpNovaImagemStyle.css", "/popupNovaImagemLogic.js");
+
     const textoPublicacao = document.getElementById("textoPublicacao");
     const btnLink = document.getElementById("link");
     const btnBold = document.getElementById("bold");
@@ -40,8 +75,14 @@ async function iniciarRichText() {
         citacao();
     });
 
+    textoPublicacao.addEventListener("keyup", salvarSelecao);
+    textoPublicacao.addEventListener("mouseup", salvarSelecao);
+    textoPublicacao.addEventListener("mouseout", salvarSelecao);
+    textoPublicacao.addEventListener("focus", salvarSelecao);
+    textoPublicacao.addEventListener("input", salvarSelecao);
+
     textoPublicacao.addEventListener("keydown", function (e) {
-        selecaoAntiga = window.getSelection();
+       salvarSelecao()
 
         if (e.key === "Enter") {
             e.preventDefault();
@@ -264,7 +305,7 @@ function inserirElemento(elemento, selection) {
         if (currentTag) joinDePartes(currentTag, range, "rt_default rt_geral");
         try {
             range.surroundContents(elemento);
-        } catch (e) {}
+        } catch (e) { }
 
         elemento.classList.add("rt_geral");
         range.setStartAfter(elemento);

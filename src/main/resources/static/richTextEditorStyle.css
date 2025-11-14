@@ -8,6 +8,14 @@
     font-family: "Inter", sans-serif;
 }
 
+#richtexteditor {
+  display: block;              /* ou flex se você realmente precisa, mas block é mais previsível */
+  width: 100%;
+  position: relative;
+  min-width: 0;                /* evita overflow de filhos flex */
+}
+
+
 #elementosEdicao * {
     width: 3%
 }
@@ -38,27 +46,37 @@
 }
 
 #textoPublicacao {
-    background-color: lightgray;
-    border: 1px solid black;
-    width: 100%;
-    overflow-wrap: break-word;
-    min-height: 60vh;
-    white-space: pre-wrap;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    align-content: flex-start;
-    font-family: "Inter", sans-serif;
-    font-size: 18.667;
-    padding-left: 0.5%;
-    padding-right: 0.5%;
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  white-space: pre-line !important; 
+  overflow-wrap: break-word !important;
+  box-sizing: border-box !important;
+  padding-left: 0.5%;
+  padding-right: 0.5%;
+  background-color: lightgray;
+  min-height: 60vh;
 }
 
-#textoPublicacao>* {
-    width: 100%;
+#textoPublicacao .rt_titulo,
+#textoPublicacao .rt_citacao
+{
+    display: block !important;
+    width: 100% !important;
 }
 
+#textoPublicacao img.rt_imagem {
+    display: block !important;
+    max-width: 100% !important;
+    clear: both !important;
+}
+
+#textoPublicacao img.rt_imagem {
+  display: block !important;
+  float: none !important;
+  clear: both !important;
+  max-width: 100% !important;
+}
 
 
 #campoTags {

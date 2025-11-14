@@ -31,13 +31,30 @@ async function iniciarSobre() {
             botao = document.querySelector("#edicao_post");
             if (data.edc === "ADMINISTRADOR") {
                 botao.style.display = "flex"
-                botao.addEventListener("click", function() {
+                botao.addEventListener("click", function () {
                     window.location.pathname = "/sobre/edit"
                 })
             } else {
                 botao.remove();
             }
         })
+
+}
+
+async function carregarSrc(id) {
+    try {
+        let response = await fetch("http://localhost:8080/api/imagem/" + id, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        })
+        if (!response.ok) throw new Error("Erro no servidor");
+
+        let data = await response.json();
+        return "data:image/" + data.tipoImagem + ";base64," + data.imagem;
+    } catch (err) {
+        console.error(err);
+        return null;
+    };
 }
 
 document.addEventListener("DOMContentLoaded", iniciarSobre)

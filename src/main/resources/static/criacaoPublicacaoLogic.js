@@ -1,51 +1,12 @@
 let campoTags;
 
-
-async function carregarHTMLCP(id, url, cssFile, jsFile) {
-    const response = await fetch(url);
-    const data = await response.text();
-    document.getElementById(id).innerHTML = data;
-
-
-    if (cssFile) {
-        let link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.href = cssFile;
-        document.head.appendChild(link);
-    }
-
-
-    if (jsFile) {
-        let script = document.createElement("script");
-        script.src = jsFile;
-        script.onload = () => {
-            if (typeof window.iniciarPopupNovaImagem === "function") {
-                window.iniciarPopupNovaImagem();
-            }
-        };
-        document.body.appendChild(script);
-    }
-}
-
-
-
-
-
-
 async function iniciarCriacaoPublicacao() {
     campoTags = document.getElementById("campoTags");
     const capaPostagemInput = document.getElementById("capaPostagemInput");
     capaPostagemInput.addEventListener("input", input_capa);
-    await carregarHTMLCP("inserirImagem", "/nova_imagem", "popUpNovaImagemStyle.css", "popupNovaImagemLogic.js");
 
 
     const botaoPublicar = document.getElementById("botaoPublicar")
-
-
-
-
-   
-
 
     botaoPublicar.addEventListener("click", function () {
         publicarDocumento();
@@ -53,7 +14,6 @@ async function iniciarCriacaoPublicacao() {
 
 
 }
-
 
 async function adicionarTag() {
     let novaTag = campoTags.value
@@ -64,33 +24,27 @@ async function adicionarTag() {
     campoTags.appendChild(elementoTag);
 }
 
-
 async function publicarDocumento(finalizada) {
     const textoPublicacao = document.getElementById("textoPublicacao");
-
-
-   
-
-
     const campoTextoPostagem = textoPublicacao.innerHTML;
     const campoTituloPostagem = document.getElementById("campoTitulo");
     let canva = document.getElementById("capaPostagemPreview");
     let campoImagem = canva.src;
 
 
-    if(campoTextoPostagem.length < 80) {
+    if (campoTextoPostagem.length < 80) {
         alert("Digite o texto da postagem antes de enviá-la.")
         return;
     }
 
 
-    if(campoTituloPostagem.value.length == 0) {
+    if (campoTituloPostagem.value.length == 0) {
         alert("Digite o título da postagem antes de enviá-la.")
         return;
     }
 
 
-    if(campoImagem.length == 0 || campoImagem.includes("/nova_publicacao")) {
+    if (campoImagem.length == 0 || campoImagem.includes("/nova_publicacao")) {
         alert("Dê uma capa para a publicação antes de enviá-la.")
         return;
     }
@@ -103,7 +57,7 @@ async function publicarDocumento(finalizada) {
     campoImagem = canva.src;
 
 
-   
+
     let endPosition = campoImagem.indexOf(",");
     let fimPrefixo = campoImagem.indexOf(";")
     let inicioPrefixo = campoImagem.indexOf("/")

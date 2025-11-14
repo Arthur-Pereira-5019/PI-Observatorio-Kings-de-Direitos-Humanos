@@ -26,7 +26,7 @@ async function iniciarSobreEdit() {
         window.location.pathname = "/sobre"
     })
     document.querySelector("#botaoPublicar").addEventListener("click", function () {
-        const textoSobre = textp.innerHTML;
+        let textoSobre = textp.innerHTML;
 
         if (textoSobre.length < 80) {
             alert("Digite o texto do Sobre antes de salvá-lo")
@@ -38,9 +38,11 @@ async function iniciarSobreEdit() {
             i.src = "";
         })
 
+        textoSobre = textp.innerHTML;
+
         const requestBody = {
-            id: 0,
-            texto: textoSobre
+            id: 1,
+            text: textoSobre
         };
 
 
@@ -50,14 +52,30 @@ async function iniciarSobreEdit() {
             body: JSON.stringify(requestBody)
         })
             .then(res => {
-                if (!res.ok) throw new Error("Erro no servidor");
-                return res.json();
+                if (!res.ok) return res.json();
+                alert("Sobre atualizado com sucesso!")
+                window.location.href = "http://localhost:8080/sobre"
             })
             .then(data => {
-                alert("Sobre atualizado com sucesso!")
-                window.location.href = "http://localhost:8080/sobre/" + "0"
+                alert(data.mensagem)
             })
     })
 }
+
+async function carregarSrc(id) {
+        try {
+            let response = await fetch("http://localhost:8080/api/imagem/" + id, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            if (!response.ok) throw new Error("Erro no servidor");
+
+            let data = await response.json();
+            return "data:image/" + data.tipoImagem + ";base64," + data.imagem;
+        } catch (err) {
+            console.error(err);
+            return null;
+        };
+    }
 
 document.addEventListener("DOMContentLoaded", iniciarSobreEdit)
