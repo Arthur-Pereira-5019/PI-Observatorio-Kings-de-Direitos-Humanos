@@ -16,7 +16,7 @@ consertarUrl()
 
 btnDireito = document.getElementById("botaodireito");
 btnDireito.addEventListener("click", function () {
-        moverUrl(1)
+    moverUrl(1)
 })
 btnEsquerdo = document.getElementById("botaoesquerdo");
 
@@ -139,6 +139,36 @@ async function gerarForuns() {
 
 gerarForuns()
 
+const botaoComentar = document.getElementById("botao-enviar-comentario-forum")
+const textoComentario = document.getElementById("text-area-comentario-forum")
+
+botaoComentar.addEventListener("click", function () {
+    console.log("laele")
+    if (textoComentario.value.length > 512) {
+        alert("O seu comentário está grande de mais!")
+        return;
+    }
+    
+    const requestBody = {
+        textoComentario: textoComentario.value,
+        tipo: 'F',
+        idComentavel: id,
+    };
+
+    fetch("http://localhost:8080/api/com/", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestBody)
+    })
+        .then(res => {
+            if (!res.ok) throw new Error("Erro no servidor");
+            return res.json();
+        })
+        .then(data => {
+            window.location.reload()
+        })
+})
+
 async function moverUrl(d) {
     const url = window.location.href;
     const partes = url.split('/');
@@ -166,5 +196,74 @@ function paginaAtual() {
     return Number(busca) + 1;
 }
 
+async function chamarComentarios() {
+    const rect = footer.getBoundingClientRect();
 
+    if (rect.top >= 0 && rect.top <= (window.innerHeight || document.documentElement.clientHeight)) {
+        if (!buscando) {
+            await carregarComentarios()
+        }
+    }
+}
+
+body.addEventListener('scroll', chamarComentarios);
+
+async function carregarComentarios() {
+    buscando = true;
+
+    const requestBody = {
+        parametro: "dataComentario",
+        ascending: false
+    };
+
+    fetch("http://localhost:8080/api/com/listar_comentarios/" + id + "/F/" + com, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestBody)
+    })
+        .then(res => {
+            if (!res.ok) throw new Error("Erro no servidor");
+            return res.json();
+        })
+        .then(data => {
+
+            const primeiroComentario = document.querySelector('#containerPrimeiroComentario');
+            const containerGeral = document.querySelector(".container-resto-tela-forum");
+
+            if (data.resultado.length === 0) {
+                primeiroComentario.remove()
+                body.removeEventListener('scroll', chamarComentarios);
+            } else {
+                if (data.proximosIndexes == 0) {
+                    body.removeEventListener('scroll', chamarComentarios);
+                }
+                data.resultado.forEach((post, index) => {
+                    if (index == 0) {
+                        construirComentario(primeiroComentario, post)
+                    } else {
+                        const novoComentario = primeiroComentario.cloneNode(true);
+                        containerGeral.appendChild(novoComentario)
+                        construirComentario(novoComentario, post)
+                    }
+                });
+            }
+            com++;
+            buscando = false;
+        })
+        .catch(err => console.error(err));
+
+
+    function construirComentario(comentario, dados) {
+        console.log("oie")
+        forum.querySelector(".autorForum").textContent = dados.autor.nome
+        forum.querySelector(".dataForum").textContent = dados.dataCriacao
+        forum.querySelector(".respostasForum").textContent = dados.respostas
+        forum.querySelector(".ultimaAtualizacao").textContent = dados.ultimaAtualizacao
+        comentario.querySelector(".autor").addEventListener("click", function () {
+            window.location.href = "http://localhost:8080/usuario/" + dados.autor.id;
+        })
+
+
+    }
+}
 
