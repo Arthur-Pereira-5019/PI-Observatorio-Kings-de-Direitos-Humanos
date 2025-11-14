@@ -20,3 +20,29 @@
     top: 50%;
     transform: translate(-50%, -50%);
 }
+
+#botaoCancelar {
+    background-color: rgb(255, 255, 255);
+    color: rgb(178, 0, 0);
+    border: 2px rgb(255, 255, 255) solid;
+}
+
+#botaoSalvar {
+    background-color: rgb(115, 255, 0);
+    color: rgb(0, 0, 0);
+    border: 2px rgb(64, 148, 0) solid;
+}
+
+#botoes {
+    display: flex;
+    flex-direction: row;
+    gap: 22vw;
+    justify-content: center;
+}
+
+#botoes * {
+    border-radius: 20em;
+    margin: 14px;
+    padding: 8px;
+    width: 100%;
+}

@@ -116,3 +116,15 @@ html {
     gap: 2%;
     width: 100%;
 }
+
+#botoes {
+    display: flex;
+    flex-direction: row;
+    gap: 22vw
+}
+
+#botoes * {
+    border-radius: 20em;
+    margin: 14px;
+    padding: 8px;
+}
