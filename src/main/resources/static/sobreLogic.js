@@ -28,8 +28,14 @@ async function iniciarSobre() {
             if (res.ok) return res.json();
         })
         .then(async (data) => {
+            botao = document.querySelector("#edicao_post");
             if (data.edc === "ADMINISTRADOR") {
-                
+                botao.style.display = "flex"
+                botao.addEventListener("click", function() {
+                    window.location.pathname = "/sobre/edit"
+                })
+            } else {
+                botao.remove();
             }
         })
 }
