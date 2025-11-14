@@ -25,12 +25,18 @@ async function iniciarSobreEdit() {
     document.querySelector("#botaoCancelar").addEventListener("click", function () {
         window.location.pathname = "/sobre"
     })
+    document.querySelector("#botaoResetar").addEventListener("click", function () {
+        document.getElementById("textoPublicacao").innerHTML = "<span class=\"rt_default rt_geral\">&#8203;</span>"
+        
+    })
     document.querySelector("#botaoPublicar").addEventListener("click", function () {
         let textoSobre = textp.innerHTML;
 
         if (textoSobre.length < 80) {
-            alert("Digite o texto do Sobre antes de salvá-lo")
-            return;
+            let result = confirm("Texto curto ou nulo submetido, deseja prosseguir com a alteração?.");
+            if(!result) {
+                return;
+            }
         }
 
         const imagens = textoPublicacao.querySelectorAll("img")
