@@ -24,11 +24,11 @@ async function iniciarVerForum() {
         .then(data => {
             console.log(data)
             const tituloForum = document.getElementById("titulo-forum-forum").textContent = data.titulo
-            const dataAtualizacao = document.getElementById("data-forum-forum").textContent = data.ultimaAtualizacao
+            const dataAtualizacao = document.getElementById("data-comentario-forum").textContent = data.ultimaAtualizacao
             const nome = document.getElementById("nome-user-discussao-forum").textContent = data.autor.nome
             const textoForum = document.getElementById("textoForum").textContent = data.textoForum
-            const dataForum = document.getElementById("textoForum").textContent = data.dataCriacao
-
+            const dataForum = document.getElementById("data-comentario-forum").textContent = data.dataCriacao
+            const limiteCaracteres = document.getElementById("limite-caracteres-comentario-forum").textContent = data.textoForum.length + "/512"
 
 
         })
