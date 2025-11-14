@@ -27,7 +27,7 @@
     border: 2px rgb(255, 255, 255) solid;
 }
 
-#botaoSalvar {
+#botaoPublicar {
     background-color: rgb(115, 255, 0);
     color: rgb(0, 0, 0);
     border: 2px rgb(64, 148, 0) solid;
@@ -38,6 +38,7 @@
     flex-direction: row;
     gap: 22vw;
     justify-content: center;
+    width: 100%;
 }
 
 #botoes * {

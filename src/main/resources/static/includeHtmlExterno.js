@@ -7,7 +7,7 @@ let page = 0;
 
 async function carregarHTMLExterno(id, url, cssFile, jsFile) {
     alvo = document.getElementById(id);
-    if(alvo == null | alvo == undefined) {
+    if (alvo == null | alvo == undefined) {
         throw "Alvo não encontrado"
     }
     const response = await fetch(url);
@@ -19,20 +19,7 @@ async function carregarHTMLExterno(id, url, cssFile, jsFile) {
     }
 
     if (jsFile) {
-        let script = document.createElement("script");
-        script.src = jsFile;
-        script.onload = () => {
-            if (jsFile === "/cabecalhoLogic.js" && typeof iniciarCabecalho === "function") {
-                iniciarCabecalho();
-            } else if (jsFile === "/includePopUpRegistro.js" && typeof iniciarCabecalho === "function") {
-                iniciarPopupRegistro();
-            } else if (jsFile === "/includePopupLogin.js" && typeof iniciarCabecalho === "function") {
-                iniciarPopupLogin();
-            } else if (jsFile === "/richTextLogic.js" && typeof iniciarRichText === "function") {
-                iniciarRichText();
-            }
-        };
-        document.body.appendChild(script);
+        anexarJs(jsFile)
     }
 }
 
@@ -41,6 +28,25 @@ async function anexarCss(cssFile) {
     link.rel = "stylesheet";
     link.href = cssFile;
     document.head.appendChild(link);
+}
+
+async function anexarJs(jsFile) {
+    let script = document.createElement("script");
+    script.src = jsFile;
+    script.onload = () => {
+        if (jsFile === "/cabecalhoLogic.js" && typeof iniciarCabecalho === "function") {
+            iniciarCabecalho();
+        } else if (jsFile === "/includePopUpRegistro.js" && typeof iniciarCabecalho === "function") {
+            iniciarPopupRegistro();
+        } else if (jsFile === "/includePopupLogin.js" && typeof iniciarCabecalho === "function") {
+            iniciarPopupLogin();
+        } else if (jsFile === "/richTextLogic.js" && typeof iniciarRichText === "function") {
+            iniciarRichText();
+        } else if (jsFile === "/sobreEditLogic.js" && typeof iniciarSobreEdit === "function") {
+            iniciarSobreEdit();
+        }
+    };
+    document.body.appendChild(script);
 }
 
 
@@ -53,7 +59,10 @@ async function iniciarHtmlExterno() {
     await carregarHTMLExterno("registro", "/popupRegistro", "/popUpRegistroStyle.css", "/includePopUpRegistro.js");
     try {
         await carregarHTMLExterno("richtexteditor", "/rte", "/richTextEditorStyle.css", "/richTextLogic.js");
-    } catch (e) {}
+    } catch (e) { }
+    if(window.location.pathname.includes("sobre/edit")) {
+        await anexarJs("/sobreEditLogic.js")
+    }
 
 
     if (iconButton) {
