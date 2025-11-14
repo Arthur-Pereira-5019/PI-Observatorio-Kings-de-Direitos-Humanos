@@ -94,7 +94,8 @@ async function gerarForuns() {
             console.log(data);
 
             if (data.resultado.length === 0) {
-                primeiroPost.querySelector('.forum-tela-foruns').remove()
+                console.log("receba")
+                primeiroPost.remove()
                 alert("Nenhum resultado encontrado!")
                 btnLonge.textContent = paginaAtual();
                 let path = window.location.pathname
@@ -164,4 +165,6 @@ function paginaAtual() {
     let busca = partes.pop();
     return Number(busca) + 1;
 }
+
+
 
