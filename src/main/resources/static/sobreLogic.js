@@ -1,5 +1,5 @@
 async function iniciarSobre() {
-let textp = document.getElementById("textoPublicacao");
+    let textp = document.getElementById("textoPublicacao");
 
     fetch("http://localhost:8080/api/tf/1", {
         headers: { 'Content-Type': 'application/json' },
@@ -13,12 +13,24 @@ let textp = document.getElementById("textoPublicacao");
         .then(async (data) => {
             let elementoSurpresa = document.createElement("div");
             let imgs;
-            elementoSurpresa.innerHTML = data.textoPostagem;
+            elementoSurpresa.innerHTML = data.text;
             imgs = elementoSurpresa.querySelectorAll("img");
             for (const i of imgs) {
                 i.src = await carregarSrc(i.dataset.db_id);
             }
             textp.innerHTML = elementoSurpresa.innerHTML;
+        })
+
+    fetch("http://localhost:8080/api/user/apresentar", {
+        headers: { 'Content-Type': 'application/json' },
+    })
+        .then(res => {
+            if (res.ok) return res.json();
+        })
+        .then(async (data) => {
+            if (data.edc === "ADMINISTRADOR") {
+                
+            }
         })
 }
 

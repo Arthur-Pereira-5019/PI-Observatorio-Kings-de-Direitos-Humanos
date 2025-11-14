@@ -79,10 +79,13 @@ async function iniciarCabecalho() {
             }
         })
         .then(data => {
+            console.log(data.edc)
             if (data.edc === "MODERADOR" || data.edc === "ADMINISTRADOR") {
                 fundo.style.backgroundColor = "#9F00D9";
             } else if (data.edc === "ESPECIALISTA") {
                 fundo.style.backgroundColor = "#FF8800";
+            } else if (data.edc === "ADMINISTRADOR") {
+                fundo.style.backgroundColor = "#d8fffcff";
             }
             bemvindos.textContent = "Olá " + data.nome + "!";
             if (data.fotoDePerfil != null) {

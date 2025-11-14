@@ -1,0 +1,22 @@
+#edicao_post {
+    width: 10vh;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    display: none;
+    border-radius: 100%;
+    cursor: pointer;
+    background-color: #d8fffcff;
+    position: fixed;
+    right: 5%;
+    bottom: 5%;
+    z-index: 100;
+}
+
+#lapis_icon {
+    width: 75%;
+    height: 75%;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
