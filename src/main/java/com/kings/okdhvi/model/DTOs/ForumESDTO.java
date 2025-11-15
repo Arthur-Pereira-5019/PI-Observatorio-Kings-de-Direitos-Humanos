@@ -11,6 +11,8 @@ public class ForumESDTO {
     private long respostas;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
     private Date ultimaAtualizacao;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
+
     private Date dataCriacao;
     private UsuarioForDTO autor;
     private boolean oculto;

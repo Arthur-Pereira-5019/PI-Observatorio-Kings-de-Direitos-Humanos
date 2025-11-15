@@ -15,14 +15,11 @@
             box-sizing: border-box;
             font-family: "Inter", sans-serif;
         }
-        body{
-            padding: 2%;
-        }
-
-        /* Visão geral da pagina */
-
+        
+        
         .container-universal-tela-foruns{
-            height: 100%;
+            min-height: 100vh;
+            height: fit-content;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -77,7 +74,7 @@
             justify-content: center;
         }
         
-        .titulo-forum-tela-foruns{
+        .tituloForum{
             height: auto;
             width: 100%;
             overflow: hidden;
@@ -86,7 +83,11 @@
             color: #e92c2c;
             font-size: 2rem;
         }
-        
+
+        .textoBranco{
+            color: white;
+        }
+
         .container-data-autor-tela-foruns{
             display: flex;
             height: auto;
@@ -94,11 +95,11 @@
             gap: 0.5rem;
         }
 
-        #nome-autor-forum-tela-foruns{
+        #autorForum{
             color: white;
         }
 
-        #data-forum-tela-foruns{
+        #dataForum{
             color: #C8C8C8;
             font-weight: 200;
         }
@@ -112,7 +113,7 @@
             gap: 0.5rem;
         }
 
-        #dados-forum-tela-foruns{
+        .dados-forum-tela-foruns{
             color: white;
         }
 
@@ -155,284 +156,99 @@
             height: 70%;
         }
 
+         .container-seletores {
+            height: 5vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 2%;
+            padding: 40px;
+            align-items: center;
+        }
+
+        .bloquinhos {
+            width: 2.5%;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            font-size: 2rem;
+            background-color: #D9D9D9;
+            cursor: pointer;
+            aspect-ratio: 1/1;
+
+        }
 
         </style>
 
     </head>
     <body>
 
+        <div id="header"></div>
+
         <div class="container-universal-tela-foruns">
 
             <div class="titulo-tela-foruns">Fóruns</div>
-            <div class="container-all-foruns">
-                
+
+            <div class="container-posicao-botao-tela-foruns">
+                <div id="botao-addForum-tela-foruns"><img
+                        src="/imagens/mais-branco.png" id="mais" alt></div>
+            </div>
+
+            <div class="container-all-foruns" id="container-all-foruns">
+
                 <div class="forum-tela-foruns">
-                    
+
                     <div class="container-foto-forum-tela-foruns">
-                        <img src="https://randomuser.me/api/portraits/women/90.jpg" id="foto-user-forum-tela-foruns" alt="">
+                        <img
+                            src="https://randomuser.me/api/portraits/women/90.jpg"
+                            id="foto-user-forum-tela-foruns" alt>
                     </div>
 
-                    <div class="container-infos-tela-foruns">    
-                        <div class="titulo-forum-tela-foruns">O Medo Abundante de Todas as Verdades: Por Que Fugimos da Realidade Quando Ela Se Torna Clara Demais?</div>
-                        <div class="container-data-autor-tela-foruns"><p id="nome-autor-forum-tela-foruns">Eunicia Bandeirantes Pereira da Silva</p> <p id="data-forum-tela-foruns">dd/mm/yyyy</p></div>
+                    <div class="container-infos-tela-foruns">
+                        <div class="tituloForum"> <p class="tituloForum"></p>
+                        </div>
+                        <div class="container-data-autor-tela-foruns"><p
+                                class="autorForum textoBranco"></p> <p
+                                class="dataForum textoBranco"></p></div>
                     </div>
 
                     <div class="container-respostas-atualizacao-tela-foruns">
-                        <p id="dados-forum-tela-foruns">Respostas:</p>
-                        <p id="dados-forum-tela-foruns">Última atualização:</p>
+                        <p class="dados-forum-tela-foruns" id>Respostas:</p>
+                        <p class="dados-forum-tela-foruns">Última
+                            atualização:</p>
                     </div>
 
-                    <div class="container-numeros-respostas-atualizacao-tela-foruns">
+                    <div
+                        class="container-numeros-respostas-atualizacao-tela-foruns">
 
-                        <p id="dados-forum-tela-foruns">139</p>
-                        <p id="dados-forum-tela-foruns">dd/mm/yyyy</p>
+                        <p class="respostasForum textoBranco"
+                            id="respostasForum"></p>
+                        <p class="ultimaAtualizacao textoBranco"
+                            id="ultimaAtualizacao"></p>
                     </div>
-                    
-
-
 
                 </div>
-                <div class="forum-tela-foruns">
-                    
-                    <div class="container-foto-forum-tela-foruns">
-                        <img src="https://randomuser.me/api/portraits/women/90.jpg" id="foto-user-forum-tela-foruns" alt="">
-                    </div>
-
-                    <div class="container-infos-tela-foruns">    
-                        <div class="titulo-forum-tela-foruns">Exemplo de quem pode ocultar</div>
-                        <div class="container-data-autor-tela-foruns"><p id="nome-autor-forum-tela-foruns">Eunicia Bandeirantes Pereira da Silva</p> <p id="data-forum-tela-foruns">dd/mm/yyyy</p></div>
-                    </div>
-
-                    <div class="container-respostas-atualizacao-tela-foruns">
-                        <p id="dados-forum-tela-foruns">Respostas:</p>
-                        <p id="dados-forum-tela-foruns">Última atualização:</p>
-                    </div>
-
-                    <div class="container-numeros-respostas-atualizacao-tela-foruns">
-
-                        <p id="dados-forum-tela-foruns">139</p>
-                        <p id="dados-forum-tela-foruns">dd/mm/yyyy</p>
-                    </div>
-
-
-                </div>
-                <div class="forum-tela-foruns">
-                    
-                    <div class="container-foto-forum-tela-foruns">
-                        <img src="https://randomuser.me/api/portraits/women/90.jpg" id="foto-user-forum-tela-foruns" alt="">
-                    </div>
-
-                    <div class="container-infos-tela-foruns">    
-                        <div class="titulo-forum-tela-foruns">O Medo Abundante de Todas as Verdades: Por Que Fugimos da Realidade Quando Ela Se Torna Clara Demais?</div>
-                        <div class="container-data-autor-tela-foruns"><p id="nome-autor-forum-tela-foruns">Eunicia Bandeirantes Pereira da Silva</p> <p id="data-forum-tela-foruns">dd/mm/yyyy</p></div>
-                    </div>
-
-                    <div class="container-respostas-atualizacao-tela-foruns">
-                        <p id="dados-forum-tela-foruns">Respostas:</p>
-                        <p id="dados-forum-tela-foruns">Última atualização:</p>
-                    </div>
-
-                    <div class="container-numeros-respostas-atualizacao-tela-foruns">
-
-                        <p id="dados-forum-tela-foruns">139</p>
-                        <p id="dados-forum-tela-foruns">dd/mm/yyyy</p>
-                    </div>
-                    
-
-
-
-                </div>
-                <div class="forum-tela-foruns">
-                    
-                    <div class="container-foto-forum-tela-foruns">
-                        <img src="https://randomuser.me/api/portraits/women/90.jpg" id="foto-user-forum-tela-foruns" alt="">
-                    </div>
-
-                    <div class="container-infos-tela-foruns">    
-                        <div class="titulo-forum-tela-foruns">O Medo Abundante de Todas as Verdades: Por Que Fugimos da Realidade Quando Ela Se Torna Clara Demais?</div>
-                        <div class="container-data-autor-tela-foruns"><p id="nome-autor-forum-tela-foruns">Eunicia Bandeirantes Pereira da Silva</p> <p id="data-forum-tela-foruns">dd/mm/yyyy</p></div>
-                    </div>
-
-                    <div class="container-respostas-atualizacao-tela-foruns">
-                        <p id="dados-forum-tela-foruns">Respostas:</p>
-                        <p id="dados-forum-tela-foruns">Última atualização:</p>
-                    </div>
-
-                    <div class="container-numeros-respostas-atualizacao-tela-foruns">
-
-                        <p id="dados-forum-tela-foruns">139</p>
-                        <p id="dados-forum-tela-foruns">dd/mm/yyyy</p>
-                    </div>
-                    
-
-
-
-                </div>
-                <div class="forum-tela-foruns">
-                    
-                    <div class="container-foto-forum-tela-foruns">
-                        <img src="https://randomuser.me/api/portraits/women/90.jpg" id="foto-user-forum-tela-foruns" alt="">
-                    </div>
-
-                    <div class="container-infos-tela-foruns">    
-                        <div class="titulo-forum-tela-foruns">O Medo Abundante de Todas as Verdades: Por Que Fugimos da Realidade Quando Ela Se Torna Clara Demais?</div>
-                        <div class="container-data-autor-tela-foruns"><p id="nome-autor-forum-tela-foruns">Eunicia Bandeirantes Pereira da Silva</p> <p id="data-forum-tela-foruns">dd/mm/yyyy</p></div>
-                    </div>
-
-                    <div class="container-respostas-atualizacao-tela-foruns">
-                        <p id="dados-forum-tela-foruns">Respostas:</p>
-                        <p id="dados-forum-tela-foruns">Última atualização:</p>
-                    </div>
-
-                    <div class="container-numeros-respostas-atualizacao-tela-foruns">
-
-                        <p id="dados-forum-tela-foruns">139</p>
-                        <p id="dados-forum-tela-foruns">dd/mm/yyyy</p>
-                    </div>
-                    
-
-
-
-                </div>
-                <div class="forum-tela-foruns">
-                    
-                    <div class="container-foto-forum-tela-foruns">
-                        <img src="https://randomuser.me/api/portraits/women/90.jpg" id="foto-user-forum-tela-foruns" alt="">
-                    </div>
-
-                    <div class="container-infos-tela-foruns">    
-                        <div class="titulo-forum-tela-foruns">O Medo Abundante de Todas as Verdades: Por Que Fugimos da Realidade Quando Ela Se Torna Clara Demais?</div>
-                        <div class="container-data-autor-tela-foruns"><p id="nome-autor-forum-tela-foruns">Eunicia Bandeirantes Pereira da Silva</p> <p id="data-forum-tela-foruns">dd/mm/yyyy</p></div>
-                    </div>
-
-                    <div class="container-respostas-atualizacao-tela-foruns">
-                        <p id="dados-forum-tela-foruns">Respostas:</p>
-                        <p id="dados-forum-tela-foruns">Última atualização:</p>
-                    </div>
-
-                    <div class="container-numeros-respostas-atualizacao-tela-foruns">
-
-                        <p id="dados-forum-tela-foruns">139</p>
-                        <p id="dados-forum-tela-foruns">dd/mm/yyyy</p>
-                    </div>
-                    
-
-
-
-                </div>
-                <div class="forum-tela-foruns">
-                    
-                    <div class="container-foto-forum-tela-foruns">
-                        <img src="https://randomuser.me/api/portraits/women/90.jpg" id="foto-user-forum-tela-foruns" alt="">
-                    </div>
-
-                    <div class="container-infos-tela-foruns">    
-                        <div class="titulo-forum-tela-foruns">O Medo Abundante de Todas as Verdades: Por Que Fugimos da Realidade Quando Ela Se Torna Clara Demais?</div>
-                        <div class="container-data-autor-tela-foruns"><p id="nome-autor-forum-tela-foruns">Eunicia Bandeirantes Pereira da Silva</p> <p id="data-forum-tela-foruns">dd/mm/yyyy</p></div>
-                    </div>
-
-                    <div class="container-respostas-atualizacao-tela-foruns">
-                        <p id="dados-forum-tela-foruns">Respostas:</p>
-                        <p id="dados-forum-tela-foruns">Última atualização:</p>
-                    </div>
-
-                    <div class="container-numeros-respostas-atualizacao-tela-foruns">
-
-                        <p id="dados-forum-tela-foruns">139</p>
-                        <p id="dados-forum-tela-foruns">dd/mm/yyyy</p>
-                    </div>
-                    
-
-
-
-                </div>
-                <div class="forum-tela-foruns">
-                    
-                    <div class="container-foto-forum-tela-foruns">
-                        <img src="https://randomuser.me/api/portraits/women/90.jpg" id="foto-user-forum-tela-foruns" alt="">
-                    </div>
-
-                    <div class="container-infos-tela-foruns">    
-                        <div class="titulo-forum-tela-foruns">O Medo Abundante de Todas as Verdades: Por Que Fugimos da Realidade Quando Ela Se Torna Clara Demais?</div>
-                        <div class="container-data-autor-tela-foruns"><p id="nome-autor-forum-tela-foruns">Eunicia Bandeirantes Pereira da Silva</p> <p id="data-forum-tela-foruns">dd/mm/yyyy</p></div>
-                    </div>
-
-                    <div class="container-respostas-atualizacao-tela-foruns">
-                        <p id="dados-forum-tela-foruns">Respostas:</p>
-                        <p id="dados-forum-tela-foruns">Última atualização:</p>
-                    </div>
-
-                    <div class="container-numeros-respostas-atualizacao-tela-foruns">
-
-                        <p id="dados-forum-tela-foruns">139</p>
-                        <p id="dados-forum-tela-foruns">dd/mm/yyyy</p>
-                    </div>
-                    
-
-
-
-                </div>
-                <div class="forum-tela-foruns">
-                    
-                    <div class="container-foto-forum-tela-foruns">
-                        <img src="https://randomuser.me/api/portraits/women/90.jpg" id="foto-user-forum-tela-foruns" alt="">
-                    </div>
-
-                    <div class="container-infos-tela-foruns">    
-                        <div class="titulo-forum-tela-foruns">O Medo Abundante de Todas as Verdades: Por Que Fugimos da Realidade Quando Ela Se Torna Clara Demais?</div>
-                        <div class="container-data-autor-tela-foruns"><p id="nome-autor-forum-tela-foruns">Eunicia Bandeirantes Pereira da Silva</p> <p id="data-forum-tela-foruns">dd/mm/yyyy</p></div>
-                    </div>
-
-                    <div class="container-respostas-atualizacao-tela-foruns">
-                        <p id="dados-forum-tela-foruns">Respostas:</p>
-                        <p id="dados-forum-tela-foruns">Última atualização:</p>
-                    </div>
-
-                    <div class="container-numeros-respostas-atualizacao-tela-foruns">
-
-                        <p id="dados-forum-tela-foruns">139</p>
-                        <p id="dados-forum-tela-foruns">dd/mm/yyyy</p>
-                    </div>
-                    
-
-
-
-                </div>
-                <div class="forum-tela-foruns">
-                    
-                    <div class="container-foto-forum-tela-foruns">
-                        <img src="https://randomuser.me/api/portraits/women/90.jpg" id="foto-user-forum-tela-foruns" alt="">
-                    </div>
-
-                    <div class="container-infos-tela-foruns">    
-                        <div class="titulo-forum-tela-foruns">O Medo Abundante de Todas as Verdades: Por Que Fugimos da Realidade Quando Ela Se Torna Clara Demais?</div>
-                        <div class="container-data-autor-tela-foruns"><p id="nome-autor-forum-tela-foruns">Eunicia Bandeirantes Pereira da Silva</p> <p id="data-forum-tela-foruns">dd/mm/yyyy</p></div>
-                    </div>
-
-                    <div class="container-respostas-atualizacao-tela-foruns">
-                        <p id="dados-forum-tela-foruns">Respostas:</p>
-                        <p id="dados-forum-tela-foruns">Última atualização:</p>
-                    </div>
-
-                    <div class="container-numeros-respostas-atualizacao-tela-foruns">
-
-                        <p id="dados-forum-tela-foruns">139</p>
-                        <p id="dados-forum-tela-foruns">dd/mm/yyyy</p>
-                    </div>
-                    
-
-
-
-                </div>
-
 
             </div>
 
-            <div class="container-posicao-botao-tela-foruns">
-                <div id="botao-addForum-tela-foruns"><img src="./imagens/mais-branco.png" id="mais" alt=""></div>
-
+            <div class="container-seletores">
+                <button class="bloquinhos" id="botaoesquerdo">&lt;</button>
+                <button class="bloquinhos" id="botaoprimeiro">1</button>
+                <button class="bloquinhos" id="botaoatual"></button>
+                <input type="text" id="botaocampo" class="bloquinhos"
+                    style="cursor: text;background-color: white ;"
+                    placeholder="__">
+                <button class="bloquinhos" id="botaolonge"></button>
+                <button class="bloquinhos" id="botaodireito">&gt;</button>
             </div>
 
         </div>
+
+        <div id="footer"></div>
+
+        <script src="/forumLogica.js"></script>
+        <script src="/includeHtmlExterno.js"></script>
+
     </body>
 </html>
