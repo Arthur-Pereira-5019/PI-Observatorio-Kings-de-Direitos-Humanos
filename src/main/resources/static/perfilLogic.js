@@ -1,9 +1,9 @@
-
+let id;
 async function iniciarPerfil() {
     const nomeUsuario = document.getElementById("nomeUsuario");
 
     const path = window.location.pathname;
-    const id = path.split("/").pop();
+    id = path.split("/").pop();
 
     async function anexarHTMLExterno(url, cssFile, jsFile, durl, msg) {
         const response = await fetch(url);
@@ -29,6 +29,10 @@ async function iniciarPerfil() {
                 if (jsFile === "/aplicarPopupLogic.js" && typeof iniciarPopupAplicarCargo === "function") {
                     iniciarPopupAplicarCargo(durl);
                 }
+                if (jsFile === "/popupLogComentarios.js" && typeof iniciarPopupLogComentarios === "function") {
+                    iniciarPopupLogComentarios();
+                }
+                
             };
             document.body.appendChild(script);
         }
@@ -81,6 +85,9 @@ async function iniciarPerfil() {
         } else if (data.proprio == 2) {
             btnAddCargo.style.display = "flex"
             btnAtvUser.style.display = "flex"
+            btnAtvUser.addEventListener("click", async function(){
+                await anexarHTMLExterno("/log_com","/log_comentarios.css","/popupLogComentarios.js")
+            })
             entrada.remove()
         } else {
             btnConfigUser.style.display = "flex"

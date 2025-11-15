@@ -35,13 +35,12 @@ public class ComentarioController {
         return cs.criarComentario(cc,us.buscarId(ud));
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping(value = "/encontrar_comentarios")
-    public List<ComentarioDTO> listarComentarios(@AuthenticationPrincipal UserDetails ud) {
-        ArrayList<ComentarioDTO> cdto = new ArrayList<>();
-        Long id = us.buscarId(ud);
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping(value = "/encontrar_comentarios/{id}")
+    public List<ComentarioLogDTO> listarComentarios(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails ud) {
+        ArrayList<ComentarioLogDTO> cdto = new ArrayList<>();
         Usuario u = us.encontrarPorId(id, false);
-        cs.encontrarPeloUsuario(id).forEach(c -> {cdto.add(cm.apresentarComentario(c, u));});
+        cs.encontrarPeloUsuario(id).forEach(c -> {cdto.add(cm.comentarioLog(c));});
         return cdto;
     }
 

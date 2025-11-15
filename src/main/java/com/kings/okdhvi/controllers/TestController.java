@@ -66,4 +66,8 @@ public class TestController {
     @RequestMapping("/sobre/edit")
     public String returnSobreEdit() {return "sobreEdit";}
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping("/log_com")
+    public String returnPopupLogCom() {return "popupLogCom";}
+
 }
