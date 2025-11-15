@@ -17,7 +17,9 @@ async function iniciarPublicacao() {
     let buscando = false;
     let moderador = false;
 
-
+    if(localStorage.getItem("comentarioSalvo")) {
+        cComentario.value = localStorage.getItem("comentarioSalvo")
+    }
 
     async function anexarHTMLExterno(url, cssFile, jsFile, durl, msg) {
         const response = await fetch(url);
@@ -122,7 +124,7 @@ async function iniciarPublicacao() {
 
 
     pComentario.addEventListener("click", function () {
-        if (cComentario.value.length > 512) {
+        if (cComentario.value.length >= 512) {
             alert("O seu comentário está grande de mais!")
             return;
         }
@@ -139,12 +141,16 @@ async function iniciarPublicacao() {
             body: JSON.stringify(requestBody)
         })
             .then(res => {
-                if (!res.ok) throw new Error("Erro no servidor");
-                return res.json();
+                if (!res.ok) {
+                    alert("Você precisa se registrar ou fazer login antes de comentar!")
+                    localStorage.setItem("comentarioSalvo", cComentario.value)
+                    document.querySelector(".perfil").click()
+                } else {
+                    window.location.reload()
+                    localStorage.setItem("comentarioSalvo", "")
+                }
             })
-            .then(data => {
-                window.location.reload()
-            })
+
     })
 
 
