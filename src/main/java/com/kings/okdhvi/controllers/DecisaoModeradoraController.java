@@ -34,8 +34,18 @@ public class DecisaoModeradoraController {
 
     @PreAuthorize("hasRole('MODER')")
     @PostMapping(value="/listar/{texto}/{pagina}")
-    public BuscaPaginadaResultado<DecisaoModeradora> listarPostagens(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @PathVariable("pagina") Integer pagina, @AuthenticationPrincipal UserDetails ud) {
+    public BuscaPaginadaResultado<DecisaoModeradoraECDTO> listarPostagens(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @PathVariable("pagina") Integer pagina, @AuthenticationPrincipal UserDetails ud) {
+        List<DecisaoModeradora> decisoes;
+        List<DecisaoModeradoraECDTO> resultadosDTO = new ArrayList<>();
         BuscaPaginada bp = new BuscaPaginada(pagina, 25, bpt.parametro(), bpt.ascending());
-        return dms.buscaFiltrada(bp, texto, ud);
+        BuscaPaginadaResultado<DecisaoModeradora> bpr = dms.buscaFiltrada(bp, texto, ud);
+        decisoes = bpr.getResultado();
+
+        decisoes.forEach(d -> resultadosDTO.add(dmm.decisaoCompleta(d)));
+
+        BuscaPaginadaResultado<DecisaoModeradoraECDTO> retorno = new BuscaPaginadaResultado<>();
+        retorno.setResultado(resultadosDTO);
+        retorno.setProximosIndexes(bpr.getProximosIndexes());
+        return retorno;
     }
 }

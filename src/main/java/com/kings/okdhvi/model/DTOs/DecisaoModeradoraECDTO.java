@@ -1,4 +1,4 @@
-package com.kings.okdhvi.model;
+package com.kings.okdhvi.model.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,7 +16,8 @@ public class DecisaoModeradoraECDTO {
     private String nomeModerador;
     private Long idModerado;
     private Long idModerador;
-    private Long linkEspaco;
+    private String linkEspaco;
+    private String nomeEspaco;
     private String acao;
 
     public Date getData() {
@@ -67,11 +68,11 @@ public class DecisaoModeradoraECDTO {
         this.idModerador = idModerador;
     }
 
-    public Long getLinkEspaco() {
+    public String getLinkEspaco() {
         return linkEspaco;
     }
 
-    public void setLinkEspaco(Long linkEspaco) {
+    public void setLinkEspaco(String linkEspaco) {
         this.linkEspaco = linkEspaco;
     }
 
@@ -81,5 +82,13 @@ public class DecisaoModeradoraECDTO {
 
     public void setAcao(String acao) {
         this.acao = acao;
+    }
+
+    public String getNomeEspaco() {
+        return nomeEspaco;
+    }
+
+    public void setNomeEspaco(String nomeEspaco) {
+        this.nomeEspaco = nomeEspaco;
     }
 }

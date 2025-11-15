@@ -117,12 +117,21 @@ async function iniciarRegistro() {
 
 
         function construirPublicacao(publicacao, dados) {
-            publicacao.querySelector(".acao").textContent = dados.titulo
-            publicacao.querySelector(".data").textContent = dados.autor
-            publicacao.querySelector(".espaco").textContent = dados.data
-            publicacao.querySelector(".moderador").textContent = dados.texto
-            publicacao.querySelector(".moderado").textContent = dados.texto
-            publicacao.querySelector(".motivacao").textContent = dados.texto
+            publicacao.querySelector(".acao").textContent = dados.acao
+            publicacao.querySelector(".data").textContent = dados.data
+            publicacao.querySelector(".espaco").textContent = dados.nomeEspaco
+            publicacao.querySelector(".moderador").textContent = dados.nomeModerador
+            publicacao.querySelector(".moderado").textContent = dados.nomeModerado
+            publicacao.querySelector(".motivacao").textContent = dados.motivacao
+            publicacao.querySelector(".moderador").addEventListener("click", function() {
+                window.location.pathname = "usuario/"+dados.idModerador
+            })
+            publicacao.querySelector(".moderado").addEventListener("click", function() {
+                window.location.pathname = "usuario/"+dados.idModerado
+            })
+            publicacao.querySelector(".espaco").addEventListener("click", function() {
+                window.location.pathname = dados.linkEspaco
+            })
         }
     }
     gerarPublicacoes();
