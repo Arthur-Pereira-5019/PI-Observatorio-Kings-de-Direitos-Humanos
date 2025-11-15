@@ -4,10 +4,6 @@
     font-family: "Inter", sans-serif;
 }
 
-body {
-    background-color: burlywood;
-}
-
 .fundo-popup-logs {
     display: flex;
     flex-direction: column;
@@ -28,13 +24,29 @@ body {
 .container-comentario-logs {
     background-color: #862e81;
     display: flex;
-    height: 30%;
+    flex-direction: column;
+    height: fit-content;
     width: 100%;
     gap: 2.5px;
     border-radius: 1.5rem;
     overflow: visible;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
     border: solid 2.5px #862e81;
+}
+
+.post-original {
+    color: red;
+    padding-right: 4px;
+    padding-left: 4px;
+    font-weight: 600;
+    font-size: 18px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.post-original:hover {
+    color: aqua
 }
 
 .info-autor-logs {
@@ -92,6 +104,18 @@ body {
     color: white;
     font-weight: 200;
 
+}
+
+.comentarios {
+    background-color: #862e81;
+    display: flex;
+    height: 20vh;
+    width: 100%;
+    gap: 2.5px;
+    border-radius: 1.5rem;
+    overflow: visible;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    border: solid 2.5px #862e81;
 }
 
 .botao-ocultar {

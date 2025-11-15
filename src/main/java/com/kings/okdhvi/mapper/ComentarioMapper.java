@@ -40,7 +40,7 @@ public class ComentarioMapper {
         r.setTipo(c.getTipo());
         String titulo = "";
         try {
-            titulo = c.getTipo() == 'F' ? ps.encontrarPostagemPeloId(id).getTituloPostagem() : fs.encontrarForumPeloId(id).getTituloForum();
+            titulo = c.getTipo() == 'F' ? fs.encontrarForumPeloId(id).getTituloForum() : ps.encontrarPostagemPeloId(id).getTituloPostagem();
         } finally {
             r.setTituloDono(titulo);
         }

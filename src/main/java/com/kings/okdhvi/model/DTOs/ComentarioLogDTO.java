@@ -1,5 +1,7 @@
 package com.kings.okdhvi.model.DTOs;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class ComentarioLogDTO {
@@ -11,6 +13,7 @@ public class ComentarioLogDTO {
 
     private Long idDono;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
     private Date dataComentario;
 
     private Character tipo;

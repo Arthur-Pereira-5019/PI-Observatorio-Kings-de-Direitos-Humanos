@@ -1,6 +1,6 @@
 async function iniciarPopupLogComentarios() {
     const blur = document.querySelector("#blur_LC");
-    const container_log = document.querySelector(".fundo-popup-aplicar");
+    const container_log = document.querySelector(".fundo-popup-logs");
 
     blur.display = "flex"
     container_log.display = "flex"
@@ -32,8 +32,9 @@ async function iniciarPopupLogComentarios() {
                 const containerGeral = document.querySelector(".container-comentario-logs");
 
                 if (data.length === 0) {
-                    primeiroComentario.remove()
+                    containerGeral.remove()
                 } else {
+                    document.querySelector("#avisoComentarios").remove()
                     data.forEach((post, index) => {
                         if (index == 0) {
                             construirComentario(primeiroComentario, post)
@@ -44,18 +45,18 @@ async function iniciarPopupLogComentarios() {
                         }
                     });
                 }
-                com++;
                 buscando = false;
             })
             .catch(err => console.error(err));
 
 
         function construirComentario(comentario, dados) {
-            comentario.querySelector("textoComentario").textContent = dados.texto
+            const tipo = dados.tipo;
+            comentario.querySelector("#textoComentario").textContent = dados.texto
             comentario.querySelector(".data-log").textContent = dados.dataComentario
-            comentario.querySelector(".post-original").textContent = dados.tituloDono
+            comentario.querySelector(".post-original").textContent = ((tipo == 'F' ? "Fórum: " : "Publicação: ")) + dados.tituloDono
             comentario.querySelector(".post-original").addEventListener("click", function () {
-                window.location.pathname = "/" + (dados.tipo == 'F' ? "foruns" : "postagens") + dados.id
+                window.location.pathname = "/" + (tipo == 'F' ? "foruns/" : "publicacao/") + dados.idDono
             })
         }
     }
