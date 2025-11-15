@@ -16,7 +16,11 @@
         z-index: 10000;
         display: flex;
         background-color: rgba(0, 0, 0, 0.6);
+    }
 
+    #responsavel:hover {
+        color: aqua;
+        cursor: pointer;
     }
 
     #container_dm {

@@ -24,6 +24,12 @@ async function iniciarCabecalho() {
             if (window.location.href.includes("/noticias/")) {
                 event.preventDefault();
                 window.location.href = "http://localhost:8080/noticias/" + barraPesquisa.value + "/0";
+            } else if (window.location.href.includes("/foruns/")) {
+                event.preventDefault();
+                window.location.href = "http://localhost:8080/foruns/" + barraPesquisa.value + "/0";
+            } else if (window.location.href.includes("/registro/")) {
+                event.preventDefault();
+                window.location.href = "http://localhost:8080/registro/" + barraPesquisa.value + "/0";
             } else {
                 event.preventDefault();
                 window.location.href = "http://localhost:8080/publicacoes/" + barraPesquisa.value + "/0";
@@ -103,4 +109,4 @@ async function iniciarCabecalho() {
             })
     }
 }
-    document.addEventListener("DOMContentLoaded", iniciarCabecalho)
+document.addEventListener("DOMContentLoaded", iniciarCabecalho)

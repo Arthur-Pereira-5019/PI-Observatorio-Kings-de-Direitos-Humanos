@@ -96,6 +96,9 @@ async function iniciarPerfil() {
             btnConfigUser.style.display = "flex"
             btnRequisitar.style.display = "flex"
             btnLogModerador.style.display = "flex"
+            btnLogModerador.addEventListener("click", function() {
+                window.location.pathname = "/registro"
+            })
         }
 
         entrada.addEventListener("input", input_capa);

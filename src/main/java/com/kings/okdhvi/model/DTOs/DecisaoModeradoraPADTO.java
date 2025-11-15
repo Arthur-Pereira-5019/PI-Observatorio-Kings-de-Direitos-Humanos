@@ -12,7 +12,9 @@ public class DecisaoModeradoraPADTO {
 
     private String motivacao;
 
-    private UsuarioComDTO responsavel;
+    private String nomeModerador;
+
+    private Long idModerador;
 
 
     public Date getData() {
@@ -31,20 +33,22 @@ public class DecisaoModeradoraPADTO {
         this.motivacao = motivacao;
     }
 
-    public UsuarioComDTO getResponsavel() {
-        return responsavel;
-    }
-
-    public void setResponsavel(UsuarioComDTO responsavel) {
-        this.responsavel = responsavel;
-    }
-
     public DecisaoModeradoraPADTO() {
     }
 
-    public DecisaoModeradoraPADTO(Date data, String motivacao, UsuarioComDTO responsavel) {
-        this.data = data;
-        this.motivacao = motivacao;
-        this.responsavel = responsavel;
+    public String getNomeModerador() {
+        return nomeModerador;
+    }
+
+    public void setNomeModerador(String nomeModerador) {
+        this.nomeModerador = nomeModerador;
+    }
+
+    public Long getIdModerador() {
+        return idModerador;
+    }
+
+    public void setIdModerador(Long idModerador) {
+        this.idModerador = idModerador;
     }
 }

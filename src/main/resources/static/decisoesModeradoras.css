@@ -108,6 +108,10 @@
      font-weight: 400;
  }
 
+ .moderador:hover, .espaco:hover, .moderado:hover {
+     color: aqua;
+     cursor: pointer;
+ }
  .data {
      font-size: 1.1rem;
      font-weight: 600;

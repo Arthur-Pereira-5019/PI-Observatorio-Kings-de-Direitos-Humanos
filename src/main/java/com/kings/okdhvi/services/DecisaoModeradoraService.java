@@ -85,7 +85,7 @@ public class DecisaoModeradoraService {
 
             Predicate predicatesNomeModerador =  construirTextoPredicado(cb, d, texto, "nomeModerador");
 
-            Predicate predicatesMotivacao =  construirTextoPredicado(cb, d, texto, "tags");
+            Predicate predicatesMotivacao =  construirTextoPredicado(cb, d, texto, "motivacao");
 
             predicates.add(cb.or(predicatesAcao, predicatesNomeModerado, predicatesMotivacao, predicatesNomeModerador));
         }

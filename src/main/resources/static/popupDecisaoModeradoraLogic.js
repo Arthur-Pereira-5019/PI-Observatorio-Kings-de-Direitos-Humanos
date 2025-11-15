@@ -27,6 +27,9 @@ async function iniciarPopupDecisao(url) {
             campoM.textContent += data.motivacao;
             campoD.textContent += data.data;
             campoR.textContent += data.nomeModerador;
+            campoR.addEventListener("click", function() {
+                window.location.pathname = "usuario/" + data.idModerador
+            })
         })
         .catch(err => console.error(err));
 }

@@ -21,7 +21,8 @@ public class DecisaoModeradoraMapper {
 
     public DecisaoModeradoraPADTO paginaAtual(DecisaoModeradora dm) {
         DecisaoModeradoraPADTO r = new DecisaoModeradoraPADTO();
-        r.setResponsavel(um.usuarioComentador(dm.getResponsavel()));
+        r.setNomeModerador(dm.getNomeModerador());
+        r.setIdModerador(dm.getResponsavel().getIdUsuario());
         r.setMotivacao(dm.getMotivacao());
         r.setData(dm.getData());
         return r;
