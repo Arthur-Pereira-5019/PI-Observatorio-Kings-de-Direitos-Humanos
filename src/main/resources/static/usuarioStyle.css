@@ -199,6 +199,16 @@
 
 .container-foruns {
     display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    gap: 0.5vh;
+    background-color: #252525;
+}
+
+
+.container-forum {
+    display: flex;
     width: 100%;
     padding: 0.5%;
     height: 8vh;
@@ -293,7 +303,7 @@
 
 
 .container-geral-publicacao {
-    height: 40vh;
+    height: 30vh;
     width: 100%;
     display: flex;
     margin-top: 2%;

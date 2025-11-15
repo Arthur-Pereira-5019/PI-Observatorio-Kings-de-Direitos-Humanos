@@ -101,7 +101,7 @@ async function iniciarPerfil() {
                 reader.onload = (e) => {
                     const base64StringWithPrefix = e.target.result;
                     requestBody = {
-                        imageBase64: base64StringWithPrefix.replace(base64StringWithPrefix.substring(0, base64StringWithPrefix.indexOf(",")+1), ""),
+                        imageBase64: base64StringWithPrefix.replace(base64StringWithPrefix.substring(0, base64StringWithPrefix.indexOf(",") + 1), ""),
                         descricao: "Foto de perfil de " + data.nome,
                         titulo: "Foto de perfil de " + data.nome
                     }
@@ -168,8 +168,8 @@ async function iniciarPerfil() {
 
             function construirPublicacao(publicacao, dados) {
                 novoT = dados.titulo
-                if (novoT.length > 32) {
-                    novoT = novoT.substring(0, 32) + "..."
+                if (novoT.length > 35) {
+                    novoT = novoT.substring(0, 35) + "..."
                 }
                 publicacao.querySelector(".titulo-publicacao").textContent = novoT
                 publicacao.querySelector(".autor").textContent = dados.autor
@@ -186,8 +186,49 @@ async function iniciarPerfil() {
             }
         }
 
+        async function gerarForuns() {
+            fetch("http://localhost:8080/api/forum/usuario/" + id, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            })
 
+                .then(res => {
+                    if (!res.ok) throw new Error("Erro no servidor");
+                    return res.json();
+                })
+                .then(data => {
+                    const primeiroPost = document.querySelector('.container-forum');
+                    const containerGeral = document.getElementById("containerForuns");
+                    if (data.length === 0) {
+                        primeiroPost.remove()
+                    } else {
+                        data.forEach((post, index) => {
+                            if (index == 0) {
+                                construirForum(primeiroPost, post)
+                            } else {
+                                const novoPost = primeiroPost.cloneNode(true);
+                                containerGeral.appendChild(novoPost)
+                                construirForum(novoPost, post)
+                            }
+                        });
+                    }
 
+                })
+
+            function construirForum(forum, dados) {
+                forum.querySelector(".tituloForum").textContent = dados.titulo
+                forum.querySelector(".autorForum").textContent = dados.autor.nome
+                forum.querySelector(".dataForum").textContent = dados.dataCriacao
+                forum.querySelector(".respostasForum").textContent = dados.respostas
+                forum.querySelector(".ultimaAtualizacao").textContent = dados.ultimaAtualizacao
+                forum.addEventListener("click", function () {
+                    window.location.href = "http://localhost:8080/forum/" + dados.idForum
+                })
+            }
+
+        }
+
+        await gerarForuns()
         gerarPublicacoes()
 
 

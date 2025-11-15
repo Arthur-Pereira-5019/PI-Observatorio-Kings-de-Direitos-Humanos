@@ -1,84 +1,80 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="/usuarioStyle.css">
-        <link rel="stylesheet" href="/configuracaoUsuarioPopupStyle.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-            rel="stylesheet">
 
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/usuarioStyle.css">
+    <link rel="stylesheet" href="/configuracaoUsuarioPopupStyle.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
 
-        <div id="header"></div>
+</head>
 
-        <div class="container-universal">
+<body>
 
-            <div class="container-menu-usuario-geral">
+    <div id="header"></div>
 
-                <div class="container-menu-usuario-info">
+    <div class="container-universal">
 
-                    <div class="container-imagem-user">
-                        <label id="capaUsuario" label for="capaUsuarioInput">
-                            <img src="/imagens/icon-user.png" class="icon-user"
-                                alt="Ícone do usuário">
-                            <input id="capaUsuarioInput" type="file"
-                                enctype="multipart/form-data"
-                                accept=".jpg, .png">
-                        </label>
+        <div class="container-menu-usuario-geral">
+
+            <div class="container-menu-usuario-info">
+
+                <div class="container-imagem-user">
+                    <label id="capaUsuario" label for="capaUsuarioInput">
+                        <img src="/imagens/icon-user.png" class="icon-user" alt="Ícone do usuário">
+                        <input id="capaUsuarioInput" type="file" enctype="multipart/form-data" accept=".jpg, .png">
+                    </label>
+                </div>
+
+                <div class="nomeAutor-usuario" id="nomeUsuario">
+                    <p></p>
+                </div>
+
+                <div class="container-cargos">
+                    <p class="cargos" id="PADRAO">Usuário</p>
+                    <p class="cargos" id="MODERADOR">Moderador</p>
+                    <p class="cargos" id="ESPECIALISTA">Especialista</p>
+                    <p class="cargos" id="ADMINISTRADOR">Administrador</p>
+                    <p class="cargos" id="SUSPENSO">Suspenso</p>
+                </div>
+
+                <div class="container-botoes">
+
+                    <img src="/imagens/engrenagem.png" class="configuracao-usuario" id="btnConfigUser"
+                        alt="Configurações">
+
+                    <div class="botao-requisitar" id="btnRequisitar">
+                        <img src="/imagens/mais-branco.png" class="mais" alt="Requisitar Cargo">
                     </div>
 
-                    <div class="nomeAutor-usuario" id="nomeUsuario">
-                        <p></p>
+                    <div class="botao-add-cargo" id="btnAddCargo">
+                        <img src="/imagens/mais-branco.png" class="mais" alt="Adicionar Cargo">
                     </div>
 
-                    <div class="container-cargos">
-                        <p class="cargos" id="PADRAO">Usuário</p>
-                        <p class="cargos" id="MODERADOR">Moderador</p>
-                        <p class="cargos" id="ESPECIALISTA">Especialista</p>
-                        <p class="cargos" id="ADMINISTRADOR">Administrador</p>
-                        <p class="cargos" id="SUSPENSO">Suspenso</p>
-                    </div>
-
-                    <div class="container-botoes">
-
-                        <img src="/imagens/engrenagem.png"
-                            class="configuracao-usuario" id="btnConfigUser"
-                            alt="Configurações">
-
-                        <div class="botao-requisitar" id="btnRequisitar">
-                            <img src="/imagens/mais-branco.png" class="mais"
-                                alt="Requisitar Cargo">
-                        </div>
-
-                        <div class="botao-add-cargo" id="btnAddCargo">
-                            <img src="/imagens/mais-branco.png" class="mais"
-                                alt="Adicionar Cargo">
-                        </div>
-
-                        <div class="botao-log-moderador" id="btnLogModerador">
-                            <img src="/imagens/icon-prancheta.png" class="mais"
-                                alt="Log de Eventos">
-                        </div>
-
+                    <div class="botao-log-moderador" id="btnLogModerador">
+                        <img src="/imagens/icon-prancheta.png" class="mais" alt="Log de Eventos">
                     </div>
 
                 </div>
 
-                <div class="barra-vertical"></div>
-
             </div>
 
-            <div class="container-geral-atividades">
+            <div class="barra-vertical"></div>
 
-                <div class="container-foruns">
-                    <img
-                        src="https://www.svgrepo.com/show/492688/avatar-boy.svg"
-                        class="foto-forum" alt>
+        </div>
+
+        <div class="container-geral-atividades">
+
+            <div id="containerForuns">
+
+
+                <div class="container-forum">
+                    <img src="https://www.svgrepo.com/show/492688/avatar-boy.svg" class="foto-forum" alt>
                     <div class="container-info-forum">
                         <p class="titulo-forum">Titulo Forum</p>
                         <div class="container-nomeAutor-data">
@@ -100,71 +96,72 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div id="container-lista">
-                    <div class="container-geral-publicacoes">
+            <div id="container-lista">
+                <div class="container-geral-publicacoes">
 
-                        <div class="container-publicacoes">
+                    <div class="container-publicacoes">
 
-                            <div class="container-titulo">
-                                <p class="titulo-publicacao"></p>
+                        <div class="container-titulo">
+                            <p class="titulo-publicacao"></p>
+                        </div>
+
+                        <div class="container-baixo">
+
+                            <div class="container-imagem">
+                                <img class="imagem" src alt>
                             </div>
 
-                            <div class="container-baixo">
-
-                                <div class="container-imagem">
-                                    <img class="imagem" src alt>
-                                </div>
-
-                                <div class="container-descricao">
-                                    <p class="autor"></p>
-                                    <p class="data"></p>
-                                    <p class="paragrafo"></p>
-                                </div>
-
+                            <div class="container-descricao">
+                                <p class="autor"></p>
+                                <p class="data"></p>
+                                <p class="paragrafo"></p>
                             </div>
 
                         </div>
+
                     </div>
                 </div>
-
             </div>
 
         </div>
 
-        <div id="posPopUpRequisitar">
-            <div id="requisitar"></div>
-        </div>
+    </div>
 
-        <div id="posPopUpConfigUser">
-            <div id="editarPerfil"></div>
-        </div>
+    <div id="posPopUpRequisitar">
+        <div id="requisitar"></div>
+    </div>
 
-        <div id="posPopUpDelete">
-            <div id="excluirPerfil"></div>
-        </div>
+    <div id="posPopUpConfigUser">
+        <div id="editarPerfil"></div>
+    </div>
 
-        <div id="posPopUp">
-            <div id="registro"></div>
+    <div id="posPopUpDelete">
+        <div id="excluirPerfil"></div>
+    </div>
 
-        </div>
+    <div id="posPopUp">
+        <div id="registro"></div>
 
-        <div id="posPopUpLogin">
-            <div id="login"></div>
-        </div>
+    </div>
 
-        <div class="botao-atividade-usuario" id="btnAtvUser">
-            <img src="/imagens/icon-prancheta.png" class="icon-atividade"
-                alt="icone de prancheta">
-        </div>
+    <div id="posPopUpLogin">
+        <div id="login"></div>
+    </div>
 
-        <div id="footer"></div>
+    <div class="botao-atividade-usuario" id="btnAtvUser">
+        <img src="/imagens/icon-prancheta.png" class="icon-atividade" alt="icone de prancheta">
+    </div>
 
-        <script src="/includeHtmlExterno.js" defer></script>
-        <script src="/perfilLogic.js" defer></script>
-        <script src="/includePopUpConfigUser.js" defer></script>
-        <script src="/includePopUpExclusao.js" defer></script>
-        <script src="/includePopUpRequisitar.js" defer></script>
+    <div id="footer"></div>
 
-    </body>
+    <script src="/includeHtmlExterno.js" defer></script>
+    <script src="/perfilLogic.js" defer></script>
+    <script src="/includePopUpConfigUser.js" defer></script>
+    <script src="/includePopUpExclusao.js" defer></script>
+    <script src="/includePopUpRequisitar.js" defer></script>
+
+</body>
+
 </html>
