@@ -31,6 +31,9 @@ public class DecisaoModeradora {
     @Column
     Long idModerado;
 
+    @Column(length = 512)
+    String acao;
+
     public String getTipo() {
         return tipo;
     }
@@ -94,5 +97,13 @@ public class DecisaoModeradora {
 
     public void setIdModerado(Long idModerado) {
         this.idModerado = idModerado;
+    }
+
+    public String getAcao() {
+        return acao;
+    }
+
+    public void setAcao(String acao) {
+        this.acao = acao;
     }
 }

@@ -174,17 +174,9 @@ public class UsuarioService {
         verificarNCPF(u.getCpf());
     }
 
-    public Usuario mockUsuario() {
-        Usuario u = new Usuario();
-        Random r = new Random();
-        u.setCpf("13178339965");
-        u.setEmail("abcdef@gmail.com");
-        u.setTelefone("47999999999");
-        u.setSenha("293912391");
-        u.setNome("Escritor C.");
-        u.setDataDeNascimento(new Date("03/31/2008"));
-        u.setIdUsuario(r.nextLong(1000,1100));
-        return u;
+    public String gerarNome(Long id) {
+        Usuario u = encontrarPorId(id, false);
+        return "[" + u.getIdUsuario() + "] " + u.getNome();
     }
 
     @Transactional

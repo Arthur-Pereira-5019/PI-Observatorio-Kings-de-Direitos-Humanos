@@ -61,13 +61,6 @@ public class UsuarioController {
         return um.usuarioPagina(us.encontrarPorId(id, false), idLogado);
     }
 
-
-    @PreAuthorize("hasRole('MODER')")
-    @GetMapping(value = "/mock", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Usuario mock() {
-        return us.mockUsuario();
-    }
-
     @PutMapping(value = "/atualizarUsuario", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
     public Usuario atualizarUsuario(@RequestBody UsuarioADTO u, @AuthenticationPrincipal UserDetails user) {
         Long idRequisicao = us.buscarId(user);

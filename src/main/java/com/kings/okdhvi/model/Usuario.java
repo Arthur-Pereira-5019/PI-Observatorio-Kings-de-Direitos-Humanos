@@ -258,4 +258,8 @@ public class Usuario implements Serializable, UserDetails {
     public void setPedidoDeTitulacao(PedidoDeTitulacao pedidoDeTitulacao) {
         this.pedidoDeTitulacao = pedidoDeTitulacao;
     }
+
+    public String gerarNome() {
+        return "[" + getIdUsuario() + "] " + getNome();
+    }
 }

@@ -83,13 +83,20 @@ public class ComentarioServices {
 
     public void deletarComentario(Long id, Usuario u, DecisaoModeradoraOPDTO dmdto) {
         Comentario c = encontrarComentario(id);
+        String nomeGerado = us.gerarNome(u.getIdUsuario());
         if(dmdto != null) {
-            dms.criarDecisaoModeradora(dmdto, "Comentario", u, c.getAutor(), c.getAutor().getNome(), id);
+            dms.criarDecisaoModeradora(dmdto, "Comentario", u, c.getAutor(), nomeGerado, id, "apagou o comentário de");
         } else {
             if(!u.getIdUsuario().equals(c.getAutor().getIdUsuario())) {
                 throw new UnauthorizedActionException("Tentativa de excluir comentário de outro usuário!");
             }
-            dms.criarDecisaoModeradora(new DecisaoModeradoraOPDTO("Usuário excluiu o próprio comentário"), "Comentario", u, c.getAutor(), c.getAutor().getNome(), id);
+            dms.criarDecisaoModeradora(new DecisaoModeradoraOPDTO("Usuário excluiu o próprio comentário"),
+                    "Comentario",
+                    u,
+                    c.getAutor(),
+                    nomeGerado,
+                    id,
+                    "Usuário excluiu o próprio comentário");
         }
         cr.delete(c);
     }

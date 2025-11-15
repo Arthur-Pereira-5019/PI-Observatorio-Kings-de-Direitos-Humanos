@@ -1,15 +1,28 @@
 package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.NullResourceException;
+import com.kings.okdhvi.model.DTOs.BuscaPaginada;
+import com.kings.okdhvi.model.DTOs.BuscaPaginadaResultado;
 import com.kings.okdhvi.model.DTOs.DecisaoModeradoraOPDTO;
 import com.kings.okdhvi.model.DecisaoModeradora;
+import com.kings.okdhvi.model.Postagem;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.repositories.DecisaoModeradoraRepository;
 import com.kings.okdhvi.repositories.UsuarioRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,19 +35,8 @@ public class DecisaoModeradoraService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-
-    public DecisaoModeradora mock() {
-        UsuarioService us = new UsuarioService();
-        DecisaoModeradora dm = new DecisaoModeradora();
-        dm.setData(Date.from(Instant.now()));
-        dm.setMotivacao("Discurso de ódio");
-        dm.setTipo("Postagem");
-        Usuario u = us.mockUsuario();
-        dm.setUsuarioModerado(u);
-        dm.setResponsavel(u);
-        dm.setNomeModerado("Algo racista");
-        return dm;
-    }
+    @PersistenceContext
+    private EntityManager em;
 
     public DecisaoModeradora criarDecisaoModeradora(DecisaoModeradora dm) {
         if(dm == null) {
@@ -43,7 +45,7 @@ public class DecisaoModeradoraService {
         return dmr.save(dm);
     }
 
-    public DecisaoModeradora criarDecisaoModeradora(DecisaoModeradoraOPDTO dm, String tipo, Usuario moderador, Usuario moderado, String nomeModerado, Long idModerado) {
+    public DecisaoModeradora criarDecisaoModeradora(DecisaoModeradoraOPDTO dm, String tipo, Usuario moderador, Usuario moderado, String nomeModerado, Long idModerado, String acao) {
         if(dm == null) {
             throw new NullResourceException("Decisão Moderadora nula submetido");
         }
@@ -55,6 +57,25 @@ public class DecisaoModeradoraService {
         d.setUsuarioModerado(moderado);
         d.setNomeModerado(nomeModerado);
         d.setIdModerado(idModerado);
+        d.setAcao(acao);
+        return dmr.save(d);
+    }
+
+    public DecisaoModeradora criarDecisaoModeradora(DecisaoModeradoraOPDTO dm, String tipo, Usuario moderador, Usuario moderado, Long idModerado, String acaoInFixo) {
+        if(dm == null) {
+            throw new NullResourceException("Decisão Moderadora nula submetido");
+        }
+        String nomeM = moderado.gerarNome();
+        String nomeR = moderador.gerarNome();
+        DecisaoModeradora d = new DecisaoModeradora();
+        d.setData(Date.from(Instant.now()));
+        d.setMotivacao(dm.motivacao());
+        d.setTipo(tipo);
+        d.setResponsavel(moderador);
+        d.setUsuarioModerado(moderado);
+        d.setNomeModerado(nomeM);
+        d.setIdModerado(idModerado);
+        d.setAcao(nomeR + " " + acaoInFixo + " " + nomeM);
         return dmr.save(d);
     }
 
@@ -66,6 +87,78 @@ public class DecisaoModeradoraService {
 
     public List<DecisaoModeradora> encontrarTodasDecisoes() {
         return dmr.findAll();
+    }
+
+    public BuscaPaginadaResultado<Postagem> buscaFiltrada(BuscaPaginada bp, String texto, UserDetails ud) {
+        //Tipo
+        //Motivação
+        //Nome Moderado
+        //
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Postagem> cq = cb.createQuery(Postagem.class);
+        Root<Postagem> p = cq.from(Postagem.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (texto != null && !texto.isBlank()) {
+            Predicate predicatesCorpo =  construirTextoPredicado(cb, p, texto, "textoPostagem");
+
+            Predicate predicatesTitulo =  construirTextoPredicado(cb, p, texto, "tituloPostagem");
+
+            Predicate predicatesTags =  construirTextoPredicado(cb, p, texto, "tags");
+
+
+            predicates.add(cb.or(predicatesCorpo, predicatesTitulo, predicatesTags));
+            if(texto.contains("noticia")) {
+                predicates.add(cb.like(cb.lower(p.get("tags")), "%" + "noticia" + "%"));
+            }
+        }
+
+        boolean moderador = false;
+        if(ud != null) {
+            if(ud.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MODER"))) {
+                moderador = true;
+            }
+        }
+
+        if (!moderador) {
+            Predicate naoOculto = cb.equal(p.get("oculto"), false);
+            predicates.add(naoOculto);
+        }
+
+        cq.where(predicates.toArray(new Predicate[0]));
+        cq.orderBy(cb.desc(p.get("dataDaPostagem")));
+
+        TypedQuery<Postagem> busca = em.createQuery(cq);
+        BuscaPaginadaResultado<Postagem> bpr = new BuscaPaginadaResultado<>();
+
+        busca.setFirstResult(bp.numeroPagina() * bp.numeroResultados());
+        busca.setMaxResults(bp.numeroResultados() * 5);
+
+        List<Postagem> resultadosDaBusca = busca.getResultList();
+        int tamanhoTotal = resultadosDaBusca.size();
+
+        if(resultadosDaBusca.isEmpty()) {
+            bpr.setResultado(resultadosDaBusca);
+        } else {
+            bpr.setResultado(resultadosDaBusca.subList(0,Math.min(bp.numeroResultados(), resultadosDaBusca.size())));
+        }
+
+        bpr.setProximosIndexes(tamanhoTotal-bpr.getResultado().size());
+        return bpr;
+    }
+
+    public Predicate construirTextoPredicado(CriteriaBuilder cb, Root<Postagem> p, String texto, String campo) {
+
+        String[] t = texto.split(" ");
+        List<Predicate> retorno = new ArrayList<>();
+
+        for(int i = 0; i < t.length; i++) {
+            retorno.add(cb.like(cb.lower(p.get(campo)), "%" + t[i] + "%"));
+        }
+
+        return cb.or(retorno.toArray(new Predicate[0]));
     }
 
 }
