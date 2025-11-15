@@ -216,11 +216,15 @@ async function iniciarPerfil() {
                 })
 
             function construirForum(forum, dados) {
-                forum.querySelector(".tituloForum").textContent = dados.titulo
-                forum.querySelector(".autorForum").textContent = dados.autor.nome
-                forum.querySelector(".dataForum").textContent = dados.dataCriacao
-                forum.querySelector(".respostasForum").textContent = dados.respostas
-                forum.querySelector(".ultimaAtualizacao").textContent = dados.ultimaAtualizacao
+                novoT = dados.titulo
+                if (novoT.length > 35) {
+                    novoT = novoT.substring(0, 35) + "..."
+                }
+                forum.querySelector(".titulo-forum").textContent = novoT
+                forum.querySelector(".nomeAutor-usuario-forum").textContent = dados.autor.nome
+                forum.querySelector(".data-forum").textContent = dados.dataCriacao
+                forum.querySelector(".nRespostas").textContent += dados.respostas
+                forum.querySelector(".dAtualizacao").textContent += dados.ultimaAtualizacao
                 forum.addEventListener("click", function () {
                     window.location.href = "http://localhost:8080/forum/" + dados.idForum
                 })

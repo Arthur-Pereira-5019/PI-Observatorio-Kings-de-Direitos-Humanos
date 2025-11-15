@@ -32,8 +32,10 @@ public class ForumController {
     ForumMapper fm;
 
     @GetMapping("/usuario/{id}")
-    public List<Forum> encontrarPeloUsuario(@PathVariable Long id) {
-        return fs.encontrarPeloUsuario(id);
+    public List<ForumESDTO> encontrarPeloUsuario(@PathVariable Long id) {
+        ArrayList<ForumESDTO> r = new ArrayList<>();
+        fs.encontrarPeloUsuario(id).forEach(f -> {r.add(fm.parseForumToESDTO(f));});
+        return r;
     }
 
     @PreAuthorize("hasRole('ROLE_PADRAO')")
