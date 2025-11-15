@@ -174,11 +174,6 @@ public class UsuarioService {
         verificarNCPF(u.getCpf());
     }
 
-    public String gerarNome(Long id) {
-        Usuario u = encontrarPorId(id, false);
-        return "[" + u.getIdUsuario() + "] " + u.getNome();
-    }
-
     @Transactional
     public void alterarTitulacao(Long idAlvo, Long idModerador, AdicionarCargoRequest acr) {
         Usuario r = encontrarPorId(idModerador, false);
@@ -217,6 +212,7 @@ public class UsuarioService {
                 edc = EstadoDaConta.ADMINISTRADOR;
         }
         u.setEstadoDaConta(edc);
+        dms.criarDecisaoModeradora(new DecisaoModeradoraOPDTO(acr.motivacao()), "Usuario", r, u, u.getIdUsuario(), "aplicou o cargo de " + edc + " a");
         ur.save(u);
     }
 
@@ -224,16 +220,7 @@ public class UsuarioService {
     public void delecaoPorAdministrador(Long id, Long idRequisitor) {
         Usuario u = encontrarPorId(id, false);
         Usuario r = encontrarPorId(idRequisitor, false);
-        DecisaoModeradora dm = new DecisaoModeradora();
-        dm.setNomeModerado(u.getNome());
-        dm.setTipo("Usuário");
-        dm.setData(Date.from(Instant.now()));
-        dm.setResponsavel(r);
-        dm.setUsuarioModerado(u);
-        dm.setMotivacao("Usuário requisitou a própria deleção.");
-        dm.setIdModerado(id);
-
-        dms.criarDecisaoModeradora(dm);
+        dms.criarDecisaoModeradora(new DecisaoModeradoraOPDTO("Usuário requisitou a própria deleção"), "Forum", r, u, u.getIdUsuario(), " atendendo a requisição, apagou a conta ");
         ur.deleteById(id);
         ur.flush();
     }
@@ -241,14 +228,8 @@ public class UsuarioService {
     @Transactional
     public void delecaoProgramada(Long id) {
         Usuario u = encontrarPorId(id, false);
-        DecisaoModeradora dm = new DecisaoModeradora();
-        dm.setNomeModerado(u.getNome());
-        dm.setTipo("Usuário");
-        dm.setData(Date.from(Instant.now()));
-        dm.setResponsavel(null);
-        dm.setMotivacao("Deleção requisistada pelo usuário e auto-executada pelo sistema.");
-        dm.setIdModerado(id);
-        dms.criarDecisaoModeradora(dm);
+        dms.criarDecisaoModeradora(new DecisaoModeradoraOPDTO("Deleção requisistada pelo usuário e auto-executada pelo sistema."),
+                "Usuário", u, u, u.getIdUsuario(), "exclui a conta de");
         ur.delete(u);
     }
 

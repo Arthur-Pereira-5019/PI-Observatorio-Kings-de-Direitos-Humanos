@@ -173,15 +173,7 @@ public class PostagemServices {
         Postagem p = encontrarPostagemPeloId(idPost);
         Usuario u = us.encontrarPorId(idModerador, false);
         p.setOculto(!p.isOculto());
-        DecisaoModeradora dm = new DecisaoModeradora();
-        dm.setData(Date.from(Instant.now()));
-        dm.setMotivacao(d.motivacao());
-        dm.setResponsavel(u);
-        dm.setTipo("Postagem");
-        dm.setUsuarioModerado(p.getAutor());
-        dm.setNomeModerado("[" + p.getId() + "]" + p.getAutor().getNome());
-        dm.setIdModerado(idPost);
-        dms.criarDecisaoModeradora(dm);
+        dms.criarDecisaoModeradora(d, "Postagem", u, p.getAutor(), idPost, "ocultou o post de");
         pr.save(p);
     }
 

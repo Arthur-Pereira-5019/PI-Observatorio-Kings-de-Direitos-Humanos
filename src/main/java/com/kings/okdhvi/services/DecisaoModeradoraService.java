@@ -38,29 +38,6 @@ public class DecisaoModeradoraService {
     @PersistenceContext
     private EntityManager em;
 
-    public DecisaoModeradora criarDecisaoModeradora(DecisaoModeradora dm) {
-        if(dm == null) {
-            throw new NullResourceException("Decisão Moderadora nula submetido");
-        }
-        return dmr.save(dm);
-    }
-
-    public DecisaoModeradora criarDecisaoModeradora(DecisaoModeradoraOPDTO dm, String tipo, Usuario moderador, Usuario moderado, String nomeModerado, Long idModerado, String acao) {
-        if(dm == null) {
-            throw new NullResourceException("Decisão Moderadora nula submetido");
-        }
-        DecisaoModeradora d = new DecisaoModeradora();
-        d.setData(Date.from(Instant.now()));
-        d.setMotivacao(dm.motivacao());
-        d.setTipo(tipo);
-        d.setResponsavel(moderador);
-        d.setUsuarioModerado(moderado);
-        d.setNomeModerado(nomeModerado);
-        d.setIdModerado(idModerado);
-        d.setAcao(acao);
-        return dmr.save(d);
-    }
-
     public DecisaoModeradora criarDecisaoModeradora(DecisaoModeradoraOPDTO dm, String tipo, Usuario moderador, Usuario moderado, Long idModerado, String acaoInFixo) {
         if(dm == null) {
             throw new NullResourceException("Decisão Moderadora nula submetido");

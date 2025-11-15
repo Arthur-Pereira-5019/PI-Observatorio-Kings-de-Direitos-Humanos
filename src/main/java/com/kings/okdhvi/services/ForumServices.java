@@ -137,20 +137,8 @@ public class ForumServices {
         Forum f = encontrarForumPeloId(idForum);
         Usuario u = us.encontrarPorId(idModerador, false);
         boolean resultado = !f.isOculto();
-        String nomeM = us.gerarNome(f.getAutor().getIdUsuario());
-        String nomeR = us.gerarNome(idModerador);
-
         f.setOculto(resultado);
-        DecisaoModeradora dm = new DecisaoModeradora();
-        dm.setData(Date.from(Instant.now()));
-        dm.setMotivacao(d.motivacao());
-        dm.setResponsavel(u);
-        dm.setTipo("Forum");
-        dm.setUsuarioModerado(f.getAutor());
-        dm.setNomeModerado("[" + f.getAutor().getIdUsuario() + "]" + f.getAutor().getNome());
-        dm.setIdModerado(idForum);
-        dm.setAcao(nomeR + " ocultou o Fórum de" + nomeM);
-        dms.criarDecisaoModeradora(dm);
+        dms.criarDecisaoModeradora(d, "Forum", u, f.getAutor(), idForum, " ocultou o fórum de");
         fr.save(f);
     }
 
