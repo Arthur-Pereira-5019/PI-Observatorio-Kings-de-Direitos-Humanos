@@ -9,10 +9,10 @@
 }
 
 #richtexteditor {
-  display: block;              /* ou flex se você realmente precisa, mas block é mais previsível */
+  display: block;
   width: 100%;
   position: relative;
-  min-width: 0;                /* evita overflow de filhos flex */
+  min-width: 0;
 }
 
 
