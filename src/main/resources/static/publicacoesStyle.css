@@ -89,7 +89,7 @@
  .container-imagem {
      margin-top: 0.75%;
      height: 100%;
-     width: 35%;
+     width: 25%;
  }
 
  .container-baixo {
@@ -102,7 +102,7 @@
 
  .container-descricao {
      height: 100%;
-     width: 100%;
+     width: 75%;
      display: flex;
      flex-direction: column;
      padding: 1%;
@@ -112,6 +112,7 @@
  .imagem {
      height: 100%;
      width: 100%;
+     object-fit: cover;
  }
 
  .autor {
