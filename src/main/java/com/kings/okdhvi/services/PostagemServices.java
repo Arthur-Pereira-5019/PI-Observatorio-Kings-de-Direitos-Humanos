@@ -172,7 +172,7 @@ public class PostagemServices {
     public void ocultar(Long idModerador, Long idPost, DecisaoModeradoraOPDTO d) {
         Postagem p = encontrarPostagemPeloId(idPost);
         Usuario u = us.encontrarPorId(idModerador, false);
-        p.setOculto(true);
+        p.setOculto(!p.isOculto());
         DecisaoModeradora dm = new DecisaoModeradora();
         dm.setData(Date.from(Instant.now()));
         dm.setMotivacao(d.motivacao());

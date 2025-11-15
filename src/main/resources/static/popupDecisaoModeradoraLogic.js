@@ -1,7 +1,7 @@
 async function iniciarPopupDecisao(url) {
     const blur = document.querySelector("#blur-decmod");
     const container_dm = document.querySelector("#container_dm");
-    const campoM = document.querySelector("#motivacao");
+    const campoM = document.querySelector("#motivacao_dm");
     const campoD = document.querySelector("#data");
     const campoR = document.querySelector("#responsavel");
 

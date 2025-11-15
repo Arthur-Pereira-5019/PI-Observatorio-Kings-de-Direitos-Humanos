@@ -112,13 +112,13 @@ async function iniciarPublicacoes() {
                     let path = window.location.pathname
                     if (path != "/publicacoes/%20/0") {
                         alert("Nenhum resultado encontrado!")
-                        window.location.pathname = "/publicacoes/ /0"
+                            window.location.pathname = "/publicacoes/ /0"
+
                     }
-                    
                     btnDireito.remove()
                 } else {
                     btnLonge.textContent = paginaAtual() + data.proximosIndexes % 5;
-                    if (Number(paginaAtual()) + 1 == Number(btnLonge.textContent)) {
+                    if (Number(paginaAtual()) == Number(btnLonge.textContent)) {
                         btnDireito.remove()
                     }
                     data.resultado.forEach((post, index) => {

@@ -57,11 +57,23 @@ async function iniciarPublicacao() {
         })
         .then(async (data) => {
             titulo.textContent = data.tituloPostagem;
+            document.title = data.tituloPostagem;
             if (data.oculto) {
                 titulo.style.color = "purple";
                 decmod.style.display = "flex";
                 decmod.addEventListener("click", function () {
                     anexarHTMLExterno("/decisao", "/popupDecisaoModeradoraStyle.css", "/popupDecisaoModeradoraLogic.js", "http://localhost:8080/api/decmod/Postagem/" + id, null)
+                })
+                botaoOcultar.style.backgroundColor = "green"
+                botaoOcultar.querySelector("img").src = "/imagens/olhos_abertos.png"
+                botaoOcultar.addEventListener("click", async function () {
+                    let durl = "http://localhost:8080/api/postagem/ocultar/" + id;
+                    await openCriacaoDecisao(durl, "Postagem desocultada com sucesso!");
+                })
+            } else {
+                botaoOcultar.addEventListener("click", async function () {
+                    let durl = "http://localhost:8080/api/postagem/ocultar/" + id;
+                    await openCriacaoDecisao(durl, "Postagem oculta com sucesso!");
                 })
             }
             capa.src = "data:image/" + data.capa.tipoImagem + ";base64," + data.capa.imagem;
@@ -77,10 +89,7 @@ async function iniciarPublicacao() {
         })
 
 
-    botaoOcultar.addEventListener("click", async function () {
-        let durl = "http://localhost:8080/api/postagem/ocultar/" + id;
-        await openCriacaoDecisao(durl, "Postagem oculta com sucesso!");
-    })
+
 
 
     fetch("http://localhost:8080/api/user", {
@@ -95,7 +104,7 @@ async function iniciarPublicacao() {
             return res.json();
         })
         .then(data => {
-            if (data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMNISTRADOR") {
+            if (data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMINISTRADOR") {
                 botaoOcultar.style.display = "flex";
                 moderador = true;
             }

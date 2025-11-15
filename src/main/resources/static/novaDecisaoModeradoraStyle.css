@@ -7,7 +7,7 @@
  }
 
  #blur-nova-decisao {
-          position: fixed;
+     position: fixed;
      width: 100%;
      height: 100%;
      left: 50%;
@@ -15,7 +15,7 @@
      transform: translate(-50%, -50%);
      z-index: 10000;
      display: flex;
-          background-color: rgba(0, 0, 0, 0.6);
+     background-color: rgba(0, 0, 0, 0.6);
 
  }
 
