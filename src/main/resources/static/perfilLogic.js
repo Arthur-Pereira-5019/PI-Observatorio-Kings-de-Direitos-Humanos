@@ -1,44 +1,47 @@
 let id;
+
+async function anexarHTMLExternoPerfil(url, cssFile, jsFile, durl, msg) {
+    const response = await fetch(url);
+    const data = await response.text()
+    const novoObjeto = document.createElement("div");
+    document.body.appendChild(novoObjeto)
+    novoObjeto.innerHTML = data;
+
+    if (cssFile) {
+        anexarCss(cssFile)
+    }
+
+    if (jsFile) {
+        let script = document.createElement("script");
+        script.src = jsFile;
+        script.onload = () => {
+            if (jsFile === "/popupNovaDecisaoLogica.js" && typeof iniciarPopupNovaDecisao === "function") {
+                iniciarPopupNovaDecisao(durl, msg);
+            }
+            if (jsFile === "/popupDecisaoModeradoraLogic.js" && typeof iniciarPopupDecisao === "function") {
+                iniciarPopupDecisao(durl);
+            }
+            if (jsFile === "/aplicarPopupLogic.js" && typeof iniciarPopupAplicarCargo === "function") {
+                iniciarPopupAplicarCargo(durl);
+            }
+            if (jsFile === "/popupLogComentarios.js" && typeof iniciarPopupLogComentarios === "function") {
+                iniciarPopupLogComentarios();
+            }
+
+        };
+        document.body.appendChild(script);
+    }
+}
+
+async function openCriacaoDecisao(durl, msg) {
+    await anexarHTMLExternoPerfil("/nova_decisao", "/novaDecisaoModeradoraStyle.css", "/popupNovaDecisaoLogica.js", durl, msg);
+}
+
 async function iniciarPerfil() {
     const nomeUsuario = document.getElementById("nomeUsuario");
 
     const path = window.location.pathname;
     id = path.split("/").pop();
-
-    async function anexarHTMLExterno(url, cssFile, jsFile, durl, msg) {
-        const response = await fetch(url);
-        const data = await response.text()
-        const novoObjeto = document.createElement("div");
-        document.body.appendChild(novoObjeto)
-        novoObjeto.innerHTML = data;
-
-        if (cssFile) {
-            anexarCss(cssFile)
-        }
-
-        if (jsFile) {
-            let script = document.createElement("script");
-            script.src = jsFile;
-            script.onload = () => {
-                if (jsFile === "/popupNovaDecisaoLogica.js" && typeof iniciarPopupNovaDecisao === "function") {
-                    iniciarPopupNovaDecisao(durl, msg);
-                }
-                if (jsFile === "/popupDecisaoModeradoraLogic.js" && typeof iniciarPopupDecisao === "function") {
-                    iniciarPopupDecisao(durl);
-                }
-                if (jsFile === "/aplicarPopupLogic.js" && typeof iniciarPopupAplicarCargo === "function") {
-                    iniciarPopupAplicarCargo(durl);
-                }
-                if (jsFile === "/popupLogComentarios.js" && typeof iniciarPopupLogComentarios === "function") {
-                    iniciarPopupLogComentarios();
-                }
-                
-            };
-            document.body.appendChild(script);
-        }
-    }
-
-
 
 
     if (!id || isNaN(id)) {
@@ -85,8 +88,8 @@ async function iniciarPerfil() {
         } else if (data.proprio == 2) {
             btnAddCargo.style.display = "flex"
             btnAtvUser.style.display = "flex"
-            btnAtvUser.addEventListener("click", async function(){
-                await anexarHTMLExterno("/log_com","/log_comentarios.css","/popupLogComentarios.js")
+            btnAtvUser.addEventListener("click", async function () {
+                await anexarHTMLExternoPerfil("/log_com", "/log_comentarios.css", "/popupLogComentarios.js")
             })
             entrada.remove()
         } else {
@@ -141,7 +144,7 @@ async function iniciarPerfil() {
         }
 
         btnAddCargo.addEventListener("click", function () {
-            anexarHTMLExterno("/aplicar_cargo", "/aplicarPopupStyle.css", "/aplicarPopupLogic.js", "http://localhost:8080/api/user/aplicar_cargo/" + id)
+            anexarHTMLExternoPerfil("/aplicar_cargo", "/aplicarPopupStyle.css", "/aplicarPopupLogic.js", "http://localhost:8080/api/user/aplicar_cargo/" + id)
         })
 
         async function gerarPublicacoes() {

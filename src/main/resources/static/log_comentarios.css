@@ -13,7 +13,7 @@
     width: 60vw;
     border-radius: 1.5rem;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    border: solid 5px #AA009F;
+    border: solid 4px #AA009F !important;
     background-color: white;
     justify-content: flex-start;
     align-items: center;

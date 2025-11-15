@@ -329,8 +329,8 @@
 
  .container-imagem {
      margin-top: 0.75%;
-     height: 100%;
-     width: 35%;
+     aspect-ratio: 16/9;
+     width: 25%;
  }
 
  .container-baixo {
@@ -343,7 +343,7 @@
 
  .container-descricao {
      height: 100%;
-     width: 100%;
+     width: 75%;
      display: flex;
      flex-direction: column;
      padding: 1%;

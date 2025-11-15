@@ -6,6 +6,7 @@ async function iniciarPopupLogComentarios() {
     container_log.display = "flex"
 
 
+
     blur.addEventListener("click", sumir)
 
 
@@ -59,12 +60,13 @@ async function iniciarPopupLogComentarios() {
             comentario.querySelector(".post-original").addEventListener("click", function () {
                 window.location.pathname = link
             })
-            comentario.querySelector(".botao-ocultar").addEventListener("click", function() {
+            comentario.querySelector(".botao-ocultar").addEventListener("click", function () {
                 let c = confirm("Deseja apagar o comentário sem olhar o contexto da publicação?")
-                if(c) {
+                if (c) {
+                    sumir()
                     openCriacaoDecisao("http://localhost:8080/api/com/excluir/" + dados.id, "Comentário excluído com sucesso")
                 }
-                
+
             })
         }
     }
