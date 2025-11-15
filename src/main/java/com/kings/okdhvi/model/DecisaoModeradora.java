@@ -1,6 +1,7 @@
 package com.kings.okdhvi.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -19,8 +20,10 @@ public class DecisaoModeradora {
     Date data;
     @Column(nullable = false, length = 1024)
     String motivacao;
-    @Column(length = 100)
+    @Column(length = 128)
     String nomeModerado;
+    @Column(length = 128)
+    String nomeModerador;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     Usuario usuarioModerado;
@@ -105,5 +108,13 @@ public class DecisaoModeradora {
 
     public void setAcao(String acao) {
         this.acao = acao;
+    }
+
+    public String getNomeModerador() {
+        return nomeModerador;
+    }
+
+    public void setNomeModerador(String nomeModerador) {
+        this.nomeModerador = nomeModerador;
     }
 }

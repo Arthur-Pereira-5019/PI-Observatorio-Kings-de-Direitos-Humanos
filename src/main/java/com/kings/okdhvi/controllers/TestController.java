@@ -70,4 +70,8 @@ public class TestController {
     @RequestMapping("/log_com")
     public String returnPopupLogCom() {return "popupLogCom";}
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping("/registro/**")
+    public String returnRegistro() {return "decisoesModeradoras";}
+
 }

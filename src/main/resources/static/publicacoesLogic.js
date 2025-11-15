@@ -98,7 +98,7 @@ async function iniciarPublicacoes() {
             body: JSON.stringify(requestBody)
         })
             .then(res => {
-                if (!res.ok) throw new Error("ErroPersistenceException no servidor");
+                if (!res.ok) throw new Error("Erro no servidor");
                 return res.json();
             })
             .then(data => {
@@ -117,7 +117,7 @@ async function iniciarPublicacoes() {
                     }
                     btnDireito.remove()
                 } else {
-                    btnLonge.textContent = paginaAtual() + data.proximosIndexes % 5;
+                    btnLonge.textContent = paginaAtual() + Math.ceil(data.proximosIndexes / 10);
                     if (Number(paginaAtual()) == Number(btnLonge.textContent)) {
                         btnDireito.remove()
                     }

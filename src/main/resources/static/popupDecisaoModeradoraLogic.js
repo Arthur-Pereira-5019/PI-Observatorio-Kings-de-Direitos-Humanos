@@ -26,8 +26,7 @@ async function iniciarPopupDecisao(url) {
         .then(data => {
             campoM.textContent += data.motivacao;
             campoD.textContent += data.data;
-            console.log(data)
-            campoR.textContent += data.responsavel.nome;
+            campoR.textContent += data.nomeModerador;
         })
         .catch(err => console.error(err));
 }

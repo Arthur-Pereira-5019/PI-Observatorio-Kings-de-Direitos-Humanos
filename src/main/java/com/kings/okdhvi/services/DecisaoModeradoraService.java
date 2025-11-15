@@ -5,7 +5,6 @@ import com.kings.okdhvi.model.DTOs.BuscaPaginada;
 import com.kings.okdhvi.model.DTOs.BuscaPaginadaResultado;
 import com.kings.okdhvi.model.DTOs.DecisaoModeradoraOPDTO;
 import com.kings.okdhvi.model.DecisaoModeradora;
-import com.kings.okdhvi.model.Postagem;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.repositories.DecisaoModeradoraRepository;
 import com.kings.okdhvi.repositories.UsuarioRepository;
@@ -17,7 +16,6 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +49,7 @@ public class DecisaoModeradoraService {
         d.setResponsavel(moderador);
         d.setUsuarioModerado(moderado);
         d.setNomeModerado(nomeM);
+        d.setNomeModerador(nomeR);
         d.setIdModerado(idModerado);
         d.setAcao(nomeR + " " + acaoInFixo + " " + nomeM);
         return dmr.save(d);
@@ -66,54 +65,41 @@ public class DecisaoModeradoraService {
         return dmr.findAll();
     }
 
-    public BuscaPaginadaResultado<Postagem> buscaFiltrada(BuscaPaginada bp, String texto, UserDetails ud) {
-        //Tipo
-        //Motivação
-        //Nome Moderado
-        //
+    public BuscaPaginadaResultado<DecisaoModeradora> buscaFiltrada(BuscaPaginada bp, String texto, UserDetails ud) {
 
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Postagem> cq = cb.createQuery(Postagem.class);
-        Root<Postagem> p = cq.from(Postagem.class);
+        CriteriaQuery<DecisaoModeradora> cq = cb.createQuery(DecisaoModeradora.class);
+        Root<DecisaoModeradora> d = cq.from(DecisaoModeradora.class);
 
         List<Predicate> predicates = new ArrayList<>();
 
         if (texto != null && !texto.isBlank()) {
-            Predicate predicatesCorpo =  construirTextoPredicado(cb, p, texto, "textoPostagem");
+            //Ação
+            //Motivação
+            //Nome Moderado
+            //Moderador
 
-            Predicate predicatesTitulo =  construirTextoPredicado(cb, p, texto, "tituloPostagem");
+            Predicate predicatesAcao =  construirTextoPredicado(cb, d, texto, "acao");
 
-            Predicate predicatesTags =  construirTextoPredicado(cb, p, texto, "tags");
+            Predicate predicatesNomeModerado =  construirTextoPredicado(cb, d, texto, "nomeModerado");
 
+            Predicate predicatesNomeModerador =  construirTextoPredicado(cb, d, texto, "nomeModerador");
 
-            predicates.add(cb.or(predicatesCorpo, predicatesTitulo, predicatesTags));
-            if(texto.contains("noticia")) {
-                predicates.add(cb.like(cb.lower(p.get("tags")), "%" + "noticia" + "%"));
-            }
-        }
+            Predicate predicatesMotivacao =  construirTextoPredicado(cb, d, texto, "tags");
 
-        boolean moderador = false;
-        if(ud != null) {
-            if(ud.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MODER"))) {
-                moderador = true;
-            }
-        }
-
-        if (!moderador) {
-            Predicate naoOculto = cb.equal(p.get("oculto"), false);
-            predicates.add(naoOculto);
+            predicates.add(cb.or(predicatesAcao, predicatesNomeModerado, predicatesMotivacao, predicatesNomeModerador));
         }
 
         cq.where(predicates.toArray(new Predicate[0]));
-        cq.orderBy(cb.desc(p.get("dataDaPostagem")));
+        cq.orderBy(cb.desc(d.get("data")));
 
-        TypedQuery<Postagem> busca = em.createQuery(cq);
-        BuscaPaginadaResultado<Postagem> bpr = new BuscaPaginadaResultado<>();
+        TypedQuery<DecisaoModeradora> busca = em.createQuery(cq);
+        BuscaPaginadaResultado<DecisaoModeradora> bpr = new BuscaPaginadaResultado<>();
 
         busca.setFirstResult(bp.numeroPagina() * bp.numeroResultados());
         busca.setMaxResults(bp.numeroResultados() * 5);
 
-        List<Postagem> resultadosDaBusca = busca.getResultList();
+        List<DecisaoModeradora> resultadosDaBusca = busca.getResultList();
         int tamanhoTotal = resultadosDaBusca.size();
 
         if(resultadosDaBusca.isEmpty()) {
@@ -126,7 +112,7 @@ public class DecisaoModeradoraService {
         return bpr;
     }
 
-    public Predicate construirTextoPredicado(CriteriaBuilder cb, Root<Postagem> p, String texto, String campo) {
+    public Predicate construirTextoPredicado(CriteriaBuilder cb, Root<DecisaoModeradora> p, String texto, String campo) {
 
         String[] t = texto.split(" ");
         List<Predicate> retorno = new ArrayList<>();
