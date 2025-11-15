@@ -46,7 +46,8 @@
 }
 
 .post-original:hover {
-    color: aqua
+    color: aqua;
+    cursor: pointer;
 }
 
 .info-autor-logs {

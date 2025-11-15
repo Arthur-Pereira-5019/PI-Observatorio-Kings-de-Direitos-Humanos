@@ -8,8 +8,8 @@
     display: flex;
     flex-direction: column;
     gap: 5%;
-    height: 65vh;
-    width: 21vw;
+    height: 72vh;
+    width: 28vw;
     border-radius: 1rem;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     border: solid 2px #AA009F;

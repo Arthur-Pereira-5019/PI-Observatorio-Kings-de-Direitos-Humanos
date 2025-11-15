@@ -108,7 +108,7 @@ public class PostagemServices {
 
     public List<Postagem> encontrarPeloUsuario(Long id) {
         Usuario u = us.encontrarPorId(id, false);
-        return pr.findByAutor(u);
+        return pr.findByAutorOrderByDataDaPostagemDesc(u);
     }
 
     @Transactional

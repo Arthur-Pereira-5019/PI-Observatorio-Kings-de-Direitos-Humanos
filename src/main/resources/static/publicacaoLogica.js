@@ -228,7 +228,7 @@ async function iniciarPublicacao() {
             } else if (moderador) {
                 exclusao.style.backgroundColor = 'purple'
                 exclusao.addEventListener("click", function () {
-                    openCriacaoDecisao("http://localhost:8080/api/com/excluir/" + dados.id)
+                    openCriacaoDecisao("http://localhost:8080/api/com/excluir/" + dados.id, "Comentário excluído com sucesso!")
                 })
             } else {
                 exclusao.style.display = 'none'

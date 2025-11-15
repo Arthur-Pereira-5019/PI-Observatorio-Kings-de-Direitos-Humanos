@@ -52,11 +52,19 @@ async function iniciarPopupLogComentarios() {
 
         function construirComentario(comentario, dados) {
             const tipo = dados.tipo;
+            let link = "/" + (tipo == 'F' ? "foruns/" : "publicacao/") + dados.idDono;
             comentario.querySelector("#textoComentario").textContent = dados.texto
             comentario.querySelector(".data-log").textContent = dados.dataComentario
             comentario.querySelector(".post-original").textContent = ((tipo == 'F' ? "Fórum: " : "Publicação: ")) + dados.tituloDono
             comentario.querySelector(".post-original").addEventListener("click", function () {
-                window.location.pathname = "/" + (tipo == 'F' ? "foruns/" : "publicacao/") + dados.idDono
+                window.location.pathname = link
+            })
+            comentario.querySelector(".botao-ocultar").addEventListener("click", function() {
+                let c = confirm("Deseja apagar o comentário sem olhar o contexto da publicação?")
+                if(c) {
+                    openCriacaoDecisao("http://localhost:8080/api/com/excluir/" + dados.id, "Comentário excluído com sucesso")
+                }
+                
             })
         }
     }

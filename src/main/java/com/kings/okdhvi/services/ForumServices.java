@@ -99,7 +99,7 @@ public class ForumServices {
 
     public List<Forum> encontrarPeloUsuario(Long id) {
         Usuario u = us.encontrarPorId(id, false);
-        return fr.findByAutor(u);
+        return fr.findByAutorOrderByDataDeCriacaoDesc(u);
     }
 
     @Transactional

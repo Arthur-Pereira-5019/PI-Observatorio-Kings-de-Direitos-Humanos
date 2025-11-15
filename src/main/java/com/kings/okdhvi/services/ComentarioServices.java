@@ -166,6 +166,6 @@ public class ComentarioServices {
 
     public List<Comentario> encontrarPeloUsuario(Long id) {
         Usuario u = us.encontrarPorId(id, false);
-        return cr.findByAutor(u);
+        return cr.findByAutorOrderByDataComentarioDesc(u);
     }
 }

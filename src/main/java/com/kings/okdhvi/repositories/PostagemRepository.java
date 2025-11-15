@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface PostagemRepository extends JpaRepository<Postagem, Long> {
     public List<Postagem> findByAutor(Usuario u);
+    public List<Postagem> findByAutorOrderByDataDaPostagemDesc(Usuario u);
     //public List<Postagem> buscaFiltrada(BuscaPaginada bp, String texto);
 }
