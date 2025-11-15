@@ -55,7 +55,7 @@ async function publicarDocumento(finalizada) {
         i.src = "";
     })
     campoImagem = canva.src;
-
+    campoTextoPostagem.innerHTML
 
 
     let endPosition = campoImagem.indexOf(",");

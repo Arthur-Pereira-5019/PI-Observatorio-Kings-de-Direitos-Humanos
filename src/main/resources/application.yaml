@@ -5,8 +5,6 @@ spring:
     url: jdbc:mysql://localhost:3306/kings?useTimezone=true&serverTimezone=UTC
     username: root
     password: Art.DB25
-
-  
     name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -16,8 +14,12 @@ spring:
     properties:
       hibernate:
         jdbc:
-          time: -3
+          time_zone: UTC
         format_sql: false
+  jackson:
+    time-zone: "America/Sao_Paulo"
+    mvc:
+      time-zone: "America/Sao_Paulo"
 logger:
   root: WARN
   com.kings.okdhvi: WARN
