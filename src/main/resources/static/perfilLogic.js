@@ -57,6 +57,7 @@ async function iniciarPerfil() {
         const data = await response.json();
 
         nomeUsuario.textContent = data.nome;
+        document.title = data.nome;
         const cargoAtual = document.getElementById(data.estadoDaConta)
         cargoAtual.style.display = "flex"
 
@@ -221,10 +222,9 @@ async function iniciarPerfil() {
                     novoT = novoT.substring(0, 35) + "..."
                 }
                 forum.querySelector(".titulo-forum").textContent = novoT
-                forum.querySelector(".nomeAutor-usuario-forum").textContent = dados.autor.nome
                 forum.querySelector(".data-forum").textContent = dados.dataCriacao
-                forum.querySelector(".nRespostas").textContent += dados.respostas
-                forum.querySelector(".dAtualizacao").textContent += dados.ultimaAtualizacao
+                forum.querySelector(".nRespostas").textContent = "Respostas: " + dados.respostas
+                forum.querySelector(".dAtualizacao").textContent = "Última Atualização: " + dados.ultimaAtualizacao
                 forum.addEventListener("click", function () {
                     window.location.href = "http://localhost:8080/forum/" + dados.idForum
                 })
