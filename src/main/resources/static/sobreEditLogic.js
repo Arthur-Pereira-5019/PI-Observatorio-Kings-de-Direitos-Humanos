@@ -6,7 +6,7 @@ async function iniciarSobreEdit() {
     })
         .then(res => {
             if (!res.ok) {
-                window.location.href = "http://localhost:8080/tela_inexistente"
+                window.location.href = "http://localhost:8080/telaInexistente"
             }
             return res.json();
         })

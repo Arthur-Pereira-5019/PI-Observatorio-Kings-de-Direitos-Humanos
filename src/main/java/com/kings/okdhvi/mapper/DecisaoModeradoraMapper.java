@@ -27,6 +27,7 @@ public class DecisaoModeradoraMapper {
         return r;
     }
 
+    //Id moderado deixa de ser o Post/Forum e agora se torna o Autor em termos gerais
     public DecisaoModeradoraECDTO decisaoCompleta(DecisaoModeradora dm) {
         DecisaoModeradoraECDTO r = new DecisaoModeradoraECDTO();
         r.setAcao(dm.getAcao());
@@ -62,7 +63,7 @@ public class DecisaoModeradoraMapper {
                 es = fs.encontrarForumPeloId(dm.getIdModerado()).getTituloForum();
                 break;
         }
-        r.setLinkEspaco(prEs + r.getIdModerado());
+        r.setLinkEspaco(prEs + dm.getIdModerado());
         r.setNomeEspaco(es);
         return r;
     }
