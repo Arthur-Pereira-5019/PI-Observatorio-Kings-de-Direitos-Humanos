@@ -5,6 +5,8 @@ async function iniciarPopupRegistro() {
     const botaoAbrirRegistro = document.getElementById("iconButton");
     const botaoAbrirLogin = document.getElementById("btnIrLogin");
     const fundoPopupLogin = document.getElementById("posPopUpLogin");
+        const inputCpfRegistro = document.getElementById("inputCpfRegistro");
+
     
         botaoAbrirRegistro.addEventListener("click", () => {
 
@@ -64,6 +66,17 @@ async function iniciarPopupRegistro() {
         ocultarSenha(btnOcultarCSenha, divCSenhaMaior);
     })
 
+    inputCpfRegistro.addEventListener("keydown", function(e) {
+        if(e.key != "Backspace" && e.key != "Delete") {
+            let v = inputCpfRegistro.value
+            if(v.length == 3 || v.length == 7) {
+                inputCpfRegistro.value += "."
+            } else if (v.length == 11) {
+                inputCpfRegistro.value += "-"
+            }
+        }
+    })
+
     function ocultarSenha(elemento, pai) {
         ativo = Boolean(Number(elemento.dataset.ativo))
         elemento.dataset.ativo = String(Number(!ativo));
@@ -77,13 +90,11 @@ async function iniciarPopupRegistro() {
     }
 
 
-
     const registerButton = document.getElementById("registerButton");
     const senhaInputRegistro = document.getElementById("senhaInputRegistro");
     const confSenhaInputRegistro = document.getElementById("confSenhaInputRegistro");
     const inputNomeRegistro = document.getElementById("inputNomeRegistro");
     const inputTelefoneRegistro = document.getElementById("inputTelefoneRegistro");
-    const inputCpfRegistro = document.getElementById("inputCpfRegistro");
     const inputEmailRegistro = document.getElementById("inputEmailRegistro");
     const inputDataNascRegistro = document.getElementById("inputDataNascRegistro");
     const checkAceitar = document.querySelector(".checkAceitar");
@@ -96,13 +107,19 @@ async function iniciarPopupRegistro() {
             }
             if(!checkAceitar.checked) {
                 alert("Aceite nossos termos de uso!")
+                return
             }
-            console.log("borabil")
+            let gcpf = inputCpfRegistro.value
+            if(gcpf.length == 14) {
+                gcpf.replaceAll(".","")
+                gcpf.replaceAll("-","")
+            }
+
             const novoPost = {
                 nome: inputNomeRegistro.value,
                 senha: senhaInputRegistro.value,
                 telefone: inputTelefoneRegistro.value,
-                cpf: inputCpfRegistro.value,
+                cpf: gcpf,
                 email: inputEmailRegistro.value,
                 dataDeNascimento: inputDataNascRegistro.value
             };
