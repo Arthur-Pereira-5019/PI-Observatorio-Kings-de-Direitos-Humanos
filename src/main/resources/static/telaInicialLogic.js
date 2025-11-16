@@ -1,6 +1,11 @@
 let linkNoticiaEsquerda;
 let linkNoticiaDireita;
 
+const seta_esquerda = document.getElementById("seta_esquerda");
+const seta_direita = document.getElementById("seta_direita");
+
+let page = 0;
+
 async function iniciarTelaInicial() {
     let page = 0;
     updateNews();
@@ -22,23 +27,21 @@ async function iniciarTelaInicial() {
     })
 
     async function updateNews() {
+        seta_esquerda.display.style = "flex"
+        seta_direita.display.style = "flex"
+        noticiaEsquerda.display.style = "flex"
+        noticiaDireita.display.style = "flex"
+        if (page == 0) {
+            seta_esquerda.display.style = "none"
+        }
         const textoEsquerda = document.getElementById("texto_esquerda");
         const textoDireita = document.getElementById("texto_direita");
 
         const ImagemEsquerda = document.getElementById("imagem_esquerda");
         const ImagemDireita = document.getElementById("imagem_direita");
 
-        const requestBody = {
-            numeroPagina: page,
-            numeroResultados: 2,
-            parametro: "dataDaPostagem",
-            ascending: false
-        };
-
-        fetch("http://localhost:8080/api/postagem/busca_paginada", {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(requestBody)
+        fetch("http://localhost:8080/api/postagem/busca_paginada/" + page, {
+            headers: { 'Content-Type': 'application/json' }
         })
             .then(res => {
                 if (!res.ok) throw new Error("Erro no servidor");
@@ -50,11 +53,16 @@ async function iniciarTelaInicial() {
                     linkNoticiaEsquerda = "http://localhost:8080/publicacao/" + data[0].idPostagem;
                     ImagemEsquerda.src = "data:image/" + data[0].capa.tipoImagem + ";base64," + data[0].capa.imagem;
 
+                } else {
+                    noticiaEsquerda.display.style = "none"
                 }
                 if (data[1]) {
                     textoDireita.textContent = data[1].titulo
                     linkNoticiaDireita = "http://localhost:8080/publicacao/" + data[1].idPostagem;
                     ImagemDireita.src = "data:image/" + data[1].capa.tipoImagem + ";base64," + data[1].capa.imagem;
+                } else {
+                    noticiaDireita.display.style = "none"
+                    seta_direita.display.style = "none"
                 }
             })
 

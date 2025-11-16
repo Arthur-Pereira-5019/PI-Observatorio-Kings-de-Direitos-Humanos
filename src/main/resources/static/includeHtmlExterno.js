@@ -1,9 +1,6 @@
 const iconButton = document.getElementById("iconButton");
 
-const seta_esquerda = document.getElementById("seta_esquerda");
-const seta_direita = document.getElementById("seta_direita");
 
-let page = 0;
 
 async function carregarHTMLExterno(id, url, cssFile, jsFile) {
     alvo = document.getElementById(id);

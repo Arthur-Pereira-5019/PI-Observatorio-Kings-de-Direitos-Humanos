@@ -4,6 +4,7 @@ import com.kings.okdhvi.model.DTOs.UsuarioApreDTO;
 import com.kings.okdhvi.model.DTOs.UsuarioComDTO;
 import com.kings.okdhvi.model.DTOs.UsuarioForDTO;
 import com.kings.okdhvi.model.DTOs.UsuarioPDTO;
+import com.kings.okdhvi.model.EstadoDaConta;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class UsuarioMapper {
     }
 
     public UsuarioForDTO usuarioForum(Usuario u) {
+        if(u == null) {
+            return new UsuarioForDTO(0L, "Desconhecido", null, EstadoDaConta.SUSPENSO);
+        }
         UsuarioForDTO ufdto = new UsuarioForDTO();
         ufdto.setFoto(u.getFotoDePerfil());
         ufdto.setNome(u.getNome());
