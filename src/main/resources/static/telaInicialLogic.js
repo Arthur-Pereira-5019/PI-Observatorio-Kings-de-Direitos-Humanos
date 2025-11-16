@@ -45,20 +45,20 @@ async function iniciarTelaInicial() {
                 return res.json();
             })
             .then(data => {
-                if(data[0]) {
-                textoEsquerda.textContent = data[0].titulo
-                linkNoticiaEsquerda = "http://localhost:8080/publicacao/" + data[0].idPostagem;
-                ImagemEsquerda.src = "data:image/" + data[0].capa.tipoImagem + ";base64," + data[0].capa.imagem;
+                if (data[0]) {
+                    textoEsquerda.textContent = data[0].titulo
+                    linkNoticiaEsquerda = "http://localhost:8080/publicacao/" + data[0].idPostagem;
+                    ImagemEsquerda.src = "data:image/" + data[0].capa.tipoImagem + ";base64," + data[0].capa.imagem;
 
                 }
-                if(data[1]) {
-                textoDireita.textContent = data[1].titulo
-                linkNoticiaDireita = "http://localhost:8080/publicacao/" + data[1].idPostagem;                
-                ImagemDireita.src = "data:image/" + data[1].capa.tipoImagem + ";base64," + data[1].capa.imagem;
-                                }
+                if (data[1]) {
+                    textoDireita.textContent = data[1].titulo
+                    linkNoticiaDireita = "http://localhost:8080/publicacao/" + data[1].idPostagem;
+                    ImagemDireita.src = "data:image/" + data[1].capa.tipoImagem + ";base64," + data[1].capa.imagem;
+                }
             })
 
-            
+
 
     }
     noticiaDireita.addEventListener("click", function () {

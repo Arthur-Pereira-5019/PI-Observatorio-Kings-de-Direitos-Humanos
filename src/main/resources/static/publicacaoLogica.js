@@ -142,7 +142,7 @@ async function iniciarPublicacao() {
         })
             .then(res => {
                 if (!res.ok) {
-                    alert("Você precisa se registrar ou fazer login antes de comentar!")
+                    alert("Você precisa se autenticar antes de comentar!")
                     localStorage.setItem("comentarioSalvo", cComentario.value)
                     document.querySelector(".perfil").click()
                 } else {

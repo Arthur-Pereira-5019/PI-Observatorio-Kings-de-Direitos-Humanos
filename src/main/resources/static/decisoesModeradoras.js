@@ -120,8 +120,8 @@ async function iniciarRegistro() {
             publicacao.querySelector(".acao").textContent = dados.acao
             publicacao.querySelector(".data").textContent  = "Data: " + dados.data
             publicacao.querySelector(".espaco").textContent = "Onde: " + dados.nomeEspaco
-            publicacao.querySelector(".moderador").textContent = "Moderador: " + dados.nomeModerador
-            publicacao.querySelector(".moderado").textContent = "Usuário: " + dados.nomeModerado
+            publicacao.querySelector(".moderador").textContent = "Responsável: " + dados.nomeModerador
+            publicacao.querySelector(".moderado").textContent = "Alvo: " + dados.nomeModerado
             publicacao.querySelector(".motivacao").textContent = "Motivação: " + dados.motivacao
             publicacao.querySelector(".moderador").addEventListener("click", function() {
                 window.location.pathname = "usuario/"+dados.idModerador

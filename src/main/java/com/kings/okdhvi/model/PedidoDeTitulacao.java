@@ -21,10 +21,8 @@ public class PedidoDeTitulacao {
     private Usuario requisitor;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
 
     public EstadoDaConta getCargoRequisitado() {
         return cargoRequisitado;

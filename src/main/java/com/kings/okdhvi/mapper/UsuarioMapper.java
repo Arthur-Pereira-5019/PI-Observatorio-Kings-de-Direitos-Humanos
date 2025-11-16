@@ -24,6 +24,9 @@ public class UsuarioMapper {
     }
 
     public UsuarioComDTO usuarioComentador(Usuario u) {
+        if(u == null) {
+            return new UsuarioComDTO(0L, "Desconhecido", null);
+        }
         UsuarioComDTO ucdto = new UsuarioComDTO();
         ucdto.setFoto(u.getFotoDePerfil());
         ucdto.setNome(u.getNome());

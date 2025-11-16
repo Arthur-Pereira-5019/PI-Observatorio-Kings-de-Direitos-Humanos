@@ -26,12 +26,12 @@ async function adicionarTag() {
 
 async function publicarDocumento(finalizada) {
     const textoPublicacao = document.getElementById("textoPublicacao");
-    const campoTextoPostagem = textoPublicacao.innerHTML;
+    let campoTextoPostagem = textoPublicacao.innerHTML;
     const campoTituloPostagem = document.getElementById("campoTitulo");
     let canva = document.getElementById("capaPostagemPreview");
     let campoImagem = canva.src;
 
-
+    //Precisa ser antes para não dar flicker nas imagens
     if (campoTextoPostagem.length < 80) {
         alert("Digite o texto da postagem antes de enviá-la.")
         return;
@@ -55,7 +55,7 @@ async function publicarDocumento(finalizada) {
         i.src = "";
     })
     campoImagem = canva.src;
-    campoTextoPostagem.innerHTML
+    campoTextoPostagem = textoPublicacao.innerHTML;
 
 
     let endPosition = campoImagem.indexOf(",");

@@ -220,7 +220,7 @@ public class UsuarioService {
     public void delecaoPorAdministrador(Long id, Long idRequisitor) {
         Usuario u = encontrarPorId(id, false);
         Usuario r = encontrarPorId(idRequisitor, false);
-        dms.criarDecisaoModeradora(new DecisaoModeradoraOPDTO("Usuário requisitou a própria deleção"), "Forum", r, u, u.getIdUsuario(), " atendendo a requisição, apagou a conta ");
+        dms.criarDecisaoModeradora(new DecisaoModeradoraOPDTO("Usuário requisitou a própria deleção"), "Usuario", r, u, u.getIdUsuario(), " atendendo a requisição, apagou a conta ");
         ur.deleteById(id);
         ur.flush();
     }
@@ -229,7 +229,7 @@ public class UsuarioService {
     public void delecaoProgramada(Long id) {
         Usuario u = encontrarPorId(id, false);
         dms.criarDecisaoModeradora(new DecisaoModeradoraOPDTO("Deleção requisistada pelo usuário e auto-executada pelo sistema."),
-                "Usuário", u, u, u.getIdUsuario(), "exclui a conta de");
+                "Usuario", u, u, u.getIdUsuario(), "exclui a conta de");
         ur.delete(u);
     }
 

@@ -151,7 +151,6 @@ public class PostagemServices {
 
     @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public Postagem encontrarPostagemPeloId(Long id) {
-
         return pr.findById(id).orElseThrow(() -> new ResourceNotFoundException("Postagem não encontrada!"));
     }
 
