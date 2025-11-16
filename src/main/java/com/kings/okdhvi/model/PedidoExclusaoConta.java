@@ -53,12 +53,6 @@ public class PedidoExclusaoConta {
         this.dataPedido = dataPedido;
     }
 
-    public PedidoExclusaoConta(Long id, Usuario usuarioPedido, Date dataPedido) {
-        this.id = id;
-        this.usuarioPedido = usuarioPedido;
-        this.dataPedido = dataPedido;
-    }
-
     public PedidoExclusaoConta() {
     }
 }

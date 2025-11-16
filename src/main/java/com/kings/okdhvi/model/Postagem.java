@@ -3,6 +3,8 @@ package com.kings.okdhvi.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,6 +52,7 @@ public class Postagem{
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="idUsuario")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     Usuario autor;
     @Column(nullable = false, length = 32768)
     String textoPostagem;
@@ -60,6 +63,7 @@ public class Postagem{
             joinColumns = @JoinColumn(name = "idPostagem"),
             inverseJoinColumns = @JoinColumn(name = "idUsuario")
     )
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     List<Usuario> revisor = new ArrayList<>();
 
     @Column(nullable = true, length = 256)

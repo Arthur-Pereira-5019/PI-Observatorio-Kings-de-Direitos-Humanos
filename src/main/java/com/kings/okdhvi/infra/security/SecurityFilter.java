@@ -1,5 +1,6 @@
 package com.kings.okdhvi.infra.security;
 
+import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.repositories.UsuarioRepository;
 import com.kings.okdhvi.services.UsuarioService;
 import jakarta.servlet.FilterChain;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Date;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
@@ -45,15 +47,37 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        var token = this.recoverToken(request);
-        if(token != null) {
-            var login = tokenService.validateToken(token);
-            UserDetails user = us.encontrarPorEmail(login,false);
+        try {
+            var token = this.recoverToken(request);
+            if (token != null) {
+                var login = tokenService.validateToken(token);
+                UserDetails user = us.encontrarPorEmail(login, false);
 
-            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+            filterChain.doFilter(request, response);
+        } catch (ResourceNotFoundException ex) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            String body = """
+                    {
+                        "timestamp": "%s",
+                        "message": "%s",
+                        "details": "%s"
+                    }
+                    """.formatted(
+                    new Date(),
+                    "Login inválido, atualize a página para autenticar-se novamente.",
+                    request.getRequestURI()
+            );
+
+            response.getWriter().write(body);
+            Cookie cookie = new Cookie("jwt", null);
+            cookie.setPath("/");
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
         }
-        filterChain.doFilter(request, response);
     }
 
     private String recoverToken(HttpServletRequest request) {

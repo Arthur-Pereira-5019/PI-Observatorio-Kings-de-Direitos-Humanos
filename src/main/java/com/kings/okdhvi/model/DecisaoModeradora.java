@@ -3,6 +3,8 @@ package com.kings.okdhvi.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Date;
 
@@ -26,9 +28,11 @@ public class DecisaoModeradora {
     String nomeModerador;
 
     @ManyToOne(cascade = CascadeType.MERGE)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     Usuario usuarioModerado;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     Usuario responsavel;
 
     @Column

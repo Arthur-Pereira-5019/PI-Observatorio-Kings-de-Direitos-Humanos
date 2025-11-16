@@ -2,6 +2,8 @@ package com.kings.okdhvi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Date;
 
@@ -10,6 +12,7 @@ import java.util.Date;
 public class Comentario {
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     Usuario autor;
 
     @Column(length = 512)

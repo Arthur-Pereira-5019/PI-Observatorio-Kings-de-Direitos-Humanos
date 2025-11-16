@@ -34,11 +34,15 @@ async function iniciarPublicacoes() {
 
     btnDireito = document.getElementById("botaodireito");
     btnDireito.addEventListener("click", function () {
-            moverUrl(1)
+        moverUrl(1)
     })
+
+    btnPrimeiro = document.getElementById("botaoprimeiro");
+    btnPrimeiro.addEventListener("click", function () {
+        moverUrl(-1 * (paginaAtual() - 1))
+    })
+
     btnEsquerdo = document.getElementById("botaoesquerdo");
-
-
     btnEsquerdo.addEventListener("click", function () {
         moverUrl(-1)
     })
@@ -46,16 +50,14 @@ async function iniciarPublicacoes() {
     const partes = url.split('/');
     if (partes.pop() == 0) {
         btnEsquerdo.remove()
+        btnPrimeiro.remove()
     }
 
 
     btnAtual = document.getElementById("botaoatual");
     btnAtual.textContent = paginaAtual()
 
-    btnPrimeiro = document.getElementById("botaoprimeiro");
-    btnPrimeiro.addEventListener("click", function () {
-        moverUrl(-1 * (paginaAtual() - 1))
-    })
+
 
     btnCampo = document.getElementById("botaocampo");
     btnCampo.addEventListener("keydown", async function (event) {
@@ -112,14 +114,14 @@ async function iniciarPublicacoes() {
                     let path = window.location.pathname
                     if (path != "/publicacoes/%20/0") {
                         alert("Nenhum resultado encontrado!")
-                            window.location.pathname = "/publicacoes/ /0"
-
+                        window.location.pathname = "/publicacoes/ /0"
                     }
                     btnDireito.remove()
                 } else {
                     btnLonge.textContent = paginaAtual() + Math.ceil(data.proximosIndexes / 10);
                     if (Number(paginaAtual()) == Number(btnLonge.textContent)) {
                         btnDireito.remove()
+                        btnLonge.remove()
                     }
                     data.resultado.forEach((post, index) => {
                         if (index == 0) {
@@ -132,8 +134,10 @@ async function iniciarPublicacoes() {
                             construirPublicacao(novoPost, post)
                         }
                     });
+                    if (!document.body.contains(btnEsquerdo) && !document.body.contains(btnDireito)) {
+                        btnCampo.remove()
+                    }
                 }
-
             })
             .catch(err => console.error(err));
 
@@ -154,6 +158,8 @@ async function iniciarPublicacoes() {
             })
         }
     }
+
+
     gerarPublicacoes();
 
 

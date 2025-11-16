@@ -148,11 +148,11 @@ public class UsuarioService {
         return ur.save(original);
     }
 
-    @Scheduled(cron = "0 0 * * * ?")
+    @Scheduled(cron = "0 * * * * ?")
     public void exclusaoGeralAgendada() {
         ArrayList<PedidoExclusaoConta> pedidos = new ArrayList<>(pecs.encontrarTodosPedidosDeExclusao());
         Instant agora = Instant.now();
-        pedidos.removeIf(p -> p.getDataPedido().toInstant().plus(30, ChronoUnit.DAYS).isAfter(agora));
+        pedidos.removeIf(p -> p.getDataPedido().toInstant().plus(30, ChronoUnit.SECONDS).isAfter(agora));
         logger.info("Encontrado " + pedidos.size() + " marcados para deleção na data de hoje.");
         pedidos.forEach(p -> {delecaoProgramada(p.getUsuarioPedido().getIdUsuario());});
     }

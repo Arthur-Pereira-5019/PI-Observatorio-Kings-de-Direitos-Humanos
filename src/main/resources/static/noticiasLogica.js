@@ -32,30 +32,38 @@ async function iniciarNoticias() {
     btnDireito.addEventListener("click", function () {
         moverUrl(1)
     })
+
+
+    btnAtual = document.getElementById("botaoatual");
+    btnAtual.textContent = paginaAtual()
+
+    btnPrimeiro = document.getElementById("botaoprimeiro");
+    btnPrimeiro.addEventListener("click", async function () {
+        moverUrl(-1 * (paginaAtual() - 1))
+    })
+
     btnEsquerdo = document.getElementById("botaoesquerdo");
     btnEsquerdo.addEventListener("click", function () {
         moverUrl(-1)
     })
-
-    btnAtual = document.getElementById("botaoatual");
-    btnAtual.textContent = await paginaAtual()
-
-    btnPrimeiro = document.getElementById("botaoprimeiro");
-    btnPrimeiro.addEventListener("click", async function () {
-        moverUrl(-1 * (await paginaAtual() - 1))
-    })
+    let url = window.location.href;
+    let partes = url.split('/');
+    if (partes.pop() == 0) {
+        btnEsquerdo.remove()
+        btnPrimeiro.remove()
+    }
 
     btnCampo = document.getElementById("botaocampo");
     btnCampo.addEventListener("keydown", async function (event) {
         if (event.key === "Enter") {
-            moverUrl(btnCampo.value - await paginaAtual())
+            moverUrl(btnCampo.value - paginaAtual())
         }
     })
 
     btnLonge = document.getElementById("botaolonge");
-    btnLonge.textContent = await paginaAtual() + 5;
+    btnLonge.textContent = paginaAtual() + 5;
     btnLonge.addEventListener("click", async function () {
-        moverUrl(await paginaAtual() + 4)
+        moverUrl(Number(btnLonge.textContent) - paginaAtual())
     })
 
     const requestBody = {
@@ -64,8 +72,8 @@ async function iniciarNoticias() {
     };
 
     async function gerarNoticias() {
-        const url = window.location.href;
-        const partes = url.split('/');
+        url = window.location.href;
+        partes = url.split('/');
         let busca2 = "/" + partes.pop();
         let busca = "/" + partes.pop() + " noticia";
         buscaf = busca + busca2
@@ -83,22 +91,29 @@ async function iniciarNoticias() {
                 const primeiroPost = document.getElementById('noticiaBase');
                 const containerDireita = document.getElementById("noticias-direita");
                 const containerEsquerda = document.getElementById("noticias-esquerda");
-                
-                if (data.length === 0) {
+
+                if (data.resultado.length === 0) {
                     primeiroPost.remove()
-                    alert("Nenhum resultado encontrado!")
-                    if (busca != "") {
-                        inputBusca.value = ""
-                        iniciarNoticias()
+                    btnLonge.textContent = paginaAtual();
+                    let path = window.location.pathname
+                    if (path != "/noticias/%20/0") {
+                        alert("Nenhum resultado encontrado!")
+                        window.location.pathname = "/noticias/ /0"
                     }
+                    btnDireito.remove()
                 } else {
-                    data.forEach((post, index) => {
+                    btnLonge.textContent = paginaAtual() + Math.ceil(data.proximosIndexes / 16);
+                    if (Number(paginaAtual()) == Number(btnLonge.textContent)) {
+                        btnDireito.remove()
+                        btnLonge.remove()
+                    }
+                    data.resultado.forEach((post, index) => {
                         if (index == 0) {
                             construirNoticia(primeiroPost, post)
                         } else {
                             const noticia = primeiroPost.cloneNode(true);
-                            construirNoticia(noticia,post)
-                            if(index % 2 == 0) {
+                            construirNoticia(noticia, post)
+                            if (index % 2 == 0) {
                                 containerDireita.appendChild(noticia)
                             } else {
                                 containerEsquerda.appendChild(noticia)
@@ -106,17 +121,19 @@ async function iniciarNoticias() {
                         }
                     });
                 }
-
+                if (!document.body.contains(btnEsquerdo) && !document.body.contains(btnDireito)) {
+        btnCampo.remove()
+    }
             })
             .catch(err => console.error(err));
 
         function construirNoticia(noticia, dados) {
             noticia.querySelector(".tituloNoticia").textContent = dados.titulo
             noticia.querySelector(".autor").textContent = dados.nomeAutor
-            if(dados.externa == true) {
+            if (dados.externa == true) {
                 noticia.querySelector(".logoObservatorio").src = ""
             }
-            if(dados.capa.imagem == "" || dados.capa.tipoImagem) {
+            if (dados.capa.imagem == "" || dados.capa.tipoImagem) {
                 noticia.querySelector(".capa").src = "/imagens/noticia.png";
             } else {
                 noticia.querySelector(".capa").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
@@ -126,6 +143,8 @@ async function iniciarNoticias() {
             })
         }
     }
+    
+
     gerarNoticias();
 
 }
@@ -150,7 +169,7 @@ function consertarUrl() {
     }
 }
 
-async function paginaAtual() {
+function paginaAtual() {
     const url = window.location.href;
     const partes = url.split('/');
     let busca = partes.pop();

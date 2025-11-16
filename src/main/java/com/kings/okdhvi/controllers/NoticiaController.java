@@ -25,18 +25,21 @@ public class NoticiaController {
     NoticiaServices ns;
 
     @PostMapping(value="/listar_noticias/{texto}/{pagina}")
-    public List<NoticiaESDTO> listarNoticias(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @PathVariable("pagina") Integer pagina, @AuthenticationPrincipal UserDetails ud) {
-        List<Postagem> postagens;
-        ArrayList<NoticiaESDTO> retorno = new ArrayList<>();
+    public BuscaPaginadaResultado<NoticiaESDTO> listarNoticias(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @PathVariable("pagina") Integer pagina, @AuthenticationPrincipal UserDetails ud) {
+        BuscaPaginadaResultado<Postagem> postagens;
+        ArrayList<NoticiaESDTO> listaRetorno = new ArrayList<>();
+        BuscaPaginadaResultado<NoticiaESDTO> retorno = new BuscaPaginadaResultado<>();
         BuscaPaginada bp = new BuscaPaginada(pagina, 16, bpt.parametro(), bpt.ascending());
-        postagens = ps.buscaFiltrada(bp, texto, ud).getResultado();
+        postagens = ps.buscaFiltrada(bp, texto, ud);
 
-        postagens.forEach(b -> retorno.add(ns.parsePostagemToNoticiaESDTO(b)));
+        postagens.getResultado().forEach(b -> listaRetorno.add(ns.parsePostagemToNoticiaESDTO(b)));
+        retorno.setResultado(listaRetorno);
+        retorno.setProximosIndexes(postagens.getProximosIndexes());
         return retorno;
     }
 
     @PostMapping(value="/listar_publicacoes/{texto}")
-    public List<NoticiaESDTO> listarPublicacoesTexto(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @AuthenticationPrincipal UserDetails ud) {
+    public BuscaPaginadaResultado<NoticiaESDTO> listarPublicacoesTexto(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @AuthenticationPrincipal UserDetails ud) {
         return listarNoticias(bpt, texto,0, ud);
     }
 }

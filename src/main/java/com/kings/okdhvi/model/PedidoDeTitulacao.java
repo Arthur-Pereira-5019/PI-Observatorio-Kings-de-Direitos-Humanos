@@ -1,6 +1,8 @@
 package com.kings.okdhvi.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class PedidoDeTitulacao {
@@ -15,6 +17,7 @@ public class PedidoDeTitulacao {
     private Imagem anexo;
 
     @OneToOne()
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Usuario requisitor;
 
     @Id
