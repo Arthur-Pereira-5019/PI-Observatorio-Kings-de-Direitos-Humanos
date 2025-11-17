@@ -98,13 +98,8 @@ public class UsuarioService {
         PedidoDeTitulacao pet = new PedidoDeTitulacao();
         Usuario u = encontrarPorId(id, false);
         EstadoDaConta edce = EstadoDaConta.MODERADOR;
-        switch (pdtDTO.cargoRequisitado()) {
-            case 5:
-                edce = EstadoDaConta.ADMINISTRADOR;
-                break;
-            case 4:
-                edce = EstadoDaConta.ESPECIALISTA;
-                break;
+        if(pdtDTO.cargoRequisitado() == 1) {
+            edce = EstadoDaConta.ESPECIALISTA;
         }
         pet.setCargoRequisitado(edce);
         pet.setMotivacao(pdtDTO.motivacao());

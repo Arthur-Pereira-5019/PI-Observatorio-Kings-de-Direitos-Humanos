@@ -40,11 +40,17 @@ async function iniciarRequisitar() {
         headers: { 'Content-Type': 'application/json' },
     })
         .then(res => {
-            if (res.ok) return res.json()
-            fundoPopupRequisitar.style.display = "none";
+            if (res.ok) return res.json();
         }).then(data => {
+            let cR = data.cargoRequisitado;
+            let i;
+            if(cR=='ESPECIALISTA') {
+                i = 2
+            } else if(cR=='MODERADOR') {
+                i = 1;
+            }
             textareaCargosRequisitar.value = data.motivacao
-            comboboxCargosRequisitar.selected = data.cargoRequisitado
+            comboboxCargosRequisitar.selectedIndex = i
             inputC.value = data.contato
         })
         .catch(err => console.error(err));
@@ -54,7 +60,7 @@ async function iniciarRequisitar() {
         if (comboboxCargosRequisitar.selectedIndex == 0) {
             return
         }
-        let valorCargo = comboboxCargosRequisitar.selectedIndex + 2
+        let valorCargo = comboboxCargosRequisitar.selectedIndex - 1
 
 
 
@@ -73,7 +79,7 @@ async function iniciarRequisitar() {
             .then(res => {
                 if (!res.ok) throw new Error("Erro no servidor");
                 alert("Seu pedido será processado!")
-                fundoPopupRequisitar.style.display = "none";
+                window.location.reload()
             })
             .catch(err => console.error(err));
 

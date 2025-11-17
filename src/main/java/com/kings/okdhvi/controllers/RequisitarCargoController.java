@@ -1,5 +1,6 @@
 package com.kings.okdhvi.controllers;
 
+import com.kings.okdhvi.model.PedidoDeTitulacao;
 import com.kings.okdhvi.model.PedidoDeTitulacaoDTO;
 import com.kings.okdhvi.services.DecisaoModeradoraService;
 import com.kings.okdhvi.services.PedidoDeTitulacaoServices;
@@ -27,7 +28,7 @@ public class RequisitarCargoController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping(value="")
-    public void encontrar(@AuthenticationPrincipal UserDetails ud) {
-        pdts.encontrarPedidoPeloUsuario(us.encontrarPorId(us.buscarId(ud), false));
+    public PedidoDeTitulacao encontrar(@AuthenticationPrincipal UserDetails ud) {
+        return pdts.encontrarPedidoPeloUsuario(us.encontrarPorId(us.buscarId(ud), false));
     }
 }
