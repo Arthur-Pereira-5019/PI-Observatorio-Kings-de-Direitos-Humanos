@@ -23,18 +23,6 @@
      width: 95%;
  }
 
- #botao-moderador {
-     margin-right: 1%;
-     height: 10vh;
-     width: 10vh;
-     background-color: orange;
-     border-radius: 50%;
-     display: none;
-     justify-content: center;
-     align-items: center;
-     cursor: pointer;
- }
-
  .mais {
      width: 60%;
      height: 60%;
@@ -47,6 +35,22 @@
      flex-direction: column;
      justify-content: left;
      margin-right: 5%;
+ }
+
+ #labelFiltro {
+     position: relative;
+     left: 4%;
+     font-family: "Inter", sans-serif;
+ }
+
+ #filtro {
+     width: 16vw;
+     height: 6vh;
+     border-radius: 40rem;
+     position: relative;
+     left: 4%;
+     font-family: "Inter", sans-serif;
+
  }
 
  .container-geral-publicacoes {
@@ -154,5 +158,3 @@
      aspect-ratio: 1/1;
 
  }
-
- 

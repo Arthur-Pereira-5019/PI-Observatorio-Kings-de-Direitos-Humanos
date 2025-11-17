@@ -30,10 +30,13 @@ async function iniciarCabecalho() {
             } else if (window.location.href.includes("/registro/")) {
                 event.preventDefault();
                 window.location.href = "http://localhost:8080/registro/" + barraPesquisa.value + "/0";
+            } else if (window.location.href.includes("/requisicoes/")) {
+                event.preventDefault();
+                window.location.href = "http://localhost:8080/requisicoes/" + barraPesquisa.value + "/0";
             } else {
                 event.preventDefault();
                 window.location.href = "http://localhost:8080/publicacoes/" + barraPesquisa.value + "/0";
-            }
+            } 
 
         }
     });

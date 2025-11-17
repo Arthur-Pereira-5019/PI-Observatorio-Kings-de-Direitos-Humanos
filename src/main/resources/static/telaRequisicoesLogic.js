@@ -1,36 +1,33 @@
-let botaoNovaPostagem;
 let btnDireito;
 let btnEsquerdo;
 let btnLonge;
 let btnPrimeiro;
 let btnCampo;
+let filtro;
 
-async function iniciarPublicacoes() {
+async function iniciarTelaRequisicoes() {
     consertarUrl()
-
-
+    if (!localStorage.getItem('busca')) {
+        localStorage.setItem('busca', 'cargos');
+    }
 
     inputBusca = document.getElementById("campoPesquisa")
-    botaoNovaPostagem = document.getElementById("botao-moderador")
-    campoModerador = document.getElementById("container-moderador")
-    fetch("http://localhost:8080/api/user", {
-        headers: { 'Content-Type': 'application/json' },
-    })
-        .then(res => {
-            if (!res.ok) throw new Error("Erro no servidor");
-            return res.json();
-        })
-        .then(data => {
-            if (data.estadoDaConta == "ESPECIALISTA") {
-                campoModerador.style.display = "flex"
-                botaoNovaPostagem.style.display = "flex";
-                botaoNovaPostagem.addEventListener("click", function () {
-                    window.location.pathname = "nova_publicacao";
-                })
-            }
+    filtro = document.getElementById("filtro")
+    tituloP = document.getElementById("titulo");
 
-        })
-        .catch(err => console.error(err));
+    filtro.addEventListener("change", e => {
+        if (e.target.value == "Titulação") {
+            localStorage.setItem('busca', 'cargos');
+            tituloP.textContent = "Pedidos de Titulação"
+        } else if (e.target.value == "Exclusão") {
+            localStorage.setItem('busca', 'exclusao');
+            tituloP.textContent = "Pedidos de Exclusão"
+        } else {
+            localStorage.setItem('busca', 'denuncia');
+            tituloP.textContent = "Denúncias"
+        }
+        buscarRequisicoes()
+    })
 
     btnDireito = document.getElementById("botaodireito");
     btnDireito.addEventListener("click", function () {
@@ -77,24 +74,23 @@ async function iniciarPublicacoes() {
         ascending: false
     };
 
-    async function gerarPublicacoes() {
+    async function buscarRequisicoes() {
         const url = window.location.href;
         const partes = url.split('/');
         let busca2 = "/" + partes.pop();
 
         //Significa que já não tem nada || Isso aqui ainda vai ser útil?
-        if (busca2 === '/publicacoes') {
-            buscaf = "/"
-        } else {
-            let busca = "/" + partes.pop();
-            if (busca === '/publicacoes') {
-                buscaf = "/" + busca2
-            } else {
-                buscaf = busca + busca2
-            }
+
+        let busca = "/" + partes.pop();
+        buscaf = busca + busca2
+
+        let tBusca = localStorage.getItem('busca')
+        urlB = "https://localhost:8080/api/reqcar/listar_requisicoes/"
+        if (tBusca == "cargos") {
+
         }
 
-        fetch("http://localhost:8080/api/postagem/listar_publicacoes" + buscaf, {
+        fetch(urlB + buscaf, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
@@ -160,7 +156,7 @@ async function iniciarPublicacoes() {
     }
 
 
-    gerarPublicacoes();
+    buscarRequisicoes();
 
 
 }
@@ -181,7 +177,7 @@ function consertarUrl() {
     const partes = url.split('/');
     let ultima = "/" + partes.pop();
     if (ultima === '/publicacoes') {
-        window.location.href = "http://localhost:8080/publicacoes/ /0"
+        window.location.href = "http://localhost:8080/requisicoes/ /0"
     }
 }
 
@@ -194,4 +190,4 @@ function paginaAtual() {
 
 
 
-document.addEventListener("DOMContentLoaded", iniciarPublicacoes)
+document.addEventListener("DOMContentLoaded", iniciarTelaRequisicoes)
