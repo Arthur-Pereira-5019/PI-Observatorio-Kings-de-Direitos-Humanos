@@ -36,7 +36,7 @@ async function iniciarCabecalho() {
             } else {
                 event.preventDefault();
                 window.location.pathname = "publicacoes/" + barraPesquisa.value + "/0";
-            } 
+            }
 
         }
     });
@@ -75,7 +75,8 @@ async function iniciarCabecalho() {
 
     btnSair.addEventListener("click", async function () {
         await logout();
-        window.location.reload();
+        window.location.pathname = ""
+        window.location.reload()
     })
 
 
@@ -103,13 +104,10 @@ async function iniciarCabecalho() {
         })
 
     async function logout() {
-        fetch("http://localhost:8080/api/user/logout", {
+        const res = await fetch("http://localhost:8080/api/user/logout", {
             headers: { 'Content-Type': 'application/json' },
         })
-            .then(res => {
-                if (!res.ok) throw new Error("Erro no servidor")
-
-            })
+        if (!res.ok) throw new Error("Erro no servidor")
     }
 }
 document.addEventListener("DOMContentLoaded", iniciarCabecalho)

@@ -1,5 +1,6 @@
 package com.kings.okdhvi.services;
 
+import com.kings.okdhvi.exception.PersistenceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.usuario.UnauthorizedActionException;
 import com.kings.okdhvi.model.Comentario;
@@ -48,7 +49,9 @@ public class ComentarioServices {
     @Transactional
     public Comentario criarComentario(ComentarioCDTO ccdto, Long id) {
         Comentario c = new Comentario();
-
+if(ccdto.textoComentario().length() < 8) {
+    throw new PersistenceException("Digite algo antes de enviar seu comentário!");
+}
         c.setAutor(us.encontrarPorId(id, false));
         c.setTextComentario(ccdto.textoComentario());
         c.setDataComentario(Date.from(Instant.now()));

@@ -5,37 +5,37 @@ async function iniciarPopupRegistro() {
     const botaoAbrirRegistro = document.getElementById("iconButton");
     const botaoAbrirLogin = document.getElementById("btnIrLogin");
     const fundoPopupLogin = document.getElementById("posPopUpLogin");
-        const inputCpfRegistro = document.getElementById("inputCpfRegistro");
+    const inputCpfRegistro = document.getElementById("inputCpfRegistro");
 
-    
-        botaoAbrirRegistro.addEventListener("click", () => {
 
-            fetch("http://localhost:8080/api/user", {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
+    botaoAbrirRegistro.addEventListener("click", () => {
+
+        fetch("http://localhost:8080/api/user", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+
+                    throw new Error('Erro na requisição');
+
                 }
+                return response.json();
             })
-                .then(response => {
-                    if (!response.ok) {
+            .then(data => {
+                usuarioId = data.idUsuario;
 
-                        throw new Error('Erro na requisição');
+                window.location.href = '/usuario/' + usuarioId;
 
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    usuarioId = data.idUsuario;
+            })
+            .catch(error => {
+                fundoPopupRegistro.style.display = "flex";
+                console.error('Erro:', error);
+            });
 
-                    window.location.href = '/usuario/' + usuarioId;
-
-                })
-                .catch(error => {
-                    fundoPopupRegistro.style.display = "flex";
-                    console.error('Erro:', error);
-                });
-
-        });
+    });
 
     if (botaoAbrirLogin && fundoPopupLogin) {
         botaoAbrirLogin.addEventListener("click", () => {
@@ -54,22 +54,24 @@ async function iniciarPopupRegistro() {
     const divCSenhaMaior = document.getElementById("confSenhaInputRegistro");
     const btnOcultarCSenha = document.getElementById("ocultar_csenha");
     const divSenhaMaior = document.getElementById("senhaInputRegistro");
+    const inputTelefoneRegistro = document.getElementById("inputTelefoneRegistro");
+
 
     btnOcultarSenha.dataset.ativo = "0";
     btnOcultarCSenha.dataset.ativo = "0";
 
-    btnOcultarSenha.addEventListener("click", function() {
+    btnOcultarSenha.addEventListener("click", function () {
         ocultarSenha(btnOcultarSenha, divSenhaMaior);
     })
 
-    btnOcultarCSenha.addEventListener("click", function() {
+    btnOcultarCSenha.addEventListener("click", function () {
         ocultarSenha(btnOcultarCSenha, divCSenhaMaior);
     })
 
-    inputCpfRegistro.addEventListener("keydown", function(e) {
-        if(e.key != "Backspace" && e.key != "Delete") {
+    inputCpfRegistro.addEventListener("keydown", function (e) {
+        if (e.key != "Backspace" && e.key != "Delete") {
             let v = inputCpfRegistro.value
-            if(v.length == 3 || v.length == 7) {
+            if (v.length == 3 || v.length == 7) {
                 inputCpfRegistro.value += "."
             } else if (v.length == 11) {
                 inputCpfRegistro.value += "-"
@@ -77,10 +79,35 @@ async function iniciarPopupRegistro() {
         }
     })
 
+    inputTelefoneRegistro.addEventListener("keydown", function (e) {
+        if (e.key != "Backspace" && e.key != "Delete") {
+            if (String(e.key) == NaN) {
+                e.preventDefault()
+            }
+            let v = inputTelefoneRegistro.value
+            if (v.length >= 0) {
+                if (v.substring(0, 1) != '(') {
+                    v = "(" + v
+                }
+            }
+            if (v.length >= 3) {
+                if (v.substring(3, 4) != '(') {
+                    v = v.substring(0, 3) + ")" + v.substring(4,v.length)
+                }
+            }
+            if(v.length >= 9) {
+                if (v.substring(9, 10) != '(') {
+                    v = v.substring(0, 9) + "-" + v.substring(10,v.length)
+                }
+            }
+            inputTelefoneRegistro.value = v;
+        }
+    })
+
     function ocultarSenha(elemento, pai) {
         ativo = Boolean(Number(elemento.dataset.ativo))
         elemento.dataset.ativo = String(Number(!ativo));
-        if(!ativo) {
+        if (!ativo) {
             elemento.src = "/imagens/olhos_abertos.png"
             pai.type = "text"
         } else {
@@ -94,7 +121,6 @@ async function iniciarPopupRegistro() {
     const senhaInputRegistro = document.getElementById("senhaInputRegistro");
     const confSenhaInputRegistro = document.getElementById("confSenhaInputRegistro");
     const inputNomeRegistro = document.getElementById("inputNomeRegistro");
-    const inputTelefoneRegistro = document.getElementById("inputTelefoneRegistro");
     const inputEmailRegistro = document.getElementById("inputEmailRegistro");
     const inputDataNascRegistro = document.getElementById("inputDataNascRegistro");
     const checkAceitar = document.querySelector(".checkAceitar");
@@ -105,14 +131,14 @@ async function iniciarPopupRegistro() {
                 alert("As senhas não são iguais!")
                 return;
             }
-            if(!checkAceitar.checked) {
+            if (!checkAceitar.checked) {
                 alert("Aceite nossos termos de uso!")
                 return
             }
             let gcpf = inputCpfRegistro.value
-            if(gcpf.length == 14) {
-                gcpf = gcpf.replaceAll(".","")
-                gcpf = gcpf.replaceAll("-","")
+            if (gcpf.length == 14) {
+                gcpf = gcpf.replaceAll(".", "")
+                gcpf = gcpf.replaceAll("-", "")
             }
 
             const novoPost = {
