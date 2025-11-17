@@ -7,7 +7,7 @@
     <title>Observatório Kings de Direitos Humanos no Vale do Itajaí</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="/publicacoesStyle.css">
+    <link rel="stylesheet" href="/telaRequisicoesStyle.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
@@ -29,7 +29,9 @@
 
     <p>Selecione o tipo da requisição</p>
     <select>
-        <option></option>
+        <option>Titulação</option>
+        <option>Exclusão</option>
+        <option>Denúncia</option>
     </select>
 
     <div id="container-lista">
@@ -48,9 +50,10 @@
                     </div>
 
                     <div class="container-descricao">
-                        <p class="autor"></p>
                         <p class="data"></p>
-                        <p class="paragrafo"></p>
+                        <p class="requisitor"></p>
+                        <p class="texto"></p>
+                        <p class="info"></p>
                     </div>
 
                 </div>
@@ -85,6 +88,6 @@
 
 </body>
 <script src="/includeHtmlExterno.js" defer></script>
-<script src="/publicacoesLogic.js" defer></script>
+<script src="/telaRequisicoesLogic.js" defer></script>
 
 </html>
