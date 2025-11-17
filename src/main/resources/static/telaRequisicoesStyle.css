@@ -53,6 +53,10 @@
 
  }
 
+ #container-lista {
+        min-height: 40vh;
+    height: fit-content;
+ }
  .container-geral-publicacoes {
      height: 40vh;
      width: 100%;

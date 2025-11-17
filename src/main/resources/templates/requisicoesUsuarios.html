@@ -29,36 +29,27 @@
 
     <p id="labelFiltro">Selecione o tipo da requisição</p>
     <select id="filtro">
-        <option>Titulação</option>
+        <option>Titulações</option>
         <option>Exclusão</option>
         <option>Denúncia</option>
     </select>
 
     <div id="container-lista">
-        <div class="container-geral-publicacoes">
-
-            <div class="container-publicacoes">
-
-                <div class="container-titulo">
-                    <p class="titulo-publicacao"></p>
-                </div>
-
-                <div class="container-baixo">
-                    <div class="container-descricao">
-                        <p class="data"></p>
-                        <p class="requisitor"></p>
-                        <p class="texto"></p>
-                        <p class="info"></p>
-                    </div>
-
-                </div>
-
+        <div class="container-publicacao">
+            <div class="container-titulo">
+                <p class="requisitor"></p>
+            </div>
+            <div class="container-baixo">
+                <p class="texto"></p>
+                <p class="data"></p>
+                <p class="info"></p>
             </div>
         </div>
+        <div class="container-linha">
+            <hr>
+        </div>
     </div>
-    <div class="container-linha">
-        <hr>
-    </div>
+
 
     <div class="container-seletores">
         <button class="bloquinhos" id="botaoesquerdo">&lt;</button>
@@ -69,7 +60,7 @@
         <button class="bloquinhos" id="botaolonge"></button>
         <button class="bloquinhos" id="botaodireito">&gt;</button>
     </div>
-    
+
 
     <div id="posPopUp">
         <div id="registro"></div>

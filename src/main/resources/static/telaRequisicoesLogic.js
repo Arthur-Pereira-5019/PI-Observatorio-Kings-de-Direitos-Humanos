@@ -4,30 +4,35 @@ let btnLonge;
 let btnPrimeiro;
 let btnCampo;
 let filtro;
+let tituloP;
 
 async function iniciarTelaRequisicoes() {
-    consertarUrl()
-    if (!localStorage.getItem('busca')) {
-        localStorage.setItem('busca', 'cargos');
-    }
-
     inputBusca = document.getElementById("campoPesquisa")
     filtro = document.getElementById("filtro")
     tituloP = document.getElementById("titulo");
 
+
+    consertarUrl()
+    corrigirNome()
+    if (!localStorage.getItem('busca')) {
+        localStorage.setItem('busca', 'cargos');
+    }
+
+
+
     filtro.addEventListener("change", e => {
-        if (e.target.value == "Titulação") {
+        if (e.target.value == "Titulações") {
             localStorage.setItem('busca', 'cargos');
-            tituloP.textContent = "Pedidos de Titulação"
         } else if (e.target.value == "Exclusão") {
             localStorage.setItem('busca', 'exclusao');
-            tituloP.textContent = "Pedidos de Exclusão"
         } else {
             localStorage.setItem('busca', 'denuncia');
-            tituloP.textContent = "Denúncias"
         }
         buscarRequisicoes()
+        corrigirNome()
     })
+
+
 
     btnDireito = document.getElementById("botaodireito");
     btnDireito.addEventListener("click", function () {
@@ -50,11 +55,8 @@ async function iniciarTelaRequisicoes() {
         btnPrimeiro.remove()
     }
 
-
     btnAtual = document.getElementById("botaoatual");
     btnAtual.textContent = paginaAtual()
-
-
 
     btnCampo = document.getElementById("botaocampo");
     btnCampo.addEventListener("keydown", async function (event) {
@@ -81,11 +83,11 @@ async function iniciarTelaRequisicoes() {
 
         //Significa que já não tem nada || Isso aqui ainda vai ser útil?
 
-        let busca = "/" + partes.pop();
+        let busca = partes.pop();
         buscaf = busca + busca2
 
         let tBusca = localStorage.getItem('busca')
-        urlB = "https://localhost:8080/api/reqcar/listar_requisicoes/"
+        urlB = "http://localhost:8080/api/reqcar/listar_requisicoes/"
         if (tBusca == "cargos") {
 
         }
@@ -100,19 +102,23 @@ async function iniciarTelaRequisicoes() {
                 return res.json();
             })
             .then(data => {
-                const primeiroPost = document.querySelector('.container-geral-publicacoes');
+                const primeiroPost = document.querySelector('.container-publicacao');
                 const barra = document.querySelector('.container-linha');
                 const containerGeral = document.getElementById("container-lista");
 
                 if (data.resultado.length === 0) {
-                    primeiroPost.querySelector('.container-baixo').remove()
+                    primeiroPost.remove()
+                    barra.remove()
                     btnLonge.textContent = paginaAtual();
                     let path = window.location.pathname
-                    if (path != "/publicacoes/%20/0") {
+                    if (path != "/requisicoes/%20/0") {
                         alert("Nenhum resultado encontrado!")
-                        window.location.pathname = "/publicacoes/ /0"
+                        window.location.pathname = "/requisicoes/ /0"
                     }
                     btnDireito.remove()
+                    btnLonge.remove()
+                        btnCampo.remove()
+
                 } else {
                     btnLonge.textContent = paginaAtual() + Math.ceil(data.proximosIndexes / 10);
                     if (Number(paginaAtual()) == Number(btnLonge.textContent)) {
@@ -121,13 +127,13 @@ async function iniciarTelaRequisicoes() {
                     }
                     data.resultado.forEach((post, index) => {
                         if (index == 0) {
-                            construirPublicacao(primeiroPost, post)
+                            mostrarRequisicao(primeiroPost, post)
                         } else {
                             const novaBarra = barra.cloneNode(true);
                             containerGeral.appendChild(novaBarra)
                             const novoPost = primeiroPost.cloneNode(true);
                             containerGeral.appendChild(novoPost)
-                            construirPublicacao(novoPost, post)
+                            mostrarRequisicao(novoPost, post)
                         }
                     });
                     if (!document.body.contains(btnEsquerdo) && !document.body.contains(btnDireito)) {
@@ -139,19 +145,16 @@ async function iniciarTelaRequisicoes() {
 
 
 
-        function construirPublicacao(publicacao, dados) {
-            publicacao.querySelector(".titulo-publicacao").textContent = dados.titulo
-            publicacao.querySelector(".autor").textContent = dados.autor
-            publicacao.querySelector(".data").textContent = dados.data
-            publicacao.querySelector(".paragrafo").innerHTML = dados.texto
-            if (dados.capa.imagem == "" || dados.capa.tipoImagem) {
-                publicacao.querySelector(".imagem").src = "/imagens/publicacao.png";
-            } else {
-                publicacao.querySelector(".imagem").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
+        function mostrarRequisicao(requisicao, dados) {
+            requisicao.querySelector(".requisitor").textContent = "[" + dados.idRequisitor + "]" + dados.nomeRequisitor
+            requisicao.querySelector(".texto").textContent = dados.texto
+            requisicao.querySelector(".data").textContent = dados.data
+            requisicao.querySelector(".info").innerHTML = dados.info
+            if (dados.id != 0) {
+                requisicao.querySelector(".requisitor").addEventListener("click", function () {
+                    window.location.pathname = "usuario/" + dados.idRequisitor
+                })
             }
-            publicacao.addEventListener("click", function () {
-                window.location.href = "http://localhost:8080/publicacao/" + dados.idPostagem
-            })
         }
     }
 
@@ -176,8 +179,20 @@ function consertarUrl() {
     const url = window.location.href;
     const partes = url.split('/');
     let ultima = "/" + partes.pop();
-    if (ultima === '/publicacoes') {
+    if (ultima === '/requisicoes') {
         window.location.href = "http://localhost:8080/requisicoes/ /0"
+    }
+}
+
+function corrigirNome() {
+    if (localStorage.getItem('busca') == 'cargos') {
+        tituloP.textContent = "Pedidos de Titulação"
+    } else if (localStorage.getItem('busca') == 'exclusao') {
+        tituloP.textContent = "Pedidos de Exclusão"
+
+    } else {
+        tituloP.textContent = "Denúncias"
+
     }
 }
 
