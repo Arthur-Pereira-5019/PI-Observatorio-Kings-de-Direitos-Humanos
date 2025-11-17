@@ -11,14 +11,17 @@ async function iniciarTelaRequisicoes() {
     filtro = document.getElementById("filtro")
     tituloP = document.getElementById("titulo");
 
-
     consertarUrl()
     corrigirNome()
     if (!localStorage.getItem('busca')) {
         localStorage.setItem('busca', 'cargos');
+    } else {
+        if(localStorage.getItem('busca') == 'denuncia') {
+            filtro.selectedIndex = 2
+        } else if (localStorage.getItem('busca') == 'exclusao') {
+            filtro.selectedIndex = 3
+        }
     }
-
-
 
     filtro.addEventListener("change", e => {
         if (e.target.value == "Titulações") {
@@ -28,11 +31,8 @@ async function iniciarTelaRequisicoes() {
         } else {
             localStorage.setItem('busca', 'denuncia');
         }
-        buscarRequisicoes()
-        corrigirNome()
+        window.location.reload
     })
-
-
 
     btnDireito = document.getElementById("botaodireito");
     btnDireito.addEventListener("click", function () {
@@ -81,15 +81,13 @@ async function iniciarTelaRequisicoes() {
         const partes = url.split('/');
         let busca2 = "/" + partes.pop();
 
-        //Significa que já não tem nada || Isso aqui ainda vai ser útil?
-
         let busca = partes.pop();
         buscaf = busca + busca2
 
         let tBusca = localStorage.getItem('busca')
         urlB = "http://localhost:8080/api/reqcar/listar_requisicoes/"
-        if (tBusca == "cargos") {
-
+        if (tBusca == "exclusao") {
+            urlB = "http://localhost:8080/api/exccon/listar_requisicoes/"
         }
 
         fetch(urlB + buscaf, {
@@ -107,8 +105,8 @@ async function iniciarTelaRequisicoes() {
                 const containerGeral = document.getElementById("container-lista");
 
                 if (data.resultado.length === 0) {
-                    primeiroPost.remove()
-                    barra.remove()
+                    primeiroPost.style.display = "none"
+                    barra.style.display = "none"
                     btnLonge.textContent = paginaAtual();
                     let path = window.location.pathname
                     if (path != "/requisicoes/%20/0") {
@@ -120,7 +118,9 @@ async function iniciarTelaRequisicoes() {
                         btnCampo.remove()
 
                 } else {
-                    btnLonge.textContent = paginaAtual() + Math.ceil(data.proximosIndexes / 10);
+                    primeiroPost.style.display = "flex"
+                    barra.style.display = "flex"
+                    btnLonge.textContent = paginaAtual() + Math.ceil(data.proximosIndexes / 20);
                     if (Number(paginaAtual()) == Number(btnLonge.textContent)) {
                         btnDireito.remove()
                         btnLonge.remove()

@@ -135,12 +135,11 @@ public class UsuarioService {
         return ur.save(original);
     }
 
-    @Scheduled(cron = "0 * * * * ?")
+    @Scheduled(cron = "* */12 * * * ?")
     public void exclusaoGeralAgendada() {
         ArrayList<PedidoExclusaoConta> pedidos = new ArrayList<>(pecs.encontrarTodosPedidosDeExclusao());
         Instant agora = Instant.now();
         pedidos.removeIf(p -> p.getDataPedido().toInstant().plus(30, ChronoUnit.SECONDS).isAfter(agora));
-        logger.info("Encontrado " + pedidos.size() + " marcados para deleção na data de hoje.");
         pedidos.forEach(p -> {delecaoProgramada(p.getUsuarioPedido().getIdUsuario());});
     }
 
@@ -271,7 +270,7 @@ public class UsuarioService {
     }
 
     public void verificarTelefone(String telefone) {
-        if (!telefone.matches(telefoneRegex)) {
+        if (!telefone.isBlank() && !telefone.matches(telefoneRegex)) {
             throw new InvalidTelephoneException("Telefone inválido!");
         }
     }

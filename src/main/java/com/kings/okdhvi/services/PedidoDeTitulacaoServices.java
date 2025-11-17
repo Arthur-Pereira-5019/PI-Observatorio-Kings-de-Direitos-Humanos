@@ -47,12 +47,7 @@ public class PedidoDeTitulacaoServices {
     }
 
     public PedidoDeTitulacao atualizarPedidoDeTitulacao(PedidoDeTitulacao pet) {
-       PedidoDeTitulacao velhoPet = encontrarPedidoDeTitulacao(pet.getId());
-        velhoPet.setRequisitor(pet.getRequisitor());
-        velhoPet.setMotivacao(pet.getMotivacao());
-        velhoPet.setCargoRequisitado(pet.getCargoRequisitado());
-        velhoPet.setContato(pet.getContato());
-        return petr.save(velhoPet);
+        return petr.save(pet);
     }
 
     public PedidoDeTitulacao encontrarPedidoPeloUsuario(Usuario u) {

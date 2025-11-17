@@ -46,7 +46,7 @@ public class Usuario implements Serializable, UserDetails {
     @JoinColumn(name="id_foto_perfil")
     private Imagem fotoDePerfil;
 
-    @OneToOne(orphanRemoval = true)
+    @OneToOne
     @OnDelete(action = OnDeleteAction.SET_NULL)
     private PedidoDeTitulacao pedidoDeTitulacao;
 
