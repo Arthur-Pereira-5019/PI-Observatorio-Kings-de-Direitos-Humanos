@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.SQLInsert;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -44,7 +46,8 @@ public class Usuario implements Serializable, UserDetails {
     @JoinColumn(name="id_foto_perfil")
     private Imagem fotoDePerfil;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(orphanRemoval = true)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private PedidoDeTitulacao pedidoDeTitulacao;
 
     @Column(nullable = false, length = 100, unique = true)

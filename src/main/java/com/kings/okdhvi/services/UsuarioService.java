@@ -105,6 +105,7 @@ public class UsuarioService {
         pet.setMotivacao(pdtDTO.motivacao());
         pet.setRequisitor(u);
         pet.setContato(pdtDTO.contato());
+        pet.setDataPedido(Date.from(Instant.now()));
         if(u.getPedidoDeTitulacao() != null) {
             pet.setId(u.getPedidoDeTitulacao().getId());
             pets.atualizarPedidoDeTitulacao(pet);

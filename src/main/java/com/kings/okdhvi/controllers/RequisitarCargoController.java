@@ -21,12 +21,13 @@ public class RequisitarCargoController {
     @Autowired
     PedidoDeTitulacaoServices pdts;
 
+    @PreAuthorize("hasRole('PADRAO')")
     @PostMapping(value="/requisitar_cargo")
     public void requisitarCargo(@AuthenticationPrincipal UserDetails ud, @RequestBody PedidoDeTitulacaoDTO pdtDTO) {
         us.gerarPedidoDeTitulacao(us.buscarId(ud), pdtDTO);
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('PADRAO')")
     @GetMapping(value="")
     public PedidoDeTitulacao encontrar(@AuthenticationPrincipal UserDetails ud) {
         return pdts.encontrarPedidoPeloUsuario(us.encontrarPorId(us.buscarId(ud), false));

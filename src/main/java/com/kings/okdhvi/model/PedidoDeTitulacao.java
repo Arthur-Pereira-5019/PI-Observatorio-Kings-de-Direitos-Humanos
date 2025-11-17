@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.util.Date;
+
 @Entity
 public class PedidoDeTitulacao {
 
@@ -19,6 +21,9 @@ public class PedidoDeTitulacao {
     @OneToOne()
     @OnDelete(action = OnDeleteAction.SET_NULL)
     private Usuario requisitor;
+
+    @Column
+    private Date dataPedido;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,5 +67,13 @@ public class PedidoDeTitulacao {
 
     public void setContato(String contato) {
         this.contato = contato;
+    }
+
+    public Date getDataPedido() {
+        return dataPedido;
+    }
+
+    public void setDataPedido(Date dataPedido) {
+        this.dataPedido = dataPedido;
     }
 }

@@ -6,6 +6,7 @@ import com.kings.okdhvi.model.PedidoExclusaoConta;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.repositories.PedidoDeTitulacaoRepository;
 import com.kings.okdhvi.repositories.PedidoExclusaoContaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,7 @@ public class PedidoDeTitulacaoServices {
         return petr.findAll();
     }
 
+    @Transactional
     public void deletarPedidoDeTitulacaoPeloId(Long id) {
         petr.delete(encontrarPedidoDeTitulacao(id));
     }
