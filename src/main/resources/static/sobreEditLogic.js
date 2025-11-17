@@ -6,7 +6,7 @@ async function iniciarSobreEdit() {
     })
         .then(res => {
             if (!res.ok) {
-                window.location.href = "http://localhost:8080/telaInexistente"
+                window.location.pathname = "telaInexistente"
             }
             return res.json();
         })
@@ -60,7 +60,7 @@ async function iniciarSobreEdit() {
             .then(res => {
                 if (!res.ok) return res.json();
                 alert("Sobre atualizado com sucesso!")
-                window.location.href = "http://localhost:8080/sobre"
+                window.location.pathname = "sobre"
             })
             .then(data => {
                 alert(data.mensagem)

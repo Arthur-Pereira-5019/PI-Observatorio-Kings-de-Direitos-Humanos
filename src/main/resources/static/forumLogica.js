@@ -7,7 +7,7 @@ let btnCampo;
 const btnCriarForum = document.getElementById("botao-addForum-tela-foruns")
 
 btnCriarForum.addEventListener("click", function () {
-    window.location.href = "http://localhost:8080/novo_forum";
+    window.location.pathname = "novo_forum";
 })
 
 consertarUrl()
@@ -131,7 +131,7 @@ async function gerarForuns() {
         forum.querySelector(".respostasForum").textContent = dados.respostas
         forum.querySelector(".ultimaAtualizacao").textContent = dados.ultimaAtualizacao
         forum.addEventListener("click", function () {
-            window.location.href = "http://localhost:8080/forum/" + dados.idForum
+            window.location.pathname = "forum/" + dados.idForum
         })
     }
 
@@ -185,7 +185,7 @@ function consertarUrl() {
     const partes = url.split('/');
     let ultima = "/" + partes.pop();
     if (ultima === '/foruns') {
-        window.location.href = "http://localhost:8080/foruns/ /0"
+        window.location.pathname = "foruns/ /0"
     }
 }
 
@@ -260,7 +260,7 @@ async function carregarComentarios() {
         forum.querySelector(".respostasForum").textContent = dados.respostas
         forum.querySelector(".ultimaAtualizacao").textContent = dados.ultimaAtualizacao
         comentario.querySelector(".autor").addEventListener("click", function () {
-            window.location.href = "http://localhost:8080/usuario/" + dados.autor.id;
+            window.location.pathname = "usuario/" + dados.autor.id;
         })
 
 

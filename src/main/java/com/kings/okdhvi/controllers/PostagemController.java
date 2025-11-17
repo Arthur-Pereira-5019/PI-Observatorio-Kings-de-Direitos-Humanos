@@ -94,11 +94,5 @@ public class PostagemController {
         return listarPostagens(bpt, texto,0, ud);
     }
 
-    @PreAuthorize("hasRole('ROLE_ESPEC')")
-    @PutMapping(value = "revisar", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE )
-    public Postagem revisarPostagem(@RequestBody RevisorPostagemRequest rpr) {
-        return ps.revisarPostagem(rpr);
-    }
-
     
 }

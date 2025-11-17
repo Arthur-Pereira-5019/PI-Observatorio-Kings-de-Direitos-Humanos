@@ -182,7 +182,7 @@ function consertarUrl() {
     const partes = url.split('/');
     let ultima = "/" + partes.pop();
     if (ultima === '/requisicoes') {
-        window.location.href = "http://localhost:8080/requisicoes/ /0"
+        window.location.pathname = "requisicoes/ /0"
     }
 }
 

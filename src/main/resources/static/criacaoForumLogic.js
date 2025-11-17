@@ -32,7 +32,7 @@ btnPublicarForum.addEventListener("click", function(){
         .then(res => {
             if (res.ok){
                 alert("Forum postado!")
-                window.location.href = "http://localhost:8080/foruns";
+                window.location.pathname = "foruns";
             }
                    
         })
@@ -40,6 +40,6 @@ btnPublicarForum.addEventListener("click", function(){
 })
 
 btnCancelarForum.addEventListener("click", function(){
-    window.location.href = "http://localhost:8080/foruns";
+    window.location.pathname = "foruns";
 
 })

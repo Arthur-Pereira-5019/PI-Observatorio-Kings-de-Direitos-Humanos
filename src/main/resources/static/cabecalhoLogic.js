@@ -23,19 +23,19 @@ async function iniciarCabecalho() {
         if (event.key === 'Enter') {
             if (window.location.href.includes("/noticias/")) {
                 event.preventDefault();
-                window.location.href = "http://localhost:8080/noticias/" + barraPesquisa.value + "/0";
+                window.location.pathname = "noticias/" + barraPesquisa.value + "/0";
             } else if (window.location.href.includes("/foruns/")) {
                 event.preventDefault();
-                window.location.href = "http://localhost:8080/foruns/" + barraPesquisa.value + "/0";
+                window.location.pathname = "foruns/" + barraPesquisa.value + "/0";
             } else if (window.location.href.includes("/registro/")) {
                 event.preventDefault();
-                window.location.href = "http://localhost:8080/registro/" + barraPesquisa.value + "/0";
+                window.location.pathname = "registro/" + barraPesquisa.value + "/0";
             } else if (window.location.href.includes("/requisicoes/")) {
                 event.preventDefault();
-                window.location.href = "http://localhost:8080/requisicoes/" + barraPesquisa.value + "/0";
+                window.location.pathname = "requisicoes/" + barraPesquisa.value + "/0";
             } else {
                 event.preventDefault();
-                window.location.href = "http://localhost:8080/publicacoes/" + barraPesquisa.value + "/0";
+                window.location.pathname = "publicacoes/" + barraPesquisa.value + "/0";
             } 
 
         }
@@ -50,23 +50,23 @@ async function iniciarCabecalho() {
     })
 
     btnNoticias.addEventListener("click", function () {
-        window.location.href = "http://localhost:8080/noticias";
+        window.location.pathname = "noticias";
     })
 
     btnForuns.addEventListener("click", function () {
-        window.location.href = "http://localhost:8080/foruns";
+        window.location.pathname = "foruns";
     })
 
     btnPublicacoes.addEventListener("click", function () {
-        window.location.href = "http://localhost:8080/publicacoes/ /0";
+        window.location.pathname = "publicacoes/ /0";
     })
 
     btnApoio.addEventListener("click", function () {
-        window.location.href = "http://localhost:8080/apoio";
+        window.location.pathname = "apoio";
     })
 
     btnSobre.addEventListener("click", function () {
-        window.location.href = "http://localhost:8080/sobre";
+        window.location.pathname = "sobre";
     })
 
     home.addEventListener("click", function () {

@@ -7,6 +7,7 @@ import com.kings.okdhvi.model.PedidoDeTitulacao;
 import com.kings.okdhvi.model.PedidoExclusaoConta;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.repositories.PedidoExclusaoContaRepository;
+import com.kings.okdhvi.repositories.UsuarioRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -32,6 +33,9 @@ public class PedidoExclusaoContaServices {
     @Autowired
     PedidoExclusaoContaRepository pecr;
 
+    @Autowired
+    UsuarioRepository ur;
+
     @PersistenceContext
     private EntityManager em;
 
@@ -53,7 +57,12 @@ public class PedidoExclusaoContaServices {
     public void deletarPedidoDeExclusaoPeloId(Long id) {
         PedidoExclusaoConta pec = encontrarPedidoDeExclusaoPeloId(id);
         pec.setUsuarioPedido(null);
+
         pecr.save(pec);
+        pecr.delete(pec);
+    }
+
+    public void delete(PedidoExclusaoConta pec) {
         pecr.delete(pec);
     }
 

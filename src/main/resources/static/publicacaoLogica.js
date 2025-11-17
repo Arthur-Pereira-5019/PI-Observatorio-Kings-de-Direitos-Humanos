@@ -53,7 +53,7 @@ async function iniciarPublicacao() {
     })
         .then(res => {
             if (!res.ok) {
-                window.location.href = "http://localhost:8080/telaInexistente"
+                window.location.pathname = "telaInexistente"
             }
             return res.json();
         })
@@ -217,7 +217,7 @@ async function iniciarPublicacao() {
             comentario.querySelector(".container-texto-comentario").textContent = dados.texto
             comentario.querySelector(".autor").textContent = dados.autor.nome
             comentario.querySelector(".autor").addEventListener("click", function () {
-                window.location.href = "http://localhost:8080/usuario/" + dados.autor.id;
+                window.location.pathname = "usuario/" + dados.autor.id;
             })
             if (dados.autor.foto == null) {
                 imagem.src = "/imagens/perfilIconDark.png";
@@ -240,7 +240,7 @@ async function iniciarPublicacao() {
                 exclusao.style.display = 'none'
             }
             imagem.addEventListener("click", function () {
-                window.location.href = "http://localhost:8080/usuario/" + dados.autor.id;
+                window.location.pathname = "usuario/" + dados.autor.id;
             })
         }
     }

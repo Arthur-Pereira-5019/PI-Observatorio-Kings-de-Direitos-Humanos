@@ -195,7 +195,7 @@ async function iniciarPerfil() {
                     publicacao.querySelector(".imagem").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
                 }
                 publicacao.addEventListener("click", function () {
-                    window.location.href = "http://localhost:8080/publicacao/" + dados.idPostagem
+                    window.location.pathname = "publicacao/" + dados.idPostagem
                 })
             }
         }
@@ -239,7 +239,7 @@ async function iniciarPerfil() {
                 forum.querySelector(".nRespostas").textContent = "Respostas: " + dados.respostas
                 forum.querySelector(".dAtualizacao").textContent = "Última Atualização: " + dados.ultimaAtualizacao
                 forum.addEventListener("click", function () {
-                    window.location.href = "http://localhost:8080/forum/" + dados.idForum
+                    window.location.pathname = "forum/" + dados.idForum
                 })
             }
 

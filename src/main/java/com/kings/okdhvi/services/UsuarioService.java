@@ -7,10 +7,13 @@ import com.kings.okdhvi.exception.usuario.*;
 import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.model.DTOs.*;
 import com.kings.okdhvi.repositories.UsuarioRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,6 +27,9 @@ import java.util.*;
 public class UsuarioService {
 
     @Autowired
+    private ApplicationContext applicationContext;
+
+    @Autowired
     UsuarioRepository ur;
 
     @Autowired
@@ -34,6 +40,10 @@ public class UsuarioService {
 
     @Autowired
     PedidoDeTitulacaoServices pets;
+
+
+    @PersistenceContext
+    private EntityManager em;
 
     @Autowired
             DecisaoModeradoraService dms;
@@ -139,8 +149,16 @@ public class UsuarioService {
     public void exclusaoGeralAgendada() {
         ArrayList<PedidoExclusaoConta> pedidos = new ArrayList<>(pecs.encontrarTodosPedidosDeExclusao());
         Instant agora = Instant.now();
-        pedidos.removeIf(p -> p.getDataPedido().toInstant().plus(30, ChronoUnit.SECONDS).isAfter(agora));
-        pedidos.forEach(p -> {delecaoProgramada(p.getUsuarioPedido().getIdUsuario());});
+        pedidos.removeIf(p -> p.getDataPedido().toInstant().plus(5, ChronoUnit.SECONDS).isAfter(agora));
+
+        pedidos.forEach(p -> {
+            if (p.getUsuarioPedido() == null) {
+                pecs.delete(p);
+                return;
+            }
+            UsuarioService proxy = applicationContext.getBean(UsuarioService.class);
+            proxy.delecaoProgramada(p.getUsuarioPedido().getIdUsuario());
+        });
     }
 
     public void validarDados(Usuario u, boolean novo) {
@@ -215,17 +233,18 @@ public class UsuarioService {
     @Transactional
     public void delecaoProgramada(Long id) {
         Usuario u = encontrarPorId(id, false);
-        Long idPedido = u.getPedidoExclusao().getId();
+
+        PedidoExclusaoConta p = u.getPedidoExclusao();
+        p.setUsuarioPedido(null);
         u.setPedidoExclusao(null);
+        pecs.salvarPedidoExclusao(p);
         ur.save(u);
-        pecs.deletarPedidoDeExclusaoPeloId(idPedido);
-        ur.save(u);
-
-        //dms.criarDecisaoModeradoraExc(new DecisaoModeradoraOPDTO("Deleção requisistada pelo usuário e auto-executada pelo sistema."),"Usuario", u.getNome(), u.getNome(), id, "exclui a própria conta. |");
-        ur.save(u);
+        em.flush();
+        pecs.delete(p);
+        em.flush();
         ur.delete(u);
+        em.flush();
     }
-
 
     public Usuario encontrarPorId(Long id, boolean anulavel) {
         var u = ur.findById(id);

@@ -155,7 +155,7 @@ function consertarUrl() {
     const partes = url.split('/');
     let ultima = "/" + partes.pop();
     if (ultima === '/registro') {
-        window.location.href = "http://localhost:8080/registro/ /0"
+        window.location.pathname = "registro/ /0"
     }
 }
 

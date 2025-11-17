@@ -6,7 +6,7 @@ async function iniciarSobre() {
     })
         .then(res => {
             if (!res.ok) {
-                window.location.href = "http://localhost:8080/telaInexistente"
+                window.location.pathname = "telaInexistente"
             }
             return res.json();
         })

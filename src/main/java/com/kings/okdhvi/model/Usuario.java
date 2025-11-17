@@ -42,12 +42,11 @@ public class Usuario implements Serializable, UserDetails {
     @Column
     private Boolean notificacoesPorEmail = false;
 
-    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToOne(orphanRemoval = true)
     @JoinColumn(name="id_foto_perfil")
     private Imagem fotoDePerfil;
 
     @OneToOne
-    @OnDelete(action = OnDeleteAction.SET_NULL)
     private PedidoDeTitulacao pedidoDeTitulacao;
 
     @Column(nullable = false, length = 100, unique = true)
@@ -57,12 +56,8 @@ public class Usuario implements Serializable, UserDetails {
     @Column(nullable = false)
     private Date dataDeNascimento;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne
     private PedidoExclusaoConta pedidoExclusao;
-
-    @JsonIgnore()
-    @ManyToMany(mappedBy = "revisor")
-    private List<Postagem> revisoes = new ArrayList<>();
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -211,14 +206,6 @@ public class Usuario implements Serializable, UserDetails {
     }
 
     private static final long serialVersionId = 1L;
-
-    public List<Postagem> getRevisoes() {
-        return revisoes;
-    }
-
-    public void setRevisoes(List<Postagem> revisoes) {
-        this.revisoes = revisoes;
-    }
 
     private boolean oculto;
 

@@ -134,7 +134,6 @@ public class PostagemServices {
 
         post.setAutor(u);
         post.setDataDaPostagem(Date.from(Instant.now()));
-        post.setRevisor(null);
         return pr.save(post);
     }
 
@@ -152,19 +151,6 @@ public class PostagemServices {
     @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public Postagem encontrarPostagemPeloId(Long id) {
         return pr.findById(id).orElseThrow(() -> new ResourceNotFoundException("Postagem não encontrada!"));
-    }
-
-    @Transactional
-    public Postagem revisarPostagem(RevisorPostagemRequest rpr) {
-        Postagem p = encontrarPostagemPeloId(rpr.idPostagem());
-        Usuario u = us.encontrarPorId(rpr.idUsuario(), false);
-
-        if (p.getRevisor().contains(u)) {
-            throw new RevisaoPostagemException("Postagem já revisada pelo usuário fornecido!");
-        }
-
-        p.getRevisor().add(u);
-        return pr.save(p);
     }
 
     @Transactional

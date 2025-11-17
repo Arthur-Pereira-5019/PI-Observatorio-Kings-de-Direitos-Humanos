@@ -21,7 +21,7 @@ async function iniciarNoticias() {
             if (data.estadoDaConta == "ESPECIALISTA") {
                 botaoNovaPostagem.style.display = "flex";
                 botaoNovaPostagem.addEventListener("click", function () {
-                    window.location.href = "http://localhost:8080/nova_publicacao";
+                    window.location.pathname = "nova_publicacao";
                 })
             }
 
@@ -139,7 +139,7 @@ async function iniciarNoticias() {
                 noticia.querySelector(".capa").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
             }
             noticia.addEventListener("click", function () {
-                window.location.href = "http://localhost:8080/publicacao/" + dados.idPostagem
+                window.location.pathname = "publicacao/" + dados.idPostagem
             })
         }
     }
@@ -165,7 +165,7 @@ function consertarUrl() {
     const partes = url.split('/');
     let ultima = "/" + partes.pop();
     if (ultima === '/noticias') {
-        window.location.href = "http://localhost:8080/noticias/ /0"
+        window.location.pathname = "noticias/ /0"
     }
 }
 

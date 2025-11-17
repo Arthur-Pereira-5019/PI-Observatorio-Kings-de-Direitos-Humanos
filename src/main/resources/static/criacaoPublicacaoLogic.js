@@ -90,7 +90,7 @@ async function publicarDocumento(finalizada) {
             alert("Postagem publicada com sucesso!")
 
 
-            window.location.href = "http://localhost:8080/publicacao/" + data.id
+            window.location.pathname = "publicacao/" + data.id
         })
 }
 

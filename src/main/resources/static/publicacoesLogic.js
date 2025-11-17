@@ -154,7 +154,7 @@ async function iniciarPublicacoes() {
                 publicacao.querySelector(".imagem").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
             }
             publicacao.addEventListener("click", function () {
-                window.location.href = "http://localhost:8080/publicacao/" + dados.idPostagem
+                window.location.pathname = "publicacao/" + dados.idPostagem
             })
         }
     }
@@ -181,7 +181,7 @@ function consertarUrl() {
     const partes = url.split('/');
     let ultima = "/" + partes.pop();
     if (ultima === '/publicacoes') {
-        window.location.href = "http://localhost:8080/publicacoes/ /0"
+        window.location.pathname = "publicacoes/ /0"
     }
 }
 
