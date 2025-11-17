@@ -39,9 +39,11 @@ async function iniciarTelaInicial() {
 
         const ImagemEsquerda = document.getElementById("imagem_esquerda");
         const ImagemDireita = document.getElementById("imagem_direita");
+        const noticiasC = document.querySelector(".container-noticias");
         const carrossel = document.getElementById("carrossel");
         let na = document.createElement("h1")
-        na.class
+        na.classList.add("na");
+        
 
 
         fetch("http://localhost:8080/api/postagem/busca_paginada/" + page, {
@@ -70,10 +72,12 @@ async function iniciarTelaInicial() {
                 }
 
                 if (noticiaDireita.style.display == "none" && noticiaEsquerda.style.display == "none") {
-                    na.textContent = "Nenhuma publicação encontrada!"
-                    carrossel.appendChild(na)
+                    na.textContent = "Nenhuma publicação encontrada!";
+                    carrossel.appendChild(na);
+                    noticiasC.style.width = "0%"
                 } else {
                     na.remove()
+                    noticiasC.style.width = "100%"
                 }
             })
 
