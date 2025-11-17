@@ -66,12 +66,16 @@ public class TestController {
     @RequestMapping("/sobre/edit")
     public String returnSobreEdit() {return "sobreEdit";}
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_MODER')")
     @RequestMapping("/log_com")
     public String returnPopupLogCom() {return "popupLogCom";}
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_MODER')")
     @RequestMapping("/registro/**")
     public String returnRegistro() {return "decisoesModeradoras";}
+
+    @PreAuthorize("hasRole('ROLE_MODER')")
+    @RequestMapping("/requisicoes/**")
+    public String returnRequisicoes() {return "requisicoesUsuarios";}
 
 }
