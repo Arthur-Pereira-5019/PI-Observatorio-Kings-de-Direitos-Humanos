@@ -210,7 +210,7 @@
             height: auto;
         }
 
-         #botao-ocultar-comentario-forum{
+         .botao-ocultar-comentario-forum{
             background-color: #AA00FF;
             position: absolute;
             transform: translate(50%,-50%);
@@ -261,8 +261,8 @@
 
                 <div class="container-geral-discussao-forum">
 
-                    <div id="botao-ocultar-comentario-forum" class="btnOcultar">
-                        <img src="/imagens/olhosfechados.png" id="zoio-log">
+                    <div class="botao-ocultar-comentario-forum" id="btnOcultar">
+                        <img src="/imagens/iconelixo.png" id="zoio-log">
                     </div>
 
                     <div class="container-infos-usuario-discussao-forum">
@@ -295,15 +295,17 @@
 
                 <div class="container-geral-discussao-forum containerPrimeiroComentario">
 
-                    <div id="botao-ocultar-comentario-forum">
-                        <img src="/imagens/olhosfechados.png" id="zoio-log">
+                    <div class="botao-ocultar-comentario-forum">
+                        <img src="/imagens/iconelixo.png" id="zoio-log">
                     </div>
+
+                    
 
                     <div class="container-infos-usuario-discussao-forum infoComentarios">
 
                         <img
                             src="https://randomuser.me/api/portraits/lego/6.jpg"
-                            id="foto-user-discussao-forum" alt>
+                            id="foto-user-discussao-forum" class="foto-user-discussao-forum" alt>
                         <p id="nome-user-discussao-forum" class="nomeComentario"></p>
 
                     </div>

@@ -152,11 +152,11 @@ async function iniciarVerForum() {
 
 
         function construirComentario(comentario, dados) {
-            imagem = comentario.querySelector(".foto-usuario-comentarios")
-            exclusao = comentario.querySelector(".excluirCom")
-            comentario.querySelector(".container-texto-comentario").textContent = dados.texto
-            comentario.querySelector(".autor").textContent = dados.autor.nome
-            comentario.querySelector(".autor").addEventListener("click", function () {
+            imagem = comentario.querySelector(".foto-user-discussao-forum")
+            exclusao = comentario.querySelector(".botao-ocultar-comentario-forum")
+            comentario.querySelector(".textoComentarioForum").textContent = dados.texto
+            comentario.querySelector(".nomeComentario").textContent = dados.autor.nome
+            comentario.querySelector(".nomeComentario").addEventListener("click", function () {
                 window.location.href = "http://localhost:8080/usuario/" + dados.autor.id;
             })
             if (dados.autor.foto == null) {
