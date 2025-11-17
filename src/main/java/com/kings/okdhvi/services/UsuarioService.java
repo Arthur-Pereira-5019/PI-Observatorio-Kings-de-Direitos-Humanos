@@ -135,7 +135,7 @@ public class UsuarioService {
         return ur.save(original);
     }
 
-    @Scheduled(cron = "* */12 * * * ?")
+    @Scheduled(cron = "* */1 * * * ?")
     public void exclusaoGeralAgendada() {
         ArrayList<PedidoExclusaoConta> pedidos = new ArrayList<>(pecs.encontrarTodosPedidosDeExclusao());
         Instant agora = Instant.now();
@@ -206,7 +206,8 @@ public class UsuarioService {
     public void delecaoPorAdministrador(Long id, Long idRequisitor) {
         Usuario u = encontrarPorId(id, false);
         Usuario r = encontrarPorId(idRequisitor, false);
-        dms.criarDecisaoModeradora(new DecisaoModeradoraOPDTO("Usuário requisitou a própria deleção"), "Usuario", r, u, u.getIdUsuario(), " atendendo a requisição, apagou a conta ");
+        dms.criarDecisaoModeradoraExc(new DecisaoModeradoraOPDTO("Deleção requisistada pelo usuário e auto-executada pelo sistema."),
+                "Usuario", u.getNome(), r.getNome(), id, "atendendo a requisição, apagou a conta de");
         ur.deleteById(id);
         ur.flush();
     }
@@ -214,8 +215,14 @@ public class UsuarioService {
     @Transactional
     public void delecaoProgramada(Long id) {
         Usuario u = encontrarPorId(id, false);
-        dms.criarDecisaoModeradora(new DecisaoModeradoraOPDTO("Deleção requisistada pelo usuário e auto-executada pelo sistema."),
-                "Usuario", u, u, u.getIdUsuario(), "exclui a conta de");
+        Long idPedido = u.getPedidoExclusao().getId();
+        u.setPedidoExclusao(null);
+        ur.save(u);
+        pecs.deletarPedidoDeExclusaoPeloId(idPedido);
+        ur.save(u);
+
+        //dms.criarDecisaoModeradoraExc(new DecisaoModeradoraOPDTO("Deleção requisistada pelo usuário e auto-executada pelo sistema."),"Usuario", u.getNome(), u.getNome(), id, "exclui a própria conta. |");
+        ur.save(u);
         ur.delete(u);
     }
 

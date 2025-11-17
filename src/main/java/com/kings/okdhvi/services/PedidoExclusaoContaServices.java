@@ -11,6 +11,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +49,12 @@ public class PedidoExclusaoContaServices {
         return pecr.findAll();
     }
 
+    @Transactional
     public void deletarPedidoDeExclusaoPeloId(Long id) {
-        pecr.delete(encontrarPedidoDeExclusaoPeloId(id));
+        PedidoExclusaoConta pec = encontrarPedidoDeExclusaoPeloId(id);
+        pec.setUsuarioPedido(null);
+        pecr.save(pec);
+        pecr.delete(pec);
     }
 
     public BuscaPaginadaResultado<PedidoExclusaoConta> buscaFiltrada(BuscaPaginada bp, String texto, UserDetails ud) {

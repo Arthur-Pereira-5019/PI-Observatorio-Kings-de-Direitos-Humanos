@@ -19,7 +19,9 @@ async function iniciarTelaRequisicoes() {
         if(localStorage.getItem('busca') == 'denuncia') {
             filtro.selectedIndex = 2
         } else if (localStorage.getItem('busca') == 'exclusao') {
-            filtro.selectedIndex = 3
+            filtro.selectedIndex = 1
+        } else {
+            filtro.selectedIndex = 0
         }
     }
 
@@ -31,7 +33,7 @@ async function iniciarTelaRequisicoes() {
         } else {
             localStorage.setItem('busca', 'denuncia');
         }
-        window.location.reload
+        window.location.reload()
     })
 
     btnDireito = document.getElementById("botaodireito");

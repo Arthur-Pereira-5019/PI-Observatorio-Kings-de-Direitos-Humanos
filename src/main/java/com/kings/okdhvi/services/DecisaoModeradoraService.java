@@ -55,6 +55,23 @@ public class DecisaoModeradoraService {
         return dmr.save(d);
     }
 
+    public DecisaoModeradora criarDecisaoModeradoraExc(DecisaoModeradoraOPDTO dm, String tipo, String nomeM, String nomeR, Long idModerado, String acaoInFixo) {
+        if(dm == null) {
+            throw new NullResourceException("Decisão Moderadora nula submetido");
+        }
+        DecisaoModeradora d = new DecisaoModeradora();
+        d.setData(Date.from(Instant.now()));
+        d.setMotivacao(dm.motivacao());
+        d.setTipo(tipo);
+        d.setResponsavel(null);
+        d.setUsuarioModerado(null);
+        d.setNomeModerado(nomeM);
+        d.setNomeModerador(nomeR);
+        d.setIdModerado(idModerado);
+        d.setAcao(nomeR + " " + acaoInFixo + " " + nomeM);
+        return dmr.save(d);
+    }
+
     public DecisaoModeradora encontrarDecisaoPeloId(Long id, String c) {
         List<DecisaoModeradora> todas = dmr.findByIdModeradoAndTipoOrderByDataDesc(id, c);
         return todas.get(0);

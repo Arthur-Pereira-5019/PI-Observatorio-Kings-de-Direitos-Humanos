@@ -50,21 +50,12 @@ public class Postagem{
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
     Date dataDaPostagem;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name="idUsuario")
     @OnDelete(action = OnDeleteAction.SET_NULL)
     Usuario autor;
     @Column(nullable = false, length = 32768)
     String textoPostagem;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "revisores",
-            joinColumns = @JoinColumn(name = "idPostagem"),
-            inverseJoinColumns = @JoinColumn(name = "idUsuario")
-    )
-    @OnDelete(action = OnDeleteAction.SET_NULL)
-    List<Usuario> revisor = new ArrayList<>();
 
     @Column(nullable = true, length = 256)
     String tags;
@@ -106,14 +97,6 @@ public class Postagem{
 
     public void setTextoPostagem(String textoPostagem) {
         this.textoPostagem = textoPostagem;
-    }
-
-    public List<Usuario> getRevisor() {
-        return revisor;
-    }
-
-    public void setRevisor(List<Usuario> revisor) {
-        this.revisor = revisor;
     }
 
     public String getTags() {

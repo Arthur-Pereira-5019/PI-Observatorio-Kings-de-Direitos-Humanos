@@ -46,7 +46,7 @@ public class Forum {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
     Date dataDeAtualizacao;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name="idUsuario")
     @OnDelete(action = OnDeleteAction.SET_NULL)
     Usuario autor;
