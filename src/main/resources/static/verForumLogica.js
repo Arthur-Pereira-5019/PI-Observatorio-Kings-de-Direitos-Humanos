@@ -5,6 +5,7 @@ async function iniciarVerForum() {
     const textoComentario = document.getElementById("text-area-comentario-forum")
     const comentarioLimite = document.getElementById("limite-caracteres-criacao-comentario-forum")
     const btnEnviar = document.getElementById("botao-enviar-comentario-forum")
+    const body = document.querySelector("body");
     const footer = document.querySelector("#footer")
 
     const url = window.location.href;
@@ -29,12 +30,20 @@ async function iniciarVerForum() {
 
         .then(data => {
             console.log(data)
+            const fotoPerfil = document.querySelector("#foto-user-discussao-forum")
             const tituloForum = document.getElementById("titulo-forum-forum").textContent = data.titulo
             const dataAtualizacao = document.getElementById("data-comentario-forum").textContent = data.ultimaAtualizacao
             const nome = document.getElementById("nome-user-discussao-forum").textContent = data.autor.nome
             const textoForum = document.getElementById("textoForum").textContent = data.textoForum
             const dataForum = document.getElementById("data-comentario-forum").textContent = data.dataCriacao
             const limiteCaracteres = document.getElementById("limite-caracteres-comentario-forum").textContent = data.textoForum.length + "/512"
+             if (data.autor.foto == null) {
+                fotoPerfil.src = "/imagens/perfilIconDark.png";
+            } else if (data.autor.foto.fotoPerfil == "" || data.autor.foto.tipoImagem == "") {
+                fotoPerfil.src = "/imagens/perfilIconDark.png";
+            } else {
+                fotoPerfil.src = "data:image/" + data.autor.foto.tipoImagem + ";base64," + data.autor.foto.fotoPerfil;
+            }
 
         })
 
@@ -125,6 +134,7 @@ async function iniciarVerForum() {
                 return res.json();
             })
             .then(data => {
+                console.log(data)
                 const primeiroComentario = document.querySelector('.containerPrimeiroComentario');
                 const containerGeral = document.getElementById("container-universal-tela-forum");
 
@@ -156,6 +166,8 @@ async function iniciarVerForum() {
             exclusao = comentario.querySelector(".botao-ocultar-comentario-forum")
             comentario.querySelector(".textoComentarioForum").textContent = dados.texto
             comentario.querySelector(".nomeComentario").textContent = dados.autor.nome
+            comentario.querySelector("#data-comentario-forum").textContent = dados.date
+            comentario.querySelector("#limite-caracteres-comentario-forum").textContent = dados.texto.length + "/512"
             comentario.querySelector(".nomeComentario").addEventListener("click", function () {
                 window.location.href = "http://localhost:8080/usuario/" + dados.autor.id;
             })

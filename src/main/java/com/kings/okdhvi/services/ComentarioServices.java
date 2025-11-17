@@ -71,6 +71,7 @@ public class ComentarioServices {
             if(f.isOculto()) {
                 throw new UnauthorizedActionException("A postagem está oculta, não há como comentar.");
             }
+            f.setDataDeAtualizacao(Date.from(Instant.now()));
             f.getComentarios().add(c);
             fs.atualizarForum(f);
         }

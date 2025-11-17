@@ -52,7 +52,7 @@ public class ComentarioController {
             u = us.encontrarPorId(us.buscarId(ud),true);
         }
 
-        comentarios.forEach(c -> {comentariosTratados.add(cm.apresentarComentario(c, u));});
+        comentarios.forEach(c -> {comentariosTratados.add(cm.apresentarComentarioF(c, u));});
         retorno.setResultado(comentariosTratados);
         retorno.setProximosIndexes(bpr.getProximosIndexes());
         return retorno;

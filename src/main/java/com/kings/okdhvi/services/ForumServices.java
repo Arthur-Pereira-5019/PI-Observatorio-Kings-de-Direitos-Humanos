@@ -112,6 +112,7 @@ public class ForumServices {
 
         forum.setAutor(u);
         forum.setDataDeCriacao(Date.from(Instant.now()));
+        forum.setDataDeAtualizacao(forum.getDataDeCriacao());
         return fr.save(forum);
     }
 
