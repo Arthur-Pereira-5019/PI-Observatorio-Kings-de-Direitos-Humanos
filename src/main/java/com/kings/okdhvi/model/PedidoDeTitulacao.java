@@ -10,8 +10,11 @@ public class PedidoDeTitulacao {
     @Column
     private EstadoDaConta cargoRequisitado;
 
-    @Column
+    @Column(length = 512)
     private String motivacao;
+
+    @Column(length = 256)
+    private String contato;
 
     @OneToOne
     private Imagem anexo;
@@ -62,5 +65,13 @@ public class PedidoDeTitulacao {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getContato() {
+        return contato;
+    }
+
+    public void setContato(String contato) {
+        this.contato = contato;
     }
 }

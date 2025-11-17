@@ -97,16 +97,6 @@ public class UsuarioService {
     public Usuario gerarPedidoDeTitulacao(Long id, PedidoDeTitulacaoDTO pdtDTO) {
         PedidoDeTitulacao pet = new PedidoDeTitulacao();
         Usuario u = encontrarPorId(id, false);
-
-        String anexo = pdtDTO.anexoBase64();
-        Imagem i = null;
-        if(anexo != null && !anexo.isEmpty()) {
-            CriarImagemRequest cir = new CriarImagemRequest(anexo, "Documento anexado pelo usuário " +
-                    u.getIdUsuario() + "- " + u.getNome(), "Documento de anexo", pdtDTO.tipoAnexo());
-            i = is.criarImagem(cir, u);
-        }
-
-        pet.setAnexo(i);
         EstadoDaConta edce = EstadoDaConta.MODERADOR;
         switch (pdtDTO.cargoRequisitado()) {
             case 5:
@@ -119,6 +109,7 @@ public class UsuarioService {
         pet.setCargoRequisitado(edce);
         pet.setMotivacao(pdtDTO.motivacao());
         pet.setRequisitor(u);
+        pet.setContato(pdtDTO.contato());
         if(u.getPedidoDeTitulacao() != null) {
             pet.setId(u.getPedidoDeTitulacao().getId());
             pets.atualizarPedidoDeTitulacao(pet);

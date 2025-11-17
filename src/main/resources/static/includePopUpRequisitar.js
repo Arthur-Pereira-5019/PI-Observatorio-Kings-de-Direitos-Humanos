@@ -18,8 +18,6 @@ async function iniciarRequisitar() {
 
     const btnRequisitar = document.getElementById("btnRequisitar")
     const fundoPopupRequisitar = document.getElementById("posPopUpRequisitar")
-    const campoAnexo = document.getElementById("campoAnexoInput");
-    let base64;
 
     btnRequisitar.addEventListener("click", function () {
         fundoPopupRequisitar.style.display = "flex"
@@ -33,25 +31,9 @@ async function iniciarRequisitar() {
 
     })
 
-    campoAnexo.addEventListener("input", function () {
-        const campoAnexo = document.getElementById("campoAnexoInput");
-
-        const anexoSubmetido = campoAnexo.files[0];
-
-        if (anexoSubmetido && anexoSubmetido.name.endsWith(".png") || anexoSubmetido.name.endsWith(".jpg")) {
-            anexoLido = new FileReader();
-
-            anexoLido.onload = (e) => {
-                base64 = e.target.result;
-            };
-
-            anexoLido.readAsDataURL(anexoSubmetido);
-        }
-    })
-
-
     const btnConfirmarRequisicao = document.getElementById("btnConfimarRequisicao")
     const textareaCargosRequisitar = document.getElementById("textarea-cargos-requisitar")
+    const inputC = document.getElementById("inputC")
     const comboboxCargosRequisitar = document.getElementById("combobox-cargos-requisitar")
 
     btnConfirmarRequisicao.addEventListener("click", function () {
@@ -62,19 +44,11 @@ async function iniciarRequisitar() {
         let valorCargo = comboboxCargosRequisitar.selectedIndex + 2
 
 
-        let endPositionAnexo = base64.indexOf(",");
-        let fimPrefixoAnexo = base64.indexOf(";")
-        let inicioPrefixoAnexo = base64.indexOf("/")
-        let prefixoAnexo = base64.substring(inicioPrefixoAnexo, fimPrefixoAnexo);
-        endPositionAnexo++;
-        base64 = base64.replace(base64.substring(0, endPositionAnexo), "");
 
         const novoPost = {
             cargoRequisitado: valorCargo,
             motivacao: textareaCargosRequisitar.value,
-            anexoBase64: base64,
-            tipoAnexo: prefixoAnexo
-
+            contato: inputC.value
         }
 
         fetch("http://localhost:8080/api/user/requisitar_cargo", {
