@@ -261,7 +261,7 @@
 
                 <div class="container-geral-discussao-forum">
 
-                    <div id="botao-ocultar-comentario-forum">
+                    <div id="botao-ocultar-comentario-forum" class="btnOcultar">
                         <img src="/imagens/olhosfechados.png" id="zoio-log">
                     </div>
 
@@ -288,10 +288,8 @@
                         placeholder="Participe da discussão!"
                         id="text-area-comentario-forum"></textarea>
 
-                    <div class="container-botaoElimite-comentario-forum"><p
-                            id="limite-caracteres-criacao-comentario-forum">512/512</p>
-                        <button
-                            id="botao-enviar-comentario-forum">Enviar</button></div>
+                    <div class="container-botaoElimite-comentario-forum"><p id="limite-caracteres-criacao-comentario-forum">512/512</p>
+                        <button id="botao-enviar-comentario-forum">Enviar</button></div>
 
                 </div>
 
@@ -301,17 +299,17 @@
                         <img src="/imagens/olhosfechados.png" id="zoio-log">
                     </div>
 
-                    <div class="container-infos-usuario-discussao-forum">
+                    <div class="container-infos-usuario-discussao-forum infoComentarios">
 
                         <img
                             src="https://randomuser.me/api/portraits/lego/6.jpg"
                             id="foto-user-discussao-forum" alt>
-                        <p id="nome-user-discussao-forum">Emanuel de Oliveira
-                            Farias</p>
+                        <p id="nome-user-discussao-forum" class="nomeComentario"></p>
 
                     </div>
 
-                    <div class="container-texto-discussao-forum">
+                    <div class="container-texto-discussao-forum infoTexto">
+                        <p id="textoComentarioForum"></p>
                         <p id="limite-caracteres-comentario-forum">512/512</p>
                         <p id="data-comentario-forum">dd/mm/yyyy</p>
 
