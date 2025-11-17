@@ -36,6 +36,19 @@ async function iniciarRequisitar() {
     const inputC = document.getElementById("inputC")
     const comboboxCargosRequisitar = document.getElementById("combobox-cargos-requisitar")
 
+    fetch("http://localhost:8080/api/reqcar", {
+        headers: { 'Content-Type': 'application/json' },
+    })
+        .then(res => {
+            if (res.ok) return res.json()
+            fundoPopupRequisitar.style.display = "none";
+        }).then(data => {
+            textareaCargosRequisitar.value = data.motivacao
+            comboboxCargosRequisitar.selected = data.cargoRequisitado
+            inputC.value = data.contato
+        })
+        .catch(err => console.error(err));
+
     btnConfirmarRequisicao.addEventListener("click", function () {
 
         if (comboboxCargosRequisitar.selectedIndex == 0) {
@@ -51,7 +64,7 @@ async function iniciarRequisitar() {
             contato: inputC.value
         }
 
-        fetch("http://localhost:8080/api/user/requisitar_cargo", {
+        fetch("http://localhost:8080/api/reqcar/requisitar_cargo", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(novoPost)

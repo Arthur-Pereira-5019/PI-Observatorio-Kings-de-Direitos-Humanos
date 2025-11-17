@@ -16,9 +16,6 @@ public class PedidoDeTitulacao {
     @Column(length = 256)
     private String contato;
 
-    @OneToOne
-    private Imagem anexo;
-
     @OneToOne()
     @OnDelete(action = OnDeleteAction.SET_NULL)
     private Usuario requisitor;
@@ -41,14 +38,6 @@ public class PedidoDeTitulacao {
 
     public void setMotivacao(String motivacao) {
         this.motivacao = motivacao;
-    }
-
-    public Imagem getAnexo() {
-        return anexo;
-    }
-
-    public void setAnexo(Imagem anexo) {
-        this.anexo = anexo;
     }
 
     public Usuario getRequisitor() {

@@ -3,6 +3,7 @@ package com.kings.okdhvi.services;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.model.PedidoDeTitulacao;
 import com.kings.okdhvi.model.PedidoExclusaoConta;
+import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.repositories.PedidoDeTitulacaoRepository;
 import com.kings.okdhvi.repositories.PedidoExclusaoContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +35,14 @@ public class PedidoDeTitulacaoServices {
 
     public PedidoDeTitulacao atualizarPedidoDeTitulacao(PedidoDeTitulacao pet) {
        PedidoDeTitulacao velhoPet = encontrarPedidoDeTitulacao(pet.getId());
-        velhoPet.setAnexo(pet.getAnexo());
         velhoPet.setRequisitor(pet.getRequisitor());
         velhoPet.setMotivacao(pet.getMotivacao());
         velhoPet.setCargoRequisitado(pet.getCargoRequisitado());
+        velhoPet.setContato(pet.getContato());
         return petr.save(velhoPet);
+    }
+
+    public PedidoDeTitulacao encontrarPedidoPeloUsuario(Usuario u) {
+        return petr.findByRequisitor(u).orElseThrow(() -> new ResourceNotFoundException("O usuário não tem requisições"));
     }
 }

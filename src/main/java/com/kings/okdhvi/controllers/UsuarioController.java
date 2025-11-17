@@ -85,10 +85,7 @@ public class UsuarioController {
         us.alterarTitulacao(id, us.buscarId(ud), adr);
     }
 
-    @PostMapping(value="/requisitar_cargo")
-    public void requisitarCargo(@AuthenticationPrincipal UserDetails ud, @RequestBody PedidoDeTitulacaoDTO pdtDTO) {
-        us.gerarPedidoDeTitulacao(us.buscarId(ud), pdtDTO);
-    }
+
 
 
     @PostMapping("/login")
