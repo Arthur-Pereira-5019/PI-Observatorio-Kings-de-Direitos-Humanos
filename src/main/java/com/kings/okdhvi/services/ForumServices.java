@@ -138,7 +138,7 @@ public class ForumServices {
         Usuario u = us.encontrarPorId(idModerador, false);
         boolean resultado = !f.isOculto();
         f.setOculto(resultado);
-        dms.criarDecisaoModeradora(d, "Forum", u, f.getAutor(), idForum, " ocultou o fórum de");
+        dms.criarDecisaoModeradora(d, "Forum", u, f.getAutor(), idForum, (f.isOculto() ? "" : "des") +"ocultou o fórum de");
         fr.save(f);
     }
 

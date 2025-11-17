@@ -94,7 +94,7 @@ public class ComentarioServices {
                     u,
                     c.getAutor(),
                     c.getIdDono(),
-                    "Usuário excluiu o próprio comentário");
+                    "excluiu o próprio comentário.");
         }
         cr.delete(c);
     }

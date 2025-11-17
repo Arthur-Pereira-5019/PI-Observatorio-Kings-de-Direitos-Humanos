@@ -172,7 +172,7 @@ public class PostagemServices {
         Postagem p = encontrarPostagemPeloId(idPost);
         Usuario u = us.encontrarPorId(idModerador, false);
         p.setOculto(!p.isOculto());
-        dms.criarDecisaoModeradora(d, "Postagem", u, p.getAutor(), idPost, "ocultou o post de");
+        dms.criarDecisaoModeradora(d, "Postagem", u, p.getAutor(), idPost, (p.isOculto() ? "" : "des") +"ocultou o post de");
         pr.save(p);
     }
 
