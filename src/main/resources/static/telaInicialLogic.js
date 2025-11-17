@@ -70,13 +70,19 @@ async function iniciarTelaInicial() {
                     noticiaDireita.style.display = "none"
                     seta_direita.style.display = "none"
                 }
+                if(!data[2]) {
+                    seta_direita.style.display = "none"
+                }
 
                 if (noticiaDireita.style.display == "none" && noticiaEsquerda.style.display == "none") {
                     na.textContent = "Nenhuma publicação encontrada!";
                     carrossel.appendChild(na);
                     noticiasC.style.width = "0%"
                 } else {
+                    if(carrossel.querySelector(".na")) {
                     carrossel.querySelector(".na").remove()
+
+                    }
                     noticiasC.style.width = "100%"
                 }
             })

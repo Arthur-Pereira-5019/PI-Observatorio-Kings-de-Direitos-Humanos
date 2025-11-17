@@ -84,7 +84,7 @@ public class PostagemController {
     public List<? extends PostagemESDTO> buscaPaginada(@PathVariable("page") int page, @AuthenticationPrincipal UserDetails ud) {
 
         ArrayList<PostagemESDTO> retorno = new ArrayList<>();
-        ps.buscaFiltrada(new BuscaPaginada(page, 2, "dataDaPostagem", false),null, ud).getResultado().forEach(p -> {retorno.add(pm.parsePostagemToESDTO(p));});
+        ps.buscaFiltrada(new BuscaPaginada(page, 3, "dataDaPostagem", false),null, ud).getResultado().forEach(p -> {retorno.add(pm.parsePostagemToESDTO(p));});
         return retorno;
     }
 
