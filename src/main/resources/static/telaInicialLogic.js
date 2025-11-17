@@ -76,7 +76,7 @@ async function iniciarTelaInicial() {
                     carrossel.appendChild(na);
                     noticiasC.style.width = "0%"
                 } else {
-                    na.remove()
+                    carrossel.querySelector(".na").remove()
                     noticiasC.style.width = "100%"
                 }
             })

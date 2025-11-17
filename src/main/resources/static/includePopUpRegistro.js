@@ -111,8 +111,8 @@ async function iniciarPopupRegistro() {
             }
             let gcpf = inputCpfRegistro.value
             if(gcpf.length == 14) {
-                gcpf.replaceAll(".","")
-                gcpf.replaceAll("-","")
+                gcpf = gcpf.replaceAll(".","")
+                gcpf = gcpf.replaceAll("-","")
             }
 
             const novoPost = {
