@@ -1,50 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Página Inicial</title>
-    <link rel="stylesheet" href="paginaInicialStyle.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Página Inicial</title>
+        <link rel="stylesheet" href="/telaInicialStyle.css">
+    </head>
 
-<body>
+    <body>
 
-    <div id="header"></div>
+        <div id="header"></div>
 
-    <div class="container">
-        <img class="logo" src="./imagens/logoObservatorio.png" alt="Logo">
-    </div>
-
-    <div class="container-noticias">
-        <img class="botao-seta" id="seta_esquerda" style="transform: scaleX(-1);" src="./imagens/setaIcon.png" alt="Seta para esquerda">
-        <div class="noticia-container" id="noticia_esquerda">
-            <img class="noticia" id="imagem_esquerda" src="https://placehold.co/620x420" alt="Notícia">
-            <p class="texto-noticia" id="texto_esquerda">
-            </p>
+        <div class="container">
+            <img class="logo" src="/imagens/logoObservatorio.png" alt="Logo">
         </div>
-        <div class="noticia-container" id="noticia_direita">
-            <img class="noticia" id="imagem_direita" src="https://placehold.co/620x420" alt="Notícia">
-            <p class="texto-noticia" id="texto_direita"></p>
+
+        <div id="carrossel">
+            <img class="botao-seta" id="seta_esquerda"
+                style="transform: scaleX(-1);" src="/imagens/setaIcon.png"
+                alt="Seta para esquerda">
+            <div class="container-noticias">
+
+                <div class="noticia-container" id="noticia_esquerda">
+                    <img class="noticia" id="imagem_esquerda"
+                        src="https://placehold.co/620x420" alt="Notícia">
+                    <p class="texto-noticia" id="texto_esquerda">
+                    </p>
+                </div>
+                <div class="noticia-container" id="noticia_direita">
+                    <img class="noticia" id="imagem_direita"
+                        src="https://placehold.co/620x420" alt="Notícia">
+                    <p class="texto-noticia" id="texto_direita"></p>
+                </div>
+            </div>
+            <img class="botao-seta" id="seta_direita"
+                src="/imagens/setaIcon.png" alt="Seta para direita">
         </div>
-        <img class="botao-seta" id="seta_direita" src="./imagens/setaIcon.png" alt="Seta para direita">
-    </div>
 
+        <div id="posPopUp">
+            <div id="registro"></div>
 
-    <div id="posPopUp">
-        <div id="registro"></div>
+        </div>
 
-    </div>
+        <div id="posPopUpLogin">
+            <div id="login"></div>
+        </div>
 
-    <div id="posPopUpLogin">
-        <div id="login"></div>
-    </div>
+        <div id="footer"></div>
 
-    <div id="footer"></div>
+        <script src="/includeHtmlExterno.js" defer></script>
+        <script src="/telaInicialLogic.js" defer></script>
 
-    <script src="includeHtmlExterno.js" defer></script>
-    <script src="telaInicialLogic.js" defer></script>
-    
-
-</body>
+    </body>
 
 </html>

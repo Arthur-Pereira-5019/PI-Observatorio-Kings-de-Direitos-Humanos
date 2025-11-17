@@ -8,9 +8,9 @@ let page = 0;
 
 async function iniciarTelaInicial() {
     let page = 0;
-    updateNews();
     const noticiaDireita = document.getElementById("noticia_direita");
     const noticiaEsquerda = document.getElementById("noticia_esquerda");
+    updateNews();
 
     seta_esquerda.addEventListener("click", function () {
         if (page > 0) {
@@ -27,18 +27,22 @@ async function iniciarTelaInicial() {
     })
 
     async function updateNews() {
-        seta_esquerda.display.style = "flex"
-        seta_direita.display.style = "flex"
-        noticiaEsquerda.display.style = "flex"
-        noticiaDireita.display.style = "flex"
+        seta_esquerda.style.display = "flex"
+        seta_direita.style.display = "flex"
+        noticiaEsquerda.style.display = "flex"
+        noticiaDireita.style.display = "flex"
         if (page == 0) {
-            seta_esquerda.display.style = "none"
+            seta_esquerda.style.display = "none"
         }
         const textoEsquerda = document.getElementById("texto_esquerda");
         const textoDireita = document.getElementById("texto_direita");
 
         const ImagemEsquerda = document.getElementById("imagem_esquerda");
         const ImagemDireita = document.getElementById("imagem_direita");
+        const carrossel = document.getElementById("carrossel");
+        let na = document.createElement("h1")
+        na.class
+
 
         fetch("http://localhost:8080/api/postagem/busca_paginada/" + page, {
             headers: { 'Content-Type': 'application/json' }
@@ -54,15 +58,22 @@ async function iniciarTelaInicial() {
                     ImagemEsquerda.src = "data:image/" + data[0].capa.tipoImagem + ";base64," + data[0].capa.imagem;
 
                 } else {
-                    noticiaEsquerda.display.style = "none"
+                    noticiaEsquerda.style.display = "none"
                 }
                 if (data[1]) {
                     textoDireita.textContent = data[1].titulo
                     linkNoticiaDireita = "http://localhost:8080/publicacao/" + data[1].idPostagem;
                     ImagemDireita.src = "data:image/" + data[1].capa.tipoImagem + ";base64," + data[1].capa.imagem;
                 } else {
-                    noticiaDireita.display.style = "none"
-                    seta_direita.display.style = "none"
+                    noticiaDireita.style.display = "none"
+                    seta_direita.style.display = "none"
+                }
+
+                if (noticiaDireita.style.display == "none" && noticiaEsquerda.style.display == "none") {
+                    na.textContent = "Nenhuma publicação encontrada!"
+                    carrossel.appendChild(na)
+                } else {
+                    na.remove()
                 }
             })
 

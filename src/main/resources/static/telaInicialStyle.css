@@ -15,6 +15,12 @@
      height: 216px;
  }
 
+ #carrossel {
+    display: flex;
+    align-items: center;
+    min-height: 50vh;
+ }
+
  .container-noticias {
      width: 100%;
      height: auto;
