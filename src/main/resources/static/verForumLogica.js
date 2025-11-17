@@ -2,12 +2,17 @@ async function iniciarVerForum() {
 
     const tituloForum = document.getElementById("tituloForum")
     const dataForum = document.getElementById("dataForum")
+    const textoComentario = document.getElementById("text-area-comentario-forum")
+    const comentarioLimite = document.getElementById("limite-caracteres-criacao-comentario-forum")
+    const btnEnviar = document.getElementById("botao-enviar-comentario-forum")
+    const footer = document.querySelector("#footer")
+
+    const url = window.location.href;
+    const id = url.substring(url.lastIndexOf('/') + 1)
+    let com = 0;
+    let buscando = false;
+    let moderador = false;
     
-
-
-    const path = window.location.pathname;
-    const id = path.split("/").pop();
-
     console.log("porra: " + id)
 
     await fetch("http://localhost:8080/api/forum/" + id, {
@@ -54,22 +59,22 @@ async function iniciarVerForum() {
         .catch(err => console.error(err));
 
 
-    cComentario.addEventListener("keydown", function () {
+    textoComentario.addEventListener("keydown", function () {
         setTimeout(function () {
-            caracteres.textContent = cComentario.value.length + "/512";
+            comentarioLimite.textContent = textoComentario.value.length + "/512";
         }, 1)
 
     })
 
 
-    pComentario.addEventListener("click", function () {
-        if (cComentario.value.length > 512) {
+    btnEnviar.addEventListener("click", function () {
+        if (textoComentario.value.length > 512) {
             alert("O seu comentário está grande de mais!")
             return;
         }
 
         const requestBody = {
-            textoComentario: cComentario.value,
+            textoComentario: textoComentario.value,
             tipo: 'F',
             idComentavel: id,
         };
@@ -120,8 +125,8 @@ async function iniciarVerForum() {
                 return res.json();
             })
             .then(data => {
-                const primeiroComentario = document.querySelector('#primeiro_comentario');
-                const containerGeral = document.getElementById("container_publicacao");
+                const primeiroComentario = document.querySelector('.containerPrimeiroComentario');
+                const containerGeral = document.getElementById("container-universal-tela-forum");
 
                 if (data.resultado.length === 0) {
                     primeiroComentario.remove()
