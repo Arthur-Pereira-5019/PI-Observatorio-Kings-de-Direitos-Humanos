@@ -55,6 +55,7 @@ async function iniciarPopupRegistro() {
     const btnOcultarCSenha = document.getElementById("ocultar_csenha");
     const divSenhaMaior = document.getElementById("senhaInputRegistro");
     const inputTelefoneRegistro = document.getElementById("inputTelefoneRegistro");
+        const inputDataNascRegistro = document.getElementById("inputDataNascRegistro");
 
 
     btnOcultarSenha.dataset.ativo = "0";
@@ -79,28 +80,33 @@ async function iniciarPopupRegistro() {
         }
     })
 
+    inputDataNascRegistro.addEventListener("keydown", function (e) {
+        if (e.key != "Backspace" && e.key != "Delete") {
+            let v = inputDataNascRegistro.value
+            if (v.length == 2 || v.length == 4) {
+                inputDataNascRegistro.value += "."
+            } else if (v.length == 11) {
+                inputDataNascRegistro.value += "-"
+            }
+        }
+    })
+
     inputTelefoneRegistro.addEventListener("keydown", function (e) {
         if (e.key != "Backspace" && e.key != "Delete") {
             if (String(e.key) == NaN) {
                 e.preventDefault()
             }
             let v = inputTelefoneRegistro.value
-            if (v.length >= 0) {
+            if (v.length > 0) {
                 if (v.substring(0, 1) != '(') {
-                    v = "(" + v
+                    inputTelefoneRegistro.value = "(" + v
                 }
             }
-            if (v.length >= 3) {
-                if (v.substring(3, 4) != '(') {
-                    v = v.substring(0, 3) + ")" + v.substring(4,v.length)
-                }
+            if (v.length == 3) {
+                inputTelefoneRegistro.value += ")"
+            } else if (v.length == 9) {
+                inputTelefoneRegistro.value += "-"
             }
-            if(v.length >= 9) {
-                if (v.substring(9, 10) != '(') {
-                    v = v.substring(0, 9) + "-" + v.substring(10,v.length)
-                }
-            }
-            inputTelefoneRegistro.value = v;
         }
     })
 
@@ -122,13 +128,13 @@ async function iniciarPopupRegistro() {
     const confSenhaInputRegistro = document.getElementById("confSenhaInputRegistro");
     const inputNomeRegistro = document.getElementById("inputNomeRegistro");
     const inputEmailRegistro = document.getElementById("inputEmailRegistro");
-    const inputDataNascRegistro = document.getElementById("inputDataNascRegistro");
     const checkAceitar = document.querySelector(".checkAceitar");
 
     if (registerButton) {
         registerButton.addEventListener("click", () => {
             if (senhaInputRegistro.value !== confSenhaInputRegistro.value) {
                 alert("As senhas não são iguais!")
+                confSenhaInputRegistro.focus()
                 return;
             }
             if (!checkAceitar.checked) {
@@ -139,12 +145,38 @@ async function iniciarPopupRegistro() {
             if (gcpf.length == 14) {
                 gcpf = gcpf.replaceAll(".", "")
                 gcpf = gcpf.replaceAll("-", "")
+            } else if(gcpf.length != 11) {
+                alert("Digite um CPF válido!")
+                inputCpfRegistro.focus()
+                return;
+            }
+            let gtef = inputTelefoneRegistro.value;
+            if (gtef.length == 12) {
+                gtef = gtef.replaceAll("(", "")
+                gtef = gtef.replaceAll(")", "")
+                gtef = gtef.replaceAll("-", "")
+            } else if(gtef.length != 9) {
+                alert("Digite um número de telefone válido")
+                inputTelefoneRegistro.focus()
+                return;
+            }
+
+            if(inputDataNascRegistro.value.length != 10) {
+                alert("Digite sua data de nascimento corretamente (dd/mm/aaaa)")
+                inputDataNascRegistro.focus()
+                return;
+            }
+
+            if(!(inputEmailRegistro.value.includes("@") && inputEmailRegistro.value.includes("."))) {
+                alert("Digite um endereço de e-mail válido!")
+                inputEmailRegistro.focus()
+                return;
             }
 
             const novoPost = {
                 nome: inputNomeRegistro.value,
                 senha: senhaInputRegistro.value,
-                telefone: inputTelefoneRegistro.value,
+                telefone: gtef,
                 cpf: gcpf,
                 email: inputEmailRegistro.value,
                 dataDeNascimento: inputDataNascRegistro.value
