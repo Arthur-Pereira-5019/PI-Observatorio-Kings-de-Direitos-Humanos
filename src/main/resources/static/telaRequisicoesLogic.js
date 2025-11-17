@@ -146,7 +146,7 @@ async function iniciarTelaRequisicoes() {
 
 
         function mostrarRequisicao(requisicao, dados) {
-            requisicao.querySelector(".requisitor").textContent = "[" + dados.idRequisitor + "]" + dados.nomeRequisitor
+            requisicao.querySelector(".requisitor").textContent = dados.nomeRequisitor
             requisicao.querySelector(".texto").textContent = dados.texto
             requisicao.querySelector(".data").textContent = dados.data
             requisicao.querySelector(".info").innerHTML = dados.info

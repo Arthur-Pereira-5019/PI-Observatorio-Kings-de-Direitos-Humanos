@@ -14,7 +14,7 @@ public class UsuarioRequestsMapper {
         r.setInfo("Contato: " + pdt.getContato());
         r.setTexto("Motivação: " + pdt.getMotivacao());
         r.setIdRequisitor(getIdUsuario(pdt.getRequisitor()));
-        r.setNomeRequisitor(getNomeUsuario(pdt.getRequisitor()));
+        r.setNomeRequisitor("[" + r.getIdRequisitor() + "]" + getNomeUsuario(pdt.getRequisitor()) + " quer virar " + pdt.getCargoRequisitado());
         return r;
     }
 
@@ -24,7 +24,7 @@ public class UsuarioRequestsMapper {
         r.setInfo("");
         r.setTexto("");
         r.setIdRequisitor(getIdUsuario(pec.getUsuarioPedido()));
-        r.setNomeRequisitor(getNomeUsuario(pec.getUsuarioPedido()));
+        r.setNomeRequisitor("[" + r.getIdRequisitor() + "]" + getNomeUsuario(pec.getUsuarioPedido()));
         return r;
     }
 
