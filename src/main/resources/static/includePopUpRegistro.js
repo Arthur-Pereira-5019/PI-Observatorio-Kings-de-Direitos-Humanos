@@ -55,7 +55,7 @@ async function iniciarPopupRegistro() {
     const btnOcultarCSenha = document.getElementById("ocultar_csenha");
     const divSenhaMaior = document.getElementById("senhaInputRegistro");
     const inputTelefoneRegistro = document.getElementById("inputTelefoneRegistro");
-        const inputDataNascRegistro = document.getElementById("inputDataNascRegistro");
+    const inputDataNascRegistro = document.getElementById("inputDataNascRegistro");
 
 
     btnOcultarSenha.dataset.ativo = "0";
@@ -71,6 +71,9 @@ async function iniciarPopupRegistro() {
 
     inputCpfRegistro.addEventListener("keydown", function (e) {
         if (e.key != "Backspace" && e.key != "Delete") {
+            if (!e.ctrlKey && (e.key.length === 1 && (e.key < "0" || e.key > "9"))) {
+                e.preventDefault()
+            }
             let v = inputCpfRegistro.value
             if (v.length == 3 || v.length == 7) {
                 inputCpfRegistro.value += "."
@@ -82,25 +85,24 @@ async function iniciarPopupRegistro() {
 
     inputDataNascRegistro.addEventListener("keydown", function (e) {
         if (e.key != "Backspace" && e.key != "Delete") {
+            if (!e.ctrlKey && (e.key.length === 1 && (e.key < "0" || e.key > "9"))) {
+                e.preventDefault()
+            }
             let v = inputDataNascRegistro.value
-            if (v.length == 2 || v.length == 4) {
-                inputDataNascRegistro.value += "."
-            } else if (v.length == 11) {
-                inputDataNascRegistro.value += "-"
+            if (v.length == 2 || v.length == 5) {
+                inputDataNascRegistro.value += "/"
             }
         }
     })
 
     inputTelefoneRegistro.addEventListener("keydown", function (e) {
         if (e.key != "Backspace" && e.key != "Delete") {
-            if (String(e.key) == NaN) {
+            if (!e.ctrlKey && (e.key.length === 1 && (e.key < "0" || e.key > "9"))) {
                 e.preventDefault()
             }
             let v = inputTelefoneRegistro.value
-            if (v.length > 0) {
-                if (v.substring(0, 1) != '(') {
-                    inputTelefoneRegistro.value = "(" + v
-                }
+            if (v.substring(0, 1) != '(') {
+                inputTelefoneRegistro.value = "(" + v
             }
             if (v.length == 3) {
                 inputTelefoneRegistro.value += ")"
@@ -132,45 +134,52 @@ async function iniciarPopupRegistro() {
 
     if (registerButton) {
         registerButton.addEventListener("click", () => {
+            if (!(inputEmailRegistro.value.includes("@") && inputEmailRegistro.value.includes("."))) {
+                alert("Digite um endereço de e-mail válido!")
+                inputEmailRegistro.focus()
+                return;
+            }
             if (senhaInputRegistro.value !== confSenhaInputRegistro.value) {
                 alert("As senhas não são iguais!")
                 confSenhaInputRegistro.focus()
                 return;
             }
-            if (!checkAceitar.checked) {
-                alert("Aceite nossos termos de uso!")
-                return
-            }
+
             let gcpf = inputCpfRegistro.value
-            if (gcpf.length == 14) {
+            if (gcpf.length != 11) {
                 gcpf = gcpf.replaceAll(".", "")
                 gcpf = gcpf.replaceAll("-", "")
-            } else if(gcpf.length != 11) {
-                alert("Digite um CPF válido!")
-                inputCpfRegistro.focus()
-                return;
-            }
-            let gtef = inputTelefoneRegistro.value;
-            if (gtef.length == 12) {
-                gtef = gtef.replaceAll("(", "")
-                gtef = gtef.replaceAll(")", "")
-                gtef = gtef.replaceAll("-", "")
-            } else if(gtef.length != 9) {
-                alert("Digite um número de telefone válido")
-                inputTelefoneRegistro.focus()
-                return;
+                if (gcpf.length != 11) {
+                    alert("Digite um CPF válido!")
+                    inputCpfRegistro.focus()
+                    return;
+                }
             }
 
-            if(inputDataNascRegistro.value.length != 10) {
+
+            if (inputDataNascRegistro.value.length != 10) {
                 alert("Digite sua data de nascimento corretamente (dd/mm/aaaa)")
                 inputDataNascRegistro.focus()
                 return;
             }
 
-            if(!(inputEmailRegistro.value.includes("@") && inputEmailRegistro.value.includes("."))) {
-                alert("Digite um endereço de e-mail válido!")
-                inputEmailRegistro.focus()
-                return;
+
+
+            let gtef = inputTelefoneRegistro.value;
+            if (gtef.length != 11) {
+                gtef = gtef.replaceAll("(", "")
+                gtef = gtef.replaceAll(")", "")
+                gtef = gtef.replaceAll("-", "")
+                if (gtef.length != 11) {
+                    alert("Digite um número de telefone válido")
+                    inputTelefoneRegistro.focus()
+                    return;
+                }
+            }
+
+            if (!checkAceitar.checked) {
+                alert("Aceite nossos termos de uso!")
+                return
             }
 
             const novoPost = {
@@ -191,13 +200,6 @@ async function iniciarPopupRegistro() {
                     if (!res.ok) {
                         return res.json();
                     }
-                    inputNomeRegistro.value = "";
-                    senhaInputRegistro.value = "";
-                    confSenhaInputRegistro.value = "";
-                    inputTelefoneRegistro.value = "";
-                    inputCpfRegistro.value = "";
-                    inputEmailRegistro.value = "";
-                    inputDataNascRegistro.value = "";
                     window.location.reload()
                 }).then(data => {
                     alert(data.mensagem)
