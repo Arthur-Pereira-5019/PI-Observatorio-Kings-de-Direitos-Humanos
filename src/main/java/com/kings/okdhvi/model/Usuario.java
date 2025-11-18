@@ -46,9 +46,6 @@ public class Usuario implements Serializable, UserDetails {
     @JoinColumn(name="id_foto_perfil")
     private Imagem fotoDePerfil;
 
-    @OneToOne
-    private PedidoDeTitulacao pedidoDeTitulacao;
-
     @Column(nullable = false, length = 100, unique = true)
     private String email;
 
@@ -239,14 +236,6 @@ public class Usuario implements Serializable, UserDetails {
 
     public void setNotificacoesPorEmail(Boolean notificacoesPorEmail) {
         this.notificacoesPorEmail = notificacoesPorEmail;
-    }
-
-    public PedidoDeTitulacao getPedidoDeTitulacao() {
-        return pedidoDeTitulacao;
-    }
-
-    public void setPedidoDeTitulacao(PedidoDeTitulacao pedidoDeTitulacao) {
-        this.pedidoDeTitulacao = pedidoDeTitulacao;
     }
 
     public String gerarNome() {

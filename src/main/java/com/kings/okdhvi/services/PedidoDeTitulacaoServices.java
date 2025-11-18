@@ -1,11 +1,9 @@
 package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.ResourceNotFoundException;
+import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.model.DTOs.BuscaPaginada;
 import com.kings.okdhvi.model.DTOs.BuscaPaginadaResultado;
-import com.kings.okdhvi.model.PedidoDeTitulacao;
-import com.kings.okdhvi.model.Postagem;
-import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.repositories.PedidoDeTitulacaoRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -17,8 +15,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PedidoDeTitulacaoServices {
@@ -32,6 +33,23 @@ public class PedidoDeTitulacaoServices {
         return petr.save(pet);
     }
 
+    public PedidoDeTitulacao desserializarPedido(PedidoDeTitulacaoDTO dto) {
+        PedidoDeTitulacao p = new PedidoDeTitulacao();
+        p.setMotivacao(dto.motivacao());
+        p.setDataPedido(Date.from(Instant.now()));
+        p.setContato(dto.contato());
+        EstadoDaConta edce = EstadoDaConta.MODERADOR;
+        if(dto.cargoRequisitado() == 1) {
+            edce = EstadoDaConta.ESPECIALISTA;
+        }
+        p.setCargoRequisitado(edce);
+        return p;
+    }
+
+    public PedidoDeTitulacao adicionarId(PedidoDeTitulacao p, Long id) {
+        p.setId(id);
+        return p;
+    }
 
     public PedidoDeTitulacao encontrarPedidoDeTitulacao(Long id) {
         return petr.findById(id).orElseThrow(() -> new ResourceNotFoundException("Pedido de titulação não encontrado!"));
@@ -51,7 +69,8 @@ public class PedidoDeTitulacaoServices {
     }
 
     public PedidoDeTitulacao encontrarPedidoPeloUsuario(Usuario u) {
-        return petr.findByRequisitor(u).orElseThrow(() -> new ResourceNotFoundException("O usuário não tem requisições"));
+        Optional<PedidoDeTitulacao> p = petr.findByRequisitor(u);
+        return p.orElse(null);
     }
 
     public BuscaPaginadaResultado<PedidoDeTitulacao> buscaFiltrada(BuscaPaginada bp, String texto, UserDetails ud) {

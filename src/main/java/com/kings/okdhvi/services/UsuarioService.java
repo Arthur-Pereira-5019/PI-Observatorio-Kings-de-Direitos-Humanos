@@ -105,24 +105,14 @@ public class UsuarioService {
 
     @Transactional
     public Usuario gerarPedidoDeTitulacao(Long id, PedidoDeTitulacaoDTO pdtDTO) {
-        PedidoDeTitulacao pet = new PedidoDeTitulacao();
         Usuario u = encontrarPorId(id, false);
-        EstadoDaConta edce = EstadoDaConta.MODERADOR;
-        if(pdtDTO.cargoRequisitado() == 1) {
-            edce = EstadoDaConta.ESPECIALISTA;
-        }
-        pet.setCargoRequisitado(edce);
-        pet.setMotivacao(pdtDTO.motivacao());
-        pet.setRequisitor(u);
-        pet.setContato(pdtDTO.contato());
-        pet.setDataPedido(Date.from(Instant.now()));
-        if(u.getPedidoDeTitulacao() != null) {
-            pet.setId(u.getPedidoDeTitulacao().getId());
-            pets.atualizarPedidoDeTitulacao(pet);
+
+        if(pets.encontrarPedidoPeloUsuario(u) != null) {
+            Long idAtualizacao = pets.encontrarPedidoPeloUsuario(u).getId();
+            pets.atualizarPedidoDeTitulacao(pets.adicionarId(pets.desserializarPedido(pdtDTO), idAtualizacao));
         } else {
-            pets.criarPedidoDeTitulacao(pet);
+            pets.criarPedidoDeTitulacao(pets.desserializarPedido(pdtDTO));
         }
-        u.setPedidoDeTitulacao(pet);
         return ur.save(u);
     }
 
@@ -185,8 +175,9 @@ public class UsuarioService {
         if(idModerador.equals(idAlvo)) {
             throw new UnauthorizedActionException("Tentativa de alterar a própria titulação!");
         }
-        if(u.getPedidoDeTitulacao() != null) {
-            pets.deletarPedidoDeTitulacaoPeloId(u.getPedidoDeTitulacao().getId());
+        PedidoDeTitulacao p = pets.encontrarPedidoPeloUsuario(u);
+        if(p != null) {
+            pets.deletarPedidoDeTitulacaoPeloId(p.getId());
         }
         EstadoDaConta edc = EstadoDaConta.PADRAO;
         //Só pode ser 4 ou 6 (Poder de administrador, para garantir que ele possa adicionar novos admimnistrador) graças ao Pré-Authorize

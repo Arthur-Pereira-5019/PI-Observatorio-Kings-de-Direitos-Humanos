@@ -27,7 +27,7 @@ public class DecisaoModeradora {
     @Column(length = 128)
     String nomeModerador;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne()
     @OnDelete(action = OnDeleteAction.SET_NULL)
     Usuario usuarioModerado;
 
