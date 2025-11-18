@@ -5,181 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link rel="stylesheet" href="/forunsStyle.css">
+
         <link
             href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
             rel="stylesheet">
 
-        <style>
-            *{
-            margin:0;
-            box-sizing: border-box;
-            font-family: "Inter", sans-serif;
-        }
-        
-        
-        .container-universal-tela-foruns{
-            min-height: 100vh;
-            height: fit-content;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .titulo-tela-foruns{
-            width: 100%;
-            height: auto;
-            text-align: center;
-            color: #C00003;
-            font-size: 6rem;
-            font-weight: 800;
-        }
-        .container-all-foruns{
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            height:auto;
-            align-items: center;
-            gap: 0.1rem;
-        }
-
-        /* Mexendo nos foruns em si */
-
-        .forum-tela-foruns{
-            width: 90%;
-            height: 10vh;
-            background-color: #313131;
-            display: flex;
-            padding: 0.5%;
-        }
-
-        .container-foto-forum-tela-foruns{
-            height: 100%;
-            width: auto;   
-        }
-
-        #foto-user-forum-tela-foruns{
-            height: 100%;
-            width: auto;
-            border-radius: 50%;
-        }
-
-        .container-infos-tela-foruns{
-            display: flex;
-            flex-direction: column;
-            margin-left: 1%;
-            width: 79%;
-            height: 100%; 
-            gap: 10%;
-            justify-content: center;
-        }
-        
-        .tituloForum{
-            height: auto;
-            width: 100%;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            color: #e92c2c;
-            font-size: 2rem;
-        }
-
-        .textoBranco{
-            color: white;
-        }
-
-        .container-data-autor-tela-foruns{
-            display: flex;
-            height: auto;
-            width: auto;
-            gap: 0.5rem;
-        }
-
-        #autorForum{
-            color: white;
-        }
-
-        #dataForum{
-            color: #C8C8C8;
-            font-weight: 200;
-        }
-
-        .container-respostas-atualizacao-tela-foruns{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            height: 100%;
-            width: auto;
-            gap: 0.5rem;
-        }
-
-        .dados-forum-tela-foruns{
-            color: white;
-        }
-
-        .container-numeros-respostas-atualizacao-tela-foruns{
-            margin-left: 0.5%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            height: 100%;
-            width: auto;
-            gap: 0.5rem;
-        }
-
-        /* botao */
-
-        .container-posicao-botao-tela-foruns{
-            display: flex;
-            height: auto;
-            width: 95%;
-            justify-content: flex-end;
-        }
-
-        #botao-addForum-tela-foruns{
-            background-color: #C00003;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 12vh;
-            width: 12vh;
-            border-radius: 50%;
-        }
-
-        #botao-addForum-tela-foruns:hover{
-            background-color: #E0272A;
-        }
-
-        #mais {
-            width: 70%;
-            height: 70%;
-        }
-
-         .container-seletores {
-            height: 5vh;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 2%;
-            padding: 40px;
-            align-items: center;
-        }
-
-        .bloquinhos {
-            width: 2.5%;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            justify-content: center;
-            font-size: 2rem;
-            background-color: #D9D9D9;
-            cursor: pointer;
-            aspect-ratio: 1/1;
-
-        }
-
-        </style>
 
     </head>
     <body>
@@ -201,7 +32,7 @@
 
                     <div class="container-foto-forum-tela-foruns">
                         <img
-                            src="https://randomuser.me/api/portraits/women/90.jpg"
+                            src=""
                             id="foto-user-forum-tela-foruns" alt>
                     </div>
 
@@ -214,18 +45,8 @@
                     </div>
 
                     <div class="container-respostas-atualizacao-tela-foruns">
-                        <p class="dados-forum-tela-foruns" id>Respostas:</p>
-                        <p class="dados-forum-tela-foruns">Última
-                            atualização:</p>
-                    </div>
-
-                    <div
-                        class="container-numeros-respostas-atualizacao-tela-foruns">
-
-                        <p class="respostasForum textoBranco"
-                            id="respostasForum"></p>
-                        <p class="ultimaAtualizacao textoBranco"
-                            id="ultimaAtualizacao"></p>
+                        <p class="dados-forum-tela-foruns nRespostas"></p>
+                        <p class="dados-forum-tela-foruns ultAtt"></p>
                     </div>
 
                 </div>
@@ -247,7 +68,16 @@
 
         <div id="footer"></div>
 
-        <script src="/forumLogica.js"></script>
+        <div id="posPopUp">
+            <div id="registro"></div>
+
+        </div>
+
+        <div id="posPopUpLogin">
+            <div id="login"></div>
+        </div>
+
+        <script src="/forunsLogica.js"></script>
         <script src="/includeHtmlExterno.js"></script>
 
     </body>

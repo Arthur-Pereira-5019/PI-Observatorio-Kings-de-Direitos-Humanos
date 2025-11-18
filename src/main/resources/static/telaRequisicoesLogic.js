@@ -158,7 +158,6 @@ async function iniciarTelaRequisicoes() {
 
 
         function mostrarRequisicao(requisicao, dados) {
-            console.log(dados)
             requisicao.querySelector(".requisitor").textContent = dados.nomeRequisitor
             requisicao.querySelector(".data").textContent = dados.data
             let texto = dados.texto.replace("\n","<br>")
