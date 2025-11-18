@@ -7,6 +7,7 @@ import com.kings.okdhvi.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ public class ImagemController {
     @Autowired
     UsuarioService us;
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping(value = "")
     public Imagem criarImagem(@RequestBody CriarImagemRequest cir, @AuthenticationPrincipal UserDetails ud){
         return is.criarImagem(cir, us.encontrarPorId(us.buscarId(ud), false));
@@ -30,6 +32,7 @@ public class ImagemController {
           return is.retornarImagemPeloId(id);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletarImagemPeloId(@PathVariable("id") Long id) {
         is.excluirImagemPeloId(id);

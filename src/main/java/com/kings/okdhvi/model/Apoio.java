@@ -1,6 +1,7 @@
 package com.kings.okdhvi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kings.okdhvi.services.ImagemService;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -35,6 +36,9 @@ public class Apoio {
 
     @Column
     String linkedin;
+
+    @OneToOne
+    Imagem foto;
 
     public Long getIdApoio() {
         return idApoio;
@@ -106,5 +110,13 @@ public class Apoio {
 
     public void setLinkedin(String linkedin) {
         this.linkedin = linkedin;
+    }
+
+    public Imagem getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Imagem foto) {
+        this.foto = foto;
     }
 }
