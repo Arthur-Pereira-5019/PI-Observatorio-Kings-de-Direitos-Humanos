@@ -21,7 +21,7 @@ async function iniciarPublicacao() {
         cComentario.value = localStorage.getItem("comentarioSalvo")
     }
 
-    async function anexarHTMLExterno(url, cssFile, jsFile, durl, msg) {
+    async function anexarHTMLExterno(url, cssFile, jsFile, durl, msg, idDenunciado, tipoDenunciado) {
         const response = await fetch(url);
         const data = await response.text()
         const novoObjeto = document.createElement("div");
@@ -41,6 +41,9 @@ async function iniciarPublicacao() {
                 }
                 if (jsFile === "/popupDecisaoModeradoraLogic.js" && typeof iniciarPopupDecisao === "function") {
                     iniciarPopupDecisao(durl);
+                }
+                if (jsFile === "/popupCriacaoDenunciaLogic.js" && typeof iniciarPopupNovaDenuncia === "function") {
+                    iniciarPopupNovaDenuncia(msg, idDenunciado, tipoDenunciado);
                 }
             };
             document.body.appendChild(script);
@@ -229,6 +232,7 @@ async function iniciarPublicacao() {
         function construirComentario(comentario, dados) {
             imagem = comentario.querySelector(".foto-usuario-comentarios")
             exclusao = comentario.querySelector(".excluirCom")
+            btnDenuncia = comentario.querySelector(".denunciarCom")
             comentario.querySelector(".container-texto-comentario").textContent = dados.texto
             comentario.querySelector(".autor").textContent = dados.autor.nome
             comentario.querySelector(".autor").addEventListener("click", function () {
@@ -243,16 +247,24 @@ async function iniciarPublicacao() {
             }
             if (dados.proprio) {
                 exclusao.style.backgroundColor = 'darkred'
+                btnDenuncia.style.display = 'none'
+
                 exclusao.addEventListener("click", function () {
                     excluirProprioComentario("http://localhost:8080/api/com/excluir_proprio/" + dados.id, "Comentário excluído com sucesso!")
                 })
             } else if (moderador) {
                 exclusao.style.backgroundColor = 'purple'
+                btnDenuncia.style.display = 'none'
                 exclusao.addEventListener("click", function () {
                     openCriacaoDecisao("http://localhost:8080/api/com/excluir/" + dados.id, "Comentário excluído com sucesso!")
                 })
             } else {
                 exclusao.style.display = 'none'
+                btnDenuncia.style.backgroundColor = 'darkred'
+                btnDenuncia.addEventListener("click", function () {
+                    openCriacaoDenuncia("Sua denúncia será processada!" + dados.id, "Comentario")
+                })
+
             }
             imagem.addEventListener("click", function () {
                 window.location.pathname = "usuario/" + dados.autor.id;
@@ -277,6 +289,10 @@ async function iniciarPublicacao() {
 
     async function openCriacaoDecisao(durl, msg) {
         await anexarHTMLExterno("/nova_decisao", "/novaDecisaoModeradoraStyle.css", "/popupNovaDecisaoLogica.js", durl, msg);
+    }
+
+    async function openCriacaoDenuncia(msg, id, tipo) {
+        await anexarHTMLExterno("/popupNovaDenuncia", "/popupNovaDenunciaStyle.css", "/popupCriacaoDenunciaLogic.js", "", msg, id, tipo);
     }
 
     async function carregarSrc(id) {

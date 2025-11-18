@@ -6,6 +6,7 @@ import com.kings.okdhvi.model.Denuncia;
 import com.kings.okdhvi.model.PedidoDeTitulacao;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.services.DenunciaServices;
+import com.kings.okdhvi.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,10 +26,13 @@ public class DenunciaController {
     @Autowired
     UsuarioRequestsMapper urm;
 
-    @PostMapping(value = "/denuncia")
+    @Autowired
+    UsuarioService us;
+
+    @PutMapping(value = "/denunciar")
     @PreAuthorize("hasRole('ROLE_PADRAO')")
-    public Denuncia criarDenuncia(@RequestBody DenunciaCDTO dto) {
-        return ds.criarDenuncia(dto);
+    public Denuncia criarDenuncia(@RequestBody DenunciaCDTO dto, @AuthenticationPrincipal UserDetails ud) {
+        return ds.criarDenuncia(dto, us.buscarId(ud));
     }
 
     @PostMapping(value="/listar_requisicoes/{texto}/{pagina}")

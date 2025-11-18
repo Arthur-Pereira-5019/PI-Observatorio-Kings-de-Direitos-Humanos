@@ -57,7 +57,6 @@ html {
 }
 
 
-
 #botao_ocultar {
     margin-right: 1%;
     height: 10vh;
@@ -158,7 +157,23 @@ html {
     border-radius: 100%;
  }
 
+  .denunciarCom {
+    min-height: 5vh;
+    max-height: fit-content;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+    border-radius: 100%;
+ }
+
  .lixo {
+    width: 4vh;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+ }
+
+  .denunciar {
     width: 4vh;
     position: relative;
     left: 50%;

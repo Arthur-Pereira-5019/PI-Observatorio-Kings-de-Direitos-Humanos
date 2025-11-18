@@ -63,6 +63,10 @@ public class TestController {
     @RequestMapping("/sobre")
     public String returnSobre() {return "sobre";}
 
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping("/popupNovaDenuncia")
+    public String returnpopupNovaDenuncia() {return "popupNovaDenuncia";}
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping("/sobre/edit")
     public String returnSobreEdit() {return "sobreEdit";}
