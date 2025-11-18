@@ -144,3 +144,7 @@ body {
 #btnSair {
     display: none;
 }
+
+#bemvindo {
+    font-family: "Inter", sans-serif;
+}

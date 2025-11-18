@@ -17,7 +17,7 @@ async function iniciarPublicacao() {
     let buscando = false;
     let moderador = false;
 
-    if(localStorage.getItem("comentarioSalvo")) {
+    if (localStorage.getItem("comentarioSalvo")) {
         cComentario.value = localStorage.getItem("comentarioSalvo")
     }
 
@@ -141,13 +141,29 @@ async function iniciarPublicacao() {
             body: JSON.stringify(requestBody)
         })
             .then(res => {
+                console.log(res)
+                const cont = res.headers.get("content-type");
                 if (!res.ok) {
-                    alert("Você precisa se autenticar antes de comentar!")
-                    localStorage.setItem("comentarioSalvo", cComentario.value)
-                    document.querySelector(".perfil").click()
+                    if (res.status)
+                        if (cont && cont.includes("application/json")) {
+                            return res.json()
+                        } else {
+                            alert("Houve um erro ao comentar. Tente novamente mais tarde.")
+                        }
                 } else {
                     window.location.reload()
                     localStorage.setItem("comentarioSalvo", "")
+                }
+            }).then(data => {
+                if (data.mensagem) {
+                    if (data.mensagem.includes("Access Denied")) {
+                        alert("Você precisa se autenticar antes de comentar!")
+                        localStorage.setItem("comentarioSalvo", cComentario.value)
+                        document.querySelector(".perfil").click()
+                    } else {
+                        alert(data.mensagem)
+
+                    }
                 }
             })
 

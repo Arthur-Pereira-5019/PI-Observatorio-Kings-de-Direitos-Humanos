@@ -1,5 +1,6 @@
 package com.kings.okdhvi.controllers;
 
+import com.kings.okdhvi.exception.usuario.UnauthorizedActionException;
 import com.kings.okdhvi.mapper.ComentarioMapper;
 import com.kings.okdhvi.mapper.UsuarioMapper;
 import com.kings.okdhvi.model.Comentario;
@@ -10,6 +11,7 @@ import com.kings.okdhvi.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +34,9 @@ public class ComentarioController {
     @PostMapping("/")
     @PreAuthorize("isAuthenticated()")
     public Comentario comentar(@RequestBody ComentarioCDTO cc, @AuthenticationPrincipal UserDetails ud) {
+        if(ud.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_SUSPEN"))) {
+            throw new UnauthorizedActionException("Contas suspensas não podem comentar");
+        }
         return cs.criarComentario(cc,us.buscarId(ud));
     }
 
