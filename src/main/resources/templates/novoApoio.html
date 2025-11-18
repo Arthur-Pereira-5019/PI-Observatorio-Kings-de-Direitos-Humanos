@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet">
+
+        <style>
+
+        *{
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Inter", sans-serif;
+        }
+
+        .fundo-novo-apoio{
+            display: flex;
+            flex-direction: column;
+            gap: 1.5%;
+            height: 90vh;
+            width: 60vw;
+            border-radius: 2rem;
+            padding: 2%;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            background-color: #9F00D9;
+            overflow: hidden;
+        }
+
+        .nome-labels-apoio{
+            color: white;
+            width: 60%;
+            height: auto;
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        #label-nome-instituicao{
+            width: 60%;
+            height: 6vh;
+            border-radius: 25px;
+            border: none;
+            padding: 1%;
+            font-size: 1.3rem;
+            
+        }
+
+        #ta-sobre-instituicao{
+            width: 60%;
+            height: 20vh;
+            resize: none;
+            padding: 1%;
+        }
+
+        .rede-label-apoio{
+            display: flex;
+            width: 50%;
+            height: 4vh;
+            gap: 4%;
+        }
+
+        .icone-rede-popup-apoio{
+            width:2vw ;
+        }
+
+        .label-link-rede{
+            width: 16vw;
+            height: 100%;
+            border-radius: 18px;
+            border: none;
+            padding: 2%;
+            font-size: 0.9rem;
+        }
+
+        #campo-twitter{
+
+        }
+        #campo-insta{
+
+        }
+        
+        #campo-whats{
+
+        }
+
+        #campo-endereco{
+
+        }
+
+        #campo-site{
+
+        }
+
+        #campo-linkedin{
+
+        }
+
+        #botao-salvar-instituicao{
+            background-color: white;
+            margin: 0 auto;
+            margin-top: 2%;
+            width: 40%;
+            height: 8%;
+            color: black;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 60px;
+            font-size: 2.0rem;
+            border: none;
+            box-shadow: 0 8px 8px rgba(0,0,0,0.2);
+        }
+
+        #botao-salvar-instituicao:hover{
+            background-color: #F2F2F2;
+        }
+
+        .div-foto-instituicao{
+            position: absolute;
+            border-radius: 50%;
+            top: 8%;
+            right: 3%;
+            width: 35vh;
+            height: 35vh;
+            background-color: white;
+        }
+
+        #foto-perfil-instituicao{
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        #botao-editar-foto{
+            background-color: #F2F2F2;
+            position: absolute;
+            left: 1%;
+            top: 1%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 9.5vh;
+            width: 9.5vh;
+            z-index: 10;
+            border-radius: 50%;
+        }
+        #botao-editar-foto:hover{
+            background-color: #d8d7d7;
+        }
+
+        #lapis-edicao{
+            width: 60%;
+        }
+
+        #lixo-deletar{
+            height: 8vh;
+            width: 8vh;
+            position: absolute;
+            right: 1%;
+            bottom: 1%;
+            cursor: pointer;
+        }
+
+
+        </style>
+</head>
+<body>
+
+    <div class="fundo-novo-apoio">
+
+        <div class="nome-labels-apoio">Nome da instituição: *</div>
+        <input type="text" id="label-nome-instituicao">
+
+        <div style="margin-top: 1%;" class="nome-labels-apoio">Sobre a instituição: *</div>
+        <textarea name="sobre" id="ta-sobre-instituicao"></textarea>
+        
+        <div style="margin-top: 2%;" class="rede-label-apoio">
+            
+            <img src="./imagens/twitter.png" class="icone-rede-popup-apoio" alt="">
+            <input type="text" class="label-link-rede" id="campo-twitter">
+
+        </div>
+
+        <div  class="rede-label-apoio">
+            
+            <img src="./imagens/instaIcon.png" class="icone-rede-popup-apoio" alt="">
+            <input type="text" class="label-link-rede" id="campo-insta">
+
+        </div>
+
+        <div  class="rede-label-apoio">
+            
+            <img src="./imagens/whatsPreto.png" class="icone-rede-popup-apoio" alt="">
+            <input type="text" class="label-link-rede" id="campo-whats">
+
+        </div>
+
+        <div  class="rede-label-apoio">
+            
+            <img src="./imagens/pin.jpg" class="icone-rede-popup-apoio" alt="">
+            <input type="text" class="label-link-rede" id="campo-endereco">
+
+        </div>
+
+        <div  class="rede-label-apoio">
+            
+            <img src="./imagens/internet.png" class="icone-rede-popup-apoio" alt="">
+            <input type="text" class="label-link-rede" id="campo-site">
+
+        </div>
+
+        <div  class="rede-label-apoio">
+            
+            <img src="./imagens/linkedin.png" class="icone-rede-popup-apoio" alt="">
+            <input type="text" class="label-link-rede" id="campo-linkedin">
+
+        </div>
+
+        <button id="botao-salvar-instituicao">Salvar Instituição</button>
+
+        <div class="div-foto-instituicao">
+            <img src="./imagens/grupo.png" id="foto-perfil-instituicao" alt="">
+            <div id="botao-editar-foto"> <img src="./imagens/lapis-icon.png" id="lapis-edicao" alt=""></div>
+        </div>
+
+        <img src="./imagens/lixo.png" id="lixo-deletar" alt="deletar">
+
+    </div>
+    
+
+</body>
+</html>
