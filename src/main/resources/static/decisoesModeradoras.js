@@ -47,7 +47,7 @@ async function iniciarRegistro() {
         moverUrl(Number(btnLonge.textContent) - paginaAtual())
     })
 
-    document.querySelector("botao_requisicoes").addEventListener("click", function() {
+    document.querySelector("#botao_requisicoes").addEventListener("click", function() {
         window.location.pathname = "requisicoes"
     })
 

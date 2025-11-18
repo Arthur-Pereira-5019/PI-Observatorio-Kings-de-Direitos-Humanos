@@ -133,7 +133,7 @@ hr {
      width: 10vh;
      background-color: rgb(0, 184, 190);
      border-radius: 50%;
-     display: none;
+     display: flex;
      justify-content: center;
      align-items: center;
      cursor: pointer;
@@ -142,8 +142,4 @@ hr {
   #img_seta {
      width: 60%;
      height: 60%;
-     position: relative;
-     left: 50%;
-     top: 50%;
-     transform: translateX(-50%);
  }

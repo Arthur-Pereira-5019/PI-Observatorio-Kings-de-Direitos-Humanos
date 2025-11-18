@@ -11,8 +11,8 @@ async function iniciarTelaRequisicoes() {
     filtro = document.getElementById("filtro")
     tituloP = document.getElementById("titulo");
 
-    document.querySelector("botao_requisicoes").addEventListener("click", function () {
-        window.location.pathname = "requisicoes"
+    document.querySelector("#botao_requisicoes").addEventListener("click", function () {
+        window.location.pathname = "registro"
     })
 
     consertarUrl()
