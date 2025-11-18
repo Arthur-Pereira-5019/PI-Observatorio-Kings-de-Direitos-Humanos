@@ -1,16 +1,48 @@
+async function anexarHTMLExterno(url, cssFile, jsFile, durl, msg, idDenunciado, tipoDenunciado) {
+    const response = await fetch(url);
+    const data = await response.text()
+    const novoObjeto = document.createElement("div");
+    document.body.appendChild(novoObjeto)
+    novoObjeto.innerHTML = data;
+
+    if (cssFile) {
+        anexarCss(cssFile)
+    }
+
+    if (jsFile) {
+        let script = document.createElement("script");
+        script.src = jsFile;
+        script.onload = () => {
+            if (jsFile === "/popupNovaDecisaoLogica.js" && typeof iniciarPopupNovaDecisao === "function") {
+                iniciarPopupNovaDecisao(durl, msg);
+            }
+            if (jsFile === "/popupDecisaoModeradoraLogic.js" && typeof iniciarPopupDecisao === "function") {
+                iniciarPopupDecisao(durl);
+            }
+            if (jsFile === "/popupCriacaoDenunciaLogic.js" && typeof iniciarPopupNovaDenuncia === "function") {
+                iniciarPopupNovaDenuncia(msg, idDenunciado, tipoDenunciado);
+            }
+        };
+        document.body.appendChild(script);
+    }
+}
+
 async function iniciarVerForum() {
     const textoComentario = document.getElementById("text-area-comentario-forum")
     const comentarioLimite = document.getElementById("limite-caracteres-criacao-comentario-forum")
     const btnEnviar = document.getElementById("botao-enviar-comentario-forum")
     const body = document.querySelector("body");
     const footer = document.querySelector("#footer")
+    const botaoOcultar = document.querySelector("#btnOcultar")
+    const titulo = document.getElementById("titulo-forum-forum")
+    const decmod = document.getElementById("titulo-forum-forum")
 
     const url = window.location.href;
     const id = url.substring(url.lastIndexOf('/') + 1)
     let com = 0;
     let buscando = false;
     let moderador = false;
-    
+
     await fetch("http://localhost:8080/api/forum/" + id, {
         method: 'GET',
         headers: {
@@ -24,14 +56,32 @@ async function iniciarVerForum() {
         })
 
         .then(data => {
+            if (data.oculto) {
+                titulo.style.color = "purple";
+                decmod.style.display = "flex";
+                decmod.addEventListener("click", function () {
+                    anexarHTMLExterno("/decisao", "/popupDecisaoModeradoraStyle.css", "/popupDecisaoModeradoraLogic.js", "http://localhost:8080/api/decmod/Forum/" + id, null)
+                })
+                botaoOcultar.style.backgroundColor = "green"
+                botaoOcultar.querySelector("img").src = "/imagens/olhos_abertos.png"
+                botaoOcultar.addEventListener("click", async function () {
+                    let durl = "http://localhost:8080/api/forum/ocultar/" + id;
+                    await openCriacaoDecisao(durl, "Postagem desocultada com sucesso!");
+                })
+            } else {
+                botaoOcultar.addEventListener("click", async function () {
+                    let durl = "http://localhost:8080/api/forum/ocultar/" + id;
+                    await openCriacaoDecisao(durl, "Postagem oculta com sucesso!");
+                })
+            }
             const fotoPerfil = document.querySelector("#foto-user-discussao-forum")
-            document.getElementById("titulo-forum-forum").textContent = data.titulo
+            titulo.textContent = data.titulo
             document.title = data.titulo
             document.getElementById("data-comentario-forum").textContent = data.ultimaAtualizacao
             document.getElementById("nome-user-discussao-forum").textContent = data.autor.nome
             document.getElementById("textoForum").textContent = data.textoForum
             document.getElementById("data-comentario-forum").textContent = data.dataCriacao
-             if (data.autor.foto == null) {
+            if (data.autor.foto == null) {
                 fotoPerfil.src = "/imagens/perfilIcon.png";
             } else if (data.autor.foto.fotoPerfil == "" || data.autor.foto.tipoImagem == "") {
                 fotoPerfil.src = "/imagens/perfilIcon.png";
@@ -178,7 +228,7 @@ async function iniciarVerForum() {
             } else if (moderador) {
                 exclusao.style.backgroundColor = 'purple'
                 exclusao.addEventListener("click", function () {
-                    openCriacaoDecisao("http://localhost:8080/api/com/excluir/" + dados.id)
+                    openCriacaoDecisao("http://localhost:8080/api/com/excluir/" + dados.id, "Comentário excluído com sucesso!")
                 })
             } else {
                 exclusao.style.display = 'none'

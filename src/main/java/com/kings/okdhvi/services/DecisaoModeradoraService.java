@@ -40,8 +40,8 @@ public class DecisaoModeradoraService {
         if(dm == null) {
             throw new NullResourceException("Decisão Moderadora nula submetido");
         }
-        String nomeM = moderado.gerarNome();
-        String nomeR = moderador.gerarNome();
+        String nomeM = moderado == null ? "" : moderado.gerarNome();
+        String nomeR = moderador == null ? "" : moderador.gerarNome();
         DecisaoModeradora d = new DecisaoModeradora();
         d.setData(Date.from(Instant.now()));
         d.setMotivacao(dm.motivacao());

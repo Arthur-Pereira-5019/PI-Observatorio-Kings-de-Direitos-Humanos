@@ -27,7 +27,7 @@ public class DecisaoModeradoraController {
 
 
     @PreAuthorize("hasRole('MODER')")
-    @GetMapping("{tipo}"+"/{id}")
+    @GetMapping("{tipo}/{id}")
     public DecisaoModeradoraPADTO buscarDecisaoModeradoraPeloId(@PathVariable("id") Long id, @PathVariable("tipo") String c) {
         return dmm.paginaAtual(dms.encontrarDecisaoPeloId(id, c));
     }

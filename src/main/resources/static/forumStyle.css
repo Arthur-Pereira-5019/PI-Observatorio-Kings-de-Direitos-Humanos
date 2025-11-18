@@ -175,6 +175,29 @@
     border: solid 2px black;
 }
 
+#dec_mod_martelo {
+    width: 10vh;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    display: none;
+    border-radius: 100%;
+    cursor: pointer;
+    background-color: rgb(159, 0, 217);
+    position: fixed;
+    right: 5%;
+    bottom: 5%;
+    z-index: 100;
+}
+
+#martelo_icon {
+    width: 75%;
+    height: 75%;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
 #botao-enviar-comentario-forum:hover {
     background-color: #FF4D66;
 }
