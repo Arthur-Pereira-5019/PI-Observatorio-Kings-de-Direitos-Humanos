@@ -103,7 +103,7 @@ async function iniciarVerForum() {
             return res.json();
         })
         .then(data => {
-            if (data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMNISTRADOR") {
+            if (data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMINISTRADOR") {
                 botaoOcultar.style.display = "flex";
                 moderador = true;
             }

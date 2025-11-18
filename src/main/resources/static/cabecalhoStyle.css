@@ -110,6 +110,7 @@ body {
     display: none;
     height: 100vh;
     width: 20vw;
+    min-width: fit-content;
     padding: 2%;
     gap: 6.5%;
     flex-direction: column;
@@ -117,6 +118,7 @@ body {
     z-index: 1;
     position: absolute;
     background-color: white;
+    position: fixed;
 }
 
 .item-menu-lateral {

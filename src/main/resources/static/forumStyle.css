@@ -81,6 +81,11 @@
     text-align: center;
 }
 
+#nome-user-discussao-forum:hover {
+    text-decoration: underline;
+
+}
+
 .container-texto-discussao-forum {
     display: flex;
     flex-direction: column;
@@ -197,6 +202,13 @@
     top: 50%;
     transform: translate(-50%, -50%);
 }
+
+#btnOcultar {
+    width: 10vh;
+    height: 10vh;
+}
+
+
 
 #botao-enviar-comentario-forum:hover {
     background-color: #FF4D66;
