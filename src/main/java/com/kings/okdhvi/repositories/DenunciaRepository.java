@@ -11,6 +11,6 @@ import java.util.List;
 
 @Repository
 public interface DenunciaRepository extends JpaRepository<Denuncia, Long> {
-    List<Denuncia> findByRequisitorAndTipoDenunciadoOrderByDataDenuncia(Usuario requisitor, String tipoDenunciado);
+    List<Denuncia> findByIdDenunciadoAndTipoDenunciadoOrderByDataDenuncia(Long idDenunciado, String tipoDenunciado);
 
 }
