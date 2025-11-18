@@ -11,6 +11,19 @@ function salvarSelecao() {
     selecaoAntiga = sel.getRangeAt(0).cloneRange();
 }
 
+function restaurarSelecao() {
+    const editor = document.getElementById("textoPublicacao");
+    if (!selecaoAntiga) return;
+
+    editor.focus();
+
+    setTimeout(() => {
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(selecaoAntiga);
+    }, 0);
+}
+
 async function carregarHTMLRT(id, url, cssFile, jsFile) {
     const response = await fetch(url);
     const data = await response.text();
@@ -56,16 +69,16 @@ async function iniciarRichText() {
         container_nova_imagem.style.display = "flex";
     });
 
-    btnLink.addEventListener("click", function () {
+    btnLink.addEventListener("mousedown", function () {
         createLink();
     });
-    btnBold.addEventListener("click", function () {
+    btnBold.addEventListener("mousedown", function () {
         createBold();
     });
-    btnUnderlined.addEventListener("click", function () {
+    btnUnderlined.addEventListener("mousedown", function () {
         createUnderline();
     });
-    btnItalic.addEventListener("click", function () {
+    btnItalic.addEventListener("mousedown", function () {
         createItalic();
     });
     btnFont_increase.addEventListener("click", function () {
@@ -82,7 +95,7 @@ async function iniciarRichText() {
     textoPublicacao.addEventListener("input", salvarSelecao);
 
     textoPublicacao.addEventListener("keydown", function (e) {
-       salvarSelecao()
+        salvarSelecao()
 
         if (e.key === "Enter") {
             e.preventDefault();
@@ -139,15 +152,18 @@ async function iniciarRichText() {
     }
 
     function createItalic() {
-        document.execCommand("italic");
+        if (selecaoAntiga) restaurarSelecao();
+        setTimeout(() => document.execCommand("italic"), 1);
     }
 
     function createBold() {
-        document.execCommand("bold");
+        if (selecaoAntiga) restaurarSelecao();
+        setTimeout(() => document.execCommand("bold"), 1);
     }
 
     function createUnderline() {
-        document.execCommand("underline");
+        if (selecaoAntiga) restaurarSelecao();
+        setTimeout(() => document.execCommand("underline"), 1);
     }
 
     function backspace() { }
