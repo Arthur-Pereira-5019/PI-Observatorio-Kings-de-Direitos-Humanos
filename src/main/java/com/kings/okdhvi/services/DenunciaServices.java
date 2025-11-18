@@ -47,6 +47,7 @@ public class DenunciaServices {
         Denuncia d = new Denuncia();
         Usuario u = us.encontrarPorId(idUsuario, false);
         d.setTipoDenunciado(dto.getTipoDenunciado());
+        d.setIdDenunciado(dto.getIdDenunciado());
         if(d.getTipoDenunciado().equals("Comentario")) {
             Comentario c = cs.encontrarComentario(dto.getIdDenunciado());
             d.setAnexoDenuncia(c.getTextComentario());
@@ -59,7 +60,6 @@ public class DenunciaServices {
         d.setDataDenuncia(Date.from(Instant.now()));
         d.setMotivacao(dto.getMotivacao());
         d.setRequisitor(u);
-        d.setIdDenunciado(dto.getIdDenunciado());
         return dr.save(d);
     }
 

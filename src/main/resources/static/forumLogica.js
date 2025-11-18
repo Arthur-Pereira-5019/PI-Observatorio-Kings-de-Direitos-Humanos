@@ -43,6 +43,33 @@ async function iniciarVerForum() {
     let buscando = false;
     let moderador = false;
 
+    fetch("http://localhost:8080/api/user", {
+        headers: { 'Content-Type': 'application/json' },
+    })
+        .then(res => {
+            if (!res.ok) {
+                carregarComentarios()
+                throw new Error("Erro no servidor");
+
+            }
+            return res.json();
+        })
+        .then(data => {
+            if (data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMINISTRADOR") {
+                botaoOcultar.style.display = "flex";
+                moderador = true;
+            } else if (data.estadoDaConta == "PADRAO") {
+                botaoOcultar.style.backgroundColor = 'darkred'
+                botaoOcultar.querySelector("#zoio-log").src = "/imagens/megafone-icon.png"
+                botaoOcultar.addEventListener("click", function () {
+                    openCriacaoDenuncia("Sua denúncia será processada", id, "Forum")
+                })
+            } else {
+                botaoOcultar.remove()
+            }
+        })
+        .catch(err => console.error(err));
+
     await fetch("http://localhost:8080/api/forum/" + id, {
         method: 'GET',
         headers: {
@@ -62,13 +89,16 @@ async function iniciarVerForum() {
                 decmod.addEventListener("click", function () {
                     anexarHTMLExterno("/decisao", "/popupDecisaoModeradoraStyle.css", "/popupDecisaoModeradoraLogic.js", "http://localhost:8080/api/decmod/Forum/" + id, null)
                 })
-                botaoOcultar.style.backgroundColor = "green"
-                botaoOcultar.querySelector("img").src = "/imagens/olhos_abertos.png"
-                botaoOcultar.addEventListener("click", async function () {
-                    let durl = "http://localhost:8080/api/forum/ocultar/" + id;
-                    await openCriacaoDecisao(durl, "Postagem desocultada com sucesso!");
-                })
-            } else {
+                if (moderador) {
+                    botaoOcultar.style.backgroundColor = "green"
+                    botaoOcultar.querySelector("img").src = "/imagens/olhos_abertos.png"
+                    botaoOcultar.addEventListener("click", async function () {
+                        let durl = "http://localhost:8080/api/forum/ocultar/" + id;
+                        await openCriacaoDecisao(durl, "Postagem desocultada com sucesso!");
+                    })
+                }
+
+            } else if (moderador) {
                 botaoOcultar.addEventListener("click", async function () {
                     let durl = "http://localhost:8080/api/forum/ocultar/" + id;
                     await openCriacaoDecisao(durl, "Postagem oculta com sucesso!");
@@ -88,28 +118,11 @@ async function iniciarVerForum() {
             } else {
                 fotoPerfil.src = "data:image/" + data.autor.foto.tipoImagem + ";base64," + data.autor.foto.fotoPerfil;
             }
-
-        })
-
-    fetch("http://localhost:8080/api/user", {
-        headers: { 'Content-Type': 'application/json' },
-    })
-        .then(res => {
-            if (!res.ok) {
-                carregarComentarios()
-                throw new Error("Erro no servidor");
-
-            }
-            return res.json();
-        })
-        .then(data => {
-            if (data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMINISTRADOR") {
-                botaoOcultar.style.display = "flex";
-                moderador = true;
-            }
             carregarComentarios();
+
         })
-        .catch(err => console.error(err));
+
+
 
 
     textoComentario.addEventListener("keydown", function () {
@@ -136,14 +149,31 @@ async function iniciarVerForum() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
-        })
-            .then(res => {
-                if (!res.ok) throw new Error("Erro no servidor");
-                return res.json();
-            })
-            .then(data => {
+        }).then(res => {
+            const cont = res.headers.get("content-type");
+            if (!res.ok) {
+                if (res.status)
+                    if (cont && cont.includes("application/json")) {
+                        return res.json()
+                    } else {
+                        alert("Houve um erro ao comentar. Tente novamente mais tarde.")
+                    }
+            } else {
                 window.location.reload()
-            })
+                localStorage.setItem("comentarioSalvo", "")
+            }
+        }).then(data => {
+            if (data.mensagem) {
+                if (data.mensagem.includes("Access Denied")) {
+                    alert("Você precisa se autenticar antes de comentar!")
+                    localStorage.setItem("comentarioSalvo", cComentario.value)
+                    document.querySelector(".perfil").click()
+                } else {
+                    alert(data.mensagem)
+
+                }
+            }
+        })
     })
 
 
@@ -222,16 +252,22 @@ async function iniciarVerForum() {
             }
             if (dados.proprio) {
                 exclusao.style.backgroundColor = 'darkred'
+                exclusao.querySelector("#zoio-log").src = "/imagens/iconelixo.png"
                 exclusao.addEventListener("click", function () {
                     excluirProprioComentario("http://localhost:8080/api/com/excluir_proprio/" + dados.id, "Comentário excluído com sucesso!")
                 })
             } else if (moderador) {
                 exclusao.style.backgroundColor = 'purple'
+                exclusao.querySelector("#zoio-log").src = "/imagens/iconelixo.png"
                 exclusao.addEventListener("click", function () {
                     openCriacaoDecisao("http://localhost:8080/api/com/excluir/" + dados.id, "Comentário excluído com sucesso!")
                 })
             } else {
-                exclusao.style.display = 'none'
+                exclusao.style.backgroundColor = 'darkred'
+                exclusao.querySelector("#zoio-log").src = "/imagens/megafone-icon.png"
+                exclusao.addEventListener("click", function () {
+                    openCriacaoDenuncia("Sua denúncia será processada", dados.id, "Comentario")
+                })
             }
             imagem.addEventListener("click", function () {
                 window.location.href = "http://localhost:8080/usuario/" + dados.autor.id;
@@ -256,6 +292,10 @@ async function iniciarVerForum() {
 
     async function openCriacaoDecisao(durl, msg) {
         await anexarHTMLExterno("/nova_decisao", "/novaDecisaoModeradoraStyle.css", "/popupNovaDecisaoLogica.js", durl, msg);
+    }
+
+    async function openCriacaoDenuncia(msg, id, tipo) {
+        await anexarHTMLExterno("/popupNovaDenuncia", "/popupNovaDenunciaStyle.css", "/popupCriacaoDenunciaLogic.js", "", msg, id, tipo);
     }
 
 }

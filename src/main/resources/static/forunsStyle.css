@@ -1,7 +1,6 @@
     * {
         margin: 0;
         box-sizing: border-box;
-        font-family: "Inter", sans-serif;
     }
 
 
@@ -21,6 +20,8 @@
         color: #C00003;
         font-size: 60px;
         font-weight: 800;
+        font-family: "Inter", sans-serif;
+
     }
 
     .container-all-foruns {
@@ -73,6 +74,8 @@
         color: #e92c2c;
         font-size: 2rem;
         cursor: pointer;
+        font-family: "Inter", sans-serif;
+
 
     }
 
@@ -82,6 +85,8 @@
 
     .textoBranco {
         color: white;
+        font-family: "Inter", sans-serif;
+
     }
 
     .container-data-autor-tela-foruns {
@@ -103,6 +108,8 @@
     #dataForum {
         color: #C8C8C8;
         font-weight: 200;
+        font-family: "Inter", sans-serif;
+
     }
 
     .container-respostas-atualizacao-tela-foruns {
@@ -116,6 +123,8 @@
 
     .dados-forum-tela-foruns {
         color: white;
+        font-family: "Inter", sans-serif;
+
     }
 
     .container-numeros-respostas-atualizacao-tela-foruns {
@@ -127,8 +136,6 @@
         width: auto;
         gap: 0.5rem;
     }
-
-    /* botao */
 
     .container-posicao-botao-tela-foruns {
         display: flex;
@@ -173,6 +180,8 @@
         text-align: center;
         justify-content: center;
         font-size: 2rem;
+        font-family: "Inter", sans-serif;
+
         background-color: #D9D9D9;
         cursor: pointer;
         aspect-ratio: 1/1;
