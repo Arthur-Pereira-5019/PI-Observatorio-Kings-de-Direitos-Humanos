@@ -52,8 +52,9 @@ public class DenunciaServices {
             d.setIdDonoPagina(c.getIdDono());
             d.setTipoDonoPagina(c.getTipo());
             d.setNomeModerado(getNome(c.getTipo().toString(),c.getIdDono()));
+        } else {
+            d.setNomeModerado(getNome(d.getTipoDenunciado(), d.getIdDenunciado()));
         }
-        d.setNomeModerado(dto.ge);
         d.setDataDenuncia(Date.from(Instant.now()));
         d.setMotivacao(dto.getMotivacao());
         d.setRequisitor(u);

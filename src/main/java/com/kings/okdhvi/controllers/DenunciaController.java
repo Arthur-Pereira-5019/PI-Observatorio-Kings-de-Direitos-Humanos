@@ -32,7 +32,7 @@ public class DenunciaController {
     }
 
     @PostMapping(value="/listar_requisicoes/{texto}/{pagina}")
-    public BuscaPaginadaResultado<Denuncia> listarPostagens(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @PathVariable("pagina") Integer pagina, @AuthenticationPrincipal UserDetails ud) {
+    public BuscaPaginadaResultado<RequestUsuarioDTO> listarPostagens(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @PathVariable("pagina") Integer pagina, @AuthenticationPrincipal UserDetails ud) {
         List<Denuncia> pedidos;
         List<RequestUsuarioDTO> resultadosDTO = new ArrayList<>();
         BuscaPaginada bp = new BuscaPaginada(pagina, 20, bpt.parametro(), bpt.ascending());

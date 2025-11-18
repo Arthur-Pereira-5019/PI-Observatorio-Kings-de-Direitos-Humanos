@@ -32,7 +32,7 @@ public class UsuarioRequestsMapper {
     public RequestUsuarioDTO apresentar(Denuncia d) {
         RequestUsuarioDTO r = new RequestUsuarioDTO();
         r.setData(d.getDataDenuncia());
-        r.setInfo(d.get);
+        r.setInfo(d.getNomeModerado());
         r.setIdExtra(d.getIdDenunciado());
         r.setData(d.getDataDenuncia());
         r.setIdRequisitor(getIdUsuario(d.getRequisitor()));
@@ -41,6 +41,7 @@ public class UsuarioRequestsMapper {
         if(d.getDataDenuncia() != null) {
             r.setTexto(r.getTexto() + "\nComentário Denunciado: "+d.getAnexoDenuncia());
         }
+        return r;
     }
 
     public Long getIdUsuario(Usuario u) {
