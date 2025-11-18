@@ -37,7 +37,7 @@ public class UsuarioRequestsMapper {
         r.setBaseExtra(d.getTipoDenunciado());
         r.setIdRequisitor(getIdUsuario(d.getRequisitor()));
         r.setNomeRequisitor("[" + r.getIdRequisitor() + "]" + getNomeUsuario(d.getRequisitor()));
-        r.setTexto("Motivação: " + r.getTexto());
+        r.setTexto("Motivação: " + d.getMotivacao());
         if(d.getTipoDenunciado().equals("Usuario")) {
             r.setBaseExtra("usuario/");
         } else if (d.getTipoDenunciado().equals("Postagem")) {
@@ -47,6 +47,7 @@ public class UsuarioRequestsMapper {
         } else if(d.getTipoDenunciado().equals("Comentario")) {
             r.setTexto(r.getTexto() + "\nComentário Denunciado: "+d.getAnexoDenuncia());
             r.setBaseExtra(d.getTipoDonoPagina() == 'P' ? "publicacao/" : "forum/");
+            r.setIdExtra(d.getIdDonoPagina());
         }
         return r;
     }

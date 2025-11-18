@@ -22,9 +22,9 @@ async function iniciarPopupNovaDenuncia(msg, idDenunciado, tipoDenunciado) {
     async function denunciar() {
         sumir();
         const requestBody = {
-            "motivacao": motivacao.value,
-            "tipoDenunciado": tipoDenunciado,
-            "idDenunciado": idDenunciado
+            motivacao: motivacao.value,
+            tipoDenunciado: tipoDenunciado,
+            idDenunciado: idDenunciado
         }
 
         fetch("http://localhost:8080/api/denuncia/denunciar", {

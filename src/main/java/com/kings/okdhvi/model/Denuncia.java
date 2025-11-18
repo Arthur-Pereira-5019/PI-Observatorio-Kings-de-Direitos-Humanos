@@ -1,6 +1,8 @@
 package com.kings.okdhvi.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Date;
 
@@ -11,7 +13,8 @@ public class Denuncia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Usuario requisitor;
 
     @Column

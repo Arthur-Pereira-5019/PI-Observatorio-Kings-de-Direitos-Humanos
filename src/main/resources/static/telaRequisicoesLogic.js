@@ -158,10 +158,13 @@ async function iniciarTelaRequisicoes() {
 
 
         function mostrarRequisicao(requisicao, dados) {
+            console.log(dados)
             requisicao.querySelector(".requisitor").textContent = dados.nomeRequisitor
-            requisicao.querySelector(".texto").textContent = dados.texto
             requisicao.querySelector(".data").textContent = dados.data
-            requisicao.querySelector(".info").innerHTML = dados.info
+            let texto = dados.texto.replace("\n","<br>")
+            requisicao.querySelector(".info").textContent = dados.info
+            requisicao.querySelector(".texto").innerHTML = texto
+
             if (dados.id != 0) {
                 requisicao.querySelector(".requisitor").addEventListener("click", function () {
                     window.location.pathname = "usuario/" + dados.idRequisitor
@@ -170,6 +173,7 @@ async function iniciarTelaRequisicoes() {
             if (dados.idExtra) {
                 requisicao.querySelector(".info").addEventListener("click", function () {
                     window.location.pathname = dados.baseExtra + dados.idExtra;
+                    
                 })
                 requisicao.querySelector(".info").classList.add("clicavel")
             }

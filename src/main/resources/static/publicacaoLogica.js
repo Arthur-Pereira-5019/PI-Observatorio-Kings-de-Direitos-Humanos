@@ -262,7 +262,7 @@ async function iniciarPublicacao() {
                 exclusao.style.display = 'none'
                 btnDenuncia.style.backgroundColor = 'darkred'
                 btnDenuncia.addEventListener("click", function () {
-                    openCriacaoDenuncia("Sua denúncia será processada!" + dados.id, "Comentario")
+                    openCriacaoDenuncia("Sua denúncia será processada!", dados.id, "Comentario")
                 })
 
             }
