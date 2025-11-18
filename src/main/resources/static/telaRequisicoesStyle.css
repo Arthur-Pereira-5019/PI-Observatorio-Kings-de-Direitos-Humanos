@@ -121,3 +121,8 @@ hr {
     cursor: pointer;
     aspect-ratio: 1/1;
 }
+
+.clicavel:hover {
+    color: aqua;
+    cursor: pointer;
+}

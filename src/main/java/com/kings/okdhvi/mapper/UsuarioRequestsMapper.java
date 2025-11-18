@@ -34,12 +34,19 @@ public class UsuarioRequestsMapper {
         r.setData(d.getDataDenuncia());
         r.setInfo(d.getNomeModerado());
         r.setIdExtra(d.getIdDenunciado());
-        r.setData(d.getDataDenuncia());
+        r.setBaseExtra(d.getTipoDenunciado());
         r.setIdRequisitor(getIdUsuario(d.getRequisitor()));
         r.setNomeRequisitor("[" + r.getIdRequisitor() + "]" + getNomeUsuario(d.getRequisitor()));
         r.setTexto("Motivação: " + r.getTexto());
-        if(d.getDataDenuncia() != null) {
+        if(d.getTipoDenunciado().equals("Usuario")) {
+            r.setBaseExtra("usuario/");
+        } else if (d.getTipoDenunciado().equals("Postagem")) {
+            r.setBaseExtra("publicacao/");
+        } else if (d.getTipoDenunciado().equals("Forum")) {
+            r.setBaseExtra("forum/");
+        } else if(d.getTipoDenunciado().equals("Comentario")) {
             r.setTexto(r.getTexto() + "\nComentário Denunciado: "+d.getAnexoDenuncia());
+            r.setBaseExtra(d.getTipoDonoPagina() == 'P' ? "publicacao/" : "forum/");
         }
         return r;
     }

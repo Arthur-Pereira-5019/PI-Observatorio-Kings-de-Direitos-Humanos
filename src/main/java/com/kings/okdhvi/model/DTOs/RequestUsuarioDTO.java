@@ -12,6 +12,7 @@ public class RequestUsuarioDTO {
     private String texto;
     private String info;
     private Long idExtra;
+    private String baseExtra;
 
     public String getNomeRequisitor() {
         return nomeRequisitor;
@@ -59,5 +60,13 @@ public class RequestUsuarioDTO {
 
     public void setIdExtra(Long idExtra) {
         this.idExtra = idExtra;
+    }
+
+    public String getBaseExtra() {
+        return baseExtra;
+    }
+
+    public void setBaseExtra(String baseExtra) {
+        this.baseExtra = baseExtra;
     }
 }

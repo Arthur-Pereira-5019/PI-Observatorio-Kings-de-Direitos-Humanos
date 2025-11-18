@@ -90,6 +90,8 @@ async function iniciarTelaRequisicoes() {
         urlB = "http://localhost:8080/api/reqcar/listar_requisicoes/"
         if (tBusca == "exclusao") {
             urlB = "http://localhost:8080/api/exccon/listar_requisicoes/"
+        } else if (tBusca == "denuncia") {
+            urlB = "http://localhost:8080/api/denuncia/listar_requisicoes/"
         }
 
         fetch(urlB + buscaf, {
@@ -156,6 +158,12 @@ async function iniciarTelaRequisicoes() {
                 requisicao.querySelector(".requisitor").addEventListener("click", function () {
                     window.location.pathname = "usuario/" + dados.idRequisitor
                 })
+            }
+            if(dados.idExtra) {
+                requisicao.querySelector(".info").addEventListener("click", function() {
+                    window.location.pathname = dados.baseExtra + dados.idExtra;
+                })
+                requisicao.querySelector(".info").classList.add("clicavel")
             }
         }
     }
