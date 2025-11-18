@@ -21,7 +21,7 @@ async function iniciarPublicacoes() {
             return res.json();
         })
         .then(data => {
-            if (data.estadoDaConta == "ESPECIALISTA") {
+            if (data.estadoDaConta == "ESPECIALISTA" || data.estadoDaConta == "ADMINISTRADOR") {
                 campoModerador.style.display = "flex"
                 botaoNovaPostagem.style.display = "flex";
                 botaoNovaPostagem.addEventListener("click", function () {

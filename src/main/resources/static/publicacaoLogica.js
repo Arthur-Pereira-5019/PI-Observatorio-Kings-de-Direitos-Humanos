@@ -141,7 +141,6 @@ async function iniciarPublicacao() {
             body: JSON.stringify(requestBody)
         })
             .then(res => {
-                console.log(res)
                 const cont = res.headers.get("content-type");
                 if (!res.ok) {
                     if (res.status)

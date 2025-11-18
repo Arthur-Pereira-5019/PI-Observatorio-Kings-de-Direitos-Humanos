@@ -112,7 +112,7 @@ public class PedidoDeTitulacaoServices {
         List<Predicate> retorno = new ArrayList<>();
 
         for(int i = 0; i < t.length; i++) {
-            retorno.add(cb.like(cb.lower(p.get(campo2)), "%" + t[i] + "%"));
+            retorno.add(cb.like(cb.lower(join.get(campo2)), "%" + t[i] + "%"));
         }
 
         return cb.or(retorno.toArray(new Predicate[0]));

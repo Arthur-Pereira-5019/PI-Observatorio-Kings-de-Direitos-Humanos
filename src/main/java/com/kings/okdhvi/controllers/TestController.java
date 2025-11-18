@@ -27,6 +27,7 @@ public class TestController {
         return "popupNovaImagem";
     }
 
+    @PreAuthorize("hasRole('ROLE_ESPEC')")
     @RequestMapping("/nova_publicacao")
     public String returnNovaPublicacao() {
         return "criacaoPublicacao";
