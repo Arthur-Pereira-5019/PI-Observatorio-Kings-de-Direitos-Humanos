@@ -4,9 +4,11 @@ import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.model.Apoio;
 import com.kings.okdhvi.repositories.ApoioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ApoioService {
     @Autowired
     ApoioRepository apr;
@@ -28,7 +30,7 @@ public class ApoioService {
     }
 
     public Apoio atualizarApoio(Apoio ap) {
-        Apoio velhoAp = encontrarApoio(ap.getId());
+        Apoio velhoAp = encontrarApoio(ap.getIdApoio());
         velhoAp.setNomeInstituicao(ap.getNomeInstituicao());
         velhoAp.setSobreInstituicao(ap.getSobreInstituicao());
         velhoAp.setTwitter(ap.getTwitter());
