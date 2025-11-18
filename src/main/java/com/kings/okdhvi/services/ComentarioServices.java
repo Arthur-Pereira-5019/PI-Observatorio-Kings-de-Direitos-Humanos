@@ -72,18 +72,6 @@ if(ccdto.textoComentario().length() < 8) {
     }
 
 
-    public Comentario ocultarComentario(Long id) {
-        Comentario c = encontrarComentario(id);
-        c.setOculto(true);
-        return c;
-    }
-
-    public Comentario restaurarComentario(Long id) {
-        Comentario c = encontrarComentario(id);
-        c.setOculto(false);
-        return c;
-    }
-
     public void deletarComentario(Long id, Usuario u, DecisaoModeradoraOPDTO dmdto) {
         Comentario c = encontrarComentario(id);
         if(dmdto != null) {

@@ -1,6 +1,7 @@
 package com.kings.okdhvi.mapper;
 
 import com.kings.okdhvi.model.DTOs.RequestUsuarioDTO;
+import com.kings.okdhvi.model.Denuncia;
 import com.kings.okdhvi.model.PedidoDeTitulacao;
 import com.kings.okdhvi.model.PedidoExclusaoConta;
 import com.kings.okdhvi.model.Usuario;
@@ -26,6 +27,13 @@ public class UsuarioRequestsMapper {
         r.setIdRequisitor(getIdUsuario(pec.getUsuarioPedido()));
         r.setNomeRequisitor("[" + r.getIdRequisitor() + "]" + getNomeUsuario(pec.getUsuarioPedido()));
         return r;
+    }
+
+    public RequestUsuarioDTO apresentar(Denuncia d) {
+        RequestUsuarioDTO r = new RequestUsuarioDTO();
+        r.setData(d.getDataDenuncia());
+        r.setInfo(d.);
+        r.setTexto(r.getTexto());
     }
 
     public Long getIdUsuario(Usuario u) {

@@ -1,6 +1,7 @@
 package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.ResourceNotFoundException;
+import com.kings.okdhvi.model.Comentario;
 import com.kings.okdhvi.model.DTOs.BuscaPaginada;
 import com.kings.okdhvi.model.DTOs.BuscaPaginadaResultado;
 import com.kings.okdhvi.model.DTOs.DenunciaCDTO;
@@ -30,12 +31,21 @@ public class DenunciaServices {
     @Autowired
     DenunciaRepository dr;
 
+    @Autowired
+    ComentarioServices cs;
+
     @PersistenceContext
     private EntityManager em;
 
     public Denuncia criarDenuncia(DenunciaCDTO dto) {
         Denuncia d = new Denuncia();
         Usuario u = us.encontrarPorId(dto.getIdUsuarioRequisitor(), false);
+        if(d.getTipoDenunciado().equals("Comentario")) {
+            Comentario c = cs.encontrarComentario(dto.getIdDenunciado());
+            d.setAnexoDenuncia(c.getTextComentario());
+            d.setIdDonoPagina(c.getIdDono());
+            d.setTipoDonoPagina(c.getTipo());
+        }
         d.setDataDenuncia(Date.from(Instant.now()));
         d.setMotivacao(dto.getMotivacao());
         d.setRequisitor(u);

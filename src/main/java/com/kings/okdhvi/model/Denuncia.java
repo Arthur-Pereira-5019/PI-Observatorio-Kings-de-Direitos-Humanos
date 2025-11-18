@@ -20,11 +20,20 @@ public class Denuncia {
     @Column
     private String tipoDenunciado;
 
-    @Column
+    @Column(length = 512)
     private String motivacao;
+
+    @Column(length = 512)
+    private String anexoDenuncia;
 
     @Column
     private Date dataDenuncia;
+
+    @Column
+    private Long idDonoPagina;
+
+    @Column
+    private Character tipoDonoPagina;
 
     public Long getId() {
         return id;
@@ -72,5 +81,29 @@ public class Denuncia {
 
     public void setDataDenuncia(Date date) {
         this.dataDenuncia = date;
+    }
+
+    public String getAnexoDenuncia() {
+        return anexoDenuncia;
+    }
+
+    public void setAnexoDenuncia(String anexoDenuncia) {
+        this.anexoDenuncia = anexoDenuncia;
+    }
+
+    public Long getIdDonoPagina() {
+        return idDonoPagina;
+    }
+
+    public void setIdDonoPagina(Long idDonoPagina) {
+        this.idDonoPagina = idDonoPagina;
+    }
+
+    public Character getTipoDonoPagina() {
+        return tipoDonoPagina;
+    }
+
+    public void setTipoDonoPagina(Character tipoDonoPagina) {
+        this.tipoDonoPagina = tipoDonoPagina;
     }
 }
