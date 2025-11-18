@@ -7,9 +7,14 @@ async function iniciarCriacaoPublicacao() {
 
 
     const botaoPublicar = document.getElementById("botaoPublicar")
+    const botaoCancelar = document.getElementById("botaoCancelar")
 
     botaoPublicar.addEventListener("click", function () {
         publicarDocumento();
+    })
+
+    botaoCancelar.addEventListener("click", function() {
+        window.location.pathname = 'publicacoes'
     })
 
 
