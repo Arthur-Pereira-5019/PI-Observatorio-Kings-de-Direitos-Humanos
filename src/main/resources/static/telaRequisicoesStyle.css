@@ -126,3 +126,24 @@ hr {
     color: aqua;
     cursor: pointer;
 }
+
+  #botao_requisicoes {
+     margin-right: 1%;
+     height: 10vh;
+     width: 10vh;
+     background-color: rgb(0, 184, 190);
+     border-radius: 50%;
+     display: none;
+     justify-content: center;
+     align-items: center;
+     cursor: pointer;
+ }
+
+  #img_seta {
+     width: 60%;
+     height: 60%;
+     position: relative;
+     left: 50%;
+     top: 50%;
+     transform: translateX(-50%);
+ }

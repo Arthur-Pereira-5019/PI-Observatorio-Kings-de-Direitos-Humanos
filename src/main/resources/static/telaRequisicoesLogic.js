@@ -11,12 +11,16 @@ async function iniciarTelaRequisicoes() {
     filtro = document.getElementById("filtro")
     tituloP = document.getElementById("titulo");
 
+    document.querySelector("botao_requisicoes").addEventListener("click", function () {
+        window.location.pathname = "requisicoes"
+    })
+
     consertarUrl()
     corrigirNome()
     if (!localStorage.getItem('busca')) {
         localStorage.setItem('busca', 'cargos');
     } else {
-        if(localStorage.getItem('busca') == 'denuncia') {
+        if (localStorage.getItem('busca') == 'denuncia') {
             filtro.selectedIndex = 2
         } else if (localStorage.getItem('busca') == 'exclusao') {
             filtro.selectedIndex = 1
@@ -119,7 +123,7 @@ async function iniciarTelaRequisicoes() {
                     }
                     btnDireito.remove()
                     btnLonge.remove()
-                        btnCampo.remove()
+                    btnCampo.remove()
 
                 } else {
                     primeiroPost.style.display = "flex"
@@ -159,8 +163,8 @@ async function iniciarTelaRequisicoes() {
                     window.location.pathname = "usuario/" + dados.idRequisitor
                 })
             }
-            if(dados.idExtra) {
-                requisicao.querySelector(".info").addEventListener("click", function() {
+            if (dados.idExtra) {
+                requisicao.querySelector(".info").addEventListener("click", function () {
                     window.location.pathname = dados.baseExtra + dados.idExtra;
                 })
                 requisicao.querySelector(".info").classList.add("clicavel")
