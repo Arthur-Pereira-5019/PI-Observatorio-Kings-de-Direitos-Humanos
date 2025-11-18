@@ -5,6 +5,7 @@ import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.usuario.UnauthorizedActionException;
 import com.kings.okdhvi.model.Comentario;
 import com.kings.okdhvi.model.DTOs.DecisaoModeradoraOPDTO;
+import com.kings.okdhvi.model.Forum;
 import com.kings.okdhvi.model.Postagem;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.model.DTOs.BuscaPaginada;
@@ -41,6 +42,9 @@ public class ComentarioServices {
     PostagemServices ps;
 
     @Autowired
+    ForumServices fs;
+
+    @Autowired
     DecisaoModeradoraService dms;
 
     @PersistenceContext
@@ -66,7 +70,13 @@ if(ccdto.textoComentario().length() < 8) {
             p.getComentarios().add(c);
             ps.atualizarPostagem(p, id);
         }else {
-            Postagem p = ps.encontrarPostagemPeloId(ccdto.idComentavel());
+            Forum f = fs.encontrarForumPeloId(ccdto.idComentavel());
+            if(f.isOculto()) {
+                throw new UnauthorizedActionException("A postagem está oculta, não há como comentar.");
+            }
+            f.setDataDeAtualizacao(Date.from(Instant.now()));
+            f.getComentarios().add(c);
+            fs.atualizarForum(f);
         }
         return c;
     }

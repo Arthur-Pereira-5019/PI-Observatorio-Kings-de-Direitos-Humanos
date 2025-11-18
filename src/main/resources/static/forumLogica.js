@@ -7,7 +7,7 @@ let btnCampo;
 const btnCriarForum = document.getElementById("botao-addForum-tela-foruns")
 
 btnCriarForum.addEventListener("click", function () {
-    window.location.pathname = "novo_forum";
+    window.location.href = "http://localhost:8080/novo_forum";
 })
 
 consertarUrl()
@@ -131,7 +131,7 @@ async function gerarForuns() {
         forum.querySelector(".respostasForum").textContent = dados.respostas
         forum.querySelector(".ultimaAtualizacao").textContent = dados.ultimaAtualizacao
         forum.addEventListener("click", function () {
-            window.location.pathname = "forum/" + dados.idForum
+            window.location.href = "http://localhost:8080/forum/" + dados.idForum
         })
     }
 
@@ -185,7 +185,7 @@ function consertarUrl() {
     const partes = url.split('/');
     let ultima = "/" + partes.pop();
     if (ultima === '/foruns') {
-        window.location.pathname = "foruns/ /0"
+        window.location.href = "http://localhost:8080/foruns/ /0"
     }
 }
 
@@ -195,75 +195,3 @@ function paginaAtual() {
     let busca = partes.pop();
     return Number(busca) + 1;
 }
-
-async function chamarComentarios() {
-    const rect = footer.getBoundingClientRect();
-
-    if (rect.top >= 0 && rect.top <= (window.innerHeight || document.documentElement.clientHeight)) {
-        if (!buscando) {
-            await carregarComentarios()
-        }
-    }
-}
-
-body.addEventListener('scroll', chamarComentarios);
-
-async function carregarComentarios() {
-    buscando = true;
-
-    const requestBody = {
-        parametro: "dataComentario",
-        ascending: false
-    };
-
-    fetch("http://localhost:8080/api/com/listar_comentarios/" + id + "/F/" + com, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody)
-    })
-        .then(res => {
-            if (!res.ok) throw new Error("Erro no servidor");
-            return res.json();
-        })
-        .then(data => {
-
-            const primeiroComentario = document.querySelector('#containerPrimeiroComentario');
-            const containerGeral = document.querySelector(".container-resto-tela-forum");
-
-            if (data.resultado.length === 0) {
-                primeiroComentario.remove()
-                body.removeEventListener('scroll', chamarComentarios);
-            } else {
-                if (data.proximosIndexes == 0) {
-                    body.removeEventListener('scroll', chamarComentarios);
-                }
-                data.resultado.forEach((post, index) => {
-                    if (index == 0) {
-                        construirComentario(primeiroComentario, post)
-                    } else {
-                        const novoComentario = primeiroComentario.cloneNode(true);
-                        containerGeral.appendChild(novoComentario)
-                        construirComentario(novoComentario, post)
-                    }
-                });
-            }
-            com++;
-            buscando = false;
-        })
-        .catch(err => console.error(err));
-
-
-    function construirComentario(comentario, dados) {
-        console.log("oie")
-        forum.querySelector(".autorForum").textContent = dados.autor.nome
-        forum.querySelector(".dataForum").textContent = dados.dataCriacao
-        forum.querySelector(".respostasForum").textContent = dados.respostas
-        forum.querySelector(".ultimaAtualizacao").textContent = dados.ultimaAtualizacao
-        comentario.querySelector(".autor").addEventListener("click", function () {
-            window.location.pathname = "usuario/" + dados.autor.id;
-        })
-
-
-    }
-}
-
