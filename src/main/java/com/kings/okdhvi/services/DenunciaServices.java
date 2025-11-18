@@ -34,6 +34,12 @@ public class DenunciaServices {
     @Autowired
     ComentarioServices cs;
 
+    @Autowired
+    ForumServices fs;
+
+    @Autowired
+    PostagemServices ps;
+
     @PersistenceContext
     private EntityManager em;
 
@@ -45,12 +51,25 @@ public class DenunciaServices {
             d.setAnexoDenuncia(c.getTextComentario());
             d.setIdDonoPagina(c.getIdDono());
             d.setTipoDonoPagina(c.getTipo());
+            d.setNomeModerado(getNome(c.getTipo().toString(),c.getIdDono()));
         }
+        d.setNomeModerado(dto.ge);
         d.setDataDenuncia(Date.from(Instant.now()));
         d.setMotivacao(dto.getMotivacao());
         d.setRequisitor(u);
         d.setTipoDenunciado(dto.getTipoDenunciado());
         return dr.save(d);
+    }
+
+    public String getNome(String tipo, Long id) {
+        if(tipo.equals("P") || tipo.equals("Postagem")) {
+            return ps.encontrarPostagemPeloId(id).getTituloPostagem();
+        } else if (tipo.equals("F") || tipo.equals("Forum")) {
+            return fs.encontrarForumPeloId(id).getTituloForum();
+        } else if(tipo.equals("Usuario")) {
+            return us.encontrarPorId(id, false).getNome();
+        }
+        return "";
     }
 
     public Denuncia encontrarPorId(Long id) {

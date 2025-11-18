@@ -32,8 +32,15 @@ public class UsuarioRequestsMapper {
     public RequestUsuarioDTO apresentar(Denuncia d) {
         RequestUsuarioDTO r = new RequestUsuarioDTO();
         r.setData(d.getDataDenuncia());
-        r.setInfo(d.);
-        r.setTexto(r.getTexto());
+        r.setInfo(d.get);
+        r.setIdExtra(d.getIdDenunciado());
+        r.setData(d.getDataDenuncia());
+        r.setIdRequisitor(getIdUsuario(d.getRequisitor()));
+        r.setNomeRequisitor("[" + r.getIdRequisitor() + "]" + getNomeUsuario(d.getRequisitor()));
+        r.setTexto("Motivação: " + r.getTexto());
+        if(d.getDataDenuncia() != null) {
+            r.setTexto(r.getTexto() + "\nComentário Denunciado: "+d.getAnexoDenuncia());
+        }
     }
 
     public Long getIdUsuario(Usuario u) {

@@ -35,6 +35,9 @@ public class Denuncia {
     @Column
     private Character tipoDonoPagina;
 
+    @Column
+    private String nomeModerado;
+
     public Long getId() {
         return id;
     }
@@ -105,5 +108,13 @@ public class Denuncia {
 
     public void setTipoDonoPagina(Character tipoDonoPagina) {
         this.tipoDonoPagina = tipoDonoPagina;
+    }
+
+    public String getNomeModerado() {
+        return nomeModerado;
+    }
+
+    public void setNomeModerado(String nomeModerado) {
+        this.nomeModerado = nomeModerado;
     }
 }

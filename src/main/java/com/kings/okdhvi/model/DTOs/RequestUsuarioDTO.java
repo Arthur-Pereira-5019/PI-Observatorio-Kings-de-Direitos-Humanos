@@ -11,6 +11,7 @@ public class RequestUsuarioDTO {
     private Date data;
     private String texto;
     private String info;
+    private Long idExtra;
 
     public String getNomeRequisitor() {
         return nomeRequisitor;
@@ -50,5 +51,13 @@ public class RequestUsuarioDTO {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public Long getIdExtra() {
+        return idExtra;
+    }
+
+    public void setIdExtra(Long idExtra) {
+        this.idExtra = idExtra;
     }
 }
