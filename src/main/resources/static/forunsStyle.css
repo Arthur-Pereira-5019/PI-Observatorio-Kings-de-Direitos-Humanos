@@ -40,12 +40,12 @@
         background-color: #313131;
         display: flex;
         padding: 0.5%;
-        cursor: pointer;
     }
 
     .container-foto-forum-tela-foruns {
         height: 100%;
         width: auto;
+        cursor: pointer;
     }
 
     #foto-user-forum-tela-foruns {
@@ -72,6 +72,12 @@
         text-overflow: ellipsis;
         color: #e92c2c;
         font-size: 2rem;
+        cursor: pointer;
+
+    }
+
+    .tituloForum:hover {
+        text-decoration: underline;
     }
 
     .textoBranco {
@@ -85,8 +91,13 @@
         gap: 0.5rem;
     }
 
-    #autorForum {
+    .autorForum {
         color: white;
+    }
+
+    .autorForum:hover {
+        text-decoration: underline;
+        cursor: pointer;
     }
 
     #dataForum {

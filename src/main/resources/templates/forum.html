@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/forumStyle.css">
 
-    <style>
-        
-    </style>
 
 </head>
+
 <body>
     <div id="header"></div>
 
@@ -42,14 +44,14 @@
 
                 <div class="container-texto-discussao-forum">
                     <p id="textoForum"></p>
-                    <p id="limite-caracteres-comentario-forum"></p>
                     <p id="data-comentario-forum"></p>
                 </div>
 
             </div>
 
             <div class="fundo-criacao-comentario-forum">
-                <textarea name="comentario" placeholder="Participe da discussão!" id="text-area-comentario-forum"></textarea>
+                <textarea name="comentario" placeholder="Participe da discussão!"
+                    id="text-area-comentario-forum"></textarea>
 
                 <div class="container-botaoElimite-comentario-forum">
                     <p id="limite-caracteres-criacao-comentario-forum"></p>
@@ -64,13 +66,13 @@
                 </div>
 
                 <div class="container-infos-usuario-discussao-forum infoComentarios">
-                    <img src="https://randomuser.me/api/portraits/lego/6.jpg" id="foto-user-discussao-forum" class="foto-user-discussao-forum" alt>
+                    <img src="" id="foto-user-discussao-forum"
+                        class="foto-user-discussao-forum" alt>
                     <p id="nome-user-discussao-forum" class="nomeComentario"></p>
                 </div>
 
                 <div class="container-texto-discussao-forum infoTexto">
                     <p class="textoComentarioForum"></p>
-                    <p id="limite-caracteres-comentario-forum"></p>
                     <p id="data-comentario-forum"></p>
                 </div>
 
@@ -80,10 +82,20 @@
 
     </div>
 
+    <div id="posPopUp">
+        <div id="registro"></div>
+
+    </div>
+
+    <div id="posPopUpLogin">
+        <div id="login"></div>
+    </div>
+
     <div id="footer"></div>
 
     <script src="/includeHtmlExterno.js"></script>
-    <script src="/verForumLogica.js"></script>
+    <script src="/forumLogica.js"></script>
 
 </body>
+
 </html>

@@ -7,7 +7,7 @@ let btnCampo;
 const btnCriarForum = document.getElementById("botao-addForum-tela-foruns")
 
 btnCriarForum.addEventListener("click", function () {
-    window.location.href = "http://localhost:8080/novo_forum";
+    window.location.pathname = "novo_forum";
 })
 
 consertarUrl()
@@ -73,9 +73,6 @@ async function gerarForuns() {
         }
 
     }
-
-    console.log(buscaf)
-
     fetch("http://localhost:8080/api/forum/listar_publicacoes" + buscaf, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -89,8 +86,6 @@ async function gerarForuns() {
         .then(data => {
             const primeiroPost = document.querySelector('.forum-tela-foruns');
             const containerGeral = document.getElementById("container-all-foruns");
-            console.log(data);
-
             if (data.resultado.length === 0) {
                 console.log("receba")
                 primeiroPost.remove()
@@ -124,17 +119,26 @@ async function gerarForuns() {
 
     function construirForum(forum, dados) {
         forum.querySelector(".tituloForum").textContent = dados.titulo
+        forum.querySelector(".tituloForum").addEventListener("click", function () {
+            window.location.pathname = "/forum/" + dados.idForum
+
+        })
         forum.querySelector(".autorForum").textContent = dados.autor.nome
+        forum.querySelector(".autorForum").addEventListener("click", function () {
+            window.location.pathname = "usuario/" + dados.autor.id
+        })
         forum.querySelector(".dataForum").textContent = dados.dataCriacao
         forum.querySelector(".nRespostas").textContent = "Respostas: " + dados.respostas
+        forum.querySelector(".nRespostas").textContent = "Respostas: " + dados.respostas
         forum.querySelector(".ultAtt").textContent = "Última Atualização: " + dados.ultimaAtualizacao
-        forum.addEventListener("click", function () {
-            window.location.href = "http://localhost:8080/forum/" + dados.idForum
+        let imagem = forum.querySelector("#foto-user-forum-tela-foruns")
+        imagem.addEventListener("click", function () {
+            window.location.pathname = "usuario/" + dados.autor.id
         })
         if (dados.autor.foto == null) {
-            imagem.src = "/imagens/perfilIconDark.png";
+            imagem.src = "/imagens/perfilIcon.png";
         } else if (dados.autor.foto.imagem == "") {
-            imagem.src = "/imagens/perfilIconDark.png";
+            imagem.src = "/imagens/perfilIcon.png";
         } else {
             imagem.src = "data:image/" + dados.autor.foto.tipoImagem + ";base64," + dados.autor.foto.imagem;
         }
@@ -160,7 +164,7 @@ function consertarUrl() {
     const partes = url.split('/');
     let ultima = "/" + partes.pop();
     if (ultima === '/foruns') {
-        window.location.href = "http://localhost:8080/foruns/ /0"
+        window.location.pathname = "foruns/ /0"
     }
 }
 

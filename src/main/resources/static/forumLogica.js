@@ -1,197 +1,213 @@
-let btnDireito;
-let btnEsquerdo;
-let btnLonge;
-let btnPrimeiro;
-let btnCampo;
+async function iniciarVerForum() {
+    const textoComentario = document.getElementById("text-area-comentario-forum")
+    const comentarioLimite = document.getElementById("limite-caracteres-criacao-comentario-forum")
+    const btnEnviar = document.getElementById("botao-enviar-comentario-forum")
+    const body = document.querySelector("body");
+    const footer = document.querySelector("#footer")
 
-const btnCriarForum = document.getElementById("botao-addForum-tela-foruns")
-
-btnCriarForum.addEventListener("click", function () {
-    window.location.href = "http://localhost:8080/novo_forum";
-})
-
-consertarUrl()
-
-
-
-btnDireito = document.getElementById("botaodireito");
-btnDireito.addEventListener("click", function () {
-    moverUrl(1)
-})
-btnEsquerdo = document.getElementById("botaoesquerdo");
-
-
-btnEsquerdo.addEventListener("click", function () {
-    moverUrl(-1)
-})
-const url = window.location.href;
-const partes = url.split('/');
-if (partes.pop() == 0) {
-    btnEsquerdo.remove()
-}
-
-
-btnAtual = document.getElementById("botaoatual");
-btnAtual.textContent = paginaAtual()
-
-btnPrimeiro = document.getElementById("botaoprimeiro");
-btnPrimeiro.addEventListener("click", function () {
-    moverUrl(-1 * (paginaAtual() - 1))
-})
-
-btnCampo = document.getElementById("botaocampo");
-btnCampo.addEventListener("keydown", async function (event) {
-    if (event.key === "Enter") {
-        moverUrl(btnCampo.value - paginaAtual())
-    }
-})
-
-btnLonge = document.getElementById("botaolonge");
-btnLonge.textContent = paginaAtual() + 5;
-btnLonge.addEventListener("click", async function () {
-    moverUrl(Number(btnLonge.textContent) - paginaAtual())
-})
-
-const requestBody = {
-    parametro: "dataDaPostagem",
-    ascending: false
-};
-
-async function gerarForuns() {
     const url = window.location.href;
-    const partes = url.split('/');
-    let busca2 = "/" + partes.pop();
-    let buscaf
-
-    //Significa que já não tem nada || Isso aqui ainda vai ser útil?
-    if (busca2 === '/foruns') {
-        buscaf = "/"
-    } else {
-        let busca = "/" + partes.pop();
-        if (busca === '/foruns') {
-            buscaf = "/" + busca2
-        } else {
-            buscaf = busca + busca2
+    const id = url.substring(url.lastIndexOf('/') + 1)
+    let com = 0;
+    let buscando = false;
+    let moderador = false;
+    
+    await fetch("http://localhost:8080/api/forum/" + id, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
         }
-
-    }
-
-    console.log(buscaf)
-
-    fetch("http://localhost:8080/api/forum/listar_publicacoes" + buscaf, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody)
     })
 
         .then(res => {
             if (!res.ok) throw new Error("Erro no servidor");
             return res.json();
         })
+
         .then(data => {
-            const primeiroPost = document.querySelector('.forum-tela-foruns');
-            const containerGeral = document.getElementById("container-all-foruns");
-            console.log(data);
-
-            if (data.resultado.length === 0) {
-                console.log("receba")
-                primeiroPost.remove()
-                alert("Nenhum resultado encontrado!")
-                btnLonge.textContent = paginaAtual();
-                let path = window.location.pathname
-                if (path != "/foruns/%20/0") {
-                    alert("Nenhum resultado encontrado!")
-                    window.location.pathname = "/foruns/ /0"
-                }
-
-                btnDireito.remove()
+            const fotoPerfil = document.querySelector("#foto-user-discussao-forum")
+            document.getElementById("titulo-forum-forum").textContent = data.titulo
+            document.title = data.titulo
+            document.getElementById("data-comentario-forum").textContent = data.ultimaAtualizacao
+            document.getElementById("nome-user-discussao-forum").textContent = data.autor.nome
+            document.getElementById("textoForum").textContent = data.textoForum
+            document.getElementById("data-comentario-forum").textContent = data.dataCriacao
+             if (data.autor.foto == null) {
+                fotoPerfil.src = "/imagens/perfilIcon.png";
+            } else if (data.autor.foto.fotoPerfil == "" || data.autor.foto.tipoImagem == "") {
+                fotoPerfil.src = "/imagens/perfilIcon.png";
             } else {
-                btnLonge.textContent = paginaAtual() + data.proximosIndexes % 10;
-                if (Number(paginaAtual()) == Number(btnLonge.textContent)) {
-                    btnDireito.remove()
-                }
-                data.resultado.forEach((post, index) => {
-                    if (index == 0) {
-                        construirForum(primeiroPost, post)
-                    } else {
-                        const novoPost = primeiroPost.cloneNode(true);
-                        containerGeral.appendChild(novoPost)
-                        construirForum(novoPost, post)
-                    }
-                });
+                fotoPerfil.src = "data:image/" + data.autor.foto.tipoImagem + ";base64," + data.autor.foto.fotoPerfil;
             }
 
         })
-        .catch(err => console.error(err));
 
-    function construirForum(forum, dados) {
-        forum.querySelector(".tituloForum").textContent = dados.titulo
-        forum.querySelector(".autorForum").textContent = dados.autor.nome
-        forum.querySelector(".dataForum").textContent = dados.dataCriacao
-        forum.querySelector(".respostasForum").textContent = dados.respostas
-        forum.querySelector(".ultimaAtualizacao").textContent = dados.ultimaAtualizacao
-        forum.addEventListener("click", function () {
-            window.location.href = "http://localhost:8080/forum/" + dados.idForum
-        })
-    }
-
-}
-
-gerarForuns()
-
-const botaoComentar = document.getElementById("botao-enviar-comentario-forum")
-const textoComentario = document.getElementById("text-area-comentario-forum")
-
-botaoComentar.addEventListener("click", function () {
-    console.log("laele")
-    if (textoComentario.value.length > 512) {
-        alert("O seu comentário está grande de mais!")
-        return;
-    }
-    
-    const requestBody = {
-        textoComentario: textoComentario.value,
-        tipo: 'F',
-        idComentavel: id,
-    };
-
-    fetch("http://localhost:8080/api/com/", {
-        method: 'POST',
+    fetch("http://localhost:8080/api/user", {
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody)
     })
         .then(res => {
-            if (!res.ok) throw new Error("Erro no servidor");
+            if (!res.ok) {
+                carregarComentarios()
+                throw new Error("Erro no servidor");
+
+            }
             return res.json();
         })
         .then(data => {
-            window.location.reload()
+            if (data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMNISTRADOR") {
+                botaoOcultar.style.display = "flex";
+                moderador = true;
+            }
+            carregarComentarios();
         })
-})
+        .catch(err => console.error(err));
 
-async function moverUrl(d) {
-    const url = window.location.href;
-    const partes = url.split('/');
-    let busca = partes.pop();
-    busca = Number(busca) + d;
-    if (busca >= 0) {
-        partes.push(busca)
-        window.location.href = partes.join("/");
+
+    textoComentario.addEventListener("keydown", function () {
+        setTimeout(function () {
+            comentarioLimite.textContent = textoComentario.value.length + "/512";
+        }, 1)
+
+    })
+
+
+    btnEnviar.addEventListener("click", function () {
+        if (textoComentario.value.length > 512) {
+            alert("O seu comentário está grande de mais!")
+            return;
+        }
+
+        const requestBody = {
+            textoComentario: textoComentario.value,
+            tipo: 'F',
+            idComentavel: id,
+        };
+
+        fetch("http://localhost:8080/api/com/", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody)
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Erro no servidor");
+                return res.json();
+            })
+            .then(data => {
+                window.location.reload()
+            })
+    })
+
+
+    async function chamarComentarios() {
+        const rect = footer.getBoundingClientRect();
+
+        if (rect.top >= 0 && rect.top <= (window.innerHeight || document.documentElement.clientHeight)) {
+            if (!buscando) {
+                await carregarComentarios()
+            }
+        }
     }
-}
 
-function consertarUrl() {
-    const url = window.location.href;
-    const partes = url.split('/');
-    let ultima = "/" + partes.pop();
-    if (ultima === '/foruns') {
-        window.location.href = "http://localhost:8080/foruns/ /0"
+    body.addEventListener('scroll', chamarComentarios);
+
+
+    async function carregarComentarios() {
+        buscando = true;
+
+        const requestBody = {
+            parametro: "dataComentario",
+            ascending: false
+        };
+
+        fetch("http://localhost:8080/api/com/listar_comentarios/" + id + "/F/" + com, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody)
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Erro no servidor");
+                return res.json();
+            })
+            .then(data => {
+                const primeiroComentario = document.querySelector('.containerPrimeiroComentario');
+                const containerGeral = document.getElementById("container-universal-tela-forum");
+
+                if (data.resultado.length === 0) {
+                    primeiroComentario.remove()
+                    body.removeEventListener('scroll', chamarComentarios);
+                } else {
+                    if (data.proximosIndexes == 0) {
+                        body.removeEventListener('scroll', chamarComentarios);
+                    }
+                    data.resultado.forEach((post, index) => {
+                        if (index == 0) {
+                            construirComentario(primeiroComentario, post)
+                        } else {
+                            const novoComentario = primeiroComentario.cloneNode(true);
+                            containerGeral.appendChild(novoComentario)
+                            construirComentario(novoComentario, post)
+                        }
+                    });
+                }
+                com++;
+                buscando = false;
+            })
+            .catch(err => console.error(err));
+
+
+        function construirComentario(comentario, dados) {
+            imagem = comentario.querySelector(".foto-user-discussao-forum")
+            exclusao = comentario.querySelector(".botao-ocultar-comentario-forum")
+            comentario.querySelector(".textoComentarioForum").textContent = dados.texto
+            comentario.querySelector(".nomeComentario").textContent = dados.autor.nome
+            comentario.querySelector("#data-comentario-forum").textContent = dados.date
+            comentario.querySelector(".nomeComentario").addEventListener("click", function () {
+                window.location.pathname = "usuario/" + dados.autor.id;
+            })
+            if (dados.autor.foto == null) {
+                imagem.src = "/imagens/perfilIcon.png";
+            } else if (dados.autor.foto.imagem == "" || dados.autor.foto.tipoImagem == "") {
+                imagem.src = "/imagens/perfilIcon.png";
+            } else {
+                imagem.src = "data:image/" + dados.autor.foto.tipoImagem + ";base64," + dados.autor.foto.imagem;
+            }
+            if (dados.proprio) {
+                exclusao.style.backgroundColor = 'darkred'
+                exclusao.addEventListener("click", function () {
+                    excluirProprioComentario("http://localhost:8080/api/com/excluir_proprio/" + dados.id, "Comentário excluído com sucesso!")
+                })
+            } else if (moderador) {
+                exclusao.style.backgroundColor = 'purple'
+                exclusao.addEventListener("click", function () {
+                    openCriacaoDecisao("http://localhost:8080/api/com/excluir/" + dados.id)
+                })
+            } else {
+                exclusao.style.display = 'none'
+            }
+            imagem.addEventListener("click", function () {
+                window.location.href = "http://localhost:8080/usuario/" + dados.autor.id;
+            })
+        }
     }
+
+
+    async function excluirProprioComentario(url) {
+        fetch(url, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Erro no servidor");
+                alert("Comentário excluído com sucesso!")
+                window.location.reload();
+            })
+            .catch(err => console.error(err));
+    }
+
+
+    async function openCriacaoDecisao(durl, msg) {
+        await anexarHTMLExterno("/nova_decisao", "/novaDecisaoModeradoraStyle.css", "/popupNovaDecisaoLogica.js", durl, msg);
+    }
+
 }
 
-function paginaAtual() {
-    const url = window.location.href;
-    const partes = url.split('/');
-    let busca = partes.pop();
-    return Number(busca) + 1;
-}
+document.addEventListener("DOMContentLoaded", iniciarVerForum);
