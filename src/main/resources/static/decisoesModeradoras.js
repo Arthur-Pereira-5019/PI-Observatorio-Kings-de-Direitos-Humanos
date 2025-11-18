@@ -50,6 +50,9 @@ async function iniciarRegistro() {
     document.querySelector("#botao_requisicoes").addEventListener("click", function() {
         window.location.pathname = "requisicoes"
     })
+    document.querySelector("#img_seta").addEventListener("click", function () {
+        window.location.pathname = "requisicoes"
+    })
 
     const requestBody = {
         parametro: "dataDaPostagem",

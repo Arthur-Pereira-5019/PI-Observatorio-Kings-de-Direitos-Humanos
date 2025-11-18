@@ -15,6 +15,10 @@ async function iniciarTelaRequisicoes() {
         window.location.pathname = "registro"
     })
 
+    document.querySelector("#img_seta").addEventListener("click", function () {
+        window.location.pathname = "registro"
+    })
+
     consertarUrl()
     corrigirNome()
     if (!localStorage.getItem('busca')) {
