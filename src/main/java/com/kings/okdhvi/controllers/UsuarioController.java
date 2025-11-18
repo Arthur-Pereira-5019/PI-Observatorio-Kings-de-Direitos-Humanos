@@ -41,7 +41,7 @@ public class UsuarioController {
         if(ud != null) {
             idBusca = us.buscarId(ud);
         }
-        return us.encontrarPorId(idBusca, false);
+        return us.encontrarPorId(idBusca, true);
     }
 
     @GetMapping(value = "apresentar", produces = MediaType.APPLICATION_JSON_VALUE)

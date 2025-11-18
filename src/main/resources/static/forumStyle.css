@@ -1,7 +1,6 @@
 * {
     margin: 0;
     box-sizing: border-box;
-    font-family: "Inter", sans-serif;
 }
 
 .container-universal-tela-forum {
@@ -22,6 +21,8 @@
     font-weight: 800;
     font-size: 3.3rem;
     text-align: center;
+    font-family: "Inter", sans-serif;
+
 }
 
 #data-forum-forum {
@@ -30,6 +31,8 @@
     width: 100%;
     font-weight: 200;
     font-size: 1.3rem;
+    font-family: "Inter", sans-serif;
+
 }
 
 .container-resto-tela-forum {
@@ -42,7 +45,7 @@
 
 .container-geral-discussao-forum {
     display: flex;
-       width: 92%;
+    width: 92%;
     min-height: 28vh;
     border: solid 2px #313131;
     border-radius: 24px;
@@ -79,6 +82,8 @@
     font-size: 1.2rem;
     font-weight: 600;
     text-align: center;
+    font-family: "Inter", sans-serif;
+
 }
 
 #nome-user-discussao-forum:hover {
@@ -98,6 +103,8 @@
     border-bottom-right-radius: 20px;
     border-top-right-radius: 20px;
     position: relative;
+    font-family: "Inter", sans-serif;
+
     padding-bottom: 2.2rem;
 }
 
@@ -114,6 +121,8 @@
     color: white;
     font-weight: 200;
     font-size: 0.9rem;
+    font-family: "Inter", sans-serif;
+
 }
 
 #limite-caracteres-comentario-forum {
@@ -123,10 +132,12 @@
     color: white;
     font-weight: 200;
     font-size: 0.9rem;
+    font-family: "Inter", sans-serif;
+
 }
 
 .fundo-criacao-comentario-forum {
-        width: 92%;
+    width: 92%;
     min-height: 28vh;
     display: flex;
     flex-direction: column;
@@ -151,6 +162,8 @@
     padding-top: 1%;
     padding-left: 1%;
     font-size: 1.45rem;
+    font-family: "Inter", sans-serif;
+
     resize: none;
 }
 
@@ -166,6 +179,8 @@
     color: white;
     font-weight: 200;
     font-size: 1.5rem;
+    font-family: "Inter", sans-serif;
+
 }
 
 #botao-enviar-comentario-forum {
@@ -178,6 +193,8 @@
     font-weight: 800;
     border-radius: 100px;
     border: solid 2px black;
+    font-family: "Inter", sans-serif;
+
 }
 
 #dec_mod_martelo {
