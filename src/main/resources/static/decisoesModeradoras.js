@@ -9,6 +9,11 @@ async function iniciarRegistro() {
     consertarUrl()
     inputBusca = document.getElementById("campoPesquisa")
 
+        btnPrimeiro = document.getElementById("botaoprimeiro");
+    btnPrimeiro.addEventListener("click", function () {
+        moverUrl(-1 * (paginaAtual() - 1))
+    })
+
     btnDireito = document.getElementById("botaodireito");
     btnDireito.addEventListener("click", function () {
             moverUrl(1)
@@ -23,16 +28,14 @@ async function iniciarRegistro() {
     const partes = url.split('/');
     if (partes.pop() == 0) {
         btnEsquerdo.remove()
+        btnPrimeiro.remove()
     }
 
 
     btnAtual = document.getElementById("botaoatual");
     btnAtual.textContent = paginaAtual()
 
-    btnPrimeiro = document.getElementById("botaoprimeiro");
-    btnPrimeiro.addEventListener("click", function () {
-        moverUrl(-1 * (paginaAtual() - 1))
-    })
+
 
     btnCampo = document.getElementById("botaocampo");
     btnCampo.addEventListener("keydown", async function (event) {
@@ -100,10 +103,13 @@ async function iniciarRegistro() {
 
                     }
                     btnDireito.remove()
+                    btnLonge.remove()
                 } else {
                     btnLonge.textContent = paginaAtual() + Math.ceil(data.proximosIndexes / 25);
                     if (Number(paginaAtual()) == Number(btnLonge.textContent)) {
                         btnDireito.remove()
+                        btnLonge.remove()
+
                     }
                     data.resultado.forEach((post, index) => {
                         if (index == 0) {
@@ -117,6 +123,9 @@ async function iniciarRegistro() {
                         }
                     });
                 }
+                if (!document.body.contains(btnEsquerdo) && !document.body.contains(btnDireito)) {
+                        btnCampo.remove()
+                    }
 
             })
             .catch(err => console.error(err));

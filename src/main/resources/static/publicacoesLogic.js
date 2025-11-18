@@ -117,6 +117,7 @@ async function iniciarPublicacoes() {
                         window.location.pathname = "/publicacoes/ /0"
                     }
                     btnDireito.remove()
+                    btnLonge.remove()
                 } else {
                     btnLonge.textContent = paginaAtual() + Math.ceil(data.proximosIndexes / 10);
                     if (Number(paginaAtual()) == Number(btnLonge.textContent)) {

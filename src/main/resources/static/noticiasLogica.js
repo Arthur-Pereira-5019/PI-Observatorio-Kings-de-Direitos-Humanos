@@ -101,6 +101,7 @@ async function iniciarNoticias() {
                         window.location.pathname = "/noticias/ /0"
                     }
                     btnDireito.remove()
+                    btnLonge.remove()
                 } else {
                     btnLonge.textContent = paginaAtual() + Math.ceil(data.proximosIndexes / 16);
                     if (Number(paginaAtual()) == Number(btnLonge.textContent)) {
@@ -122,8 +123,8 @@ async function iniciarNoticias() {
                     });
                 }
                 if (!document.body.contains(btnEsquerdo) && !document.body.contains(btnDireito)) {
-        btnCampo.remove()
-    }
+                    btnCampo.remove()
+                }
             })
             .catch(err => console.error(err));
 
@@ -143,7 +144,7 @@ async function iniciarNoticias() {
             })
         }
     }
-    
+
 
     gerarNoticias();
 
