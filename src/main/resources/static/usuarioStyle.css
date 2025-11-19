@@ -158,6 +158,17 @@
     cursor: pointer;
 }
 
+.denunciarUsuario {
+    height: 8vh;
+    width: 8vh;
+    background-color: #8f0000;
+    border-radius: 50%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
 #capaUsuarioInput {
     position: absolute;
     width: 100%;

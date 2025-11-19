@@ -1,6 +1,6 @@
 let id;
 
-async function anexarHTMLExternoPerfil(url, cssFile, jsFile, durl, msg) {
+async function anexarHTMLExternoPerfil(url, cssFile, jsFile, durl, msg, idDenunciado, tipoDenunciado) {
     const response = await fetch(url);
     const data = await response.text()
     const novoObjeto = document.createElement("div");
@@ -26,6 +26,9 @@ async function anexarHTMLExternoPerfil(url, cssFile, jsFile, durl, msg) {
             }
             if (jsFile === "/popupLogComentarios.js" && typeof iniciarPopupLogComentarios === "function") {
                 iniciarPopupLogComentarios();
+            }
+            if (jsFile === "/popupCriacaoDenunciaLogic.js" && typeof iniciarPopupNovaDenuncia === "function") {
+                iniciarPopupNovaDenuncia(msg, idDenunciado, tipoDenunciado);
             }
 
         };
@@ -73,6 +76,7 @@ async function iniciarPerfil() {
         const btnConfigUser = document.getElementById("btnConfigUser")
         const btnAddCargo = document.getElementById("btnAddCargo")
         const btnLogModerador = document.getElementById("btnLogModerador")
+        const btnDenunciar = document.getElementById("btnDenunciar")
         const entrada = document.getElementById("capaUsuarioInput");
 
         if (data.proprio == 0) {
@@ -82,11 +86,18 @@ async function iniciarPerfil() {
             btnAtvUser.remove()
             btnLogModerador.remove()
             entrada.remove()
+            btnDenunciar.style.display = "flex"
+            btnDenunciar.addEventListener("click", function () {
+                anexarHTMLExternoPerfil("/popupNovaDenuncia", "/popupNovaDenunciaStyle.css", "/popupCriacaoDenunciaLogic.js", "", "Sua denúncia será processada", id, "Usuario");
+            })
         } else if (data.proprio == 1) {
             btnConfigUser.style.display = "flex"
             btnRequisitar.style.display = "flex"
         } else if (data.proprio == 2) {
             btnAddCargo.style.display = "flex"
+            btnAddCargo.addEventListener("click", function () {
+                anexarHTMLExternoPerfil("/aplicar_cargo", "/aplicarPopupStyle.css", "/aplicarPopupLogic.js", "http://localhost:8080/api/user/aplicar_cargo/" + id)
+            })
             btnAtvUser.style.display = "flex"
             btnAtvUser.addEventListener("click", async function () {
                 await anexarHTMLExternoPerfil("/log_com", "/log_comentarios.css", "/popupLogComentarios.js")
@@ -101,13 +112,13 @@ async function iniciarPerfil() {
             })
         }
 
-        
-    if (data.fotoDePerfil != null) {
-        let fotoB64 = data.fotoDePerfil.imagem
-        if (fotoB64 != "") {
-            document.querySelector(".icon-user").src = "data:image/" + data.fotoDePerfil.tipoImagem + ";base64," + fotoB64;
+
+        if (data.fotoDePerfil != null) {
+            let fotoB64 = data.fotoDePerfil.imagem
+            if (fotoB64 != "") {
+                document.querySelector(".icon-user").src = "data:image/" + data.fotoDePerfil.tipoImagem + ";base64," + fotoB64;
+            }
         }
-    }
     } catch (error) {
         console.error('Erro:', error);
         entrada.addEventListener("input", input_capa);
@@ -149,9 +160,7 @@ async function iniciarPerfil() {
     }
 
 
-    btnAddCargo.addEventListener("click", function () {
-        anexarHTMLExternoPerfil("/aplicar_cargo", "/aplicarPopupStyle.css", "/aplicarPopupLogic.js", "http://localhost:8080/api/user/aplicar_cargo/" + id)
-    })
+
 
     async function gerarPublicacoes() {
         fetch("http://localhost:8080/api/postagem/usuario/" + id, {
