@@ -54,23 +54,23 @@ async function iniciarTelaInicial() {
                 return res.json();
             })
             .then(data => {
-                if (data[0]) {
-                    textoEsquerda.textContent = data[0].titulo
-                    linkNoticiaEsquerda = "http://localhost:8080/publicacao/" + data[0].idPostagem;
-                    ImagemEsquerda.src = "data:image/" + data[0].capa.tipoImagem + ";base64," + data[0].capa.imagem;
+                if (data.resultado[0]) {
+                    textoEsquerda.textContent = data.resultado[0].titulo
+                    linkNoticiaEsquerda = "http://localhost:8080/publicacao/" + data.resultado[0].idPostagem;
+                    ImagemEsquerda.src = "data:image/" + data.resultado[0].capa.tipoImagem + ";base64," + data.resultado[0].capa.imagem;
 
                 } else {
                     noticiaEsquerda.style.display = "none"
                 }
-                if (data[1]) {
-                    textoDireita.textContent = data[1].titulo
-                    linkNoticiaDireita = "http://localhost:8080/publicacao/" + data[1].idPostagem;
-                    ImagemDireita.src = "data:image/" + data[1].capa.tipoImagem + ";base64," + data[1].capa.imagem;
+                if (data.resultado[1]) {
+                    textoDireita.textContent = data.resultado[1].titulo
+                    linkNoticiaDireita = "http://localhost:8080/publicacao/" + data.resultado[1].idPostagem;
+                    ImagemDireita.src = "data:image/" + data.resultado[1].capa.tipoImagem + ";base64," + data.resultado[1].capa.imagem;
                 } else {
                     noticiaDireita.style.display = "none"
                     seta_direita.style.display = "none"
                 }
-                if(!data[2]) {
+                if(data.proximosIndexes == 0 || page == 3) {
                     seta_direita.style.display = "none"
                 }
 

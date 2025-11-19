@@ -170,7 +170,7 @@ async function iniciarPopupRegistro() {
                 gtef = gtef.replaceAll("(", "")
                 gtef = gtef.replaceAll(")", "")
                 gtef = gtef.replaceAll("-", "")
-                if (gtef.length != 11) {
+                if (gtef.length != 11 && gtef.length != 0) {
                     alert("Digite um número de telefone válido")
                     inputTelefoneRegistro.focus()
                     return;

@@ -81,10 +81,16 @@ public class PostagemController {
     }
 
     @GetMapping(value = "busca_paginada/{page}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<? extends PostagemESDTO> buscaPaginada(@PathVariable("page") int page, @AuthenticationPrincipal UserDetails ud) {
+    public BuscaPaginadaResultado<PostagemESDTO> buscaPaginada(@PathVariable("page") int page, @AuthenticationPrincipal UserDetails ud) {
 
-        ArrayList<PostagemESDTO> retorno = new ArrayList<>();
-        ps.buscaFiltrada(new BuscaPaginada(page, 3, "dataDaPostagem", false),null, ud).getResultado().forEach(p -> {retorno.add(pm.parsePostagemToESDTO(p));});
+        BuscaPaginadaResultado<PostagemESDTO> retorno = new BuscaPaginadaResultado<>();
+        ArrayList<PostagemESDTO> retornoList = new ArrayList<>();
+
+        BuscaPaginadaResultado<Postagem> busca = ps.buscaFiltrada(new BuscaPaginada(page, 2, "dataDaPostagem", false),null, ud);
+        busca.getResultado().forEach(p -> {retornoList.add(pm.parsePostagemToESDTO(p));});
+
+        retorno.setResultado(retornoList);
+        retorno.setProximosIndexes(busca.getProximosIndexes());
         return retorno;
     }
 
