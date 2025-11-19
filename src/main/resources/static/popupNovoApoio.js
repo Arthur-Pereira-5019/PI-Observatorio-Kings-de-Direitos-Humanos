@@ -7,6 +7,10 @@ async function iniciarNovoApoio(url, idApoioExistente) {
     const endereco = document.getElementById("campo-endereco")
     const siteInst = document.getElementById("campo-site")
     const likIn = document.getElementById("campo-linkedin")
+    const entrada = document.getElementById("campo-linkedin")
+
+   const btnCriarApoio = document.getElementById("botao-salvar-instituicao")
+    const excluirApoio = document.getElementById("lixo-deletar")
 
     const blur = document.querySelector("#blurNovoApoio");
     const container_decisao = document.querySelector("#fundoNovoApoio");
@@ -22,9 +26,54 @@ async function iniciarNovoApoio(url, idApoioExistente) {
         blur.remove();
     }
 
+    if (idApoioExistente) {
+        url = url + idApoioExistente
+        excluirApoio.remove()
+    } else {
+        excluirApoio.addEventListener("click", function () {
+            sumir()
+        })
+    }
 
-    const btnCriarApoio = document.getElementById("botao-salvar-instituicao")
-    const excluirApoio = document.getElementById(".lixo-deletar")
+    entrada.addEventListener("input", input_capa);
+    
+
+    function input_capa() {
+        capaPreview = document.querySelector(".icon-user");
+
+        const imagemSubmetida = entrada.files[0];
+
+        if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg")) {
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                const base64StringWithPrefix = e.target.result;
+                requestBody = {
+                    imageBase64: base64StringWithPrefix.replace(base64StringWithPrefix.substring(0, base64StringWithPrefix.indexOf(",") + 1), ""),
+                    descricao: "Foto de perfil de " + data.nome,
+                    titulo: "Foto de perfil de " + data.nome
+                }
+
+                fetch("http://localhost:8080/api/user/atualizar_imagem", {
+                    method: 'PUT',
+                    body: JSON.stringify(requestBody),
+                    headers: { 'Content-Type': 'application/json' },
+                })
+                    .then(res => {
+                        if (!res.ok) return res.json();
+                        alert("Imagem adicionada com sucesso!")
+                        window.location.reload();
+                    })
+                    .then(d => {
+                        alert(d.mensagem)
+                    })
+            };
+
+            reader.readAsDataURL(imagemSubmetida);
+        }
+    }
+
+ 
 
 
     btnCriarApoio.addEventListener("click", function () {
@@ -33,15 +82,6 @@ async function iniciarNovoApoio(url, idApoioExistente) {
             alert("preencha ao menos o campo de Nome e de Sobre!")
             return
 
-        }
-
-        if(idApoioExistente) {
-            url = url + idApoioExistente
-            excluirApoio.remove()
-        } else {
-            excluirApoio.addEventListener("click", function() {
-                sumir()
-            })
         }
 
         const novoApoio = {
@@ -66,7 +106,7 @@ async function iniciarNovoApoio(url, idApoioExistente) {
                 if (!res.ok) {
                     return res.json();
                 }
-                if(!idApoioExistente) {
+                if (!idApoioExistente) {
                     alert("Novo apoio cadastrado com sucesso!")
                 } else {
                     alert("Apoio atualizado com sucesso!")
