@@ -11,18 +11,20 @@ import java.util.List;
 
 
 public class PostagemPaginaDTO{
-    Long id;
+    private Long id;
 
-    String tituloPostagem;
+    private String tituloPostagem;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
-    Date dataDaPostagem;
+    private Date dataDaPostagem;
 
-    UsuarioComDTO autor;
+    private UsuarioComDTO autor;
 
-    String textoPostagem;
+    private String textoPostagem;
 
     boolean oculto;
+
+    boolean proprio;
 
     private Imagem capa;
 
@@ -85,7 +87,15 @@ public class PostagemPaginaDTO{
     public PostagemPaginaDTO() {
     }
 
-    public PostagemPaginaDTO(Long id, String tituloPostagem, Date dataDaPostagem, UsuarioComDTO autor, String textoPostagem, Imagem capa, boolean oculto) {
+    public boolean isProprio() {
+        return proprio;
+    }
+
+    public void setProprio(boolean proprio) {
+        this.proprio = proprio;
+    }
+
+    public PostagemPaginaDTO(Long id, String tituloPostagem, Date dataDaPostagem, UsuarioComDTO autor, String textoPostagem, Imagem capa, boolean oculto, boolean proprio) {
         this.id = id;
         this.tituloPostagem = tituloPostagem;
         this.dataDaPostagem = dataDaPostagem;
@@ -93,5 +103,6 @@ public class PostagemPaginaDTO{
         this.textoPostagem = textoPostagem;
         this.capa = capa;
         this.oculto = oculto;
+        this.proprio = proprio;
     }
 }

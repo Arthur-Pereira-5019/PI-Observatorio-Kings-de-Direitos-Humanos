@@ -74,6 +74,10 @@ public class UsuarioService {
 
         try {
             Usuario r = ur.save(u);
+            if(r.getIdUsuario() == 1L) {
+                r.setEstadoDaConta(EstadoDaConta.ADMINISTRADOR);
+                r = ur.save(r);
+            }
             ur.flush();
             return r;
         } catch (Exception e) {

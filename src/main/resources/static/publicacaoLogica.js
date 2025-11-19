@@ -68,7 +68,7 @@ async function iniciarPublicacao() {
             } else if (data.estadoDaConta == "PADRAO" || data.estadoDaConta == "ESPECIALISTA") {
                 botaoOcultar.style.display = "flex";
                 botaoOcultar.style.backgroundColor = "darkred"
-                botaoOcultar.querySelector(".mais").src = "/imagens/megafone-icon.png"
+                botaoOcultar.querySelector(".mais").src = "/imagens/megafone-icon_white.png"
                 botaoOcultar.addEventListener("click", function () {
                     openCriacaoDenuncia("Sua denúncia será processada!", id, "Postagem")
                 })
@@ -107,6 +107,9 @@ async function iniciarPublicacao() {
                     let durl = "http://localhost:8080/api/postagem/ocultar/" + id;
                     await openCriacaoDecisao(durl, "Postagem oculta com sucesso!");
                 })
+            }
+            if(data.proprio == true) {
+                botaoOcultar.remove()
             }
 
 

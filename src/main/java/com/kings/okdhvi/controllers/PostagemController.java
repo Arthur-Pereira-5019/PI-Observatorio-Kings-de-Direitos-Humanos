@@ -46,7 +46,7 @@ public class PostagemController {
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public PostagemPaginaDTO encontrarPostagemPeloId(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails ud, HttpServletResponse response) throws NoResourceFoundException {
-        PostagemPaginaDTO retorno = pm.paginaPostagem(ps.encontrarPostagemPeloId(id));
+        PostagemPaginaDTO retorno = pm.paginaPostagem(ps.encontrarPostagemPeloId(id), us.encontrarPorId(us.buscarId(ud), false));
         if(retorno.isOculto()) {
             if(ud==null) {
                 throw new NoResourceFoundException(HttpMethod.GET, "");

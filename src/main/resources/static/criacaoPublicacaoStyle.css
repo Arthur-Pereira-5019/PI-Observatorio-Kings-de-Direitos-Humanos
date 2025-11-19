@@ -77,6 +77,7 @@ html {
     z-index: 1;
     width: 24vw;
     height: 16vw;
+    object-fit: cover;
 }
 
 #posPopUp {

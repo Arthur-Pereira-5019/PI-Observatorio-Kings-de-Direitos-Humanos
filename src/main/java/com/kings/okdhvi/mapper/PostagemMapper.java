@@ -5,6 +5,7 @@ import com.kings.okdhvi.model.DTOs.UsuarioComDTO;
 import com.kings.okdhvi.model.Postagem;
 import com.kings.okdhvi.model.DTOs.PostagemECDTO;
 import com.kings.okdhvi.model.DTOs.PostagemESDTO;
+import com.kings.okdhvi.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +32,15 @@ public class PostagemMapper {
         );
     }
 
-    public PostagemPaginaDTO paginaPostagem(Postagem p) {
+    public PostagemPaginaDTO paginaPostagem(Postagem p, Usuario u) {
+        boolean proprio = false;
+        if(p.getAutor() != null) {
+            if(p.getAutor().getIdUsuario().equals(u.getIdUsuario())) {
+                proprio = true;
+            }
+        }
         return new PostagemPaginaDTO(
-                p.getId(), p.getTituloPostagem(), p.getDataDaPostagem(), um.usuarioComentador(p.getAutor()), p.getTextoPostagem(), p.getCapa(), p.isOculto()
+                p.getId(), p.getTituloPostagem(), p.getDataDaPostagem(), um.usuarioComentador(p.getAutor()), p.getTextoPostagem(), p.getCapa(), p.isOculto(), proprio
         );
     }
 

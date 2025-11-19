@@ -61,7 +61,7 @@ async function iniciarVerForum() {
             } else if (data.estadoDaConta == "PADRAO" || data.estadoDaConta == "ESPECIALISTA") {
                 botaoOcultar.style.display = "flex";
                 botaoOcultar.style.backgroundColor = 'darkred'
-                botaoOcultar.querySelector("#zoio-log").src = "/imagens/megafone-icon.png"
+                botaoOcultar.querySelector("#zoio-log").src = "/imagens/megafone-icon_white.png"
                 botaoOcultar.addEventListener("click", function () {
                     openCriacaoDenuncia("Sua denúncia será processada", id, "Forum")
                 })
@@ -265,7 +265,7 @@ async function iniciarVerForum() {
                 })
             } else {
                 exclusao.style.backgroundColor = 'darkred'
-                exclusao.querySelector("#zoio-log").src = "/imagens/megafone-icon.png"
+                exclusao.querySelector("#zoio-log").src = "/imagens/megafone-icon_white.png"
                 exclusao.addEventListener("click", function () {
                     openCriacaoDenuncia("Sua denúncia será processada", dados.id, "Comentario")
                 })
