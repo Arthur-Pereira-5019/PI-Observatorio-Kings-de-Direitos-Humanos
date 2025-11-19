@@ -53,7 +53,7 @@ async function iniciarPopupLogComentarios() {
 
         function construirComentario(comentario, dados) {
             const tipo = dados.tipo;
-            let link = "/" + (tipo == 'F' ? "foruns/" : "publicacao/") + dados.idDono;
+            let link = "/" + (tipo == 'F' ? "forum/" : "publicacao/") + dados.idDono;
             comentario.querySelector("#textoComentario").textContent = dados.texto
             comentario.querySelector(".data-log").textContent = dados.dataComentario
             comentario.querySelector(".post-original").textContent = ((tipo == 'F' ? "Fórum: " : "Publicação: ")) + dados.tituloDono

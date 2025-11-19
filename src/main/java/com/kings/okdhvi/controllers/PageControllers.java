@@ -64,11 +64,81 @@ public class PageControllers {
     @GetMapping("/forum/**")
     public String forum() {return "forum"; }
 
-
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/usuario/{id}")
     public String telaUsuario() {
         return "telaUsuario";
     }
+
+    @RequestMapping("/pagina_banida/{id}")
+    public String decisaoModeradora(@PathVariable("id") String id) {
+        return "popupDecisaoModeradora";
+    }
+
+    @RequestMapping("/telaInexistente")
+    public String returnTelaInexistente() {
+        return "telaInexistente";
+    }
+
+    @RequestMapping("/nova_imagem")
+    public String returnPopupNovaImagem() {
+        return "popupNovaImagem";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ESPEC')")
+    @RequestMapping("/nova_publicacao")
+    public String returnNovaPublicacao() {
+        return "criacaoPublicacao";
+    }
+
+    @RequestMapping("/nova_decisao")
+    public String returnPopupNovaDecisao() {return "popupNovaDecisao";}
+
+    @RequestMapping("/decisao")
+    public String returnDecisao() {return "popupDecisaoModeradora";}
+
+    @RequestMapping("/publicacao/{id}")
+    public String returnPublicacao() {
+        return "publicacao";
+    }
+
+    @RequestMapping({"/publicacoes/**"})
+    public String returnPublicacoesN() {
+        return "publicacoes";
+    }
+
+    @RequestMapping({"/noticias/**"})
+    public String returnNoticias() {
+        return "noticias";
+    }
+
+    @RequestMapping({"/aplicar_cargo"})
+    public String returnAplicarCargo() {return "aplicarPopup";}
+
+    @RequestMapping({"/rte"})
+    public String returnRichText() {return "richTextEditor";}
+
+    @RequestMapping("/sobre")
+    public String returnSobre() {return "sobre";}
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping("/popupNovaDenuncia")
+    public String returnpopupNovaDenuncia() {return "popupNovaDenuncia";}
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping("/sobre/edit")
+    public String returnSobreEdit() {return "sobreEdit";}
+
+    @PreAuthorize("hasRole('ROLE_MODER')")
+    @RequestMapping("/log_com")
+    public String returnPopupLogCom() {return "popupLogCom";}
+
+    @PreAuthorize("hasRole('ROLE_MODER')")
+    @RequestMapping("/registro/**")
+    public String returnRegistro() {return "decisoesModeradoras";}
+
+    @PreAuthorize("hasRole('ROLE_MODER')")
+    @RequestMapping("/requisicoes/**")
+    public String returnRequisicoes() {return "requisicoesUsuarios";}
 
 };

@@ -87,6 +87,7 @@ body {
     cursor: pointer;
     margin-left: auto;
     border-radius: 100%;
+    object-fit: cover;
 }
 
 #containerCabecalho {

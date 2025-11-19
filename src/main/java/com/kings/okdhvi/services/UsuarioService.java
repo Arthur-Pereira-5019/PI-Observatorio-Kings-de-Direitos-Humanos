@@ -154,7 +154,7 @@ public class UsuarioService {
     public void validarDados(Usuario u, boolean novo) {
         if(novo) {
             if(encontrarPorEmail(u.getEmail(), true) != null || encontrarPorCPF(u.getCpf(), true) != null) {
-                throw new DuplicatedResource("Usuário já existente!");
+                throw new DuplicatedResource("Usuário já existente! Faça login para entrar!");
             }
         }
 

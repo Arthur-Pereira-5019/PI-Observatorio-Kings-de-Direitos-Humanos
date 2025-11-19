@@ -9,14 +9,14 @@ async function iniciarRegistro() {
     consertarUrl()
     inputBusca = document.getElementById("campoPesquisa")
 
-        btnPrimeiro = document.getElementById("botaoprimeiro");
+    btnPrimeiro = document.getElementById("botaoprimeiro");
     btnPrimeiro.addEventListener("click", function () {
         moverUrl(-1 * (paginaAtual() - 1))
     })
 
     btnDireito = document.getElementById("botaodireito");
     btnDireito.addEventListener("click", function () {
-            moverUrl(1)
+        moverUrl(1)
     })
     btnEsquerdo = document.getElementById("botaoesquerdo");
 
@@ -50,7 +50,7 @@ async function iniciarRegistro() {
         moverUrl(Number(btnLonge.textContent) - paginaAtual())
     })
 
-    document.querySelector("#botao_requisicoes").addEventListener("click", function() {
+    document.querySelector("#botao_requisicoes").addEventListener("click", function () {
         window.location.pathname = "requisicoes"
     })
     document.querySelector("#img_seta").addEventListener("click", function () {
@@ -99,7 +99,7 @@ async function iniciarRegistro() {
                     let path = window.location.pathname
                     if (path != "/registro/%20/0") {
                         alert("Nenhum resultado encontrado!")
-                            window.location.pathname = "/registro/ /0"
+                        window.location.pathname = "/registro/ /0"
 
                     }
                     btnDireito.remove()
@@ -124,8 +124,8 @@ async function iniciarRegistro() {
                     });
                 }
                 if (!document.body.contains(btnEsquerdo) && !document.body.contains(btnDireito)) {
-                        btnCampo.remove()
-                    }
+                    btnCampo.remove()
+                }
 
             })
             .catch(err => console.error(err));
@@ -134,18 +134,18 @@ async function iniciarRegistro() {
 
         function construirPublicacao(publicacao, dados) {
             publicacao.querySelector(".acao").textContent = dados.acao
-            publicacao.querySelector(".data").textContent  = "Data: " + dados.data
+            publicacao.querySelector(".data").textContent = "Data: " + dados.data
             publicacao.querySelector(".espaco").textContent = "Onde: " + dados.nomeEspaco
             publicacao.querySelector(".moderador").textContent = "Responsável: " + dados.nomeModerador
             publicacao.querySelector(".moderado").textContent = "Alvo: " + dados.nomeModerado
             publicacao.querySelector(".motivacao").textContent = "Motivação: " + dados.motivacao
-            publicacao.querySelector(".moderador").addEventListener("click", function() {
-                window.location.pathname = "usuario/"+dados.idModerador
+            publicacao.querySelector(".moderador").addEventListener("click", function () {
+                window.location.pathname = "usuario/" + dados.idModerador
             })
-            publicacao.querySelector(".moderado").addEventListener("click", function() {
-                window.location.pathname = "usuario/"+dados.idModerado
+            publicacao.querySelector(".moderado").addEventListener("click", function () {
+                window.location.pathname = "usuario/" + dados.idModerado
             })
-            publicacao.querySelector(".espaco").addEventListener("click", function() {
+            publicacao.querySelector(".espaco").addEventListener("click", function () {
                 window.location.pathname = dados.linkEspaco
             })
         }

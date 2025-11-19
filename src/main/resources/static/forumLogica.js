@@ -166,7 +166,7 @@ async function iniciarVerForum() {
             if (data.mensagem) {
                 if (data.mensagem.includes("Access Denied")) {
                     alert("Você precisa se autenticar antes de comentar!")
-                    localStorage.setItem("comentarioSalvo", cComentario.value)
+                    localStorage.setItem("comentarioSalvo", textoComentario.value)
                     document.querySelector(".perfil").click()
                 } else {
                     alert(data.mensagem)

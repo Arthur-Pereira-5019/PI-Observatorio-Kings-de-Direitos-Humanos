@@ -135,10 +135,10 @@ async function iniciarPublicacoes() {
                             construirPublicacao(novoPost, post)
                         }
                     });
-                    if (!document.body.contains(btnEsquerdo) && !document.body.contains(btnDireito)) {
+                }
+                if (!document.body.contains(btnEsquerdo) && !document.body.contains(btnDireito)) {
                         btnCampo.remove()
                     }
-                }
             })
             .catch(err => console.error(err));
 
