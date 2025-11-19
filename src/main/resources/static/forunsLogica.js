@@ -90,7 +90,7 @@ async function iniciarForunsLogica() {
         let busca = partes.pop();
         buscaf = busca + busca2
         
-        fetch("http://localhost:8080/api/forum/listar_publicacoes" + buscaf, {
+        fetch("http://localhost:8080/api/forum/listar_publicacoes/" + buscaf, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
@@ -112,7 +112,6 @@ async function iniciarForunsLogica() {
                         alert("Nenhum resultado encontrado!")
                         window.location.pathname = "/foruns/ /0"
                     }
-
                     btnDireito.remove()
                     btnLonge.remove()
                     btnCampo.remove()

@@ -30,8 +30,10 @@ public class ApoioService {
         a.setSite(ap.site());
         a.setInstagram(ap.instagram());
         if(ap.ImagemBase64() != null) {
-            Imagem i = is.criarImagem(new CriarImagemRequest(ap.ImagemBase64(), "Logo de "+ap.nomeInstituicao(), "Logo de "+ap.nomeInstituicao(),""),u);
-            a.setFoto(i);
+            if(!ap.ImagemBase64().isEmpty()) {
+                Imagem i = is.criarImagem(new CriarImagemRequest(ap.ImagemBase64(), "Logo de " + ap.nomeInstituicao(), "Logo de " + ap.nomeInstituicao(), ""), u);
+                a.setFoto(i);
+            }
         }
         return apr.save(a);
     }

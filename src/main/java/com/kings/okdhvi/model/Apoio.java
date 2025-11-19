@@ -16,7 +16,7 @@ public class Apoio {
     @Column
     String nomeInstituicao;
 
-    @Column(length = 512)
+    @Column(length = 2048)
     String sobreInstituicao;
 
     @Column

@@ -10,7 +10,7 @@ async function iniciarNovoApoio(url, idApoioExistente) {
     const entrada = document.getElementById("novoApoioInput")
     const capaPreview = document.getElementById("foto-perfil-instituicao")
 
-   const btnCriarApoio = document.getElementById("botao-salvar-instituicao")
+    const btnCriarApoio = document.getElementById("botao-salvar-instituicao")
     const excluirApoio = document.getElementById("lixo-deletar")
 
     const blur = document.querySelector("#blurNovoApoio");
@@ -39,26 +39,23 @@ async function iniciarNovoApoio(url, idApoioExistente) {
     }
 
     entrada.addEventListener("input", input_capa);
-    
+
 
     function input_capa() {
         const imagemSubmetida = entrada.files[0];
 
         if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg") || imagemSubmetida.name.endsWith(".webp")) {
             const reader = new FileReader();
-            
+
             reader.onload = (e) => {
                 const base64StringWithPrefix = e.target.result;
                 capaPreview.src = base64StringWithPrefix
                 imagemAlterada = true
+            }
+            reader.readAsDataURL(imagemSubmetida);
+
         }
-                    reader.readAsDataURL(imagemSubmetida);
-
     }
-}
-
- 
-
 
     btnCriarApoio.addEventListener("click", function () {
 
@@ -68,7 +65,7 @@ async function iniciarNovoApoio(url, idApoioExistente) {
 
         }
 
-        let ib64 = imagemAlterada ? capaPreview.src : ""
+        let ib64 = imagemAlterada ? capaPreview.src.replace(capaPreview.src.substring(0, capaPreview.src.indexOf(",") + 1), "") : ""
         const novoApoio = {
             nomeInstituicao: nomeInst.value,
             sobreInstituicao: sobreInst.value,

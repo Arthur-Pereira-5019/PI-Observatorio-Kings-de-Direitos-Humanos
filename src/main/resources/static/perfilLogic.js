@@ -79,53 +79,7 @@ async function iniciarPerfil() {
         const btnDenunciar = document.getElementById("btnDenunciar")
         const entrada = document.getElementById("capaUsuarioInput");
 
-        if (data.proprio == 0) {
-            btnConfigUser.remove()
-            btnRequisitar.remove()
-            btnAddCargo.remove()
-            btnAtvUser.remove()
-            btnLogModerador.remove()
-            entrada.remove()
-            btnDenunciar.style.display = "flex"
-            btnDenunciar.addEventListener("click", function () {
-                anexarHTMLExternoPerfil("/popupNovaDenuncia", "/popupNovaDenunciaStyle.css", "/popupCriacaoDenunciaLogic.js", "", "Sua denúncia será processada", id, "Usuario");
-            })
-        } else if (data.proprio == 1) {
-            btnConfigUser.style.display = "flex"
-            btnRequisitar.style.display = "flex"
-            document.querySelector(".icon-user").classList.add("propria")
-        } else if (data.proprio == 2) {
-            btnAddCargo.style.display = "flex"
-            btnAddCargo.addEventListener("click", function () {
-                anexarHTMLExternoPerfil("/aplicar_cargo", "/aplicarPopupStyle.css", "/aplicarPopupLogic.js", "http://localhost:8080/api/user/aplicar_cargo/" + id)
-            })
-            btnAtvUser.style.display = "flex"
-            btnAtvUser.addEventListener("click", async function () {
-                await anexarHTMLExternoPerfil("/log_com", "/log_comentarios.css", "/popupLogComentarios.js")
-            })
-            entrada.remove()
-        } else {
-            btnConfigUser.style.display = "flex"
-            btnRequisitar.style.display = "flex"
-            btnLogModerador.style.display = "flex"
-            btnLogModerador.addEventListener("click", function () {
-                window.location.pathname = "/registro"
-            })
-        }
-
-
-        if (data.fotoDePerfil != null) {
-            let fotoB64 = data.fotoDePerfil.imagem
-            if (fotoB64 != "") {
-                document.querySelector(".icon-user").src = "data:image/" + data.fotoDePerfil.tipoImagem + ";base64," + fotoB64;
-            }
-        }
-    } catch (error) {
-        console.error('Erro:', error);
-        entrada.addEventListener("input", input_capa);
-    }
-
-    function input_capa() {
+        function input_capa() {
         capaPreview = document.querySelector(".icon-user");
 
         const imagemSubmetida = entrada.files[0];
@@ -159,6 +113,59 @@ async function iniciarPerfil() {
             reader.readAsDataURL(imagemSubmetida);
         }
     }
+
+        if (data.proprio == 0) {
+            btnConfigUser.remove()
+            btnRequisitar.remove()
+            btnAddCargo.remove()
+            btnAtvUser.remove()
+            btnLogModerador.remove()
+            entrada.remove()
+            btnDenunciar.style.display = "flex"
+            btnDenunciar.addEventListener("click", function () {
+                anexarHTMLExternoPerfil("/popupNovaDenuncia", "/popupNovaDenunciaStyle.css", "/popupCriacaoDenunciaLogic.js", "", "Sua denúncia será processada", id, "Usuario");
+            })
+        } else if (data.proprio == 1) {
+            btnConfigUser.style.display = "flex"
+            btnRequisitar.style.display = "flex"
+            document.querySelector(".icon-user").classList.add("propria")
+            entrada.addEventListener("input", input_capa);
+
+        } else if (data.proprio == 2) {
+            btnAddCargo.style.display = "flex"
+            btnAddCargo.addEventListener("click", function () {
+                anexarHTMLExternoPerfil("/aplicar_cargo", "/aplicarPopupStyle.css", "/aplicarPopupLogic.js", "http://localhost:8080/api/user/aplicar_cargo/" + id)
+            })
+            btnAtvUser.style.display = "flex"
+            btnAtvUser.addEventListener("click", async function () {
+                await anexarHTMLExternoPerfil("/log_com", "/log_comentarios.css", "/popupLogComentarios.js")
+            })
+            entrada.remove()
+        } else {
+            btnConfigUser.style.display = "flex"
+            btnRequisitar.style.display = "flex"
+            btnLogModerador.style.display = "flex"
+            btnLogModerador.addEventListener("click", function () {
+                window.location.pathname = "/registro"
+            })
+                    entrada.addEventListener("input", input_capa);
+
+        }
+
+
+        if (data.fotoDePerfil != null) {
+            let fotoB64 = data.fotoDePerfil.imagem
+            if (fotoB64 != "") {
+                document.querySelector(".icon-user").src = "data:image/" + data.fotoDePerfil.tipoImagem + ";base64," + fotoB64;
+            }
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+    }
+
+    
+
+    
 
 
 
