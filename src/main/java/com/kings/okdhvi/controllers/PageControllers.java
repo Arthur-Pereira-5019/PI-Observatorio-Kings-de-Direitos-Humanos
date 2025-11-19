@@ -64,6 +64,14 @@ public class PageControllers {
     @GetMapping("/forum/**")
     public String forum() {return "forum"; }
 
+    @GetMapping("/apoio")
+    public String apoio() {return "telaApoio"; }
+
+    @GetMapping("/novo_apoio")
+    public String novoApoio() {return "novoApoio"; }
+
+
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/usuario/{id}")
     public String telaUsuario() {
