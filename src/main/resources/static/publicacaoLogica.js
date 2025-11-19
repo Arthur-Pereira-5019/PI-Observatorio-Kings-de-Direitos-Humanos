@@ -50,6 +50,32 @@ async function iniciarPublicacao() {
         }
     }
 
+    fetch("http://localhost:8080/api/user", {
+        headers: { 'Content-Type': 'application/json' },
+    })
+        .then(res => {
+            if (!res.ok) {
+                carregarComentarios()
+                throw new Error("Erro no servidor");
+
+            }
+            return res.json();
+        })
+        .then(data => {
+            if (data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMINISTRADOR") {
+                botaoOcultar.style.display = "flex";
+                moderador = true;
+            } else if (data.estadoDaConta == "PADRAO" || data.estadoDaConta == "ESPECIALISTA") {
+                botaoOcultar.style.display = "flex";
+                botaoOcultar.style.backgroundColor = "darkred"
+                botaoOcultar.querySelector(".mais").src = "/imagens/megafone-icon.png"
+                botaoOcultar.addEventListener("click", function () {
+                    openCriacaoDenuncia("Sua denúncia será processada!", id, "Postagem")
+                })
+            }
+            carregarComentarios();
+        })
+        .catch(err => console.error(err));
 
     fetch("http://localhost:8080/api/postagem/" + id, {
         headers: { 'Content-Type': 'application/json' },
@@ -69,18 +95,21 @@ async function iniciarPublicacao() {
                 decmod.addEventListener("click", function () {
                     anexarHTMLExterno("/decisao", "/popupDecisaoModeradoraStyle.css", "/popupDecisaoModeradoraLogic.js", "http://localhost:8080/api/decmod/Postagem/" + id, null)
                 })
+
                 botaoOcultar.style.backgroundColor = "green"
                 botaoOcultar.querySelector("img").src = "/imagens/olhos_abertos.png"
                 botaoOcultar.addEventListener("click", async function () {
                     let durl = "http://localhost:8080/api/postagem/ocultar/" + id;
                     await openCriacaoDecisao(durl, "Postagem desocultada com sucesso!");
                 })
-            } else {
+            } else if (moderador) {
                 botaoOcultar.addEventListener("click", async function () {
                     let durl = "http://localhost:8080/api/postagem/ocultar/" + id;
                     await openCriacaoDecisao(durl, "Postagem oculta com sucesso!");
                 })
             }
+
+
             capa.src = "data:image/" + data.capa.tipoImagem + ";base64," + data.capa.imagem;
             dadosPublicacao.textContent = "Publicado em " + data.dataDaPostagem + " por " + data.autor.nome;
             let elementoSurpresa = document.createElement("div");
@@ -97,25 +126,6 @@ async function iniciarPublicacao() {
 
 
 
-    fetch("http://localhost:8080/api/user", {
-        headers: { 'Content-Type': 'application/json' },
-    })
-        .then(res => {
-            if (!res.ok) {
-                carregarComentarios()
-                throw new Error("Erro no servidor");
-
-            }
-            return res.json();
-        })
-        .then(data => {
-            if (data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMINISTRADOR") {
-                botaoOcultar.style.display = "flex";
-                moderador = true;
-            }
-            carregarComentarios();
-        })
-        .catch(err => console.error(err));
 
 
     cComentario.addEventListener("keydown", function () {

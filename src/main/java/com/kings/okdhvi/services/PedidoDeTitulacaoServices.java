@@ -33,12 +33,14 @@ public class PedidoDeTitulacaoServices {
         return petr.save(pet);
     }
 
-    public PedidoDeTitulacao desserializarPedido(PedidoDeTitulacaoDTO dto) {
+    public PedidoDeTitulacao desserializarPedido(PedidoDeTitulacaoDTO dto, Usuario u) {
         PedidoDeTitulacao p = new PedidoDeTitulacao();
         p.setMotivacao(dto.motivacao());
         p.setDataPedido(Date.from(Instant.now()));
         p.setContato(dto.contato());
+        p.setRequisitor(u);
         EstadoDaConta edce = EstadoDaConta.MODERADOR;
+
         if(dto.cargoRequisitado() == 1) {
             edce = EstadoDaConta.ESPECIALISTA;
         }

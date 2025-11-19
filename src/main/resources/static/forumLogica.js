@@ -35,7 +35,7 @@ async function iniciarVerForum() {
     const footer = document.querySelector("#footer")
     const botaoOcultar = document.querySelector("#btnOcultar")
     const titulo = document.getElementById("titulo-forum-forum")
-    const decmod = document.getElementById("titulo-forum-forum")
+    const decmod = document.getElementById("dec_mod_martelo")
 
     const url = window.location.href;
     const id = url.substring(url.lastIndexOf('/') + 1)
@@ -58,7 +58,8 @@ async function iniciarVerForum() {
             if (data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMINISTRADOR") {
                 botaoOcultar.style.display = "flex";
                 moderador = true;
-            } else if (data.estadoDaConta == "PADRAO") {
+            } else if (data.estadoDaConta == "PADRAO" || data.estadoDaConta == "ESPECIALISTA") {
+                botaoOcultar.style.display = "flex";
                 botaoOcultar.style.backgroundColor = 'darkred'
                 botaoOcultar.querySelector("#zoio-log").src = "/imagens/megafone-icon.png"
                 botaoOcultar.addEventListener("click", function () {

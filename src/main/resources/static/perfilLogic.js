@@ -93,6 +93,7 @@ async function iniciarPerfil() {
         } else if (data.proprio == 1) {
             btnConfigUser.style.display = "flex"
             btnRequisitar.style.display = "flex"
+            document.querySelector(".icon-user").classList.add("propria")
         } else if (data.proprio == 2) {
             btnAddCargo.style.display = "flex"
             btnAddCargo.addEventListener("click", function () {

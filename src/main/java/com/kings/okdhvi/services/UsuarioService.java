@@ -109,9 +109,9 @@ public class UsuarioService {
 
         if(pets.encontrarPedidoPeloUsuario(u) != null) {
             Long idAtualizacao = pets.encontrarPedidoPeloUsuario(u).getId();
-            pets.atualizarPedidoDeTitulacao(pets.adicionarId(pets.desserializarPedido(pdtDTO), idAtualizacao));
+            pets.atualizarPedidoDeTitulacao(pets.adicionarId(pets.desserializarPedido(pdtDTO, u), idAtualizacao));
         } else {
-            pets.criarPedidoDeTitulacao(pets.desserializarPedido(pdtDTO));
+            pets.criarPedidoDeTitulacao(pets.desserializarPedido(pdtDTO, u));
         }
         return ur.save(u);
     }

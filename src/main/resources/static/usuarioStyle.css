@@ -39,7 +39,11 @@
     aspect-ratio: 1/1;
     border-radius: 100%;
     object-fit: cover;
+}
+
+.icon-user.propria {
     cursor: pointer;
+
 }
 
 .nome-usuario {

@@ -18,12 +18,11 @@ public class ForumMapper {
     UsuarioMapper um;
 
     public ForumESDTO parseForumToESDTO(Forum f) {
-        String textoForum = f.getTextoForum();
         Long id = f.getId();
         String prefixoOculto = f.isOculto() ? "[OCULTO] " : "";
         long numeroRespostas = cs.contarComentarios('F', id);
         return new ForumESDTO(f.getId(),
-                f.getTituloForum(),
+                prefixoOculto + f.getTituloForum(),
                 numeroRespostas,
                 f.getDataDeAtualizacao(),
                 f.getDataDeCriacao(),
@@ -38,7 +37,7 @@ public class ForumMapper {
         String prefixoOculto = f.isOculto() ? "[OCULTO] " : "";
         long numeroRespostas = cs.contarComentarios('F', id);
         return new ForumECDTO(f.getId(),
-                f.getTituloForum(),
+                prefixoOculto + f.getTituloForum(),
                 numeroRespostas,
                 f.getDataDeAtualizacao(),
                 f.getDataDeCriacao(),
