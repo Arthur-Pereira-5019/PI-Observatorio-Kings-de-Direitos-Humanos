@@ -1,0 +1,174 @@
+ * {
+     margin: 0;
+     box-sizing: border-box;
+     font-family: "Inter", sans-serif;
+ }
+
+ .container-resto-tela-apoio {
+     margin-top: 3%;
+     height: auto;
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+     gap: 5rem;
+ }
+
+ #titulo-tela-apoio {
+     width: 100%;
+     height: auto;
+     text-align: center;
+     color: #CA0000;
+     font-size: 5rem;
+     font-weight: 800;
+ }
+
+ #instrucao-tela-apoio {
+     width: 100%;
+     height: auto;
+     font-size: 1.4rem;
+     font-weight: 200;
+ }
+
+ .container-geral-instituicao-direita {
+     width: 100%;
+     height: fit-content;
+     display: flex;
+     justify-content: flex-end;
+     position: relative;
+ }
+
+ .container-geral-instituicao-esquerda {
+     width: 100%;
+     height: fit-content;
+     display: flex;
+     position: relative;
+ }
+
+ #container_apoio {
+        width: 90%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+ }
+
+ .info-instituicao-apoio {
+     height: 100%;
+     width: 75%;
+     font-weight: 300;
+     font-size: 1.5rem;
+     text-align: justify;
+     margin-right: 2%;
+ }
+
+ .container-fotoEredes-tela-apoio {
+     width: 15%;
+     height: 100%;
+     padding: 0.2%;
+     display: flex;
+     gap: 1rem;
+     flex-direction: column;
+     position: relative;
+ }
+
+ #foto-instituicao-tela-apoio {
+     width: 15vh;
+     border-radius: 50%;
+     margin: 0 auto;
+ }
+
+ .icone-lista-tela-apoio {
+     width: 25px;
+     height: 25px;
+ }
+
+ ul {
+     display: flex;
+     flex-direction: column;
+     list-style-type: none;
+     padding: 0;
+ }
+
+ a:visited {
+     color: black;
+ }
+
+ a {
+     color: black;
+     text-decoration: none;
+ }
+
+ a:hover {
+     color: #0000EE;
+     text-decoration: underline;
+ }
+
+ li {
+     display: flex;
+     align-items: center;
+     gap: 0.5rem;
+     padding-bottom: 1%;
+ }
+
+ #add-acolhimento {
+     background-color: #00b3b3;
+     height: 10vh;
+     width: 10vh;
+     border-radius: 50%;
+     display: none;
+     justify-content: center;
+     align-items: center;
+     cursor: pointer;
+     margin-left: auto;
+     margin-right: 2%;
+ }
+
+ #add-acolhimento:hover {
+     background-color: #74faff;
+ }
+
+ #mais-acolhimento {
+     width: 70%;
+     height: 70%;
+ }
+
+ #editar-acolhimento-direita {
+     background-color: #00f7ff;
+     position: absolute;
+     transform: translate(50%, -50%);
+     top: 0%;
+     left: 0%;
+     cursor: pointer;
+     display: none;
+     align-items: center;
+     justify-content: center;
+     height: 7vh;
+     width: 7vh;
+     border-radius: 50%;
+ }
+
+ #editar-acolhimento-direita:hover {
+     background-color: #00ccff;
+ }
+
+ #editar-acolhimento-esquerda {
+     background-color: #00ccff;
+     position: absolute;
+     transform: translate(50%, -50%);
+     top: 0%;
+     right: 5.5%;
+     cursor: pointer;
+     display: none;
+     align-items: center;
+     justify-content: center;
+     height: 7vh;
+     width: 7vh;
+     border-radius: 50%;
+ }
+
+ #editar-acolhimento-esquerda:hover {
+     background-color: #46daff;
+ }
+
+ #lapis {
+     width: 60%;
+ }

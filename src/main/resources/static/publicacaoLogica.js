@@ -21,35 +21,6 @@ async function iniciarPublicacao() {
         cComentario.value = localStorage.getItem("comentarioSalvo")
     }
 
-    async function anexarHTMLExterno(url, cssFile, jsFile, durl, msg, idDenunciado, tipoDenunciado) {
-        const response = await fetch(url);
-        const data = await response.text()
-        const novoObjeto = document.createElement("div");
-        document.body.appendChild(novoObjeto)
-        novoObjeto.innerHTML = data;
-
-        if (cssFile) {
-            anexarCss(cssFile)
-        }
-
-        if (jsFile) {
-            let script = document.createElement("script");
-            script.src = jsFile;
-            script.onload = () => {
-                if (jsFile === "/popupNovaDecisaoLogica.js" && typeof iniciarPopupNovaDecisao === "function") {
-                    iniciarPopupNovaDecisao(durl, msg);
-                }
-                if (jsFile === "/popupDecisaoModeradoraLogic.js" && typeof iniciarPopupDecisao === "function") {
-                    iniciarPopupDecisao(durl);
-                }
-                if (jsFile === "/popupCriacaoDenunciaLogic.js" && typeof iniciarPopupNovaDenuncia === "function") {
-                    iniciarPopupNovaDenuncia(msg, idDenunciado, tipoDenunciado);
-                }
-            };
-            document.body.appendChild(script);
-        }
-    }
-
     fetch("http://localhost:8080/api/user", {
         headers: { 'Content-Type': 'application/json' },
     })

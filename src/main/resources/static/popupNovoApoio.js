@@ -1,19 +1,4 @@
-async function carregarHTMLNovoApoio(id, url, cssFile) {
-    const response = await fetch(url);
-    const data = await response.text();
-    document.getElementById(id).innerHTML = data;
-
-    if (cssFile) {
-        const link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.href = cssFile;
-        document.head.appendChild(link);
-    }
-}
-async function iniciarConfigUser() {
-    await carregarHTMLNovoApoio("novoApoio", "/novo_apoio", "novoApoioStyle.css");
-
-
+async function iniciarNovoApoio(url, idApoioExistente) {
     const nomeInst = document.getElementById("label-nome-instituicao")
     const sobreInst = document.getElementById("ta-sobre-instituicao")
     const twitter = document.getElementById("campo-twitter")
@@ -28,12 +13,14 @@ async function iniciarConfigUser() {
 
     btnCriarApoio.addEventListener("click", function () {
 
-        console.log(wpp.value)
-
         if (nomeInst.value.trim() == "" || sobreInst.value.trim() == "") {
             alert("preencha ao menos o campo de Nome e de Sobre!")
             return
 
+        }
+
+        if(idApoioExistente) {
+            url = url + idApoioExistente
         }
 
         const novoApoio = {
@@ -49,14 +36,19 @@ async function iniciarConfigUser() {
 
         };
 
-        fetch("http://localhost:8080/api/apoio/", {
-            method: "PUT",
+        fetch(url, {
+            method: idApoio ? "PUT" : "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(novoApoio)
         })
             .then(res => {
                 if (!res.ok) {
                     return res.json();
+                }
+                if(!idApoio) {
+                    alert("Novo apoio cadastrado com sucesso!")
+                } else {
+                    alert("Apoio atualizado com sucesso!")
                 }
                 window.location.reload()
             }).then(data => {
@@ -68,4 +60,4 @@ async function iniciarConfigUser() {
 
 }
 
-document.addEventListener("DOMContentLoaded", carregarHTMLNovoApoio);
+document.addEventListener("DOMContentLoaded", iniciarNovoApoio);

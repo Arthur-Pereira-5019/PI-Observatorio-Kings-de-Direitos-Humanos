@@ -22,7 +22,7 @@ public class ApoioController {
     UsuarioService us;
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping("/")
+    @PostMapping("/")
     public Apoio criarApoio(@RequestBody ApoioCDTO a, @AuthenticationPrincipal UserDetails ud) {
         return as.criarNovoApoio(a, us.encontrarPorId(us.buscarId(ud), false));
     }

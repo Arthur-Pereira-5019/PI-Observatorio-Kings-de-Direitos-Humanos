@@ -1,308 +1,156 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet">
 
-    <style>
-        * {
-            margin: 0;
-            box-sizing: border-box;
-            font-family: "Inter", sans-serif;
-        }
+        <link rel="stylesheet" href="/apoioStyle.css">
+    </head>
 
-        .container-resto-tela-apoio {
-            margin-top: 3%;
-            height: auto;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 5rem;
-        }
+    <body>
 
-        #titulo-tela-apoio {
-            width: 100%;
-            height: auto;
-            text-align: center;
-            color: #CA0000;
-            font-size: 5rem;
-            font-weight: 800;
-        }
+        <div id="header"></div>
 
-        #instrucao-tela-apoio {
-            width: 100%;
-            height: auto;
-            font-size: 1.4rem;
-            font-weight: 200;
-        }
+        <div id="container_apoio">
+            <p id="titulo-tela-apoio">Acolhimento</p>
+            <p id="instrucao-tela-apoio">Abaixo estão uma lista de entidades que
+                estão comprometidas com a causa social de
+                minorias raciais e LGBTQIAPN+ que manifestaram interesses em
+                serem divulgadas aqui.</p>
 
-        .container-geral-instituicao-direita {
-            width: 100%;
-            height: fit-content;
-            display: flex;
-            justify-content: flex-end;
-            position: relative;
-        }
+            <div id="add-acolhimento"> <img src="./imagens/mais.png"
+                    id="mais-acolhimento" alt></div>
 
-        .container-geral-instituicao-esquerda {
-            width: 100%;
-            height: fit-content;
-            display: flex;
-            position: relative;
-        }
+            <div class="container-resto-tela-apoio">
 
-        .info-instituicao-apoio {
-            height: 100%;
-            width: 75%;
-            font-weight: 300;
-            font-size: 1.5rem;
-            text-align: justify;
-            margin-right: 2%;
-        }
+                <div class="container-geral-instituicao-direita">
 
-        .container-fotoEredes-tela-apoio {
-            width: 15%;
-            height: 100%;
-            padding: 0.2%;
-            display: flex;
-            gap: 1rem;
-            flex-direction: column;
-            position: relative;
-        }
+                    <div id="editar-acolhimento-direita"><img
+                            src="/imagens/lapis-icon.png" id="lapis" alt></div>
 
-        #foto-instituicao-tela-apoio {
-            width: 15vh;
-            border-radius: 50%;
-            margin: 0 auto;
-        }
+                    <div class="info-instituicao-apoio"></div>
 
-        .icone-lista-tela-apoio {
-            width: 25px;
-            height: 25px;
-        }
+                    <div class="container-fotoEredes-tela-apoio">
+                        <img src="/imagens/grupo.png"
+                            id="foto-instituicao-tela-apoio" alt>
 
-        ul {
-            display: flex;
-            flex-direction: column;
-            list-style-type: none;
-            padding: 0;
-        }
+                        <ul>
+                            <li>
+                                <img src="/imagens/twitter.png"
+                                    class="icone-lista-tela-apoio" alt>
+                                <a href>TwitterX</a>
+                            </li>
 
-        a:visited {
-            color: black;
-        }
+                            <li>
+                                <img src="/imagens/instaIcon.png"
+                                    class="icone-lista-tela-apoio" alt>
+                                <a href>InstaX</a>
+                            </li>
 
-        a {
-            color: black;
-            text-decoration: none;
-        }
+                            <li>
+                                <img src="/imagens/whatsPreto.png"
+                                    class="icone-lista-tela-apoio" alt>
+                                <a href>NumeroX</a>
+                            </li>
 
-        a:hover {
-            color: #0000EE;
-            text-decoration: underline;
-        }
+                            <li>
+                                <img src="/imagens/pin.jpg"
+                                    class="icone-lista-tela-apoio" alt>
+                                <a href>EnderecoX</a>
+                            </li>
 
-        li {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding-bottom: 1%;
-        }
+                            <li>
+                                <img src="/imagens/internet.png"
+                                    class="icone-lista-tela-apoio" alt>
+                                <a href>SiteX</a>
+                            </li>
 
-        #add-acolhimento {
-            background-color: #AA00FF;
-            height: 10vh;
-            width: 10vh;
-            border-radius: 50%;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            margin-left: auto;     
-            margin-right: 2%;
-        }
+                            <li>
+                                <img src="/imagens/linkedin.png"
+                                    class="icone-lista-tela-apoio" alt>
+                                <a href>LinkedinX</a>
+                            </li>
+                        </ul>
+                    </div>
 
-        #add-acolhimento:hover {
-            background-color: #d174ff;
-        }
+                </div>
 
-        #mais-acolhimento {
-            width: 70%;
-            height: 70%;
-        }
+                <div class="container-geral-instituicao-esquerda">
 
-        #editar-acolhimento-direita {
-            background-color: #AA00FF;
-            position: absolute;
-            transform: translate(50%, -50%);
-            top: 0%;
-            left: 0%;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            height: 7vh;
-            width: 7vh;
-            border-radius: 50%;
-        }
+                    <div id="editar-acolhimento-esquerda"><img
+                            src="/imagens/lapis-icon.png" id="lapis" alt></div>
 
-        #editar-acolhimento-direita:hover {
-            background-color: #d174ff;
-        }
+                    <div class="container-fotoEredes-tela-apoio">
+                        <img src="/imagens/grupo.png"
+                            id="foto-instituicao-tela-apoio" alt>
 
-        #editar-acolhimento-esquerda {
-            background-color: #AA00FF;
-            position: absolute;
-            transform: translate(50%, -50%);
-            top: 0%;
-            right: 5.5%;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            height: 7vh;
-            width: 7vh;
-            border-radius: 50%;
-        }
+                        <ul>
+                            <li>
+                                <img src="/imagens/twitter.png"
+                                    class="icone-lista-tela-apoio" alt>
+                                <a href>TwitterX</a>
+                            </li>
 
-        #editar-acolhimento-esquerda:hover {
-            background-color: #d174ff;
-        }
+                            <li>
+                                <img src="/imagens/instaIcon.png"
+                                    class="icone-lista-tela-apoio" alt>
+                                <a href>InstaX</a>
+                            </li>
 
-        #lapis {
-            width: 60%;
-        }
-    </style>
+                            <li>
+                                <img src="/imagens/whatsPreto.png"
+                                    class="icone-lista-tela-apoio" alt>
+                                <a href>NumeroX</a>
+                            </li>
 
-    <link rel="stylesheet" href="/cabecalhoStyle.css">
-    <link rel="stylesheet" href="/rodapeStyle.css">
-</head>
+                            <li>
+                                <img src="/imagens/pin.jpg"
+                                    class="icone-lista-tela-apoio" alt>
+                                <a href>EnderecoX</a>
+                            </li>
 
-<body>
+                            <li>
+                                <img src="/imagens/internet.png"
+                                    class="icone-lista-tela-apoio" alt>
+                                <a href>SiteX</a>
+                            </li>
 
-    <div id="header"></div>
+                            <li>
+                                <img src="/imagens/linkedin.png"
+                                    class="icone-lista-tela-apoio" alt>
+                                <a href>LinkedinX</a>
+                            </li>
+                        </ul>
+                    </div>
 
-    <p id="titulo-tela-apoio">Acolhimento</p>
-    <p id="instrucao-tela-apoio">Abaixo estão uma lista de entidades que estão comprometidas com a causa social de
-        minorias raciais e LGBTQIAPN+ que manifestaram interesses em serem divulgadas aqui.</p>
+                    <div class="info-instituicao-apoio"></div>
 
-    <div id="add-acolhimento"> <img src="./imagens/mais.png" id="mais-acolhimento" alt=""></div>
-
-    <div class="container-resto-tela-apoio">
-
-        <div class="container-geral-instituicao-direita">
-
-            <div id="editar-acolhimento-direita"><img src="/imagens/lapis-icon.png" id="lapis" alt=""></div>
-
-            <div class="info-instituicao-apoio"></div>
-
-            <div class="container-fotoEredes-tela-apoio">
-                <img src="/imagens/grupo.png" id="foto-instituicao-tela-apoio" alt="">
-
-                <ul>
-                    <li>
-                        <img src="/imagens/twitter.png" class="icone-lista-tela-apoio" alt="">
-                        <a href="">TwitterX</a>
-                    </li>
-
-                    <li>
-                        <img src="/imagens/instaIcon.png" class="icone-lista-tela-apoio" alt="">
-                        <a href="">InstaX</a>
-                    </li>
-
-                    <li>
-                        <img src="/imagens/whatsPreto.png" class="icone-lista-tela-apoio" alt="">
-                        <a href="">NumeroX</a>
-                    </li>
-
-                    <li>
-                        <img src="/imagens/pin.jpg" class="icone-lista-tela-apoio" alt="">
-                        <a href="">EnderecoX</a>
-                    </li>
-
-                    <li>
-                        <img src="/imagens/internet.png" class="icone-lista-tela-apoio" alt="">
-                        <a href="">SiteX</a>
-                    </li>
-
-                    <li>
-                        <img src="/imagens/linkedin.png" class="icone-lista-tela-apoio" alt="">
-                        <a href="">LinkedinX</a>
-                    </li>
-                </ul>
+                </div>
             </div>
-
+        </div>
+        <div id="posPopupNovoApoio">
+            <div id="novoApoio"></div>
         </div>
 
-        <div class="container-geral-instituicao-esquerda">
+        <div id="footer"></div>
 
-            <div id="editar-acolhimento-esquerda"><img src="/imagens/lapis-icon.png" id="lapis" alt=""></div>
-
-            <div class="container-fotoEredes-tela-apoio">
-                <img src="/imagens/grupo.png" id="foto-instituicao-tela-apoio" alt="">
-
-                <ul>
-                    <li>
-                        <img src="/imagens/twitter.png" class="icone-lista-tela-apoio" alt="">
-                        <a href="">TwitterX</a>
-                    </li>
-
-                    <li>
-                        <img src="/imagens/instaIcon.png" class="icone-lista-tela-apoio" alt="">
-                        <a href="">InstaX</a>
-                    </li>
-
-                    <li>
-                        <img src="/imagens/whatsPreto.png" class="icone-lista-tela-apoio" alt="">
-                        <a href="">NumeroX</a>
-                    </li>
-
-                    <li>
-                        <img src="/imagens/pin.jpg" class="icone-lista-tela-apoio" alt="">
-                        <a href="">EnderecoX</a>
-                    </li>
-
-                    <li>
-                        <img src="/imagens/internet.png" class="icone-lista-tela-apoio" alt="">
-                        <a href="">SiteX</a>
-                    </li>
-
-                    <li>
-                        <img src="/imagens/linkedin.png" class="icone-lista-tela-apoio" alt="">
-                        <a href="">LinkedinX</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="info-instituicao-apoio"></div>
-
+        <div id="posPopUp">
+            <div id="registro"></div>
         </div>
 
-    </div>
-    <div id="posPopupNovoApoio">
-        <div id="novoApoio"></div>
-    </div>
+        <div id="posPopUpLogin">
+            <div id="login"></div>
+        </div>
 
-    <div id="footer"></div>
+    </body>
 
-    <div id="posPopUp">
-        <div id="registro"></div>
-    </div>
-
-    <div id="posPopUpLogin">
-        <div id="login"></div>
-    </div>
-
-</body>
-
-<script src="/includeHtmlExterno.js" defer></script>
-<script src="/apoioLogic.js" defer></script>
-<script src="/popupNovoApoio.js" defer></script>
+    <script src="/includeHtmlExterno.js" defer></script>
+    <script src="/apoioLogic.js" defer></script>
 
 </html>
