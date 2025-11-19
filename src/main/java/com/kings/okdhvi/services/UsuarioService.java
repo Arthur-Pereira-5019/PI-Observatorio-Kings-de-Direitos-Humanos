@@ -139,7 +139,7 @@ public class UsuarioService {
     public void exclusaoGeralAgendada() {
         ArrayList<PedidoExclusaoConta> pedidos = new ArrayList<>(pecs.encontrarTodosPedidosDeExclusao());
         Instant agora = Instant.now();
-        pedidos.removeIf(p -> p.getDataPedido().toInstant().plus(5, ChronoUnit.SECONDS).isAfter(agora));
+        pedidos.removeIf(p -> p.getDataPedido().toInstant().plus(30, ChronoUnit.DAYS).isAfter(agora));
 
         pedidos.forEach(p -> {
             if (p.getUsuarioPedido() == null) {
@@ -215,8 +215,8 @@ public class UsuarioService {
     public void delecaoPorAdministrador(Long id, Long idRequisitor) {
         Usuario u = encontrarPorId(id, false);
         Usuario r = encontrarPorId(idRequisitor, false);
-        dms.criarDecisaoModeradoraExc(new DecisaoModeradoraOPDTO("Deleção requisistada pelo usuário e auto-executada pelo sistema."),
-                "Usuario", u.getNome(), r.getNome(), id, "atendendo a requisição, apagou a conta de");
+        dms.criarDecisaoModeradoraExc("Deleção requisistada pelo usuário e auto-executada pelo sistema.",
+                u.getNome(), r.getNome(), id, "atendendo a requisição, apagou a conta de");
         ur.deleteById(id);
         ur.flush();
     }
@@ -224,7 +224,7 @@ public class UsuarioService {
     @Transactional
     public void delecaoProgramada(Long id) {
         Usuario u = encontrarPorId(id, false);
-
+        dms.criarDecisaoModeradoraExc("Deleção requerida pelo usuário e executada pelo sistema", u.getNome(), u.getNome(), u.getIdUsuario(), "exclui a própria conta|");
         PedidoExclusaoConta p = u.getPedidoExclusao();
         p.setUsuarioPedido(null);
         u.setPedidoExclusao(null);
