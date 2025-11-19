@@ -170,7 +170,7 @@ function consertarUrl() {
     const url = window.location.href;
     const partes = url.split('/');
     let ultima = "/" + partes.pop();
-    if (ultima === '/registro') {
+        if (!Number.isFinite(Number(ultima.substring(1,ultima.length)))) {
         window.location.pathname = "registro/ /0"
     }
 }

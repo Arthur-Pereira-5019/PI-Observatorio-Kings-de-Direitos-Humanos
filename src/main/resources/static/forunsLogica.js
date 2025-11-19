@@ -114,7 +114,6 @@ async function iniciarForunsLogica() {
                 const primeiroPost = document.querySelector('.forum-tela-foruns');
                 const containerGeral = document.getElementById("container-all-foruns");
                 if (data.resultado.length === 0) {
-                    console.log("receba")
                     primeiroPost.remove()
                     alert("Nenhum resultado encontrado!")
                     btnLonge.textContent = paginaAtual();
@@ -196,7 +195,7 @@ async function iniciarForunsLogica() {
         const url = window.location.href;
         const partes = url.split('/');
         let ultima = "/" + partes.pop();
-        if (ultima === '/foruns') {
+        if (!Number.isFinite(Number(ultima.substring(1,ultima.length)))) {
             window.location.pathname = "foruns/ /0"
         }
     }

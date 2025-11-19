@@ -181,7 +181,7 @@ function consertarUrl() {
     const url = window.location.href;
     const partes = url.split('/');
     let ultima = "/" + partes.pop();
-    if (ultima === '/publicacoes') {
+        if (!Number.isFinite(Number(ultima.substring(1,ultima.length)))) {
         window.location.pathname = "publicacoes/ /0"
     }
 }

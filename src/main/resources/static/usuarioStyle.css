@@ -39,6 +39,7 @@
     aspect-ratio: 1/1;
     border-radius: 100%;
     object-fit: cover;
+    cursor: pointer;
 }
 
 .nome-usuario {
@@ -245,6 +246,11 @@
     color: #E40000;
     font-size: 1.7rem;
     font-weight: 400;
+}
+
+.titulo-forum:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .container-nome-data {

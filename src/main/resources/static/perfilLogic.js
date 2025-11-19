@@ -96,162 +96,162 @@ async function iniciarPerfil() {
             btnConfigUser.style.display = "flex"
             btnRequisitar.style.display = "flex"
             btnLogModerador.style.display = "flex"
-            btnLogModerador.addEventListener("click", function() {
+            btnLogModerador.addEventListener("click", function () {
                 window.location.pathname = "/registro"
             })
         }
 
-        entrada.addEventListener("input", input_capa);
-
-
-        function input_capa() {
-            capaPreview = document.querySelector(".icon-user");
-
-            const imagemSubmetida = entrada.files[0];
-
-            if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg")) {
-                const reader = new FileReader();
-
-                reader.onload = (e) => {
-                    const base64StringWithPrefix = e.target.result;
-                    requestBody = {
-                        imageBase64: base64StringWithPrefix.replace(base64StringWithPrefix.substring(0, base64StringWithPrefix.indexOf(",") + 1), ""),
-                        descricao: "Foto de perfil de " + data.nome,
-                        titulo: "Foto de perfil de " + data.nome
-                    }
-
-                    fetch("http://localhost:8080/api/user/atualizar_imagem", {
-                        method: 'PUT',
-                        body: JSON.stringify(requestBody),
-                        headers: { 'Content-Type': 'application/json' },
-                    })
-                        .then(res => {
-                            if (!res.ok) return res.json();
-                            alert("Imagem adicionada com sucesso!")
-                            window.location.reload();
-                        })
-                        .then(d => {
-                            alert(d.mensagem)
-                        })
-                };
-
-                reader.readAsDataURL(imagemSubmetida);
-            }
+        
+    if (data.fotoDePerfil != null) {
+        let fotoB64 = data.fotoDePerfil.imagem
+        if (fotoB64 != "") {
+            document.querySelector(".icon-user").src = "data:image/" + data.fotoDePerfil.tipoImagem + ";base64," + fotoB64;
         }
-
-        if (data.fotoDePerfil != null) {
-            let fotoB64 = data.fotoDePerfil.imagem
-            if (fotoB64 != "") {
-                document.querySelector(".icon-user").src = "data:image/" + data.fotoDePerfil.tipoImagem + ";base64," + fotoB64;
-            }
-        }
-
-        btnAddCargo.addEventListener("click", function () {
-            anexarHTMLExternoPerfil("/aplicar_cargo", "/aplicarPopupStyle.css", "/aplicarPopupLogic.js", "http://localhost:8080/api/user/aplicar_cargo/" + id)
-        })
-
-        async function gerarPublicacoes() {
-            fetch("http://localhost:8080/api/postagem/usuario/" + id, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-            })
-                .then(res => {
-                    if (!res.ok) throw new Error("Erro no servidor");
-                    return res.json();
-                })
-                .then(data => {
-                    const primeiroPost = document.querySelector('.container-geral-publicacoes');
-                    const containerGeral = document.getElementById("container-lista");
-
-                    if (data.length === 0) {
-                        primeiroPost.querySelector('.container-baixo').remove()
-                    } else {
-                        data.forEach((post, index) => {
-                            if (index == 0) {
-                                construirPublicacao(primeiroPost, post)
-                            } else {
-                                const novoPost = primeiroPost.cloneNode(true);
-                                containerGeral.appendChild(novoPost)
-                                construirPublicacao(novoPost, post)
-                            }
-                        });
-                    }
-
-                })
-                .catch(err => console.error(err));
-
-            function construirPublicacao(publicacao, dados) {
-                novoT = dados.titulo
-                if (novoT.length > 35) {
-                    novoT = novoT.substring(0, 35) + "..."
-                }
-                publicacao.querySelector(".titulo-publicacao").textContent = novoT
-                publicacao.querySelector(".autor").textContent = dados.autor
-                publicacao.querySelector(".data").textContent = dados.data
-                publicacao.querySelector(".paragrafo").innerHTML = dados.texto
-                if (dados.capa.imagem == "" || dados.capa.tipoImagem) {
-                    publicacao.querySelector(".imagem").src = "/imagens/publicacao.png";
-                } else {
-                    publicacao.querySelector(".imagem").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
-                }
-                publicacao.addEventListener("click", function () {
-                    window.location.pathname = "publicacao/" + dados.idPostagem
-                })
-            }
-        }
-
-        async function gerarForuns() {
-            fetch("http://localhost:8080/api/forum/usuario/" + id, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' }
-            })
-
-                .then(res => {
-                    if (!res.ok) throw new Error("Erro no servidor");
-                    return res.json();
-                })
-                .then(data => {
-                    const primeiroPost = document.querySelector('.container-forum');
-                    const containerGeral = document.getElementById("containerForuns");
-                    if (data.length === 0) {
-                        primeiroPost.remove()
-                    } else {
-                        data.forEach((post, index) => {
-                            if (index == 0) {
-                                construirForum(primeiroPost, post)
-                            } else {
-                                const novoPost = primeiroPost.cloneNode(true);
-                                containerGeral.appendChild(novoPost)
-                                construirForum(novoPost, post)
-                            }
-                        });
-                    }
-
-                })
-
-            function construirForum(forum, dados) {
-                novoT = dados.titulo
-                if (novoT.length > 35) {
-                    novoT = novoT.substring(0, 35) + "..."
-                }
-                forum.querySelector(".titulo-forum").textContent = novoT
-                forum.querySelector(".data-forum").textContent = dados.dataCriacao
-                forum.querySelector(".nRespostas").textContent = "Respostas: " + dados.respostas
-                forum.querySelector(".dAtualizacao").textContent = "Última Atualização: " + dados.ultimaAtualizacao
-                forum.addEventListener("click", function () {
-                    window.location.pathname = "forum/" + dados.idForum
-                })
-            }
-
-        }
-
-        await gerarForuns()
-        gerarPublicacoes()
-
-
+    }
     } catch (error) {
         console.error('Erro:', error);
+        entrada.addEventListener("input", input_capa);
     }
+
+    function input_capa() {
+        capaPreview = document.querySelector(".icon-user");
+
+        const imagemSubmetida = entrada.files[0];
+
+        if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg")) {
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                const base64StringWithPrefix = e.target.result;
+                requestBody = {
+                    imageBase64: base64StringWithPrefix.replace(base64StringWithPrefix.substring(0, base64StringWithPrefix.indexOf(",") + 1), ""),
+                    descricao: "Foto de perfil de " + data.nome,
+                    titulo: "Foto de perfil de " + data.nome
+                }
+
+                fetch("http://localhost:8080/api/user/atualizar_imagem", {
+                    method: 'PUT',
+                    body: JSON.stringify(requestBody),
+                    headers: { 'Content-Type': 'application/json' },
+                })
+                    .then(res => {
+                        if (!res.ok) return res.json();
+                        alert("Imagem adicionada com sucesso!")
+                        window.location.reload();
+                    })
+                    .then(d => {
+                        alert(d.mensagem)
+                    })
+            };
+
+            reader.readAsDataURL(imagemSubmetida);
+        }
+    }
+
+
+    btnAddCargo.addEventListener("click", function () {
+        anexarHTMLExternoPerfil("/aplicar_cargo", "/aplicarPopupStyle.css", "/aplicarPopupLogic.js", "http://localhost:8080/api/user/aplicar_cargo/" + id)
+    })
+
+    async function gerarPublicacoes() {
+        fetch("http://localhost:8080/api/postagem/usuario/" + id, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Erro no servidor");
+                return res.json();
+            })
+            .then(data => {
+                const primeiroPost = document.querySelector('.container-geral-publicacoes');
+                const containerGeral = document.getElementById("container-lista");
+
+                if (data.length === 0) {
+                    primeiroPost.querySelector('.container-baixo').remove()
+                } else {
+                    data.forEach((post, index) => {
+                        if (index == 0) {
+                            construirPublicacao(primeiroPost, post)
+                        } else {
+                            const novoPost = primeiroPost.cloneNode(true);
+                            containerGeral.appendChild(novoPost)
+                            construirPublicacao(novoPost, post)
+                        }
+                    });
+                }
+
+            })
+            .catch(err => console.error(err));
+
+        function construirPublicacao(publicacao, dados) {
+            novoT = dados.titulo
+            if (novoT.length > 35) {
+                novoT = novoT.substring(0, 35) + "..."
+            }
+            publicacao.querySelector(".titulo-publicacao").textContent = novoT
+            publicacao.querySelector(".autor").textContent = dados.autor
+            publicacao.querySelector(".data").textContent = dados.data
+            publicacao.querySelector(".paragrafo").innerHTML = dados.texto
+            if (dados.capa.imagem == "" || dados.capa.tipoImagem) {
+                publicacao.querySelector(".imagem").src = "/imagens/publicacao.png";
+            } else {
+                publicacao.querySelector(".imagem").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
+            }
+            publicacao.addEventListener("click", function () {
+                window.location.pathname = "publicacao/" + dados.idPostagem
+            })
+        }
+    }
+
+    async function gerarForuns() {
+        fetch("http://localhost:8080/api/forum/usuario/" + id, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        })
+
+            .then(res => {
+                if (!res.ok) throw new Error("Erro no servidor");
+                return res.json();
+            })
+            .then(data => {
+                const primeiroPost = document.querySelector('.container-forum');
+                const containerGeral = document.getElementById("containerForuns");
+                if (data.length === 0) {
+                    primeiroPost.remove()
+                } else {
+                    data.forEach((post, index) => {
+                        if (index == 0) {
+                            construirForum(primeiroPost, post)
+                        } else {
+                            const novoPost = primeiroPost.cloneNode(true);
+                            containerGeral.appendChild(novoPost)
+                            construirForum(novoPost, post)
+                        }
+                    });
+                }
+
+            })
+
+        function construirForum(forum, dados) {
+            novoT = dados.titulo
+            if (novoT.length > 35) {
+                novoT = novoT.substring(0, 35) + "..."
+            }
+            forum.querySelector(".titulo-forum").textContent = novoT
+            forum.querySelector(".data-forum").textContent = dados.dataCriacao
+            forum.querySelector(".nRespostas").textContent = "Respostas: " + dados.respostas
+            forum.querySelector(".dAtualizacao").textContent = "Última Atualização: " + dados.ultimaAtualizacao
+            forum.querySelector(".titulo-forum").addEventListener("click", function () {
+                window.location.pathname = "forum/" + dados.idForum
+            })
+        }
+
+    }
+
+    await gerarForuns()
+    await gerarPublicacoes()
+
+
 
 
 }
