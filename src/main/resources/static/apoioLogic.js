@@ -28,6 +28,8 @@ async function iniciarTelaApoio() {
     const addApoio = document.getElementById("add-acolhimento")
     const primeiroApoioD = document.querySelector(".container-geral-instituicao-direita")
     const primeiroApoioE = document.querySelector(".container-geral-instituicao-esquerda")
+const primeiroApoioDC = primeiroApoioD.cloneNode(true)
+    const primeiroApoioEC = primeiroApoioE.cloneNode(true)
     const containerLista = document.querySelector(".container-resto-tela-apoio")
 
     fetch("http://localhost:8080/api/user", {
@@ -51,9 +53,9 @@ async function iniciarTelaApoio() {
         })
         .catch(err => console.error(err));
 
-        fetch("http//localhost:8080/api/apoio/"), {
+        fetch("http://localhost:8080/api/apoio/", {
                     headers: { 'Content-Type': 'application/json' },
-        }.then(res => {
+        }).then(res => {
             if (!res.ok) throw new Error("Erro no servidor");
             return res.json();
         })
@@ -66,7 +68,7 @@ async function iniciarTelaApoio() {
                 primeiroApoioD.remove()
             }
 
-            data.array.forEach(d, i => {
+            data.forEach((d, i) => {
                 if(i == 0) {
                     construirPublicacao(primeiroApoioE, d)
                 } else if(i == 1) {
@@ -74,8 +76,13 @@ async function iniciarTelaApoio() {
                 } else {
                     let novoElemento
                     if(i % 2 != 0) {
-                        novoElemento = document.cloneNode(primeiroApoioD)
+                        novoElemento = primeiroApoioDC.cloneNode(true)
                         construirPublicacao(novoElemento, d)
+                        containerLista.appendChild(novoElemento)
+                    } else {
+                        novoElemento = primeiroApoioEC.cloneNode(true)
+                        construirPublicacao(novoElemento, d)
+                        containerLista.appendChild(novoElemento)
                     }
                 }
 
@@ -84,8 +91,8 @@ async function iniciarTelaApoio() {
         })
 
         async function construirPublicacao(elemento, d) {
-            elemento.querySelector(".infoApoio").textContent = d.sobreInstituicao
-            elemento.querySelector(".nomeApoio").textContent = d.nomeInstituicao
+            elemento.querySelector("#infoApoio").textContent = d.sobreInstituicao
+            elemento.querySelector("#nomeApoio").textContent = d.nomeInstituicao
 
             preencher_elemento("#twitterC",d.twitter)
             preencher_elemento("#instaC",d.instagram)
@@ -93,14 +100,15 @@ async function iniciarTelaApoio() {
             preencher_elemento("#siteC",d.site)
             preencher_elemento("#numeroC",d.numero)
             preencher_elemento("#enderecoC",d.localizacao)
-        }
 
         function preencher_elemento(seletor, link) {
             if(!link) {
-                elemento.querySelector.remove()
+                elemento.querySelector(seletor).parentNode.remove()
+                return;
             }
             elemento.querySelector(seletor).textContent = link;
             elemento.querySelector(seletor).href = link;
+        }
         }
 }
 
