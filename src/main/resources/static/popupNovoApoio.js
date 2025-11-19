@@ -8,7 +8,7 @@ async function iniciarNovoApoio(url, idApoioExistente) {
     const siteInst = document.getElementById("campo-site")
     const likIn = document.getElementById("campo-linkedin")
     const entrada = document.getElementById("novoApoioInput")
-    const previewFoto = document.getElementById("foto-perfil-instituicao")
+    const capaPreview = document.getElementById("foto-perfil-instituicao")
 
    const btnCriarApoio = document.getElementById("botao-salvar-instituicao")
     const excluirApoio = document.getElementById("lixo-deletar")
@@ -42,20 +42,18 @@ async function iniciarNovoApoio(url, idApoioExistente) {
     
 
     function input_capa() {
-        capaPreview = document.querySelector(".icon-user");
-
         const imagemSubmetida = entrada.files[0];
 
-        if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg")) {
+        if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg") || imagemSubmetida.name.endsWith(".webp")) {
             const reader = new FileReader();
-
+            
             reader.onload = (e) => {
                 const base64StringWithPrefix = e.target.result;
-                previewFoto.src = base64StringWithPrefix.replace(base64StringWithPrefix.substring(0, base64StringWithPrefix.indexOf(",") + 1), "")
+                capaPreview.src = base64StringWithPrefix
                 imagemAlterada = true
-
-            reader.readAsDataURL(imagemSubmetida);
         }
+                    reader.readAsDataURL(imagemSubmetida);
+
     }
 }
 
@@ -70,7 +68,7 @@ async function iniciarNovoApoio(url, idApoioExistente) {
 
         }
 
-        let ib64 = imagemAlterada ? ImagemBase64 : ""
+        let ib64 = imagemAlterada ? capaPreview.src : ""
         const novoApoio = {
             nomeInstituicao: nomeInst.value,
             sobreInstituicao: sobreInst.value,
