@@ -14,7 +14,7 @@ async function anexarHTMLExterno(url, cssFile, jsFile, durl, idApoio) {
         script.src = jsFile;
         script.onload = () => {
             if (jsFile === "/popupNovoApoio.js.js" && typeof iniciarNovoApoio === "function") {
-                iniciarNovoApoio("");
+                iniciarNovoApoio(durl, idApoio);
             }
 
         };
@@ -40,7 +40,7 @@ async function iniciarTelaApoio() {
                 editApoioE.style.display = "flex"
                 addApoio.style.display = "flex"
                 addApoio.addEventListener("click", function () {
-                    anexarHTMLExterno("/novo_apoio", "/novoApoioStyle.css", "/popupNovoApoio.js", "http://localhost:8080/api/apoio")
+                    anexarHTMLExterno("/novo_apoio", "/novoApoioStyle.css", "/popupNovoApoio.js", "http://localhost:8080/api/apoio", null)
                 })
             }
 

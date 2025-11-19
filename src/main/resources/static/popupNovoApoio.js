@@ -8,8 +8,24 @@ async function iniciarNovoApoio(url, idApoioExistente) {
     const siteInst = document.getElementById("campo-site")
     const likIn = document.getElementById("campo-linkedin")
 
+    const blur = document.querySelector("#blurNovoApoio");
+    const container_decisao = document.querySelector("#fundoNovoApoio");
+
+    blur.display = "flex"
+    container_decisao.display = "flex"
+
+
+    blur.addEventListener("click", sumir)
+
+    function sumir() {
+        container_decisao.remove();
+        blur.remove();
+    }
+
 
     const btnCriarApoio = document.getElementById("botao-salvar-instituicao")
+    const excluirApoio = document.getElementById(".lixo-deletar")
+
 
     btnCriarApoio.addEventListener("click", function () {
 
@@ -21,6 +37,11 @@ async function iniciarNovoApoio(url, idApoioExistente) {
 
         if(idApoioExistente) {
             url = url + idApoioExistente
+            excluirApoio.remove()
+        } else {
+            excluirApoio.addEventListener("click", function() {
+                sumir()
+            })
         }
 
         const novoApoio = {
@@ -37,7 +58,7 @@ async function iniciarNovoApoio(url, idApoioExistente) {
         };
 
         fetch(url, {
-            method: idApoio ? "PUT" : "POST",
+            method: idApoioExistente ? "PUT" : "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(novoApoio)
         })
@@ -45,7 +66,7 @@ async function iniciarNovoApoio(url, idApoioExistente) {
                 if (!res.ok) {
                     return res.json();
                 }
-                if(!idApoio) {
+                if(!idApoioExistente) {
                     alert("Novo apoio cadastrado com sucesso!")
                 } else {
                     alert("Apoio atualizado com sucesso!")

@@ -86,20 +86,10 @@ async function iniciarForunsLogica() {
         const url = window.location.href;
         const partes = url.split('/');
         let busca2 = "/" + partes.pop();
-        let buscaf
 
-        //Significa que já não tem nada || Isso aqui ainda vai ser útil?
-        if (busca2 === '/foruns') {
-            buscaf = "/"
-        } else {
-            let busca = "/" + partes.pop();
-            if (busca === '/foruns') {
-                buscaf = "/" + busca2
-            } else {
-                buscaf = busca + busca2
-            }
-
-        }
+        let busca = partes.pop();
+        buscaf = busca + busca2
+        
         fetch("http://localhost:8080/api/forum/listar_publicacoes" + buscaf, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
