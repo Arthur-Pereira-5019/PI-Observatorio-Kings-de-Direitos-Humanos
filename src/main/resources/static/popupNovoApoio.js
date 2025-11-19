@@ -7,7 +7,8 @@ async function iniciarNovoApoio(url, idApoioExistente) {
     const endereco = document.getElementById("campo-endereco")
     const siteInst = document.getElementById("campo-site")
     const likIn = document.getElementById("campo-linkedin")
-    const entrada = document.getElementById("campo-linkedin")
+    const entrada = document.getElementById("novoApoioInput")
+    const previewFoto = document.getElementById("foto-perfil-instituicao")
 
    const btnCriarApoio = document.getElementById("botao-salvar-instituicao")
     const excluirApoio = document.getElementById("lixo-deletar")
@@ -17,6 +18,8 @@ async function iniciarNovoApoio(url, idApoioExistente) {
 
     blur.display = "flex"
     container_decisao.display = "flex"
+
+    let imagemAlterada;
 
 
     blur.addEventListener("click", sumir)
@@ -48,30 +51,13 @@ async function iniciarNovoApoio(url, idApoioExistente) {
 
             reader.onload = (e) => {
                 const base64StringWithPrefix = e.target.result;
-                requestBody = {
-                    imageBase64: base64StringWithPrefix.replace(base64StringWithPrefix.substring(0, base64StringWithPrefix.indexOf(",") + 1), ""),
-                    descricao: "Foto de perfil de " + data.nome,
-                    titulo: "Foto de perfil de " + data.nome
-                }
-
-                fetch("http://localhost:8080/api/user/atualizar_imagem", {
-                    method: 'PUT',
-                    body: JSON.stringify(requestBody),
-                    headers: { 'Content-Type': 'application/json' },
-                })
-                    .then(res => {
-                        if (!res.ok) return res.json();
-                        alert("Imagem adicionada com sucesso!")
-                        window.location.reload();
-                    })
-                    .then(d => {
-                        alert(d.mensagem)
-                    })
-            };
+                previewFoto.src = base64StringWithPrefix.replace(base64StringWithPrefix.substring(0, base64StringWithPrefix.indexOf(",") + 1), "")
+                imagemAlterada = true
 
             reader.readAsDataURL(imagemSubmetida);
         }
     }
+}
 
  
 
@@ -84,6 +70,7 @@ async function iniciarNovoApoio(url, idApoioExistente) {
 
         }
 
+        let ib64 = imagemAlterada ? ImagemBase64 : ""
         const novoApoio = {
             nomeInstituicao: nomeInst.value,
             sobreInstituicao: sobreInst.value,
@@ -93,7 +80,7 @@ async function iniciarNovoApoio(url, idApoioExistente) {
             site: siteInst.value,
             instagram: insta.value,
             linkedin: likIn.value,
-            ImagemBase64: ""
+            ImagemBase64: ib64
 
         };
 
