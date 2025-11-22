@@ -18,5 +18,9 @@ public class NoticiaMapper {
         NoticiaAgregada na = new NoticiaAgregada();
         na.setTitulo(nd.getTitle());
         na.setAutor(nd.getCreator() == null ? nd.getSource_name() : nd.getCreator());
+        na.setDate(nd.getPubDate());
+        na.setLinkCapa(nd.getImage_url());
+        na.setIcon(nd.getSource_icon());
+        return na;
     }
 }

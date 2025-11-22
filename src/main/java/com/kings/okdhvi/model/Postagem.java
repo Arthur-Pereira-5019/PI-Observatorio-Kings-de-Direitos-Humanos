@@ -67,6 +67,12 @@ public class Postagem{
     @Column
     boolean externa;
 
+    @Column
+    String linkCapaNoticiaExterna;
+
+    @Column
+    String nomeAutorNoticiaExterna;
+
     public String getTituloPostagem() {
         return tituloPostagem;
     }
@@ -107,8 +113,6 @@ public class Postagem{
         this.tags = tags;
     }
 
-
-
     public Long getId() {
         return id;
     }
@@ -139,5 +143,21 @@ public class Postagem{
 
     public void setOculto(boolean oculto) {
         this.oculto = oculto;
+    }
+
+    public String getLinkCapaNoticiaExterna() {
+        return linkCapaNoticiaExterna;
+    }
+
+    public void setLinkCapaNoticiaExterna(String linkCapaNoticiaExterna) {
+        this.linkCapaNoticiaExterna = linkCapaNoticiaExterna;
+    }
+
+    public String getNomeAutorNoticiaExterna() {
+        return nomeAutorNoticiaExterna;
+    }
+
+    public void setNomeAutorNoticiaExterna(String nomeAutorNoticiaExterna) {
+        this.nomeAutorNoticiaExterna = nomeAutorNoticiaExterna;
     }
 }

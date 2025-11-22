@@ -2,6 +2,7 @@ package com.kings.okdhvi.mapper;
 
 import com.kings.okdhvi.model.DTOs.PostagemPaginaDTO;
 import com.kings.okdhvi.model.DTOs.UsuarioComDTO;
+import com.kings.okdhvi.model.NoticiaAgregada;
 import com.kings.okdhvi.model.Postagem;
 import com.kings.okdhvi.model.DTOs.PostagemECDTO;
 import com.kings.okdhvi.model.DTOs.PostagemESDTO;
@@ -42,6 +43,18 @@ public class PostagemMapper {
         return new PostagemPaginaDTO(
                 p.getId(), p.getTituloPostagem(), p.getDataDaPostagem(), um.usuarioComentador(p.getAutor()), p.getTextoPostagem(), p.getCapa(), p.isOculto(), proprio
         );
+    }
+
+    public Postagem parseNoticiaToPostagem(NoticiaAgregada n) {
+        Postagem p = new Postagem();
+        p.setTags("noticia");
+        p.setTextoPostagem("");
+        p.setExterna(true);
+        p.setDataDaPostagem(n.getDate());
+        p.setTituloPostagem(n.getTitulo());
+        p.setNomeAutorNoticiaExterna(n.getAutor());
+        p.setLinkCapaNoticiaExterna(n.getLink());
+        return p;
     }
 
 }

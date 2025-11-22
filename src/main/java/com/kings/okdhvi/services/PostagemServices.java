@@ -39,7 +39,8 @@ public class PostagemServices {
 
     Logger logger = LoggerFactory.getLogger(PostagemServices.class);
 
-    public BuscaPaginadaResultado<Postagem> buscaFiltrada(BuscaPaginada bp, String texto, UserDetails ud) {
+
+    public BuscaPaginadaResultado<Postagem> buscaFiltrada(BuscaPaginada bp, String texto, UserDetails ud, boolean noticia) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Postagem> cq = cb.createQuery(Postagem.class);
         Root<Postagem> p = cq.from(Postagem.class);
@@ -55,8 +56,11 @@ public class PostagemServices {
 
 
             predicates.add(cb.or(predicatesCorpo, predicatesTitulo, predicatesTags));
-            if(texto.contains("noticia")) {
+            if(noticia) {
                 predicates.add(cb.like(cb.lower(p.get("tags")), "%" + "noticia" + "%"));
+            } else {
+                Predicate naoExterno = cb.equal(p.get("externa"), false);
+                predicates.add(naoExterno);
             }
         }
 
@@ -135,6 +139,10 @@ public class PostagemServices {
         post.setAutor(u);
         post.setDataDaPostagem(Date.from(Instant.now()));
         return pr.save(post);
+    }
+
+    public Postagem salvarPostagem(Postagem p) {
+        return pr.save(p);
     }
 
     public Postagem atualizarPostagem(Postagem p, Long id) {

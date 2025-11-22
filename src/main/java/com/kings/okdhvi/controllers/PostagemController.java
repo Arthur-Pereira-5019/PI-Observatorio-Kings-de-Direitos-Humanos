@@ -70,7 +70,7 @@ public class PostagemController {
         List<Postagem> postagens;
         List<PostagemECDTO> resultadosDTO = new ArrayList<>();
         BuscaPaginada bp = new BuscaPaginada(pagina, 10, bpt.parametro(), bpt.ascending());
-        BuscaPaginadaResultado<Postagem> bpr = ps.buscaFiltrada(bp, texto, ud);
+        BuscaPaginadaResultado<Postagem> bpr = ps.buscaFiltrada(bp, texto, ud, false);
         postagens = bpr.getResultado();
 
         postagens.forEach(b -> resultadosDTO.add(pm.parsePostagemToECDTO(b)));
@@ -87,7 +87,7 @@ public class PostagemController {
         BuscaPaginadaResultado<PostagemESDTO> retorno = new BuscaPaginadaResultado<>();
         ArrayList<PostagemESDTO> retornoList = new ArrayList<>();
 
-        BuscaPaginadaResultado<Postagem> busca = ps.buscaFiltrada(new BuscaPaginada(page, 2, "dataDaPostagem", false),null, ud);
+        BuscaPaginadaResultado<Postagem> busca = ps.buscaFiltrada(new BuscaPaginada(page, 2, "dataDaPostagem", false),null, ud, false);
         busca.getResultado().forEach(p -> {retornoList.add(pm.parsePostagemToESDTO(p));});
 
         retorno.setResultado(retornoList);
