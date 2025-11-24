@@ -117,7 +117,7 @@ async function iniciarVerForum() {
             } else if (data.autor.foto.fotoPerfil == "" || data.autor.foto.tipoImagem == "") {
                 fotoPerfil.src = "/imagens/perfilIcon.png";
             } else {
-                fotoPerfil.src = "data:image/" + data.autor.foto.tipoImagem + ";base64," + data.autor.foto.fotoPerfil;
+                fotoPerfil.src = "data:image/" + data.autor.foto.tipoImagem + ";base64," + data.autor.foto.imagem;
             }
             carregarComentarios();
 
