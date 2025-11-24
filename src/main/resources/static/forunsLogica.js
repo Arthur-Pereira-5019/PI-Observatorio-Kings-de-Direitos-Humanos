@@ -116,7 +116,7 @@ async function iniciarForunsLogica() {
                     btnLonge.remove()
                     btnCampo.remove()
                 } else {
-                    btnLonge.textContent = paginaAtual() + Math.ceil(data.proximosIndexes % 10);
+                    btnLonge.textContent = paginaAtual() + Math.ceil(data.proximosIndexes / 10);
                     if (Number(paginaAtual()) == Number(btnLonge.textContent)) {
                         btnDireito.remove()
                         btnLonge.remove()

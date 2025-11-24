@@ -44,7 +44,7 @@ async function publicarDocumento(finalizada) {
 
     if(textoPublicacao.innerHTML.length > 32768){
         console.log("oieee")
-        alert("Quantidade de texto superior ao limite " + textoPublicacao.value.length + "/32768")
+        alert("Quantidade de texto superior ao limite " + textoPublicacao.innerHTML.length + "/32768")
         textoPublicacao.focus()
         return   
 

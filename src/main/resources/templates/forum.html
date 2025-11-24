@@ -6,12 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/forumStyle.css">
-
-
 </head>
 
 <body>
@@ -30,6 +26,7 @@
 
         <div class="container-resto-tela-forum">
 
+    
             <div class="container-geral-discussao-forum">
 
                 <div class="botao-ocultar-comentario-forum" id="btnOcultar">
@@ -42,12 +39,13 @@
                 </div>
 
                 <div class="container-texto-discussao-forum">
-                    <p id="textoForum"></p>
+                    <p id="textoForum" class="textoPrincipal"></p>
                     <p id="data-comentario-forum"></p>
                 </div>
 
             </div>
 
+         
             <div class="fundo-criacao-comentario-forum">
                 <textarea name="comentario" placeholder="Participe da discussão!" id="text-area-comentario-forum" maxlength="512"></textarea>
 
@@ -57,6 +55,7 @@
                 </div>
             </div>
 
+       
             <div class="container-geral-discussao-forum containerPrimeiroComentario">
 
                 <div class="botao-ocultar-comentario-forum">
@@ -64,13 +63,13 @@
                 </div>
 
                 <div class="container-infos-usuario-discussao-forum infoComentarios">
-                    <img src="" id="foto-user-discussao-forum" class="foto-user-discussao-forum" alt>
-                    <p id="nome-user-discussao-forum" class="nomeComentario"></p>
+                    <img src="" class="foto-user-discussao-forum" alt>
+                    <p class="nomeComentario"></p>
                 </div>
 
                 <div class="container-texto-discussao-forum infoTexto">
                     <p class="textoComentarioForum"></p>
-                    <p id="data-comentario-forum"></p>
+                    <p class="data-comentario-forum"></p>
                 </div>
 
             </div>
@@ -81,7 +80,6 @@
 
     <div id="posPopUp">
         <div id="registro"></div>
-
     </div>
 
     <div id="posPopUpLogin">

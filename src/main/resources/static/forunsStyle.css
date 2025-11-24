@@ -1,189 +1,182 @@
-    * {
-        margin: 0;
-        box-sizing: border-box;
-    }
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container-universal-tela-foruns {
+    min-height: 70vh;
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.titulo-tela-foruns {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    color: #C00003;
+    font-size: 60px;
+    font-weight: 800;
+    font-family: "Inter", sans-serif;
+}
+
+.container-all-foruns {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    min-height: 40vh;
+    align-items: center;
+    gap: 1vh;
+}
+
+.forum-tela-foruns {
+    width: 90%;
+    height: 10vh;
+    background-color: #313131;
+    display: flex;
+    padding: 0.5%;
+    align-items: center; 
+}
+
+.container-foto-forum-tela-foruns {
+    height: 100%;
+    width: auto;
+    cursor: pointer;
+}
+
+#foto-user-forum-tela-foruns {
+    height: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
 
 
-    .container-universal-tela-foruns {
-        min-height: 70vh;
-        height: fit-content;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
+.container-infos-tela-foruns {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1%;
+    flex: 1;        
+    min-width: 0;  
+}
 
-    .titulo-tela-foruns {
-        width: 100%;
-        height: auto;
-        text-align: center;
-        color: #C00003;
-        font-size: 60px;
-        font-weight: 800;
-        font-family: "Inter", sans-serif;
+.tituloForum {
+    height: auto;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #e92c2c;
+    font-size: 2rem;
+    cursor: pointer;
+    font-family: "Inter", sans-serif;
+}
 
-    }
+.tituloForum:hover {
+    text-decoration: underline;
+}
 
-    .container-all-foruns {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        height: fit-content;
-        min-height: 40vh;
-        align-items: center;
-        gap: 1vh;
-    }
+.textoBranco {
+    color: white;
+    font-family: "Inter", sans-serif;
+}
 
+.container-data-autor-tela-foruns {
+    display: flex;
+    height: auto;
+    width: auto;
+    gap: 0.5rem;
+}
 
-    .forum-tela-foruns {
-        width: 90%;
-        height: 10vh;
-        background-color: #313131;
-        display: flex;
-        padding: 0.5%;
-    }
+.autorForum {
+    color: white;
+}
 
-    .container-foto-forum-tela-foruns {
-        height: 100%;
-        width: auto;
-        cursor: pointer;
-    }
+.autorForum:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
 
-    #foto-user-forum-tela-foruns {
-        height: 100%;
-        aspect-ratio: 1/1;
-        border-radius: 50%;
-    }
-
-    .container-infos-tela-foruns {
-        display: flex;
-        flex-direction: column;
-        margin-left: 1%;
-        width: 79%;
-        height: fit-content;
-        gap: 10%;
-        justify-content: center;
-    }
-
-    .tituloForum {
-        height: auto;
-        width: 100%;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        color: #e92c2c;
-        font-size: 2rem;
-        cursor: pointer;
-        font-family: "Inter", sans-serif;
+#dataForum {
+    color: #C8C8C8;
+    font-weight: 200;
+    font-family: "Inter", sans-serif;
+}
 
 
-    }
+.container-respostas-atualizacao-tela-foruns {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 180px;     
+    flex-shrink: 0;   
+    text-align: right;
+    gap: 0.5rem;
+}
 
-    .tituloForum:hover {
-        text-decoration: underline;
-    }
+.dados-forum-tela-foruns {
+    color: white;
+    font-family: "Inter", sans-serif;
+}
 
-    .textoBranco {
-        color: white;
-        font-family: "Inter", sans-serif;
+.container-numeros-respostas-atualizacao-tela-foruns {
+    margin-left: 0.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: auto;
+    gap: 0.5rem;
+}
 
-    }
+.container-posicao-botao-tela-foruns {
+    display: flex;
+    width: 95%;
+    justify-content: flex-end;
+}
 
-    .container-data-autor-tela-foruns {
-        display: flex;
-        height: auto;
-        width: auto;
-        gap: 0.5rem;
-    }
+#botao-addForum-tela-foruns {
+    background-color: #C00003;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 12vh;
+    width: 12vh;
+    border-radius: 50%;
+}
 
-    .autorForum {
-        color: white;
-    }
+#botao-addForum-tela-foruns:hover {
+    background-color: #E0272A;
+}
 
-    .autorForum:hover {
-        text-decoration: underline;
-        cursor: pointer;
-    }
+#mais {
+    width: 70%;
+    height: 70%;
+}
 
-    #dataForum {
-        color: #C8C8C8;
-        font-weight: 200;
-        font-family: "Inter", sans-serif;
+.container-seletores {
+    height: 5vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 2%;
+    padding: 40px;
+    align-items: center;
+}
 
-    }
-
-    .container-respostas-atualizacao-tela-foruns {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        height: 100%;
-        width: 40vw;
-        gap: 0.5rem;
-    }
-
-    .dados-forum-tela-foruns {
-        color: white;
-        font-family: "Inter", sans-serif;
-
-    }
-
-    .container-numeros-respostas-atualizacao-tela-foruns {
-        margin-left: 0.5%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        height: 100%;
-        width: auto;
-        gap: 0.5rem;
-    }
-
-    .container-posicao-botao-tela-foruns {
-        display: flex;
-        width: 95%;
-        justify-content: flex-end;
-    }
-
-    #botao-addForum-tela-foruns {
-        background-color: #C00003;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 12vh;
-        width: 12vh;
-        border-radius: 50%;
-    }
-
-    #botao-addForum-tela-foruns:hover {
-        background-color: #E0272A;
-    }
-
-    #mais {
-        width: 70%;
-        height: 70%;
-    }
-
-    .container-seletores {
-        height: 5vh;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        gap: 2%;
-        padding: 40px;
-        align-items: center;
-    }
-
-    .bloquinhos {
-        width: 2.5%;
-        display: flex;
-        align-items: center;
-        text-align: center;
-        justify-content: center;
-        font-size: 2rem;
-        font-family: "Inter", sans-serif;
-
-        background-color: #D9D9D9;
-        cursor: pointer;
-        aspect-ratio: 1/1;
-
-    }
+.bloquinhos {
+    width: 2.5%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-family: "Inter", sans-serif;
+    background-color: #D9D9D9;
+    cursor: pointer;
+    aspect-ratio: 1/1;
+}
