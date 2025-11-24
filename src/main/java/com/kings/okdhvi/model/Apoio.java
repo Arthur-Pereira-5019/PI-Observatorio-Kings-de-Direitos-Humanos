@@ -11,34 +11,34 @@ import java.util.Date;
 public class Apoio {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long idApoio;
+    private Long idApoio;
 
     @Column
-    String nomeInstituicao;
+    private String nomeInstituicao;
 
     @Column(length = 2048)
-    String sobreInstituicao;
+    private String sobreInstituicao;
 
     @Column
-    String twitter;
+    private String twitter;
 
     @Column
-    String telefone;
+    private String telefone;
 
     @Column
-    String localizacao;
+    private String localizacao;
 
     @Column
-    String site;
+    private String site;
 
     @Column
-    String instagram;
+    private String instagram;
 
     @Column
-    String linkedin;
+    private String linkedin;
 
     @OneToOne
-    Imagem foto;
+    private Imagem foto;
 
     public Long getIdApoio() {
         return idApoio;

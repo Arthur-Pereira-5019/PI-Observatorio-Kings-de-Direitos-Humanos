@@ -4,6 +4,7 @@ import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.model.DTOs.BuscaPaginada;
 import com.kings.okdhvi.model.DTOs.BuscaPaginadaResultado;
+import com.kings.okdhvi.model.DTOs.PedidoDeTitulacaoDTO;
 import com.kings.okdhvi.repositories.PedidoDeTitulacaoRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -11,7 +12,6 @@ import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 

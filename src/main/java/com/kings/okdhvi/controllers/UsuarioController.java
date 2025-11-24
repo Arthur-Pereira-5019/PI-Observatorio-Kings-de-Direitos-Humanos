@@ -4,8 +4,6 @@ import com.kings.okdhvi.exception.NullResourceException;
 import com.kings.okdhvi.infra.security.TokenService;
 import com.kings.okdhvi.mapper.UsuarioMapper;
 import com.kings.okdhvi.model.DTOs.*;
-import com.kings.okdhvi.model.Imagem;
-import com.kings.okdhvi.model.PedidoDeTitulacaoDTO;
 import com.kings.okdhvi.model.PedidoExclusaoConta;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.services.UsuarioService;

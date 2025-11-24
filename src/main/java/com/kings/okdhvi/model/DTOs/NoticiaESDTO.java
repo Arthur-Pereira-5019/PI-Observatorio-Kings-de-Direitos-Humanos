@@ -3,8 +3,8 @@ package com.kings.okdhvi.model.DTOs;
 import com.kings.okdhvi.model.Imagem;
 
 public class NoticiaESDTO extends PostagemESDTO{
-    String nomeAutor;
-    boolean externa;
+    private String nomeAutor;
+    private boolean externa;
 
     public NoticiaESDTO(Long idPostagem, String titulo, Imagem capa, String nomeAutor, boolean externa) {
         super(idPostagem, titulo, capa);

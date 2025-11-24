@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "foruns")
 public class Forum {
     @Column
-    boolean oculto;
+    private boolean oculto;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinTable(
@@ -28,30 +28,30 @@ public class Forum {
             )
     )
     @JsonIgnore
-    List<Comentario> comentarios = new ArrayList<>();
+    private List<Comentario> comentarios = new ArrayList<>();
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column(nullable = false, length = 512)
-    String tituloForum;
+    private String tituloForum;
 
     @Column(nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
-    Date dataDeCriacao;
+    private Date dataDeCriacao;
 
     @Column(nullable = true)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
-    Date dataDeAtualizacao;
+    private Date dataDeAtualizacao;
 
     @ManyToOne
     @JoinColumn(name="idUsuario")
     @OnDelete(action = OnDeleteAction.SET_NULL)
-    Usuario autor;
+    private Usuario autor;
     @Column(nullable = false, length = 8196)
-    String textoForum;
+    private String textoForum;
 
     public boolean isOculto() {
         return oculto;

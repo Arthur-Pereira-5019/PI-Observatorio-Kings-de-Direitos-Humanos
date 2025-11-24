@@ -1,7 +1,6 @@
 package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.NullResourceException;
-import com.kings.okdhvi.exception.PersistenceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.usuario.*;
 import com.kings.okdhvi.model.*;

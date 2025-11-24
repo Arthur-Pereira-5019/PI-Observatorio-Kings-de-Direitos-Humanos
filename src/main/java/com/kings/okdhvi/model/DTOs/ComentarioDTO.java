@@ -2,11 +2,11 @@ package com.kings.okdhvi.model.DTOs;
 
 public class ComentarioDTO {
 
-    UsuarioComDTO autor;
+    private UsuarioComDTO autor;
 
-    String texto;
+    private String texto;
 
-    Long id;
+    private Long id;
 
     boolean proprio;
 

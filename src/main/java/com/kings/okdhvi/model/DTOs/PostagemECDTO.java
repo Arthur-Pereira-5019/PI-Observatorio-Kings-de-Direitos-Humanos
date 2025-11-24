@@ -7,8 +7,8 @@ import java.util.Date;
 
 public class PostagemECDTO extends PostagemESDTO{
 
-    String texto;
-    String autor;
+    private String texto;
+    private String autor;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
     Date data;

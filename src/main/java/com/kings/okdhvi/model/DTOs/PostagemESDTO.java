@@ -3,11 +3,11 @@ package com.kings.okdhvi.model.DTOs;
 import com.kings.okdhvi.model.Imagem;
 
 public class PostagemESDTO {
-    Long idPostagem;
+    private Long idPostagem;
 
-    String titulo;
+    private String titulo;
 
-    Imagem capa;
+    private Imagem capa;
 
     public Long getIdPostagem() {
         return idPostagem;

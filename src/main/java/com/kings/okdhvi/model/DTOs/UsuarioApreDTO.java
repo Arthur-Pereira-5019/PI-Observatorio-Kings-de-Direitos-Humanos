@@ -4,9 +4,9 @@ import com.kings.okdhvi.model.EstadoDaConta;
 import com.kings.okdhvi.model.Imagem;
 
 public class UsuarioApreDTO {
-    String nome;
-    Imagem fotoDePerfil;
-    EstadoDaConta edc;
+    private String nome;
+    private Imagem fotoDePerfil;
+    private EstadoDaConta edc;
 
     public String getNome() {
         return nome;

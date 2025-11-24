@@ -13,33 +13,33 @@ public class DecisaoModeradora {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long idDecisaoModeradora;
+    private Long idDecisaoModeradora;
 
     @Column(length = 32)
-    String tipo;
+    private String tipo;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     @Column(nullable = false)
-    Date data;
+    private Date data;
     @Column(nullable = false, length = 1024)
-    String motivacao;
+    private String motivacao;
     @Column(length = 128)
-    String nomeModerado;
+    private String nomeModerado;
     @Column(length = 128)
-    String nomeModerador;
+    private String nomeModerador;
 
     @ManyToOne()
     @OnDelete(action = OnDeleteAction.SET_NULL)
-    Usuario usuarioModerado;
+    private Usuario usuarioModerado;
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.SET_NULL)
-    Usuario responsavel;
+    private Usuario responsavel;
 
     @Column
-    Long idModerado;
+    private Long idModerado;
 
     @Column(length = 512)
-    String acao;
+    private String acao;
 
     public String getTipo() {
         return tipo;

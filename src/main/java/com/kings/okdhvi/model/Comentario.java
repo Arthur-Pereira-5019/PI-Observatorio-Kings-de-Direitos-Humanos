@@ -13,27 +13,27 @@ public class Comentario {
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.SET_NULL)
-    Usuario autor;
+    private Usuario autor;
 
     @Column(length = 512)
-    String textComentario;
+    private String textComentario;
 
     @Column
-    Date dataComentario;
+    private Date dataComentario;
 
     @Id
-            @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
-    Long idComentario;
+    private Long idComentario;
 
     @Column
-    boolean oculto;
+    private boolean oculto;
 
     @Column
-    Character tipo;
+    private Character tipo;
 
     @Column
-    Long idDono;
+    private Long idDono;
 
     public Usuario getAutor() {
         return autor;
