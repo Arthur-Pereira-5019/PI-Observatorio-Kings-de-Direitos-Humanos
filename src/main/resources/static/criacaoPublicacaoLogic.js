@@ -42,6 +42,13 @@ async function publicarDocumento(finalizada) {
         return;
     }
 
+    if(textoPublicacao.innerHTML.length > 32768){
+        console.log("oieee")
+        alert("Quantidade de texto superior ao limite " + textoPublicacao.value.length + "/32768")
+        textoPublicacao.focus()
+        return   
+
+    }
 
     if (campoTituloPostagem.value.length == 0) {
         alert("Digite o título da postagem antes de enviá-la.")
