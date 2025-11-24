@@ -1,6 +1,7 @@
 let home;
 let menu;
 let barraPesquisa;
+
 async function iniciarCabecalho() {
 
     home = document.getElementById('home');

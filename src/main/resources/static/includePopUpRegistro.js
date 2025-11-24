@@ -8,7 +8,7 @@ async function iniciarPopupRegistro() {
     const inputCpfRegistro = document.getElementById("inputCpfRegistro");
 
 
-    botaoAbrirRegistro.addEventListener("click", () => {
+/*    botaoAbrirRegistro.addEventListener("click", () => {
 
         fetch("http://localhost:8080/api/user", {
             method: 'GET',
@@ -35,7 +35,7 @@ async function iniciarPopupRegistro() {
                 console.error('Erro:', error);
             });
 
-    });
+    });*/
 
     if (botaoAbrirLogin && fundoPopupLogin) {
         botaoAbrirLogin.addEventListener("click", () => {

@@ -1,5 +1,5 @@
 async function iniciarPopupLogin() {
-    
+
     const fundoPopupLogin = document.getElementById("posPopUpLogin");
     if (fundoPopupLogin) fundoPopupLogin.style.display = "none";
 
@@ -12,14 +12,36 @@ async function iniciarPopupLogin() {
 
     btnOcultarLSenha.dataset.ativo = "0";
 
-    btnOcultarLSenha.addEventListener("click", function() {
+    btnOcultarLSenha.addEventListener("click", function () {
         ocultarSenha(btnOcultarLSenha, divLSenhaMaior);
     })
+
+    document.querySelector("#iconButton").addEventListener("click", function () {
+        fetch("http://localhost:8080/api/user", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro na requisição');
+                }
+                return response.json();
+            })
+            .then(data => {
+                usuarioId = data.idUsuario;
+                window.location.href = '/usuario/' + usuarioId;
+            })
+            .catch(error => {
+                fundoPopupLogin.style.display = "flex";
+                console.error('Erro:', error);
+            });
+    });
 
     function ocultarSenha(elemento, pai) {
         ativo = Boolean(Number(elemento.dataset.ativo))
         elemento.dataset.ativo = String(Number(!ativo));
-        if(!ativo) {
+        if (!ativo) {
             elemento.src = "/imagens/olhos_abertos.png"
             pai.type = "text"
         } else {
@@ -64,7 +86,7 @@ async function iniciarPopupLogin() {
                     if (!res.ok) {
                         alert("Login ou senha inválidos!")
                     } else {
-                    window.location.reload();
+                        window.location.reload();
 
                     }
                 })

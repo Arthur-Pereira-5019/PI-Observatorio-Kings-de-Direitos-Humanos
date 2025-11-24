@@ -50,7 +50,7 @@ public class Forum {
     @JoinColumn(name="idUsuario")
     @OnDelete(action = OnDeleteAction.SET_NULL)
     Usuario autor;
-    @Column(nullable = false, length = 32768)
+    @Column(nullable = false, length = 8196)
     String textoForum;
 
     public boolean isOculto() {
