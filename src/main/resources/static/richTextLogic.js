@@ -25,11 +25,6 @@ function restaurarSelecao() {
 }
 
 async function carregarHTMLRT(id, url, cssFile, jsFile) {
-    const response = await fetch(url);
-    const data = await response.text();
-    document.getElementById(id).innerHTML = data;
-
-
     if (cssFile) {
         let link = document.createElement("link");
         link.rel = "stylesheet";
@@ -37,6 +32,9 @@ async function carregarHTMLRT(id, url, cssFile, jsFile) {
         document.head.appendChild(link);
     }
 
+    const response = await fetch(url);
+    const data = await response.text();
+    document.getElementById(id).innerHTML = data;
 
     if (jsFile) {
         let script = document.createElement("script");

@@ -1,13 +1,14 @@
 async function anexarHTMLExterno(url, cssFile, jsFile, durl, msg, idDenunciado, tipoDenunciado) {
+        if (cssFile) {
+        anexarCss(cssFile)
+    }
     const response = await fetch(url);
     const data = await response.text()
     const novoObjeto = document.createElement("div");
     document.body.appendChild(novoObjeto)
     novoObjeto.innerHTML = data;
 
-    if (cssFile) {
-        anexarCss(cssFile)
-    }
+
 
     if (jsFile) {
         let script = document.createElement("script");

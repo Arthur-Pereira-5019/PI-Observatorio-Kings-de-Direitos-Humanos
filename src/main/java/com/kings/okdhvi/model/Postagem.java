@@ -41,24 +41,24 @@ public class Postagem{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column(nullable = false, length = 512)
-    String tituloPostagem;
+    private String tituloPostagem;
 
     @Column(nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
-    Date dataDaPostagem;
+    private Date dataDaPostagem;
 
     @ManyToOne
     @JoinColumn(name="idUsuario")
     @OnDelete(action = OnDeleteAction.SET_NULL)
-    Usuario autor;
+    private Usuario autor;
     @Column(nullable = false, length = 32768)
-    String textoPostagem;
+    private String textoPostagem;
 
     @Column(nullable = true, length = 256)
-    String tags;
+    private String tags;
 
     @OneToOne
     @JoinColumn(name="id_capa")
@@ -68,10 +68,10 @@ public class Postagem{
     boolean externa;
 
     @Column
-    String linkCapaNoticiaExterna;
+    private String linkCapaNoticiaExterna;
 
     @Column
-    String nomeAutorNoticiaExterna;
+    private String nomeAutorNoticiaExterna;
 
     public String getTituloPostagem() {
         return tituloPostagem;

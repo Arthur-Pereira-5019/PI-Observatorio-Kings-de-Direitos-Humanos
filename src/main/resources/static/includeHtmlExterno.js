@@ -3,6 +3,9 @@ const iconButton = document.getElementById("iconButton");
 
 
 async function carregarHTMLExterno(id, url, cssFile, jsFile) {
+    if (cssFile) {
+        anexarCss(cssFile)
+    }
     alvo = document.getElementById(id);
     if (alvo == null | alvo == undefined) {
         throw "Alvo não encontrado"
@@ -11,9 +14,7 @@ async function carregarHTMLExterno(id, url, cssFile, jsFile) {
     const data = await response.text();
     alvo.innerHTML = data;
 
-    if (cssFile) {
-        anexarCss(cssFile)
-    }
+    
 
     if (jsFile) {
         anexarJs(jsFile)

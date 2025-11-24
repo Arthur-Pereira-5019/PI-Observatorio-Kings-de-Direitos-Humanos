@@ -1,15 +1,16 @@
 let id;
 
 async function anexarHTMLExternoPerfil(url, cssFile, jsFile, durl, msg, idDenunciado, tipoDenunciado) {
+
+    if (cssFile) {
+        anexarCss(cssFile)
+    }
     const response = await fetch(url);
     const data = await response.text()
     const novoObjeto = document.createElement("div");
     document.body.appendChild(novoObjeto)
     novoObjeto.innerHTML = data;
 
-    if (cssFile) {
-        anexarCss(cssFile)
-    }
 
     if (jsFile) {
         let script = document.createElement("script");
@@ -29,6 +30,9 @@ async function anexarHTMLExternoPerfil(url, cssFile, jsFile, durl, msg, idDenunc
             }
             if (jsFile === "/popupCriacaoDenunciaLogic.js" && typeof iniciarPopupNovaDenuncia === "function") {
                 iniciarPopupNovaDenuncia(msg, idDenunciado, tipoDenunciado);
+            }
+            if (jsFile === "/includePopUpConfigUser.js" && typeof iniciarConfigUser === "function") {
+                iniciarConfigUser();
             }
 
         };
@@ -80,39 +84,39 @@ async function iniciarPerfil() {
         const entrada = document.getElementById("capaUsuarioInput");
 
         function input_capa() {
-        capaPreview = document.querySelector(".icon-user");
+            capaPreview = document.querySelector(".icon-user");
 
-        const imagemSubmetida = entrada.files[0];
+            const imagemSubmetida = entrada.files[0];
 
-        if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg")) {
-            const reader = new FileReader();
+            if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg")) {
+                const reader = new FileReader();
 
-            reader.onload = (e) => {
-                const base64StringWithPrefix = e.target.result;
-                requestBody = {
-                    imageBase64: base64StringWithPrefix.replace(base64StringWithPrefix.substring(0, base64StringWithPrefix.indexOf(",") + 1), ""),
-                    descricao: "Foto de perfil de " + data.nome,
-                    titulo: "Foto de perfil de " + data.nome
-                }
+                reader.onload = (e) => {
+                    const base64StringWithPrefix = e.target.result;
+                    requestBody = {
+                        imageBase64: base64StringWithPrefix.replace(base64StringWithPrefix.substring(0, base64StringWithPrefix.indexOf(",") + 1), ""),
+                        descricao: "Foto de perfil de " + data.nome,
+                        titulo: "Foto de perfil de " + data.nome
+                    }
 
-                fetch("http://localhost:8080/api/user/atualizar_imagem", {
-                    method: 'PUT',
-                    body: JSON.stringify(requestBody),
-                    headers: { 'Content-Type': 'application/json' },
-                })
-                    .then(res => {
-                        if (!res.ok) return res.json();
-                        alert("Imagem adicionada com sucesso!")
-                        window.location.reload();
+                    fetch("http://localhost:8080/api/user/atualizar_imagem", {
+                        method: 'PUT',
+                        body: JSON.stringify(requestBody),
+                        headers: { 'Content-Type': 'application/json' },
                     })
-                    .then(d => {
-                        alert(d.mensagem)
-                    })
-            };
+                        .then(res => {
+                            if (!res.ok) return res.json();
+                            alert("Imagem adicionada com sucesso!")
+                            window.location.reload();
+                        })
+                        .then(d => {
+                            alert(d.mensagem)
+                        })
+                };
 
-            reader.readAsDataURL(imagemSubmetida);
+                reader.readAsDataURL(imagemSubmetida);
+            }
         }
-    }
 
         if (data.proprio == 0) {
             btnConfigUser.remove()
@@ -127,6 +131,10 @@ async function iniciarPerfil() {
             })
         } else if (data.proprio == 1) {
             btnConfigUser.style.display = "flex"
+            btnConfigUser.addEventListener("click", function () {
+                anexarHTMLExternoPerfil("/popupEditarPerfil", "/configuracaoUsuarioPopupStyle.css", "/includePopUpConfigUser.js");
+            })
+
             btnRequisitar.style.display = "flex"
             document.querySelector(".icon-user").classList.add("propria")
             entrada.addEventListener("input", input_capa);
@@ -145,10 +153,15 @@ async function iniciarPerfil() {
             btnConfigUser.style.display = "flex"
             btnRequisitar.style.display = "flex"
             btnLogModerador.style.display = "flex"
+                        btnConfigUser.style.display = "flex"
+
+            btnConfigUser.addEventListener("click", function() {
+                anexarHTMLExternoPerfil("/popupEditarPerfil", "/configuracaoUsuarioPopupStyle.css", "/includePopUpConfigUser.js");
+            })
             btnLogModerador.addEventListener("click", function () {
                 window.location.pathname = "/registro"
             })
-                    entrada.addEventListener("input", input_capa);
+            entrada.addEventListener("input", input_capa);
 
         }
 
@@ -163,9 +176,9 @@ async function iniciarPerfil() {
         console.error('Erro:', error);
     }
 
-    
 
-    
+
+
 
 
 
