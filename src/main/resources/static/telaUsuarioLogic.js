@@ -34,9 +34,19 @@ async function anexarHTMLExternoPerfil(url, cssFile, jsFile, durl, msg, idDenunc
             if (jsFile === "/includePopUpConfigUser.js" && typeof iniciarConfigUser === "function") {
                 iniciarConfigUser();
             }
+            if (jsFile === "/includePopUpRequisitar.js" && typeof iniciarRequisitar === "function") {
+                iniciarRequisitar();
+            }
+            if (jsFile === "/includePopUpExclusao.js" && typeof iniciarExclusaoUser === "function") {
+                iniciarExclusaoUser();
+            }
 
         };
-        document.body.appendChild(script);
+        if (novoObjeto) {
+            novoObjeto.appendChild(script);
+        } else {
+            document.body.appendChild(script);
+        }
     }
 }
 
@@ -136,6 +146,10 @@ async function iniciarPerfil() {
             })
 
             btnRequisitar.style.display = "flex"
+            btnRequisitar.addEventListener("click", function () {
+                anexarHTMLExternoPerfil("/popupRequisitar", "/requisitarPopupStyle.css", "/includePopUpRequisitar.js");
+            })
+
             document.querySelector(".icon-user").classList.add("propria")
             entrada.addEventListener("input", input_capa);
 
@@ -153,10 +167,14 @@ async function iniciarPerfil() {
             btnConfigUser.style.display = "flex"
             btnRequisitar.style.display = "flex"
             btnLogModerador.style.display = "flex"
-                        btnConfigUser.style.display = "flex"
+            btnConfigUser.style.display = "flex"
 
-            btnConfigUser.addEventListener("click", function() {
+            btnConfigUser.addEventListener("click", function () {
                 anexarHTMLExternoPerfil("/popupEditarPerfil", "/configuracaoUsuarioPopupStyle.css", "/includePopUpConfigUser.js");
+            })
+            btnRequisitar.style.display = "flex"
+            btnRequisitar.addEventListener("click", function () {
+                anexarHTMLExternoPerfil("/popupRequisitar", "/requisitarPopupStyle.css", "/includePopUpRequisitar.js");
             })
             btnLogModerador.addEventListener("click", function () {
                 window.location.pathname = "/registro"
@@ -175,13 +193,6 @@ async function iniciarPerfil() {
     } catch (error) {
         console.error('Erro:', error);
     }
-
-
-
-
-
-
-
 
     async function gerarPublicacoes() {
         fetch("http://localhost:8080/api/postagem/usuario/" + id, {
@@ -280,8 +291,6 @@ async function iniciarPerfil() {
 
     await gerarForuns()
     await gerarPublicacoes()
-
-
 
 
 }

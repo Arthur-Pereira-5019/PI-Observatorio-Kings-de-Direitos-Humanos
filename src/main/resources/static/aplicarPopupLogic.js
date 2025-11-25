@@ -22,17 +22,17 @@ async function iniciarPopupAplicarCargo(url) {
 
     function getId() {
         let sel = box.value;
-        if(sel == "Titulação:") {
+        if (sel == "Titulação:") {
             return -1;
-        } else if(sel == "Suspenso") {
+        } else if (sel == "Suspenso") {
             return 1;
-        } else if(sel == "Padrão") {
+        } else if (sel == "Padrão") {
             return 2;
-        } else if(sel == "Especialista") {
+        } else if (sel == "Especialista") {
             return 3;
-        } else if(sel == "Moderador") {
+        } else if (sel == "Moderador") {
             return 4;
-        } else if(sel == "Administrador") {
+        } else if (sel == "Administrador") {
             return 5;
         }
     }
@@ -40,7 +40,7 @@ async function iniciarPopupAplicarCargo(url) {
     async function aplicarCargo(url) {
         sumir();
         let sel = getId();
-        if(sel == -1) {
+        if (sel == -1) {
             alert("Selecione um cargo!")
             return;
         }

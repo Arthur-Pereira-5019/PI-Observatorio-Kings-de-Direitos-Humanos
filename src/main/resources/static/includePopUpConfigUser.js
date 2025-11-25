@@ -1,40 +1,35 @@
 async function iniciarConfigUser() {
-    const fundoPopupConfigUser = document.getElementById("posPopUpConfigUser");
-    if (fundoPopupConfigUser) fundoPopupConfigUser.style.display = "none";
-
-    const botaoAbrirConfigUser = document.getElementById("btnConfigUser");
+    const fundoPopupConfigUser = document.getElementById("fundo-popup-configuracoes-usuario");
+    const blurPopup = document.getElementById("blurConfig");
 
     const btnDeleteUser = document.getElementById("btnDelete")
 
     btnDeleteUser.addEventListener("click", function () {
-        anexarHTMLExternoPerfil("/popupDeleteUser", "/configuracaoUsuarioPopupStyle.css", "/includePopUpExclusao.js");
+        anexarHTMLExternoPerfil("/popupDeleteUser", "/deleteUsuarioPopupStyle.css", "/includePopUpExclusao.js");
     })
 
-    if (botaoAbrirConfigUser && fundoPopupConfigUser) {
-        botaoAbrirConfigUser.addEventListener("click", () => {
-            fundoPopupConfigUser.style.display = "flex";
+    blurPopup.addEventListener("click", () => {
+        blurPopup.parentNode.remove()
+    })
 
+    nomeAlterar = document.getElementById("campoNomeConfigUser")
+    senhaAlterar = document.getElementById("campoSenhaConfigUser")
+    senhaConfAlterar = document.getElementById("campoConfSenhaConfigUser")
+    telefoneAlterar = document.getElementById("campoTelefoneConfigUser")
+    checkNotificacoes = document.querySelector(".checkEmail")
+
+    fetch("http://localhost:8080/api/user/config", {
+        headers: { 'Content-Type': 'application/json' },
+    }).then(res => {
+        if (!res.ok) throw new Error("Erro no servidor");
+        return res.json();
+    })
+        .then((data) => {
+            telefoneAlterar.value = data.telefone
+            nomeAlterar.value = data.nome
+            checkNotificacoes.checked = data.notificacoesPorEmail
         })
-
-        nomeAlterar = document.getElementById("campoNomeConfigUser")
-        senhaAlterar = document.getElementById("campoSenhaConfigUser")
-        senhaConfAlterar = document.getElementById("campoConfSenhaConfigUser")
-        telefoneAlterar = document.getElementById("campoTelefoneConfigUser")
-        checkNotificacoes = document.querySelector(".checkEmail")
-
-        fetch("http://localhost:8080/api/user/config", {
-            headers: { 'Content-Type': 'application/json' },
-        }).then(res => {
-            if (!res.ok) throw new Error("Erro no servidor");
-            return res.json();
-        })
-            .then((data) => {
-                telefoneAlterar.value = data.telefone
-                nomeAlterar.value = data.nome
-                checkNotificacoes.checked = data.notificacoesPorEmail
-            })
-            .catch(err => console.error(err));
-    }
+        .catch(err => console.error(err));
 
     const btnAplicar = document.getElementById("btnAplicar")
     btnAplicar.addEventListener("click", () => {
@@ -69,12 +64,6 @@ async function iniciarConfigUser() {
             .catch(err => console.error(err));
 
     })
-
-    fundoPopupConfigUser.addEventListener("click", (e) => {
-        if (e.target === fundoPopupConfigUser) {
-            fundoPopupConfigUser.remove()
-        }
-    });
 
 }
 

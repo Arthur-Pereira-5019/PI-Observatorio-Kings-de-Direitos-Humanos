@@ -1,11 +1,7 @@
 async function iniciarExclusaoUser() {
-    const fundoPopupConfigUser = document.getElementById("posPopUpConfigUser");
-    const fundoPopupDelete = document.getElementById("posPopUpDelete");
-    fundoPopupDelete.addEventListener("click", (e) => {
-        if (e.target === fundoPopupDelete) {
-            sumir()
-        }
-
+    const blurDelete = document.getElementById("blurDelete");
+    blurDelete.addEventListener("click", (e) => {
+        sumir()
     })
 
     const btnCancelar = document.getElementById("btnCancelarExclusao");
@@ -16,8 +12,7 @@ async function iniciarExclusaoUser() {
     const btnConfirmarExclusao = document.getElementById("btnConfirmarExclusao")
 
     function sumir() {
-            fundoPopupDelete.remove()
-            fundoPopupConfigUser.style.display = "flex"
+        blurDelete.parentNode.remove()
     }
 
     btnConfirmarExclusao.addEventListener("click", function () {

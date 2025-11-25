@@ -1,36 +1,8 @@
-async function carregarHTMLRequisitar(id, url, cssFile) {
-    if (cssFile) {
-        const link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.href = cssFile;
-        document.head.appendChild(link);
-    }
-    
-    const response = await fetch(url);
-    const data = await response.text();
-    document.getElementById(id).innerHTML = data;
-
-    
-}
-
 async function iniciarRequisitar() {
+    const blur = document.getElementById("blurRequisitarPopup")
 
-
-    await carregarHTMLRequisitar("requisitar", "/popupRequisitar", "/requisitarPopupStyle.css");
-
-    const btnRequisitar = document.getElementById("btnRequisitar")
-    const fundoPopupRequisitar = document.getElementById("posPopUpRequisitar")
-
-    btnRequisitar.addEventListener("click", function () {
-        fundoPopupRequisitar.style.display = "flex"
-
-    })
-
-    fundoPopupRequisitar.addEventListener("click", (e) => {
-        if (e.target === fundoPopupRequisitar) {
-            fundoPopupRequisitar.style.display = "none";
-        }
-
+    blur.addEventListener("click", () => {
+        blur.parentNode.remove()
     })
 
     const btnConfirmarRequisicao = document.getElementById("btnConfimarRequisicao")
@@ -46,9 +18,9 @@ async function iniciarRequisitar() {
         }).then(data => {
             let cR = data.cargoRequisitado;
             let i;
-            if(cR=='ESPECIALISTA') {
+            if (cR == 'ESPECIALISTA') {
                 i = 2
-            } else if(cR=='MODERADOR') {
+            } else if (cR == 'MODERADOR') {
                 i = 1;
             }
             textareaCargosRequisitar.value = data.motivacao
@@ -63,8 +35,6 @@ async function iniciarRequisitar() {
             return
         }
         let valorCargo = comboboxCargosRequisitar.selectedIndex - 1
-
-
 
         const novoPost = {
             cargoRequisitado: valorCargo,
