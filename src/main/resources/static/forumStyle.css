@@ -12,7 +12,9 @@
 
 .container-titulo-forum-forum {
     display: flex;
-    width: 100%;
+    width: 95%;
+    margin: 0 auto;
+    height: auto;
     justify-content: center;
 }
 
@@ -22,6 +24,7 @@
     font-size: 3.3rem;
     text-align: center;
     font-family: "Inter", sans-serif;
+    word-break: break-word;
 }
 
 #data-forum-forum {

@@ -105,7 +105,6 @@ async function iniciarForunsLogica() {
                 const containerGeral = document.getElementById("container-all-foruns");
                 if (data.resultado.length === 0) {
                     primeiroPost.remove()
-                    alert("Nenhum resultado encontrado!")
                     btnLonge.textContent = paginaAtual();
                     let path = window.location.pathname
                     if (path != "/foruns/%20/0") {
