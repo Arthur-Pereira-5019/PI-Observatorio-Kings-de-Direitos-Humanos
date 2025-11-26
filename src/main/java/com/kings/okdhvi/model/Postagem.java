@@ -73,6 +73,10 @@ public class Postagem{
     @Column
     private String nomeAutorNoticiaExterna;
 
+    @Column
+    @Enumerated(EnumType.ORDINAL)
+    private Local local;
+
     public String getTituloPostagem() {
         return tituloPostagem;
     }
@@ -159,5 +163,13 @@ public class Postagem{
 
     public void setNomeAutorNoticiaExterna(String nomeAutorNoticiaExterna) {
         this.nomeAutorNoticiaExterna = nomeAutorNoticiaExterna;
+    }
+
+    public Local getLocal() {
+        return local;
+    }
+
+    public void setLocal(Local local) {
+        this.local = local;
     }
 }

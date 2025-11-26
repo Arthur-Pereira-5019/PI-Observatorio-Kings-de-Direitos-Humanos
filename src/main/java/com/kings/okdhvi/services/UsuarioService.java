@@ -133,6 +133,9 @@ public class UsuarioService {
         if(novo.senha() != null && !novo.senha().isBlank()) {
             original.setSenha(novo.senha());
         }
+        if(novo.local() != null) {
+            original.setLocalDeInteresse(novo.local());
+        }
         original.setNotificacoesPorEmail(novo.notificacoesPorEmail());
         validarDados(original, false);
         return ur.save(original);
@@ -359,6 +362,6 @@ public class UsuarioService {
 
 
     public UsuarioADTO getConfigs(Usuario u) {
-        return new UsuarioADTO(u.getTelefone(), u.getNome(), u.getNotificacoesPorEmail(), null);
+        return new UsuarioADTO(u.getTelefone(), u.getNome(), u.getNotificacoesPorEmail(), null, u.getLocalDeInteresse());
     }
 }

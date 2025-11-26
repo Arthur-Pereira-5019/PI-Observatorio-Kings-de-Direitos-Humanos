@@ -50,8 +50,12 @@ public class Forum {
     @JoinColumn(name="idUsuario")
     @OnDelete(action = OnDeleteAction.SET_NULL)
     private Usuario autor;
+
     @Column(nullable = false, length = 8196)
     private String textoForum;
+
+    @Column
+    private Local local;
 
     public boolean isOculto() {
         return oculto;
@@ -115,5 +119,13 @@ public class Forum {
 
     public void setDataDeAtualizacao(Date dataDeAtualizacao) {
         this.dataDeAtualizacao = dataDeAtualizacao;
+    }
+
+    public Local getLocal() {
+        return local;
+    }
+
+    public void setLocal(Local local) {
+        this.local = local;
     }
 }

@@ -2,12 +2,8 @@ package com.kings.okdhvi.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.SQLInsert;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +12,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name="Usuario")
@@ -57,16 +52,13 @@ public class Usuario implements Serializable, UserDetails {
     private PedidoExclusaoConta pedidoExclusao;
 
     @Column
-    @Enumerated(EnumType.STRING)
-    public EstadoDaConta getEstadoDaConta() {
-        return estadoDaConta;
-    }
-
-    public void setEstadoDaConta(EstadoDaConta estadoDaConta) {
-        this.estadoDaConta = estadoDaConta;
-    }
-
     private EstadoDaConta estadoDaConta;
+
+
+    @Column
+    @Enumerated(EnumType.ORDINAL)
+    private Local localDeInteresse;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -127,6 +119,7 @@ public class Usuario implements Serializable, UserDetails {
     public Usuario() {
     }
 
+
     public Usuario(String nome, String senha, String telefone, String cpf, String eMail, Date dataDeNascimento) {
         this.nome = nome;
         this.senha = senha;
@@ -144,6 +137,10 @@ public class Usuario implements Serializable, UserDetails {
         this.email = eMail;
         this.dataDeNascimento = dataDeNascimento;
         this.estadoDaConta = edc;
+    }
+
+    public EstadoDaConta getEstadoDaConta() {
+        return estadoDaConta;
     }
 
     public Long getIdUsuario() {
@@ -240,5 +237,17 @@ public class Usuario implements Serializable, UserDetails {
 
     public String gerarNome() {
         return "[" + getIdUsuario() + "] " + getNome();
+    }
+
+    public Local getLocalDeInteresse() {
+        return localDeInteresse;
+    }
+
+    public void setEstadoDaConta(EstadoDaConta estadoDaConta) {
+        this.estadoDaConta = estadoDaConta;
+    }
+
+    public void setLocalDeInteresse(Local localDeInteresse) {
+        this.localDeInteresse = localDeInteresse;
     }
 }
