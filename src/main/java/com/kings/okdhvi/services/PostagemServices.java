@@ -133,6 +133,7 @@ public class PostagemServices {
         post.setTextoPostagem(pcdto.textoPostagem());
         post.setTituloPostagem(pcdto.tituloPostagem());
         post.setTags(pcdto.tags());
+        post.setLocal(pcdto.local());
         post.setExterna(false);
 
 

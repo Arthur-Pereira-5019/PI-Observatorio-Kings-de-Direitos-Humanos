@@ -118,6 +118,7 @@ async function iniciarPublicacoes() {
                     }
                     btnDireito.remove()
                     btnLonge.remove()
+                    btnCampo.remove()
                 } else {
                     btnLonge.textContent = paginaAtual() + Math.ceil(data.proximosIndexes / 10);
                     if (Number(paginaAtual()) == Number(btnLonge.textContent)) {

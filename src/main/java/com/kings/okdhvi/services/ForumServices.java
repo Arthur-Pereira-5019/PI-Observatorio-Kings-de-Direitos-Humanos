@@ -34,8 +34,6 @@ public class ForumServices {
     @PersistenceContext
     private EntityManager em;
 
-    Logger logger = LoggerFactory.getLogger(ForumServices.class);
-
     public BuscaPaginadaResultado<Forum> buscaFiltrada(BuscaPaginada bp, String texto, UserDetails ud) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Forum> cq = cb.createQuery(Forum.class);
@@ -111,6 +109,7 @@ public class ForumServices {
         forum.setTituloForum(fcdto.tituloForum());
 
         forum.setAutor(u);
+        forum.setLocal(fcdto.local());
         forum.setDataDeCriacao(Date.from(Instant.now()));
         forum.setDataDeAtualizacao(forum.getDataDeCriacao());
         return fr.save(forum);
