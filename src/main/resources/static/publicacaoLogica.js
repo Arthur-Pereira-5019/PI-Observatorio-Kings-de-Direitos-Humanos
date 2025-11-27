@@ -32,8 +32,6 @@ async function iniciarPublicacao() {
         document.body.appendChild(novoObjeto)
         novoObjeto.innerHTML = data;
 
-        
-
         if (jsFile) {
             let script = document.createElement("script");
             script.src = jsFile;

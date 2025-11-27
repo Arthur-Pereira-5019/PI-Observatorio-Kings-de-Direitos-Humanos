@@ -32,12 +32,13 @@ async function adicionarTag() {
 async function publicarDocumento(finalizada) {
     const textoPublicacao = document.getElementById("textoPublicacao");
     let campoTextoPostagem = textoPublicacao.innerHTML;
+    let textoPuroPostagem = textoPublicacao.textContent;
     const campoTituloPostagem = document.getElementById("campoTitulo");
     let canva = document.getElementById("capaPostagemPreview");
     let campoImagem = canva.src;
 
     //Precisa ser antes para não dar flicker nas imagens
-    if (campoTextoPostagem.length < 80) {
+    if (textoPuroPostagem.length < 20) {
         alert("Digite o texto da postagem antes de enviá-la.")
         return;
     }

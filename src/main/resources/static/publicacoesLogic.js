@@ -8,8 +8,6 @@ let btnCampo;
 async function iniciarPublicacoes() {
     consertarUrl()
 
-
-
     inputBusca = document.getElementById("campoPesquisa")
     botaoNovaPostagem = document.getElementById("botao-moderador")
     campoModerador = document.getElementById("container-moderador")
@@ -138,10 +136,10 @@ async function iniciarPublicacoes() {
                     });
                 }
                 if (!document.body.contains(btnEsquerdo) && !document.body.contains(btnDireito)) {
-                        btnCampo.remove()
-                    }
+                    btnCampo.remove()
+                }
             })
-            .catch(err => console.error(err));
+            .catch(err => {window.location.pathname = ""});
 
 
 
@@ -182,7 +180,7 @@ function consertarUrl() {
     const url = window.location.href;
     const partes = url.split('/');
     let ultima = "/" + partes.pop();
-        if (!Number.isFinite(Number(ultima.substring(1,ultima.length)))) {
+    if (!Number.isFinite(Number(ultima.substring(1, ultima.length)))) {
         window.location.pathname = "publicacoes/ /0"
     }
 }

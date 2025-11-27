@@ -49,7 +49,7 @@
   display: block !important;
   width: 100% !important;
   min-width: 0 !important;
-  overflow-wrap: break-word !important;
+  word-break: break-word !important;
   box-sizing: border-box !important;
   padding-left: 0.5%;
   padding-right: 0.5%;
