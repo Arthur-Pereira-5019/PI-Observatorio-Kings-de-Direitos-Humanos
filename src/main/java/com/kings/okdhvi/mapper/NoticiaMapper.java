@@ -4,7 +4,9 @@ import com.kings.okdhvi.model.DTOs.NoticiaAgregadaDTO;
 import com.kings.okdhvi.model.DTOs.NoticiaESDTO;
 import com.kings.okdhvi.model.NoticiaAgregada;
 import com.kings.okdhvi.model.Postagem;
+import org.springframework.stereotype.Service;
 
+@Service
 public class NoticiaMapper {
 
     public NoticiaESDTO parsePostagemToNoticiaESDTO(Postagem p) {

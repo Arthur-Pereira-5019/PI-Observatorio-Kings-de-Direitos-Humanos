@@ -1,14 +1,20 @@
 package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.ResourceNotFoundException;
+import com.kings.okdhvi.infra.config.ClienteDeNoticias;
+import com.kings.okdhvi.mapper.NoticiaMapper;
 import com.kings.okdhvi.mapper.PostagemMapper;
+import com.kings.okdhvi.model.DTOs.NoticiaAgregadaDTO;
 import com.kings.okdhvi.model.NoticiaAgregada;
 import com.kings.okdhvi.model.Postagem;
 import com.kings.okdhvi.model.DTOs.NoticiaESDTO;
 import com.kings.okdhvi.repositories.NoticiaAgregadaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,6 +28,26 @@ public class NoticiaServices {
 
     @Autowired
     PostagemMapper pm;
+
+    @Autowired
+    WebClient c;
+
+    @Autowired
+    NoticiaMapper nm;
+
+    @Value("${api.news}")
+    private String apiKey;
+
+    private final String[] BUSCAS = {
+            "(negros OR pretos OR racismo OR negra) AND (Blumenau OR Brusque OR Gaspar OR Ilhota OR Itajaí)",
+    "(negros OR pretos OR racismo OR negra OR Nazismo) AND (Santa Catarina OR SC OR Pomerode)",
+            "(Umbanda OR Candomblé OR Africana) AND (Blumenau OR Brusque OR Gaspar OR Ilhota OR Itajaí)",
+            "(xenofobia OR nortistas OR nordestinos OR xenofobia) AND (Santa Catarina OR SC)",
+            "(homofobia OR LGBT OR LGBTQIAPN+ OR gay) AND (Blumenau OR Brusque OR Gaspar OR Ilhota OR Itajaí)",
+            "(homofobia OR transfobia OR lgtbfobia OR trans OR gay OR homossexual) AND (Santa Catarina OR SC)",
+            "(Mulher, feminicidio, estupro, abuso) AND (Blumenau OR Brusque OR Gaspar OR Ilhota OR Itajai)",
+            "(Mulheres OR lilás AND violencia) AND (Santa Catarina OR Blumenau OR Ilhota OR Gaspar OR Pomerode)"
+    };
 
     public NoticiaESDTO parsePostagemToNoticiaESDTO(Postagem p) {
         String prefixoOculto = p.isOculto() ? "[OCULTO] " : "";
@@ -45,5 +71,38 @@ public class NoticiaServices {
 
     public void deletarNoticia(Long id) {
         nr.delete(encontrarNoticia(id));
+    }
+
+    public List<NoticiaAgregadaDTO> agregarNoticias() {
+        ArrayList<NoticiaAgregadaDTO> e = new ArrayList<>();
+        for(int i = 0; i < BUSCAS.length; i++) {
+            final int z = i;
+            e.addAll(c.get()
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/api/1/latest")
+                            .queryParam("apikey", apiKey)
+                            .queryParam("qInTitle", BUSCAS[z])
+                            .queryParam("country", "br")
+                            .queryParam("language", "pt")
+                            .queryParam("prioritydomain", "low")
+                            .queryParam("removeduplicate", "1")
+                            .queryParam("sort", "pubdateasc")
+                            .queryParam("excludefield", "ai_summary,ai_org,ai_region")
+                            .build()
+                    )
+                    .retrieve()
+                    .bodyToFlux(NoticiaAgregadaDTO.class)
+                    .collectList()
+                    .block());
+        }
+        return e;
+    }
+
+    public void salvarNoticias() {
+        List<NoticiaAgregadaDTO> encontradas = agregarNoticias();
+        List<NoticiaAgregada> noticias = new ArrayList<>();
+        encontradas.forEach(e -> {noticias.add(nm.parseNoticiaDTOtoNoticiaAgregada(e));});
+        System.out.println("Agregadas " + noticias.size() + " notícias ao sistema");
+        nr.saveAll(noticias);
     }
 }
