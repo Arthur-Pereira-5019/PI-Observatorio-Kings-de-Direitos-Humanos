@@ -10,7 +10,7 @@ public class ClienteDeNoticias {
     @Bean
     public WebClient webClient(WebClient.Builder builder) {
         return builder
-                .baseUrl("https://api.exemplo.com")
+                .baseUrl("https://newsdata.io")
                 .build();
     }
 }

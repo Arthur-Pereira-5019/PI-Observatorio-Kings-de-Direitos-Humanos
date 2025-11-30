@@ -18,7 +18,7 @@ public class NoticiaAgregada {
     @Column(length = 2048)
     private String link;
 
-    @Column(nullable = false, length = 512)
+    @Column(length = 1024)
     private String linkCapa;
 
     @Column(length = 512)
