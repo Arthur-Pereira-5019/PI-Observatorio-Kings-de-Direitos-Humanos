@@ -1,13 +1,16 @@
 package com.kings.okdhvi.model.DTOs;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Id;
 
 import java.util.Date;
+import java.util.List;
 
 public class NoticiaAgregadaDTO {
     private String title;
     private String link;
-    private String creator;
+    private List<String> creator;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date pubDate;
     private String image_url;
     private String source_name;
@@ -29,11 +32,11 @@ public class NoticiaAgregadaDTO {
         this.link = link;
     }
 
-    public String getCreator() {
+    public List<String> getCreator() {
         return creator;
     }
 
-    public void setCreator(String creator) {
+    public void setCreator(List<String> creator) {
         this.creator = creator;
     }
 

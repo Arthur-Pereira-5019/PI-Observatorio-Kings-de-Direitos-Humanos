@@ -4,6 +4,7 @@ import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.infra.config.ClienteDeNoticias;
 import com.kings.okdhvi.mapper.NoticiaMapper;
 import com.kings.okdhvi.mapper.PostagemMapper;
+import com.kings.okdhvi.model.DTOs.NewsResponseDTO;
 import com.kings.okdhvi.model.DTOs.NoticiaAgregadaDTO;
 import com.kings.okdhvi.model.NoticiaAgregada;
 import com.kings.okdhvi.model.Postagem;
@@ -38,16 +39,23 @@ public class NoticiaServices {
     @Value("${api.news}")
     private String apiKey;
 
-    private final String[] BUSCAS = {
+
+
+    private final String[] BUSCASD = {
             "(negros OR pretos OR racismo OR negra) AND (Blumenau OR Brusque OR Gaspar OR Ilhota OR Itajaí)",
     "(negros OR pretos OR racismo OR negra OR Nazismo) AND (Santa Catarina OR SC OR Pomerode)",
-            "(Umbanda OR Candomblé OR Africana) AND (Blumenau OR Brusque OR Gaspar OR Ilhota OR Itajaí)",
+            "(Umbanda OR Candomblé OR Africana) AND (Blumenau OR Brusque OR Gaspar OR Ilhota OR Indaial)",
             "(xenofobia OR nortistas OR nordestinos OR xenofobia) AND (Santa Catarina OR SC)",
-            "(homofobia OR LGBT OR LGBTQIAPN+ OR gay) AND (Blumenau OR Brusque OR Gaspar OR Ilhota OR Itajaí)",
+            "(homofobia OR LGBT OR LGBTQIAPN+ OR gay) AND (Blumenau OR Brusque OR Gaspar OR Ilhota OR Indaial)",
             "(homofobia OR transfobia OR lgtbfobia OR trans OR gay OR homossexual) AND (Santa Catarina OR SC)",
-            "(Mulher, feminicidio, estupro, abuso) AND (Blumenau OR Brusque OR Gaspar OR Ilhota OR Itajai)",
+            "(Mulher, feminicidio, estupro, abuso) AND (Blumenau OR Brusque OR Gaspar OR Ilhota OR Indaial)",
+            "(Mulheres OR lilás AND violencia) AND (Santa Catarina OR Blumenau OR Ilhota OR Gaspar OR Pomerode)",
             "(Mulheres OR lilás AND violencia) AND (Santa Catarina OR Blumenau OR Ilhota OR Gaspar OR Pomerode)"
     };
+
+    private final String[] BUSCAST = {"Brasil"};
+
+    private final String[] BUSCAS = BUSCAST;
 
     public NoticiaESDTO parsePostagemToNoticiaESDTO(Postagem p) {
         String prefixoOculto = p.isOculto() ? "[OCULTO] " : "";
@@ -77,7 +85,7 @@ public class NoticiaServices {
         ArrayList<NoticiaAgregadaDTO> e = new ArrayList<>();
         for(int i = 0; i < BUSCAS.length; i++) {
             final int z = i;
-            e.addAll(c.get()
+            c.get()
                     .uri(uriBuilder -> uriBuilder
                             .path("/api/1/latest")
                             .queryParam("apikey", apiKey)
@@ -91,9 +99,12 @@ public class NoticiaServices {
                             .build()
                     )
                     .retrieve()
-                    .bodyToFlux(NoticiaAgregadaDTO.class)
+                    .bodyToFlux(NewsResponseDTO.class)
                     .collectList()
-                    .block());
+                    .block()
+                    .forEach(n -> {
+                        e.addAll(n.getResults());
+                    });
         }
         return e;
     }

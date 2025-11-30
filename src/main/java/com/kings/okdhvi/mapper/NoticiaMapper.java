@@ -19,7 +19,7 @@ public class NoticiaMapper {
     public NoticiaAgregada parseNoticiaDTOtoNoticiaAgregada(NoticiaAgregadaDTO nd) {
         NoticiaAgregada na = new NoticiaAgregada();
         na.setTitulo(nd.getTitle());
-        na.setAutor(nd.getCreator() == null ? nd.getSource_name() : nd.getCreator());
+        na.setAutor(nd.getCreator() == null ? nd.getSource_name() : String.join(", ", nd.getCreator()));
         na.setDate(nd.getPubDate());
         na.setLinkCapa(nd.getImage_url());
         na.setIcon(nd.getSource_icon());
