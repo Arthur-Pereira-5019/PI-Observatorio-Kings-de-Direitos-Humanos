@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 public class NoticiaMapper {
 
     public NoticiaESDTO parsePostagemToNoticiaESDTO(Postagem p) {
+        if(p.isExterna()) {
+            return new NoticiaESDTO(p.getTituloPostagem(), p.getNomeAutorNoticiaExterna(), p.getLinkIconDonoExterno(), p.getLinkNoticiaExterna(), p.getLinkCapaExterna());
+        }
         String prefixoOculto = p.isOculto() ? "[OCULTO] " : "";
         String nomeAutor = p.getAutor() == null ? "Externo" : p.getAutor().getNome();
 

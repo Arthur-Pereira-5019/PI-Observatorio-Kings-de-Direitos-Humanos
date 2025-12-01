@@ -46,6 +46,8 @@ async function iniciarNoticias() {
         moverUrl(Number(btnLonge.textContent) - paginaAtual())
     })
 
+   
+
     const requestBody = {
         parametro: "dataDaPostagem",
         ascending: false

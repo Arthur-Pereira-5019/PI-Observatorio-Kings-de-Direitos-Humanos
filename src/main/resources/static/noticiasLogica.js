@@ -16,7 +16,6 @@ async function iniciarNoticias() {
         moverUrl(1)
     })
 
-
     btnAtual = document.getElementById("botaoatual");
     btnAtual.textContent = paginaAtual()
 
@@ -48,6 +47,30 @@ async function iniciarNoticias() {
     btnLonge.addEventListener("click", async function () {
         moverUrl(Number(btnLonge.textContent) - paginaAtual())
     })
+
+    fetch("http://localhost:8080/api/user", {
+        headers: { 'Content-Type': 'application/json' },
+    })
+        .then(res => {
+            if (!res.ok) {
+                carregarComentarios()
+                throw new Error("Erro no servidor");
+
+            }
+            return res.json();
+        })
+        .then(data => {
+            if (data.estadoDaConta == "PADRAO" || data.estadoDaConta == "SUSPENSO") {
+                document.querySelector("#containerbtn").remove()
+                moderador = true;
+            } else if (data.estadoDaConta == "ADMINISTRADOR" || data.estadoDaConta == "ESPECIALISTA") {
+                document.querySelector("#containerbtn").style.display = "flex";
+                document.querySelector("#containerbtn").addEventListener("click", function () {
+                    window.location.pathname = "/noticias_agregadas"
+                })
+            }
+        })
+        .catch(err => console.error(err));
 
     const requestBody = {
         parametro: "dataDaPostagem",
@@ -113,24 +136,24 @@ async function iniciarNoticias() {
 
         function construirNoticia(noticia, dados) {
             if (dados.externa) {
+                console.log(dados)
                 noticia.querySelector(".tituloNoticia").textContent = dados.titulo
                 noticia.querySelector(".autor").textContent = dados.nomeAutorNoticiaExterna
-                if (dados.linkCapaNoticiaExterna) {
-                    noticia.querySelector(".capa").src = dados.linkCapaNoticiaExterna
+                if (dados.linkCapaExterna) {
+                    noticia.querySelector(".capa").src = dados.linkCapaExterna
                 } else {
                     noticia.querySelector(".capa").src = "/imagens/noticia-icon.png"
                 }
                 noticia.querySelector(".capa").addEventListener("click", function () {
-                    window.location.href = dados.linkNoticiaExterna
+                    window.location.href = "/" + dados.linkNoticiaExterna
                 })
                 noticia.querySelector(".tituloNoticia").addEventListener("click", function () {
-                    window.location.href = dados.linkNoticiaExterna
+                    window.location.href = "/" + dados.linkNoticiaExterna
+                    
                 })
-                noticia.querySelector(".tituloNoticia").addEventListener("click", function () {
-                    if(dados.linkIconDonoExterno) {
-                        noticia.querySelector(".logoObservatorio").src = dados.linkIconDonoExterno
-                    }
-                })
+                if (dados.linkIconDonoExterno) {
+                    noticia.querySelector(".logoObservatorio").src = dados.linkIconDonoExterno
+                }
                 return;
             }
             noticia.querySelector(".tituloNoticia").textContent = dados.titulo

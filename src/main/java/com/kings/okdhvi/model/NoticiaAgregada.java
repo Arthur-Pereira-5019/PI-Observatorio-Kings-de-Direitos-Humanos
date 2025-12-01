@@ -32,6 +32,9 @@ public class NoticiaAgregada {
     @Column(length = 256)
     private String autor;
 
+    @Column
+    private Boolean tratada = false;
+
     public String getTitulo() {
         return titulo;
     }
@@ -86,5 +89,13 @@ public class NoticiaAgregada {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Boolean getTratada() {
+        return tratada;
+    }
+
+    public void setTratada(Boolean tratada) {
+        this.tratada = tratada;
     }
 }

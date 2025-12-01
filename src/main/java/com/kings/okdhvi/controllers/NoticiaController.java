@@ -1,5 +1,6 @@
 package com.kings.okdhvi.controllers;
 
+import com.kings.okdhvi.mapper.NoticiaMapper;
 import com.kings.okdhvi.model.NoticiaAgregada;
 import com.kings.okdhvi.model.Postagem;
 import com.kings.okdhvi.model.DTOs.*;
@@ -26,6 +27,9 @@ public class NoticiaController {
     @Autowired
     NoticiaServices ns;
 
+    @Autowired
+    NoticiaMapper nm;
+
     @PostMapping(value="/listar_noticias/{texto}/{pagina}")
     public BuscaPaginadaResultado<NoticiaESDTO> listarNoticias(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @PathVariable("pagina") Integer pagina, @AuthenticationPrincipal UserDetails ud) {
         BuscaPaginadaResultado<Postagem> postagens;
@@ -34,7 +38,7 @@ public class NoticiaController {
         BuscaPaginada bp = new BuscaPaginada(pagina, 16, bpt.parametro(), bpt.ascending());
         postagens = ps.buscaFiltrada(bp, texto, ud, true);
 
-        postagens.getResultado().forEach(b -> listaRetorno.add(ns.parsePostagemToNoticiaESDTO(b)));
+        postagens.getResultado().forEach(b -> listaRetorno.add(nm.parsePostagemToNoticiaESDTO(b)));
         retorno.setResultado(listaRetorno);
         retorno.setProximosIndexes(postagens.getProximosIndexes());
         return retorno;

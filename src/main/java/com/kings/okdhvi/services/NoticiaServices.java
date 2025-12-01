@@ -87,9 +87,34 @@ public class NoticiaServices {
 
     public Postagem indexarNoticia(Long id) {
         NoticiaAgregada na = encontrarNoticia(id);
+        if(!na.getTratada()) {
+            return null;
+        }
         Postagem r = ps.salvarPostagem(pm.parseNoticiaToPostagem(na));
-        deletarNoticia(na.getId());
+        tratarNoticia(id);
         return r;
+    }
+
+    public void tratarNoticia(Long id) {
+        NoticiaAgregada na = encontrarNoticia(id);
+        na.setTratada(true);
+        atualizarNoticia(na);
+    }
+
+    public NoticiaAgregada salvarNoticia(NoticiaAgregada na) {
+        NoticiaAgregada teste = procurarPeloLink(na.getLink());
+        if(teste != null) {
+            return na;
+        }
+        return nr.save(na);
+    }
+
+    public NoticiaAgregada atualizarNoticia(NoticiaAgregada na) {
+        return nr.save(na);
+    }
+
+    public NoticiaAgregada procurarPeloLink(String link) {
+        return nr.findByLink(link).isSuccess() ? nr.findByLink(link).getNow() : null;
     }
 
     public List<NoticiaAgregada> encontrarNoticias() {

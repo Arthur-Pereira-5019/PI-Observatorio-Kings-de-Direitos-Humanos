@@ -67,9 +67,6 @@ public class Postagem{
     @Column
     boolean externa;
 
-    @Column
-    private String linkCapaNoticiaExterna;
-
     @Column(length = 512)
     private String nomeAutorNoticiaExterna;
 
@@ -156,14 +153,6 @@ public class Postagem{
 
     public void setOculto(boolean oculto) {
         this.oculto = oculto;
-    }
-
-    public String getLinkCapaNoticiaExterna() {
-        return linkCapaNoticiaExterna;
-    }
-
-    public void setLinkCapaNoticiaExterna(String linkCapaNoticiaExterna) {
-        this.linkCapaNoticiaExterna = linkCapaNoticiaExterna;
     }
 
     public String getNomeAutorNoticiaExterna() {

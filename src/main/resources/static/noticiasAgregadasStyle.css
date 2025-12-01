@@ -116,14 +116,17 @@ html {
 }
 
 #buttonRecusar {
-    background-color: rgb(129, 0, 0);
+    background-color: rgb(255 71 71);
     width: 2vw;
     aspect-ratio: 1/1;
     border-radius: 100%;
     cursor: pointer;
 }
 
-.imagembtn{
-    width: 100%;
+.imagembtn {
+    width: 70%;
+    LEFT: 50%;
+    position: relative;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
-

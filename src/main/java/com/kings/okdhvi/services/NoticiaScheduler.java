@@ -12,6 +12,6 @@ public class NoticiaScheduler {
 
     @Scheduled(fixedRate = 2000000)
     public void baixarNoticiasPeriodicamente() {
-        ns.salvarNoticias();
+        //ns.salvarNoticias();
     }
 }

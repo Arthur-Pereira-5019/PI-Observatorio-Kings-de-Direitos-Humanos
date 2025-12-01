@@ -100,3 +100,28 @@ html {
     aspect-ratio: 1/1;
 
 }
+
+.imagembtn {
+    width: 70%;
+    LEFT: 50%;
+    position: relative;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#botao-aprovar {
+    width: 3vw;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    position: absolute;
+    right: 4%;
+    background-color: darkorange;
+    cursor: pointer;
+}
+
+#containerbtn {
+    width: 100%;
+    height: fit-content;
+    position: relative;
+    display: none;
+}
