@@ -16,21 +16,20 @@ async function anexarHTMLExterno(url, cssFile, jsFile, durl, idApoio) {
             if (jsFile === "/popupNovoApoio.js" && typeof iniciarNovoApoio === "function") {
                 iniciarNovoApoio(durl, idApoio);
             }
-
         };
         document.body.appendChild(script);
     }
 }
 
 async function iniciarTelaApoio() {
-    const editApoioD = document.getElementById("editar-acolhimento-direita")
-    const editApoioE = document.getElementById("editar-acolhimento-esquerda")
     const addApoio = document.getElementById("add-acolhimento")
     const primeiroApoioD = document.querySelector(".container-geral-instituicao-direita")
     const primeiroApoioE = document.querySelector(".container-geral-instituicao-esquerda")
-const primeiroApoioDC = primeiroApoioD.cloneNode(true)
+    const primeiroApoioDC = primeiroApoioD.cloneNode(true)
     const primeiroApoioEC = primeiroApoioE.cloneNode(true)
     const containerLista = document.querySelector(".container-resto-tela-apoio")
+
+    let isAdmin = false;
 
     fetch("http://localhost:8080/api/user", {
         headers: { 'Content-Type': 'application/json' },
@@ -41,25 +40,31 @@ const primeiroApoioDC = primeiroApoioD.cloneNode(true)
         })
         .then(data => {
             if (data.estadoDaConta == "ADMINISTRADOR") {
-                editApoioD.style.display = "flex"
-                editApoioE.style.display = "flex"
+                isAdmin = true;
+                
                 addApoio.style.display = "flex"
                 addApoio.addEventListener("click", function () {
-                    anexarHTMLExterno("/novo_apoio", "/novoApoioStyle.css", "/popupNovoApoio.js", "http://localhost:8080/api/apoio/", null)
+                    anexarHTMLExterno(
+                        "/novo_apoio", 
+                        "/novoApoioStyle.css", 
+                        "/popupNovoApoio.js", 
+                        "http://localhost:8080/api/apoio/", 
+                        null
+                    )
                 })
             }
-            
-
         })
         .catch(err => console.error(err));
 
-        fetch("http://localhost:8080/api/apoio/", {
-                    headers: { 'Content-Type': 'application/json' },
-        }).then(res => {
+    fetch("http://localhost:8080/api/apoio/", {
+        headers: { 'Content-Type': 'application/json' },
+    })
+        .then(res => {
             if (!res.ok) throw new Error("Erro no servidor");
             return res.json();
         })
         .then(data => {
+            console.log(data)
             if(!data[0]) {
                 primeiroApoioD.remove()
                 primeiroApoioE.remove()
@@ -70,12 +75,12 @@ const primeiroApoioDC = primeiroApoioD.cloneNode(true)
 
             data.forEach((d, i) => {
                 if(i == 0) {
-                    construirPublicacao(primeiroApoioE, d)
-                } else if(i == 1) {
                     construirPublicacao(primeiroApoioD, d)
+                } else if(i == 1) {
+                    construirPublicacao(primeiroApoioE, d)
                 } else {
                     let novoElemento
-                    if(i % 2 != 0) {
+                    if(i % 2 == 0) {
                         novoElemento = primeiroApoioDC.cloneNode(true)
                         construirPublicacao(novoElemento, d)
                         containerLista.appendChild(novoElemento)
@@ -85,21 +90,48 @@ const primeiroApoioDC = primeiroApoioD.cloneNode(true)
                         containerLista.appendChild(novoElemento)
                     }
                 }
-
             });
-
         })
+        .catch(err => console.error(err));
 
-        async function construirPublicacao(elemento, d) {
-            elemento.querySelector("#infoApoio").textContent = d.sobreInstituicao
-            elemento.querySelector("#nomeApoio").textContent = d.nomeInstituicao
+    async function construirPublicacao(elemento, d) {
+        elemento.querySelector("#infoApoio").textContent = d.sobreInstituicao
+        elemento.querySelector("#nomeApoio").textContent = d.nomeInstituicao
+        
+        let imagem = elemento.querySelector("#foto-instituicao-tela-apoio")
+        if (d.foto == null) {
+            imagem.src = "/imagens/grupo.png";
+        } else if (d.foto.imagem == "") {
+            imagem.src = "/imagens/grupo.png";
+        } else {
+            imagem.src = "data:image/" + d.foto.tipoImagem + ";base64," + d.foto.imagem;
+        }
 
-            preencher_elemento("#twitterC",d.twitter)
-            preencher_elemento("#instaC",d.instagram)
-            preencher_elemento("#linkedinC",d.linkedin)
-            preencher_elemento("#siteC",d.site)
-            preencher_elemento("#numeroC",d.numero)
-            preencher_elemento("#enderecoC",d.localizacao)
+        const botaoEditar = elemento.querySelector(".editar-acolhimento")
+        if (botaoEditar) {
+            botaoEditar.setAttribute("data-apoio-id", d.idApoio)
+            
+            if (isAdmin) {
+                botaoEditar.style.display = "flex"
+                botaoEditar.addEventListener("click", function() {
+                    const apoioId = this.getAttribute("data-apoio-id")
+                    anexarHTMLExterno(
+                        "/novo_apoio", 
+                        "/novoApoioStyle.css", 
+                        "/popupNovoApoio.js", 
+                        "http://localhost:8080/api/apoio/", 
+                        apoioId
+                    )
+                })
+            }
+        }
+
+        preencher_elemento("#twitterC", d.twitter)
+        preencher_elemento("#instaC", d.instagram)
+        preencher_elemento("#linkedinC", d.linkedin)
+        preencher_elemento("#siteC", d.site)
+        preencher_elemento("#numeroC", d.telefone)
+        preencher_elemento("#enderecoC", d.localizacao)
 
         function preencher_elemento(seletor, link) {
             if(!link) {
@@ -109,7 +141,7 @@ const primeiroApoioDC = primeiroApoioD.cloneNode(true)
             elemento.querySelector(seletor).textContent = link;
             elemento.querySelector(seletor).href = link;
         }
-        }
+    }
 }
 
 document.addEventListener("DOMContentLoaded", iniciarTelaApoio);
