@@ -137,6 +137,7 @@ async function iniciarNoticias() {
 
 
 async function operarNoticia(operation, msg, id) {
+    if(!confirm("Você deseja prosseguir com a ação?")) return;
     fetch("http://localhost:8080/api/noticia/" + operation + "/" + id, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },

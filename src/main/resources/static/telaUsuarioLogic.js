@@ -1,4 +1,5 @@
 let id;
+let estadoDaConta;
 
 async function anexarHTMLExternoPerfil(url, cssFile, jsFile, durl, msg, idDenunciado, tipoDenunciado) {
 
@@ -82,6 +83,7 @@ async function iniciarPerfil() {
 
         nomeUsuario.textContent = data.nome;
         document.title = data.nome;
+        estadoDaConta = data.estadoDaConta;
         const cargoAtual = document.getElementById(data.estadoDaConta)
         cargoAtual.style.display = "flex"
 
@@ -98,7 +100,7 @@ async function iniciarPerfil() {
 
             const imagemSubmetida = entrada.files[0];
 
-            if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg")) {
+            if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg") || imagemSubmetida.name.endsWith(".webp")) {
                 const reader = new FileReader();
 
                 reader.onload = (e) => {
@@ -125,6 +127,8 @@ async function iniciarPerfil() {
                 };
 
                 reader.readAsDataURL(imagemSubmetida);
+            } else {
+                alert("Formato de imagem inválido!")
             }
         }
 
@@ -165,7 +169,11 @@ async function iniciarPerfil() {
             entrada.remove()
         } else {
             btnConfigUser.style.display = "flex"
-            btnRequisitar.style.display = "flex"
+            if(!estadoDaConta == ADMINISTRADOR) {
+                btnRequisitar.style.display = "flex"
+            } else {
+                btnRequisitar.remove()
+            }
             btnLogModerador.style.display = "flex"
             btnConfigUser.style.display = "flex"
 

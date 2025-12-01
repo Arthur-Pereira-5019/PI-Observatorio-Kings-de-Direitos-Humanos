@@ -224,6 +224,7 @@ public class NoticiaServices {
         List<NoticiaAgregada> noticias = new ArrayList<>();
         encontradas.forEach(e -> {noticias.add(nm.parseNoticiaDTOtoNoticiaAgregada(e));});
         System.out.println("Agregadas " + noticias.size() + " notícias ao sistema");
+        noticias.forEach(this::salvarNoticia);
         nr.saveAll(noticias);
     }
 }

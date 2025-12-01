@@ -56,7 +56,10 @@ async function iniciarHtmlExterno() {
     await carregarHTMLExterno("login", "/popupLogin", "/popUpLoginStyle.css", "/includePopupLogin.js");
     await carregarHTMLExterno("registro", "/popupRegistro", "/popUpRegistroStyle.css", "/includePopUpRegistro.js");
     try {
+        if(window.location.pathname.includes("sobre/edit") || window.location.pathname.includes("nova_publicacao")) {
         await carregarHTMLExterno("richtexteditor", "/rte", "/richTextEditorStyle.css", "/richTextLogic.js");
+
+        }
     } catch (e) { }
     if(window.location.pathname.includes("sobre/edit")) {
         await anexarJs("/sobreEditLogic.js")

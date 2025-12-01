@@ -141,7 +141,7 @@ public class UsuarioService {
         return ur.save(original);
     }
 
-    @Scheduled(cron = "0 */30 * * * ?")
+    @Scheduled(fixedRate = 20000)
     public void exclusaoGeralAgendada() {
         ArrayList<PedidoExclusaoConta> pedidos = new ArrayList<>(pecs.encontrarTodosPedidosDeExclusao());
         Instant agora = Instant.now();
