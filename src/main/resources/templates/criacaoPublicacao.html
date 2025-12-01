@@ -20,8 +20,8 @@
         <input autocomplete="off" id="campoTitulo">
 
         <label id="capaPostagem" label for="capaPostagemInput">
-            <img src id="capaPostagemPreview">
-            <input id="capaPostagemInput" type="file" enctype="multipart/form-data" accept=".jpg,.png,.jpeg,.webp">
+            <img id="capaPostagemPreview" onerror="this.style.display='none'">
+            <input id="capaPostagemInput" type="file" enctype="multipart/form-data" accept=".jpg,.jpeg,.webp" >
         </label>
 
         <div id="richtexteditor" style="position: relative;left: 50%;transform: translateX(-50%);"></div>
@@ -35,9 +35,9 @@
         </div>
 
         <input id="campoTags">
-
-        <p class="textoBase">Título: *</p>
-
+        
+        
+        <!--<p class="textoBase">Título: *</p> -->
 
         <div id="botoes">
             <button id="botaoCancelar">Cancelar</button>

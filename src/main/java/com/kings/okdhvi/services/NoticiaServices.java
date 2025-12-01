@@ -76,7 +76,7 @@ public class NoticiaServices {
 
     private final String[] BUSCAST = {"Brasil"};
 
-    private final String[] BUSCAS = BUSCASD;
+    private final String[] BUSCAS = BUSCAST;
 
     public NoticiaESDTO parsePostagemToNoticiaESDTO(Postagem p) {
         String prefixoOculto = p.isOculto() ? "[OCULTO] " : "";

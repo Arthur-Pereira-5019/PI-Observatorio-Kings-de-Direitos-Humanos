@@ -67,7 +67,10 @@ html {
     position: relative;
     align-self: center;
     border: solid black 2px;
-    background-color: rgb(211, 211, 211);
+    background-image: url("/imagens/upload.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     width: 24vw;
     height: 16vw;
 }

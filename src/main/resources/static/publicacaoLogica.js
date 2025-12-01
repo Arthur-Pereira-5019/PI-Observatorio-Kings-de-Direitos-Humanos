@@ -10,6 +10,7 @@ async function iniciarPublicacao() {
     const body = document.querySelector("body");
     const decmod = document.querySelector("#dec_mod_martelo");
     const footer = document.querySelector("#footer");
+    let l = false;
 
     const url = window.location.href;
     const id = url.substring(url.lastIndexOf('/') + 1)
@@ -66,6 +67,7 @@ async function iniciarPublicacao() {
             if (data.estadoDaConta == "MODERADOR" || data.estadoDaConta == "ADMINISTRADOR") {
                 botaoOcultar.style.display = "flex";
                 moderador = true;
+                l = true;
             } else if (data.estadoDaConta == "PADRAO" || data.estadoDaConta == "ESPECIALISTA") {
                 botaoOcultar.style.display = "flex";
                 botaoOcultar.style.backgroundColor = "darkred"
@@ -73,11 +75,14 @@ async function iniciarPublicacao() {
                 botaoOcultar.addEventListener("click", function () {
                     openCriacaoDenuncia("Sua denúncia será processada!", id, "Postagem")
                 })
-            }
+                l = true;
+            } 
             carregarComentarios();
         })
-        .catch(err => console.error(err));
-
+        .catch(e => {
+            botaoOcultar.remove();
+            l = false;
+        })
     fetch("http://localhost:8080/api/postagem/" + id, {
         headers: { 'Content-Type': 'application/json' },
     })
@@ -274,11 +279,14 @@ async function iniciarPublicacao() {
                 })
             } else {
                 exclusao.style.display = 'none'
+                if(l) {
                 btnDenuncia.style.backgroundColor = 'darkred'
                 btnDenuncia.addEventListener("click", function () {
                     openCriacaoDenuncia("Sua denúncia será processada!", dados.id, "Comentario")
                 })
-
+                }else {
+                    btnDenuncia.remove();
+                }
             }
             imagem.addEventListener("click", function () {
                 window.location.pathname = "usuario/" + dados.autor.id;

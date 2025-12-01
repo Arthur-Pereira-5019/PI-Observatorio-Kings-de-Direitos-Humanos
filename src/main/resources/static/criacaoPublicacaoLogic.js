@@ -109,7 +109,7 @@ function input_capa() {
     const imagemSubmetida = entrada.files[0];
 
 
-    if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg") || imagemSubmetida.name.endsWith(".webp")) {
+    if (imagemSubmetida && imagemSubmetida.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg") || imagemSubmetida.name.endsWith(".webp")) {
         const reader = new FileReader();
 
 
@@ -120,6 +120,8 @@ function input_capa() {
 
 
         reader.readAsDataURL(imagemSubmetida);
+    } else {
+        alert("Forneça uma imagem de formato suportado!")
     }
 }
 
