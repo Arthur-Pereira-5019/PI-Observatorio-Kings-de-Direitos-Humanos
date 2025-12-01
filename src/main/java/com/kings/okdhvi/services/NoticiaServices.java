@@ -186,6 +186,9 @@ public class NoticiaServices {
         cq.where(predicates.toArray(new Predicate[0]));
         cq.orderBy(cb.desc(p.get("date")));
 
+        Predicate naoTratado = cb.equal(p.get("tratada"), false);
+        predicates.add(naoTratado);
+
         TypedQuery<NoticiaAgregada> busca = em.createQuery(cq);
         BuscaPaginadaResultado<NoticiaAgregada> bpr = new BuscaPaginadaResultado<>();
 

@@ -64,7 +64,7 @@ public class NoticiaController {
     @PreAuthorize("hasRole('ROLE_ESPEC')")
     @DeleteMapping(value="/eliminar/{id}")
     public void eliminar(@PathVariable("id") Long id ) {
-        ns.indexarNoticia(id);
+        ns.tratarNoticia(id);
     }
 
 
