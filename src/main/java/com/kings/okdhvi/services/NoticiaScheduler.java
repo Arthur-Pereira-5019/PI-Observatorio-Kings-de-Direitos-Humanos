@@ -10,7 +10,7 @@ public class NoticiaScheduler {
     @Autowired
     private NoticiaServices ns;
 
-    @Scheduled(fixedRate = 20000)
+    @Scheduled(fixedRate = 2000000)
     public void baixarNoticiasPeriodicamente() {
         ns.salvarNoticias();
     }

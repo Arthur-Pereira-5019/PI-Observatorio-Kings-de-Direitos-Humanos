@@ -70,8 +70,6 @@ public class PageControllers {
     @GetMapping("/novo_apoio")
     public String novoApoio() {return "novoApoio"; }
 
-
-
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/usuario/{id}")
     public String telaUsuario() {
@@ -118,6 +116,12 @@ public class PageControllers {
     @RequestMapping({"/noticias/**"})
     public String returnNoticias() {
         return "noticias";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ESPEC')")
+    @RequestMapping({"/noticias_agregadas/**"})
+    public String returnNoticiasAgregadas() {
+        return "noticias_agregadas";
     }
 
     @RequestMapping({"/aplicar_cargo"})

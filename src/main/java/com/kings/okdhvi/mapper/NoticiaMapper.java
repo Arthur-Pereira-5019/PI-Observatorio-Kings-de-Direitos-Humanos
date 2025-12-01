@@ -23,6 +23,7 @@ public class NoticiaMapper {
         na.setDate(nd.getPubDate());
         na.setLinkCapa(nd.getImage_url());
         na.setIcon(nd.getSource_icon());
+        na.setLink(nd.getLink());
         return na;
     }
 }

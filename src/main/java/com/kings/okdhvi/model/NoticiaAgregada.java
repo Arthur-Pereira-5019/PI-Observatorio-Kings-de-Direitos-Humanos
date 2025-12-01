@@ -1,5 +1,6 @@
 package com.kings.okdhvi.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 
@@ -24,10 +25,11 @@ public class NoticiaAgregada {
     @Column(length = 512)
     private String icon;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
     @Column
     private Date date;
 
-    @Column(length = 128)
+    @Column(length = 256)
     private String autor;
 
     public String getTitulo() {

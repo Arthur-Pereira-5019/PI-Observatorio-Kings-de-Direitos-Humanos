@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Observatório Kings de Direitos Humanos no Vale do Itajaí</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="/noticiasAgregadasStyle.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="header"></div>
+
+    <p id="titulo">Notícias Agregadas para Revisão</p>
+
+    <div id="container-noticias">
+
+        <div id="noticias-direita">
+            <div id="noticiaBase" class="noticias">
+                <div id="buttons">
+                    <div id="buttonAprovar"> 
+                        <img src="/imagens/checkmark.png" class="imagembtn">
+                    </div>
+                    <div id="buttonRecusar"> 
+                        <img src="/imagens/close.png" class="imagembtn">
+                    </div>
+                </div>
+                <img src="" class="capa">
+                <h2 class="tituloNoticia">
+                    </h3>
+                    <p class="autor"></p>
+            </div>
+        </div>
+        <div id="noticias-esquerda">
+
+        </div>
+    </div>
+
+    <div class="container-seletores">
+        <button class="bloquinhos" id="botaoesquerdo">&lt;</button>
+        <button class="bloquinhos" id="botaoprimeiro">1</button>
+        <button class="bloquinhos" id="botaoatual"></button>
+        <input type="text" id="botaocampo" class="bloquinhos" style="cursor: text;background-color: white ;"
+            placeholder="__">
+        <button class="bloquinhos" id="botaolonge"></button>
+        <button class="bloquinhos" id="botaodireito">&gt;</button>
+    </div>
+
+    <div id="posPopUp">
+        <div id="registro"></div>
+    </div>
+
+    <div id="posPopUpLogin">
+        <div id="login"></div>
+    </div>
+    <div id="footer"></div>
+
+
+</body>
+<script src="/includeHtmlExterno.js" defer></script>
+<script src="/noticiasAgregadasLogic.js" defer></script>
+
+</html>
