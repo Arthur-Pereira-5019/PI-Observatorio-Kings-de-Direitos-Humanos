@@ -80,7 +80,7 @@
     background-color: transparent;
     outline: none;
     width: 20vw;
-    height: 6vh;
+    height: 5.3vh;
     border: none;
 }
 
@@ -145,3 +145,16 @@
 .instrucao-senha {
     font-size: 1.2rem;
 }
+
+/* deixar autofill transparente e impedir vazamento */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px #DFDEDE inset !important;
+    box-shadow: 0 0 0 1000px #DFDEDE inset !important;
+
+    -webkit-text-fill-color: #000 !important;
+    caret-color: black;
+    border-radius: 15px;
+}
+

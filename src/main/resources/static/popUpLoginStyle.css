@@ -87,7 +87,7 @@
      background-color: transparent;
      outline: transparent;
      width: 21vw;
-     height: 6vh;
+     height: 5.3vh;
      border: none;
      justify-content: left;
  }
@@ -161,5 +161,14 @@
      cursor: pointer;
      border-radius: 20px;
      font-size: 2.5rem;
-
  }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px #DFDEDE inset !important;
+    box-shadow: 0 0 0 1000px #DFDEDE inset !important;
+
+    -webkit-text-fill-color: #000 !important;
+    caret-color: black;
+    border-radius: 15px;
+}

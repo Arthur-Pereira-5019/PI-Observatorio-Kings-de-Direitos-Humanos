@@ -6,6 +6,10 @@ body,
   margin: 0;
 }
 
+*{
+      font-family: "Inter", sans-serif;
+}
+
 
 
 #container_nova_imagem {
@@ -22,8 +26,7 @@ body,
   border: 3px solid black;
   z-index: 10000;
   display: none;
-    font-family: "Inter", sans-serif;
-    font-size: 16px;
+    font-size: 14px;
 
 }
 
@@ -38,13 +41,18 @@ body,
 }
 
 #titulo_nova_imagem {
+  display: flex;
+  align-items: center;
   width: 90%;
-  min-height: fit-content
+  min-height: fit-content;
+  border-radius: 20px;
+  padding: 1%;
 }
 
 #desc {
   width: 90%;
   height: 40vh;
+  padding: 1%;
 }
 
 #inserir {
