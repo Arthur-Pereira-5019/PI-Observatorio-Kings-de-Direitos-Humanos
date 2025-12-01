@@ -64,8 +64,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-
+    gap: 3%
 }
 
  .input-fundo-login {
@@ -171,4 +170,10 @@ input:-webkit-autofill:focus {
     -webkit-text-fill-color: #000 !important;
     caret-color: black;
     border-radius: 15px;
+}
+
+#loginTitulo {
+    font-weight: bold;
+    font-family: "Inter", sans-serif;
+
 }

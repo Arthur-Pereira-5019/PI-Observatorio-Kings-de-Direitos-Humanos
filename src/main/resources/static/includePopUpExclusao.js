@@ -34,7 +34,7 @@ async function iniciarExclusaoUser() {
             alert("Seu pedido de exclusão será processado.")
             window.location.reload()
         }).then(data => {
-            alert(data.mensagem)
+            alert("Credenciais incorretas!")
         })
     })
 

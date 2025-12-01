@@ -26,7 +26,7 @@ async function iniciarPublicacao() {
         if (cssFile) {
             anexarCss(cssFile)
         }
-        
+
         const response = await fetch(url);
         const data = await response.text()
         const novoObjeto = document.createElement("div");
@@ -76,7 +76,7 @@ async function iniciarPublicacao() {
                     openCriacaoDenuncia("Sua denúncia será processada!", id, "Postagem")
                 })
                 l = true;
-            } 
+            }
             carregarComentarios();
         })
         .catch(e => {
@@ -114,7 +114,7 @@ async function iniciarPublicacao() {
                     await openCriacaoDecisao(durl, "Postagem oculta com sucesso!");
                 })
             }
-            if(data.proprio == true) {
+            if (data.proprio == true) {
                 botaoOcultar.remove()
             }
 
@@ -279,12 +279,12 @@ async function iniciarPublicacao() {
                 })
             } else {
                 exclusao.style.display = 'none'
-                if(l) {
-                btnDenuncia.style.backgroundColor = 'darkred'
-                btnDenuncia.addEventListener("click", function () {
-                    openCriacaoDenuncia("Sua denúncia será processada!", dados.id, "Comentario")
-                })
-                }else {
+                if (l) {
+                    btnDenuncia.style.backgroundColor = 'darkred'
+                    btnDenuncia.addEventListener("click", function () {
+                        openCriacaoDenuncia("Sua denúncia será processada!", dados.id, "Comentario")
+                    })
+                } else {
                     btnDenuncia.remove();
                 }
             }

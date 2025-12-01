@@ -54,8 +54,8 @@
     color: white;
     background-color: #8D0028;
     justify-content: center;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
     
 
 }
@@ -158,3 +158,8 @@ input:-webkit-autofill:focus {
     border-radius: 15px;
 }
 
+#tituloRegistro {
+    font-weight: bold;
+    font-family: "Inter", sans-serif;
+    
+}

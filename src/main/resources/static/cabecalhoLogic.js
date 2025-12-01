@@ -102,6 +102,8 @@ async function iniciarCabecalho() {
                 pic.src = "data:image/" + data.fotoDePerfil.tipoImagem + ";base64," + data.fotoDePerfil.imagem;
             }
             document.querySelector("#btnSair").style.display = "flex";
+        }).catch(e => {
+            
         })
 
     async function logout() {
