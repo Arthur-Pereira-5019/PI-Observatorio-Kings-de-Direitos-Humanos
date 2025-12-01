@@ -54,14 +54,15 @@ public class PostagemServices {
 
             Predicate predicatesTags =  construirTextoPredicado(cb, p, texto, "tags");
 
-
             predicates.add(cb.or(predicatesCorpo, predicatesTitulo, predicatesTags));
-            if(noticia) {
-                predicates.add(cb.like(cb.lower(p.get("tags")), "%" + "noticia" + "%"));
-            } else {
-                Predicate naoExterno = cb.equal(p.get("externa"), false);
-                predicates.add(naoExterno);
-            }
+
+        }
+
+        if(noticia) {
+            predicates.add(cb.like(cb.lower(p.get("tags")), "%" + "noticia" + "%"));
+        } else {
+            Predicate naoExterno = cb.equal(p.get("externa"), false);
+            predicates.add(naoExterno);
         }
 
         boolean moderador = false;

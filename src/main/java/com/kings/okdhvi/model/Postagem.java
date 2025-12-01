@@ -70,8 +70,17 @@ public class Postagem{
     @Column
     private String linkCapaNoticiaExterna;
 
-    @Column
+    @Column(length = 512)
     private String nomeAutorNoticiaExterna;
+
+    @Column(length = 512)
+    private String linkIconDonoExterno;
+
+    @Column(length = 2048)
+    private String linkNoticiaExterna;
+
+    @Column(length = 1024)
+    private String linkCapaExterna;
 
     @Column
     @Enumerated(EnumType.ORDINAL)
@@ -171,5 +180,29 @@ public class Postagem{
 
     public void setLocal(Local local) {
         this.local = local;
+    }
+
+    public String getLinkIconDonoExterno() {
+        return linkIconDonoExterno;
+    }
+
+    public void setLinkIconDonoExterno(String linkIconDonoExterno) {
+        this.linkIconDonoExterno = linkIconDonoExterno;
+    }
+
+    public String getLinkNoticiaExterna() {
+        return linkNoticiaExterna;
+    }
+
+    public void setLinkNoticiaExterna(String linkNoticiaExterna) {
+        this.linkNoticiaExterna = linkNoticiaExterna;
+    }
+
+    public String getLinkCapaExterna() {
+        return linkCapaExterna;
+    }
+
+    public void setLinkCapaExterna(String linkCapaExterna) {
+        this.linkCapaExterna = linkCapaExterna;
     }
 }

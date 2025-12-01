@@ -79,6 +79,7 @@ async function iniciarPublicacoes() {
         const url = window.location.href;
         const partes = url.split('/');
         let busca2 = "/" + partes.pop();
+        buscaf = ""
 
         //Significa que já não tem nada || Isso aqui ainda vai ser útil?
         if (busca2 === '/publicacoes') {

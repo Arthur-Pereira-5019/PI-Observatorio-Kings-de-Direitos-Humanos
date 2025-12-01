@@ -54,6 +54,8 @@ public class PostagemMapper {
         p.setTituloPostagem(n.getTitulo());
         p.setNomeAutorNoticiaExterna(n.getAutor());
         p.setLinkCapaNoticiaExterna(n.getLink());
+        p.setLinkCapaExterna(n.getLinkCapa());
+        p.setLinkIconDonoExterno(n.getIcon());
         return p;
     }
 
