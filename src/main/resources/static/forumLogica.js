@@ -80,7 +80,9 @@ async function iniciarVerForum() {
     })
 
         .then(res => {
-            if (!res.ok) throw new Error("Erro no servidor");
+            if (!res.ok){
+                window.location.pathname = "telaInexistente"
+            } 
             return res.json();
         })
 
@@ -118,7 +120,7 @@ async function iniciarVerForum() {
             } else if (data.autor.foto.fotoPerfil == "" || data.autor.foto.tipoImagem == "") {
                 fotoPerfil.src = "/imagens/perfilIcon.png";
             } else {
-                fotoPerfil.src = "data:image/" + data.autor.foto.tipoImagem + ";base64," + data.autor.foto.fotoPerfil;
+                fotoPerfil.src = "data:image/" + data.autor.foto.tipoImagem + ";base64," + data.autor.foto.imagem;
             }
             carregarComentarios();
 
@@ -241,7 +243,7 @@ async function iniciarVerForum() {
             exclusao = comentario.querySelector(".botao-ocultar-comentario-forum")
             comentario.querySelector(".textoComentarioForum").textContent = dados.texto
             comentario.querySelector(".nomeComentario").textContent = dados.autor.nome
-            comentario.querySelector("#data-comentario-forum").textContent = dados.date
+            comentario.querySelector(".data-comentario-forum").textContent = dados.date
             comentario.querySelector(".nomeComentario").addEventListener("click", function () {
                 window.location.pathname = "usuario/" + dados.autor.id;
             })

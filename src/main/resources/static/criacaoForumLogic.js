@@ -10,12 +10,18 @@ btnPublicarForum.addEventListener("click", function () {
 
     let novoPost
 
+   if(textoPublicacao.value.length < 30){
+        alert("Digite o texto do fórum antes de enviá-la.")
+        textoPublicacao.focus()
+        return
+
+    }
+
     if (campoTitulo.value.trim() === "") {
-        alert("Dê um título para o forum antes de publicá-lo.!")
+        alert("Dê um título para o fórum antes de publicá-lo.!")
         campoTitulo.focus()
         return
     }
-
 
     if (textoPublicacao.value.trim() === "") {
         alert("Escreva algo para iniciar a discussão!")

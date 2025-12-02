@@ -105,7 +105,6 @@ async function iniciarForunsLogica() {
                 const containerGeral = document.getElementById("container-all-foruns");
                 if (data.resultado.length === 0) {
                     primeiroPost.remove()
-                    alert("Nenhum resultado encontrado!")
                     btnLonge.textContent = paginaAtual();
                     let path = window.location.pathname
                     if (path != "/foruns/%20/0") {
@@ -116,7 +115,7 @@ async function iniciarForunsLogica() {
                     btnLonge.remove()
                     btnCampo.remove()
                 } else {
-                    btnLonge.textContent = paginaAtual() + Math.ceil(data.proximosIndexes % 10);
+                    btnLonge.textContent = paginaAtual() + Math.ceil(data.proximosIndexes / 10);
                     if (Number(paginaAtual()) == Number(btnLonge.textContent)) {
                         btnDireito.remove()
                         btnLonge.remove()
