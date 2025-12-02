@@ -49,6 +49,8 @@
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+    min-height: 80vh;
+    padding-bottom: 5%;
  }
 
  .info-instituicao-apoio {

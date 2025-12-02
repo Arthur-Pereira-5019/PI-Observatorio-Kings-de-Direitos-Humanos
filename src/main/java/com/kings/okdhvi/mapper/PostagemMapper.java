@@ -35,7 +35,7 @@ public class PostagemMapper {
 
     public PostagemPaginaDTO paginaPostagem(Postagem p, Usuario u) {
         boolean proprio = false;
-        if(u != null) {
+        if(u != null && p.getAutor() != null) {
             if(p.getAutor().getIdUsuario().equals(u.getIdUsuario())) {
                 proprio = true;
             }

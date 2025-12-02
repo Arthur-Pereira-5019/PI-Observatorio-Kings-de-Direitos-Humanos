@@ -22,21 +22,22 @@ async function iniciarCabecalho() {
     barraPesquisa = document.getElementById('campoPesquisa');
     barraPesquisa.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
+            let busca = barraPesquisa.value == "" ? " ": barraPesquisa.value
             if (window.location.href.includes("/noticias/")) {
                 event.preventDefault();
-                window.location.pathname = "noticias/" + barraPesquisa.value + "/0";
+                window.location.pathname = "noticias/" + busca + "/0";
             } else if (window.location.href.includes("/foruns/")) {
                 event.preventDefault();
-                window.location.pathname = "foruns/" + barraPesquisa.value + "/0";
+                window.location.pathname = "foruns/" + busca + "/0";
             } else if (window.location.href.includes("/registro/")) {
                 event.preventDefault();
-                window.location.pathname = "registro/" + barraPesquisa.value + "/0";
+                window.location.pathname = "registro/" + busca + "/0";
             } else if (window.location.href.includes("/requisicoes/")) {
                 event.preventDefault();
-                window.location.pathname = "requisicoes/" + barraPesquisa.value + "/0";
+                window.location.pathname = "requisicoes/" + busca + "/0";
             } else {
                 event.preventDefault();
-                window.location.pathname = "publicacoes/" + barraPesquisa.value + "/0";
+                window.location.pathname = "publicacoes/" + busca + "/0";
             }
 
         }

@@ -53,15 +53,27 @@ public class DecisaoModeradoraMapper {
         switch (dm.getTipo()) {
             case "Usuario":
                 prEs = "usuario/";
-                es = dm.getNomeModerado();
+                try {
+                    es = dm.getNomeModerado();
+                } catch (Exception ignored) {
+                    es = "Usuário Desconhecido";
+                }
                 break;
             case "Postagem", "Comentario P":
                 prEs = "publicacao/";
-                es = ps.encontrarPostagemPeloId(dm.getIdModerado()).getTituloPostagem();
+                try {
+                    es = ps.encontrarPostagemPeloId(dm.getIdModerado()).getTituloPostagem();
+                } catch (Exception ignored) {
+                    es = "Publicação Desconhecida";
+                }
                 break;
             case "Forum", "Comentario F":
                 prEs = "forum/";
-                es = fs.encontrarForumPeloId(dm.getIdModerado()).getTituloForum();
+                try {
+                    es = fs.encontrarForumPeloId(dm.getIdModerado()).getTituloForum();
+                } catch (Exception ignored) {
+                    es = "Fórum Desconhecido";
+                }
                 break;
         }
         r.setLinkEspaco(prEs + dm.getIdModerado());

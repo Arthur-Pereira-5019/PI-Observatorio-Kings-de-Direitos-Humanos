@@ -68,6 +68,7 @@
 
 .icone-rede-popup-apoio {
     width: 2vw;
+    object-fit: contain;
 }
 
 .label-link-rede {

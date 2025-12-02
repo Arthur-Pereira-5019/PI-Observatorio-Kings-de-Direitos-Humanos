@@ -8,7 +8,7 @@ async function anexarHTMLExterno(url, cssFile, jsFile, durl, idApoio) {
     document.body.appendChild(novoObjeto)
     novoObjeto.innerHTML = data;
 
-    
+
 
     if (jsFile) {
         let script = document.createElement("script");
@@ -29,7 +29,7 @@ async function iniciarTelaApoio() {
     const addApoio = document.getElementById("add-acolhimento")
     const primeiroApoioD = document.querySelector(".container-geral-instituicao-direita")
     const primeiroApoioE = document.querySelector(".container-geral-instituicao-esquerda")
-const primeiroApoioDC = primeiroApoioD.cloneNode(true)
+    const primeiroApoioDC = primeiroApoioD.cloneNode(true)
     const primeiroApoioEC = primeiroApoioE.cloneNode(true)
     const containerLista = document.querySelector(".container-resto-tela-apoio")
 
@@ -49,34 +49,34 @@ const primeiroApoioDC = primeiroApoioD.cloneNode(true)
                     anexarHTMLExterno("/novo_apoio", "/novoApoioStyle.css", "/popupNovoApoio.js", "http://localhost:8080/api/apoio/", null)
                 })
             }
-            
+
 
         })
         .catch(err => console.error(err));
 
-        fetch("http://localhost:8080/api/apoio/", {
-                    headers: { 'Content-Type': 'application/json' },
-        }).then(res => {
-            if (!res.ok) throw new Error("Erro no servidor");
-            return res.json();
-        })
+    fetch("http://localhost:8080/api/apoio/", {
+        headers: { 'Content-Type': 'application/json' },
+    }).then(res => {
+        if (!res.ok) throw new Error("Erro no servidor");
+        return res.json();
+    })
         .then(data => {
-            if(!data[0]) {
+            if (!data[0]) {
                 primeiroApoioD.remove()
                 primeiroApoioE.remove()
                 return;
-            } else if(!data[1]) {
+            } else if (!data[1]) {
                 primeiroApoioD.remove()
             }
 
             data.forEach((d, i) => {
-                if(i == 0) {
+                if (i == 0) {
                     construirPublicacao(primeiroApoioE, d)
-                } else if(i == 1) {
+                } else if (i == 1) {
                     construirPublicacao(primeiroApoioD, d)
                 } else {
                     let novoElemento
-                    if(i % 2 != 0) {
+                    if (i % 2 != 0) {
                         novoElemento = primeiroApoioDC.cloneNode(true)
                         construirPublicacao(novoElemento, d)
                         containerLista.appendChild(novoElemento)
@@ -91,26 +91,26 @@ const primeiroApoioDC = primeiroApoioD.cloneNode(true)
 
         })
 
-        async function construirPublicacao(elemento, d) {
-            elemento.querySelector("#infoApoio").textContent = d.sobreInstituicao
-            elemento.querySelector("#nomeApoio").textContent = d.nomeInstituicao
+    async function construirPublicacao(elemento, d) {
+        elemento.querySelector("#infoApoio").textContent = d.sobreInstituicao
+        elemento.querySelector("#nomeApoio").textContent = d.nomeInstituicao
 
-            preencher_elemento("#twitterC",d.twitter)
-            preencher_elemento("#instaC",d.instagram)
-            preencher_elemento("#linkedinC",d.linkedin)
-            preencher_elemento("#siteC",d.site)
-            preencher_elemento("#numeroC",d.numero)
-            preencher_elemento("#enderecoC",d.localizacao)
+        preencher_elemento("#twitterC", d.twitter)
+        preencher_elemento("#instaC", d.instagram)
+        preencher_elemento("#linkedinC", d.linkedin)
+        preencher_elemento("#siteC", d.site)
+        preencher_elemento("#numeroC", d.numero)
+        preencher_elemento("#enderecoC", d.localizacao)
 
         function preencher_elemento(seletor, link) {
-            if(!link) {
+            if (!link) {
                 elemento.querySelector(seletor).parentNode.remove()
                 return;
             }
             elemento.querySelector(seletor).textContent = link;
             elemento.querySelector(seletor).href = link;
         }
-        }
+    }
 }
 
 document.addEventListener("DOMContentLoaded", iniciarTelaApoio);

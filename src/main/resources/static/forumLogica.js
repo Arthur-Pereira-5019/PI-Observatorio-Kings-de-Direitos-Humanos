@@ -43,6 +43,11 @@ async function iniciarVerForum() {
     let com = 0;
     let buscando = false;
     let moderador = false;
+    let l = false;
+
+        if (localStorage.getItem("respostaSalva")) {
+        textoComentario.value = localStorage.getItem("respostaSalva")
+    }
 
     fetch("http://localhost:8080/api/user", {
         headers: { 'Content-Type': 'application/json' },
@@ -68,9 +73,13 @@ async function iniciarVerForum() {
                 })
             } else {
                 botaoOcultar.remove()
+                l = false;
             }
         })
-        .catch(err => console.error(err));
+        .catch(e => {
+            botaoOcultar.remove()
+            l = false;
+        });
 
     await fetch("http://localhost:8080/api/forum/" + id, {
         method: 'GET',
@@ -164,13 +173,13 @@ async function iniciarVerForum() {
                     }
             } else {
                 window.location.reload()
-                localStorage.setItem("comentarioSalvo", "")
+                localStorage.setItem("respostaSalva", "")
             }
         }).then(data => {
             if (data.mensagem) {
                 if (data.mensagem.includes("Access Denied")) {
                     alert("Você precisa se autenticar antes de comentar!")
-                    localStorage.setItem("comentarioSalvo", textoComentario.value)
+                    localStorage.setItem("respostaSalva", textoComentario.value)
                     document.querySelector(".perfil").click()
                 } else {
                     alert(data.mensagem)
@@ -267,11 +276,16 @@ async function iniciarVerForum() {
                     openCriacaoDecisao("http://localhost:8080/api/com/excluir/" + dados.id, "Comentário excluído com sucesso!")
                 })
             } else {
-                exclusao.style.backgroundColor = 'darkred'
+                if(l) {
+                    exclusao.style.backgroundColor = 'darkred'
                 exclusao.querySelector("#zoio-log").src = "/imagens/megafone-icon_white.png"
                 exclusao.addEventListener("click", function () {
                     openCriacaoDenuncia("Sua denúncia será processada", dados.id, "Comentario")
                 })
+                } else {
+                    exclusao.style.display = "none"
+                }
+                
             }
             imagem.addEventListener("click", function () {
                 window.location.href = "http://localhost:8080/usuario/" + dados.autor.id;

@@ -17,7 +17,6 @@ async function iniciarForunsLogica() {
         .then(async res => {
             if (res.ok) {
                 const text = await res.text();
-
                 if (text.trim() === "null") {
                     btnCriarForum.remove()
                 } else {

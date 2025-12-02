@@ -1,82 +1,83 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="/forunsStyle.css">
 
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-            rel="stylesheet">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="/forunsStyle.css">
+    <title>Fóruns</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+</head>
 
-    <body>
+<body>
 
-        <div id="header"></div>
+    <div id="header"></div>
 
-        <div class="container-universal-tela-foruns">
+    <div class="container-universal-tela-foruns">
 
-            <div class="titulo-tela-foruns">Fóruns</div>
+        <div class="titulo-tela-foruns">Fóruns</div>
 
-            <div class="container-posicao-botao-tela-foruns">
-                <div id="botao-addForum-tela-foruns">
-                    <img src="/imagens/mais-branco.png" id="mais" alt="">
-                </div>
+        <div class="container-posicao-botao-tela-foruns">
+            <div id="botao-addForum-tela-foruns">
+                <img src="/imagens/mais-branco.png" id="mais" alt="">
             </div>
+        </div>
 
-            <div class="container-all-foruns" id="container-all-foruns">
+        <div class="container-all-foruns" id="container-all-foruns">
 
-                <div class="forum-tela-foruns">
+            <div class="forum-tela-foruns">
 
-                    <div class="container-foto-forum-tela-foruns">
-                        <img src="" id="foto-user-forum-tela-foruns" alt="">
-                    </div>
-
-                    <div class="container-infos-tela-foruns">
-                        <p class="tituloForum"></p>
-
-                        <div class="container-data-autor-tela-foruns">
-                            <p class="autorForum textoBranco"></p>
-                            <p class="dataForum textoBranco"></p>
-                        </div>
-                    </div>
-
-                    <div class="container-respostas-atualizacao-tela-foruns">
-                        <p class="dados-forum-tela-foruns nRespostas"></p>
-                        <p class="dados-forum-tela-foruns ultAtt"></p>
-                    </div>
-
+                <div class="container-foto-forum-tela-foruns">
+                    <img src="" id="foto-user-forum-tela-foruns" alt="">
                 </div>
 
+                <div class="container-infos-tela-foruns">
+                    <p class="tituloForum"></p>
+
+                    <div class="container-data-autor-tela-foruns">
+                        <p class="autorForum textoBranco"></p>
+                        <p class="dataForum textoBranco"></p>
+                    </div>
+                </div>
+
+                <div class="container-respostas-atualizacao-tela-foruns">
+                    <p class="dados-forum-tela-foruns nRespostas"></p>
+                    <p class="dados-forum-tela-foruns ultAtt"></p>
+                </div>
+
             </div>
 
-            <div class="container-seletores">
-                <button class="bloquinhos" id="botaoesquerdo">&lt;</button>
-                <button class="bloquinhos" id="botaoprimeiro">1</button>
-                <button class="bloquinhos" id="botaoatual"></button>
-                <input type="text" autocomplete="off" id="botaocampo" class="bloquinhos"
-                    style="cursor: text;background-color: white ;"
-                    placeholder="__">
-                <button class="bloquinhos" id="botaolonge"></button>
-                <button class="bloquinhos" id="botaodireito">&gt;</button>
-            </div>
-
         </div>
 
-        <div id="posPopUp">
-            <div id="registro"></div>
+        <div class="container-seletores">
+            <button class="bloquinhos" id="botaoesquerdo">&lt;</button>
+            <button class="bloquinhos" id="botaoprimeiro">1</button>
+            <button class="bloquinhos" id="botaoatual"></button>
+            <input type="text" autocomplete="off" id="botaocampo" class="bloquinhos"
+                style="cursor: text;background-color: white ;" placeholder="__">
+            <button class="bloquinhos" id="botaolonge"></button>
+            <button class="bloquinhos" id="botaodireito">&gt;</button>
         </div>
 
-        <div id="posPopUpLogin">
-            <div id="login"></div>
-        </div>
+    </div>
 
-        <div id="footer"></div>
+    <div id="posPopUp">
+        <div id="registro"></div>
+    </div>
 
-        <script src="/forunsLogica.js"></script>
-        <script src="/includeHtmlExterno.js"></script>
+    <div id="posPopUpLogin">
+        <div id="login"></div>
+    </div>
 
-    </body>
+    <div id="footer"></div>
+
+    <script src="/forunsLogica.js"></script>
+    <script src="/includeHtmlExterno.js"></script>
+
+</body>
+
 </html>
