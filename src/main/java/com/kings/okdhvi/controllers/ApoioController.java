@@ -35,7 +35,7 @@ public class ApoioController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
-    public Apoio encontrarApoio(Long id) {
+    public Apoio encontrarApoio(@PathVariable("id") Long id) {
         return as.encontrarApoio(id);
     }
 
@@ -45,8 +45,8 @@ public class ApoioController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/")
-    public void excluirApoio(Long id) {
+    @DeleteMapping("/{id}")
+    public void excluirApoio(@PathVariable("id") Long id) {
         as.deletarApoio(id);
     }
 }

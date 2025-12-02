@@ -29,6 +29,7 @@ public class ApoioService {
         a.setSobreInstituicao(ap.sobreInstituicao());
         a.setSite(ap.site());
         a.setInstagram(ap.instagram());
+        a.setTelefone(ap.telefone());
         if(ap.ImagemBase64() != null) {
             if(!ap.ImagemBase64().isEmpty()) {
                 Imagem i = is.criarImagem(new CriarImagemRequest(ap.ImagemBase64(), "Logo de " + ap.nomeInstituicao(), "Logo de " + ap.nomeInstituicao(), ""), u);
@@ -60,8 +61,12 @@ public class ApoioService {
         velhoAp.setSite(ap.site());
         velhoAp.setInstagram(ap.instagram());
         velhoAp.setLinkedin(ap.linkedin());
-        Imagem i = is.criarImagem(new CriarImagemRequest(ap.ImagemBase64(), "Logo de "+ap.nomeInstituicao(), "Logo de "+ap.nomeInstituicao(),""),u);
-        velhoAp.setFoto(i);
+
+        if(ap.ImagemBase64() != null && !ap.ImagemBase64().isEmpty() && !ap.ImagemBase64().isBlank()) {
+            Imagem i = is.criarImagem(new CriarImagemRequest(ap.ImagemBase64(), "Logo de "+ap.nomeInstituicao(), "Logo de "+ap.nomeInstituicao(),""),u);
+            velhoAp.setFoto(i);
+        }
+
         return apr.save(velhoAp);
     }
 }
