@@ -31,15 +31,14 @@ async function iniciarTelaApoio() {
 
     let isAdmin = false;
 
-    fetch("http://localhost:8080/api/user", {
-        headers: { 'Content-Type': 'application/json' },
-    })
-        .then(res => {
-            if (!res.ok) throw new Error("Erro no servidor");
-            return res.json();
-        })
-        .then(data => {
-            if (data.estadoDaConta == "ADMINISTRADOR") {
+    try {
+        const userResponse = await fetch("http://localhost:8080/api/user", {
+            headers: { 'Content-Type': 'application/json' },
+        });
+        
+        if (userResponse.ok) {
+            const userData = await userResponse.json();
+            if (userData.estadoDaConta === "ADMINISTRADOR") {
                 isAdmin = true;
                 
                 addApoio.style.display = "flex"
@@ -53,48 +52,52 @@ async function iniciarTelaApoio() {
                     )
                 })
             }
-        })
-        .catch(err => console.error(err));
+        }
+    } catch (err) {
+        console.error("Erro ao verificar usuário:", err);
+    }
 
-    fetch("http://localhost:8080/api/apoio/", {
-        headers: { 'Content-Type': 'application/json' },
-    })
-        .then(res => {
-            if (!res.ok) throw new Error("Erro no servidor");
-            return res.json();
-        })
-        .then(data => {
-            console.log(data)
-            if(!data[0]) {
-                primeiroApoioD.remove()
-                primeiroApoioE.remove()
-                return;
-            } else if(!data[1]) {
-                primeiroApoioD.remove()
-            }
+    try {
+        const apoiosResponse = await fetch("http://localhost:8080/api/apoio/", {
+            headers: { 'Content-Type': 'application/json' },
+        });
+        
+        if (!apoiosResponse.ok) throw new Error("Erro no servidor");
+        
+        const data = await apoiosResponse.json();
+        console.log(data);
+        
+        if (!data[0]) {
+            primeiroApoioD.remove()
+            primeiroApoioE.remove()
+            return;
+        } else if (!data[1]) {
+            primeiroApoioE.remove()
+        }
 
-            data.forEach((d, i) => {
-                if(i == 0) {
-                    construirPublicacao(primeiroApoioD, d)
-                } else if(i == 1) {
-                    construirPublicacao(primeiroApoioE, d)
+        data.forEach((d, i) => {
+            if (i == 0) {
+                construirPublicacao(primeiroApoioD, d, isAdmin)
+            } else if (i == 1) {
+                construirPublicacao(primeiroApoioE, d, isAdmin)
+            } else {
+                let novoElemento
+                if (i % 2 == 0) {
+                    novoElemento = primeiroApoioDC.cloneNode(true)
+                    construirPublicacao(novoElemento, d, isAdmin)
+                    containerLista.appendChild(novoElemento)
                 } else {
-                    let novoElemento
-                    if(i % 2 == 0) {
-                        novoElemento = primeiroApoioDC.cloneNode(true)
-                        construirPublicacao(novoElemento, d)
-                        containerLista.appendChild(novoElemento)
-                    } else {
-                        novoElemento = primeiroApoioEC.cloneNode(true)
-                        construirPublicacao(novoElemento, d)
-                        containerLista.appendChild(novoElemento)
-                    }
+                    novoElemento = primeiroApoioEC.cloneNode(true)
+                    construirPublicacao(novoElemento, d, isAdmin)
+                    containerLista.appendChild(novoElemento)
                 }
-            });
-        })
-        .catch(err => console.error(err));
+            }
+        });
+    } catch (err) {
+        console.error("Erro ao carregar apoios:", err);
+    }
 
-    async function construirPublicacao(elemento, d) {
+    function construirPublicacao(elemento, d, isAdmin) {
         elemento.querySelector("#infoApoio").textContent = d.sobreInstituicao
         elemento.querySelector("#nomeApoio").textContent = d.nomeInstituicao
         
@@ -115,6 +118,7 @@ async function iniciarTelaApoio() {
                 botaoEditar.style.display = "flex"
                 botaoEditar.addEventListener("click", function() {
                     const apoioId = this.getAttribute("data-apoio-id")
+                    console.log("ID do Apoio:", apoioId)
                     anexarHTMLExterno(
                         "/novo_apoio", 
                         "/novoApoioStyle.css", 
@@ -134,7 +138,7 @@ async function iniciarTelaApoio() {
         preencher_elemento("#enderecoC", d.localizacao)
 
         function preencher_elemento(seletor, link) {
-            if(!link) {
+            if (!link) {
                 elemento.querySelector(seletor).parentNode.remove()
                 return;
             }

@@ -72,8 +72,10 @@
 
  #foto-instituicao-tela-apoio {
      width: 15vh;
+     height: 15vh;
      border-radius: 50%;
      margin: 0 auto;
+     object-fit: cover
  }
 
  .icone-lista-tela-apoio {
