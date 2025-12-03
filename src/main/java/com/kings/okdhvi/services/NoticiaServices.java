@@ -74,7 +74,7 @@ public class NoticiaServices {
     };
 
 
-    private final String[] BUSCAST = {"Brasil"};
+    private final String[] BUSCAST = {"negros OR negras OR racismo OR feminicidio OR blumenau OR Gaspar"};
 
     private final String[] BUSCAS = BUSCAST;
 
@@ -87,7 +87,7 @@ public class NoticiaServices {
 
     public Postagem indexarNoticia(Long id) {
         NoticiaAgregada na = encontrarNoticia(id);
-        if(!na.getTratada()) {
+        if(na.getTratada()) {
             return null;
         }
         Postagem r = ps.salvarPostagem(pm.parseNoticiaToPostagem(na));
@@ -114,7 +114,7 @@ public class NoticiaServices {
     }
 
     public NoticiaAgregada procurarPeloLink(String link) {
-        return nr.findByLink(link).isSuccess() ? nr.findByLink(link).getNow() : null;
+        return nr.findByLink(link).orElse(null);
     }
 
     public List<NoticiaAgregada> encontrarNoticias() {
@@ -183,11 +183,11 @@ public class NoticiaServices {
             predicates.add(cb.or(predicatesAutor, predicatesTitulo));
         }
 
-        cq.where(predicates.toArray(new Predicate[0]));
-        cq.orderBy(cb.desc(p.get("date")));
-
         Predicate naoTratado = cb.equal(p.get("tratada"), false);
         predicates.add(naoTratado);
+
+        cq.where(predicates.toArray(new Predicate[0]));
+        cq.orderBy(cb.desc(p.get("date")));
 
         TypedQuery<NoticiaAgregada> busca = em.createQuery(cq);
         BuscaPaginadaResultado<NoticiaAgregada> bpr = new BuscaPaginadaResultado<>();
@@ -225,6 +225,5 @@ public class NoticiaServices {
         encontradas.forEach(e -> {noticias.add(nm.parseNoticiaDTOtoNoticiaAgregada(e));});
         System.out.println("Agregadas " + noticias.size() + " notícias ao sistema");
         noticias.forEach(this::salvarNoticia);
-        nr.saveAll(noticias);
     }
 }

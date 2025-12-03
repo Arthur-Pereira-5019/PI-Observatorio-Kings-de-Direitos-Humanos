@@ -145,7 +145,7 @@ public class UsuarioService {
     public void exclusaoGeralAgendada() {
         ArrayList<PedidoExclusaoConta> pedidos = new ArrayList<>(pecs.encontrarTodosPedidosDeExclusao());
         Instant agora = Instant.now();
-        pedidos.removeIf(p -> p.getDataPedido().toInstant().plus(30, ChronoUnit.SECONDS).isAfter(agora));
+        pedidos.removeIf(p -> p.getDataPedido().toInstant().plus(60, ChronoUnit.SECONDS).isAfter(agora));
 
         pedidos.forEach(p -> {
             if (p.getUsuarioPedido() == null) {

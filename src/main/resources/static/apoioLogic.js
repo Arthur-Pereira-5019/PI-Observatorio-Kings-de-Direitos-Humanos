@@ -143,7 +143,6 @@ async function iniciarTelaApoio() {
                 return;
             }
             elemento.querySelector(seletor).textContent = link;
-            elemento.querySelector(seletor).href = "https://"+link;
         }
     }
 }

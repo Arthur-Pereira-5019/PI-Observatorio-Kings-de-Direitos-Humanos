@@ -145,10 +145,10 @@ async function iniciarNoticias() {
                     noticia.querySelector(".capa").src = "/imagens/noticia-icon.png"
                 }
                 noticia.querySelector(".capa").addEventListener("click", function () {
-                    window.location.href = "/" + dados.linkNoticiaExterna
+                    window.location.href = dados.linkNoticiaExterna
                 })
                 noticia.querySelector(".tituloNoticia").addEventListener("click", function () {
-                    window.location.href = "/" + dados.linkNoticiaExterna
+                    window.location.href = dados.linkNoticiaExterna
                     
                 })
                 if (dados.linkIconDonoExterno) {

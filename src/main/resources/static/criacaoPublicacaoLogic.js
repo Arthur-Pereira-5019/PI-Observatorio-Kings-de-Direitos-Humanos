@@ -13,7 +13,7 @@ async function iniciarCriacaoPublicacao() {
         publicarDocumento();
     })
 
-    botaoCancelar.addEventListener("click", function() {
+    botaoCancelar.addEventListener("click", function () {
         window.location.pathname = 'publicacoes'
     })
 
@@ -43,14 +43,6 @@ async function publicarDocumento(finalizada) {
         return;
     }
 
-    if(textoPublicacao.innerHTML.length > 32768){
-        console.log("oieee")
-        alert("Quantidade de texto superior ao limite " + textoPublicacao.innerHTML.length + "/32768")
-        textoPublicacao.focus()
-        return   
-
-    }
-
     if (campoTituloPostagem.value.length == 0) {
         alert("Digite o título da postagem antes de enviá-la.")
         return;
@@ -67,6 +59,7 @@ async function publicarDocumento(finalizada) {
     imagens.forEach((i) => {
         i.src = "";
     })
+
     campoImagem = canva.src;
     campoTextoPostagem = textoPublicacao.innerHTML;
 
