@@ -72,6 +72,8 @@ async function iniciarPublicacao() {
                 botaoOcultar.style.display = "flex";
                 botaoOcultar.style.backgroundColor = "darkred"
                 botaoOcultar.querySelector(".mais").src = "/imagens/megafone-icon_white.png"
+                botaoOcultar.querySelector(".mais").alt = "Ícone de megafone (Botão de denunciar)"
+                botaoOcultar.querySelector(".mais").title = "Botão de denunciar"
                 botaoOcultar.addEventListener("click", function () {
                     openCriacaoDenuncia("Sua denúncia será processada!", id, "Postagem")
                 })
@@ -104,6 +106,8 @@ async function iniciarPublicacao() {
 
                 botaoOcultar.style.backgroundColor = "green"
                 botaoOcultar.querySelector("img").src = "/imagens/olhos_abertos.png"
+                botaoOcultar.querySelector("img").alt = "Ícone de olhos abertos (Desocultar postagem)"
+                botaoOcultar.querySelector("img").title = "Desocultar postagem"
                 botaoOcultar.addEventListener("click", async function () {
                     let durl = "http://localhost:8080/api/postagem/ocultar/" + id;
                     await openCriacaoDecisao(durl, "Postagem desocultada com sucesso!");
@@ -120,13 +124,15 @@ async function iniciarPublicacao() {
 
 
             capa.src = "data:image/" + data.capa.tipoImagem + ";base64," + data.capa.imagem;
+            capa.alt = data.capa.descricaoImagem;
+            capa.title = data.capa.descricaoImagem;
             dadosPublicacao.textContent = "Publicado em " + data.dataDaPostagem + " por " + data.autor.nome;
             let elementoSurpresa = document.createElement("div");
             let imgs;
             elementoSurpresa.innerHTML = data.textoPostagem;
             imgs = elementoSurpresa.querySelectorAll("img");
             for (const i of imgs) {
-                i.src = await carregarSrc(i.dataset.db_id);
+                await desserializarImagem(i);
             }
             texto.innerHTML = elementoSurpresa.innerHTML;
         })
@@ -317,7 +323,8 @@ async function iniciarPublicacao() {
         await anexarHTMLExterno("/popupNovaDenuncia", "/popupNovaDenunciaStyle.css", "/popupCriacaoDenunciaLogic.js", "", msg, id, tipo);
     }
 
-    async function carregarSrc(id) {
+    async function desserializarImagem(i) {
+        let id = i.dataset.db_id
         try {
             let response = await fetch("http://localhost:8080/api/imagem/" + id, {
                 method: 'GET',
@@ -326,7 +333,9 @@ async function iniciarPublicacao() {
             if (!response.ok) throw new Error("Erro no servidor");
 
             let data = await response.json();
-            return "data:image/" + data.tipoImagem + ";base64," + data.imagem;
+            i.src = "data:image/" + data.tipoImagem + ";base64," + data.imagem;
+            i.alt = data.decricaoImagem
+            i.title = data.decricaoImagem
         } catch (err) {
             console.error(err);
             return null;

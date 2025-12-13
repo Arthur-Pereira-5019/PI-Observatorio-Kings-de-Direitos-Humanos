@@ -85,6 +85,8 @@ async function iniciarNovoApoio(url, idApoioExistente) {
 
             if (dadosOriginais.foto && dadosOriginais.foto.imagem) {
                 capaPreview.src = "data:image/" + dadosOriginais.foto.tipoImagem + ";base64," + dadosOriginais.foto.imagem;
+                capaPreview.alt = dadosOriginais.foto.descricaoImagem;
+                capaPreview.title = dadosOriginais.foto.descricaoImagem;
             }
 
         } catch (error) {

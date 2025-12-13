@@ -103,9 +103,10 @@ window.iniciarPopupNovaImagem = function () {
                     sel.removeAllRanges();
                     sel.addRange(range);
 
-                    // ESSENCIAL: salvar novo range corretamente
                     selecaoAntiga = range.cloneRange();
                 }
+                img.alt = data.decricaoImagem
+                img.title = data.decricaoImagem
                 img.dataset.db_id = data.idImagem;
 
                 const sel = window.getSelection();

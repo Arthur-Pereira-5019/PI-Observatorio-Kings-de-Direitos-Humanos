@@ -16,7 +16,7 @@ async function iniciarSobre() {
             elementoSurpresa.innerHTML = data.text;
             imgs = elementoSurpresa.querySelectorAll("img");
             for (const i of imgs) {
-                i.src = await carregarSrc(i.dataset.db_id);
+                await desserializarImagem(i);
             }
             textp.innerHTML = elementoSurpresa.innerHTML;
         })
@@ -41,20 +41,23 @@ async function iniciarSobre() {
 
 }
 
-async function carregarSrc(id) {
-    try {
-        let response = await fetch("http://localhost:8080/api/imagem/" + id, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
-        })
-        if (!response.ok) throw new Error("Erro no servidor");
+ async function desserializarImagem(i) {
+        let id = i.dataset.db_id
+        try {
+            let response = await fetch("http://localhost:8080/api/imagem/" + id, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            if (!response.ok) throw new Error("Erro no servidor");
 
-        let data = await response.json();
-        return "data:image/" + data.tipoImagem + ";base64," + data.imagem;
-    } catch (err) {
-        console.error(err);
-        return null;
-    };
-}
+            let data = await response.json();
+            i.src = "data:image/" + data.tipoImagem + ";base64," + data.imagem;
+            i.alt = data.decricaoImagem
+            i.title = data.decricaoImagem
+        } catch (err) {
+            console.error(err);
+            return null;
+        };
+    }
 
 document.addEventListener("DOMContentLoaded", iniciarSobre)

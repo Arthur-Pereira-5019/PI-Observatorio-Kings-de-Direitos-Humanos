@@ -68,6 +68,8 @@ async function iniciarVerForum() {
                 botaoOcultar.style.display = "flex";
                 botaoOcultar.style.backgroundColor = 'darkred'
                 botaoOcultar.querySelector("#zoio-log").src = "/imagens/megafone-icon_white.png"
+                botaoOcultar.querySelector("#zoio-log").alt = "Ícone de megafone (botão de denúncia)"
+                botaoOcultar.querySelector("#zoio-log").title = "Ícone de megafone (botão de denúncia)"
                 botaoOcultar.addEventListener("click", function () {
                     openCriacaoDenuncia("Sua denúncia será processada", id, "Forum")
                 })
@@ -105,6 +107,8 @@ async function iniciarVerForum() {
                 if (moderador) {
                     botaoOcultar.style.backgroundColor = "green"
                     botaoOcultar.querySelector("img").src = "/imagens/olhos_abertos.png"
+                    botaoOcultar.querySelector("img").alt = "Ícone de olhos abertos"
+                    botaoOcultar.querySelector("img").title = "Ícone de olhos abertos"
                     botaoOcultar.addEventListener("click", async function () {
                         let durl = "http://localhost:8080/api/forum/ocultar/" + id;
                         await openCriacaoDecisao(durl, "Postagem desocultada com sucesso!");

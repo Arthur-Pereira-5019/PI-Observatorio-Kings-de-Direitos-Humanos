@@ -10,7 +10,7 @@ public class Imagem {
     @Column(length = 128)
     String tituloImagem;
 
-    @Column(length = 256)
+    @Column(length = 512)
     String decricaoImagem;
 
     @Column(length = 128)

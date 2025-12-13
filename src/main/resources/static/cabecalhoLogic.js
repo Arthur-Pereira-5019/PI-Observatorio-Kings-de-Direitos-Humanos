@@ -101,6 +101,9 @@ async function iniciarCabecalho() {
             bemvindos.textContent = "Olá " + data.nome + "!";
             if (data.fotoDePerfil != null) {
                 pic.src = "data:image/" + data.fotoDePerfil.tipoImagem + ";base64," + data.fotoDePerfil.imagem;
+                pic.alt = data.fotoDePerfil.descricaoImagem
+                pic.title = data.fotoDePerfil.descricaoImagem
+                pic.title = data.fotoDePerfil.descricaoImagem
             }
             document.querySelector("#btnSair").style.display = "flex";
         }).catch(e => {

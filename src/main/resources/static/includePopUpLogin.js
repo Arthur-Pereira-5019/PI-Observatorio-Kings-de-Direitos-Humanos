@@ -23,11 +23,11 @@ async function iniciarPopupLogin() {
                 'Content-Type': 'application/json',
             }
         }).then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro na requisição');
-                }
-                return response.json();
-            })
+            if (!response.ok) {
+                throw new Error('Erro na requisição');
+            }
+            return response.json();
+        })
             .then(data => {
                 usuarioId = data.idUsuario;
                 window.location.href = '/usuario/' + usuarioId;
@@ -43,9 +43,13 @@ async function iniciarPopupLogin() {
         elemento.dataset.ativo = String(Number(!ativo));
         if (!ativo) {
             elemento.src = "/imagens/olhos_abertos.png"
+            elemento.alt = "Ícone de olhos fechados (Desocultar senha)"
+            elemento.title = "Desocultar senha"
             pai.type = "text"
         } else {
             elemento.src = "/imagens/olhosfechados.png"
+            elemento.alt = "Ícone de olhos fechados (Ocultar senha)"
+            elemento.title = "Ocultar senha"
             pai.type = "password"
         }
     }

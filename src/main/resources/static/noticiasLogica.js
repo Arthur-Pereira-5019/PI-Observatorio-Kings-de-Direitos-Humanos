@@ -149,10 +149,12 @@ async function iniciarNoticias() {
                 })
                 noticia.querySelector(".tituloNoticia").addEventListener("click", function () {
                     window.location.href = dados.linkNoticiaExterna
-                    
+
                 })
                 if (dados.linkIconDonoExterno) {
                     noticia.querySelector(".logoObservatorio").src = dados.linkIconDonoExterno
+                    noticia.querySelector(".logoObservatorio").alt = "Ícone do site"
+                    noticia.querySelector(".logoObservatorio").title = "Ícone do site"
                 }
                 return;
             }
@@ -160,8 +162,13 @@ async function iniciarNoticias() {
             noticia.querySelector(".autor").textContent = dados.nomeAutor
             if (dados.capa.imagem == "" || dados.capa.tipoImagem) {
                 noticia.querySelector(".capa").src = "/imagens/noticia.png";
+                noticia.querySelector(".capa").alt = "Notícia sem capa";
+                noticia.querySelector(".capa").title = "Notícia sem capa";
             } else {
                 noticia.querySelector(".capa").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
+                noticia.querySelector(".capa").alt = dados.capa.descricaoImagem
+                noticia.querySelector(".capa").title = dados.capa.descricaoImagem
+
             }
             noticia.addEventListener("click", function () {
                 window.location.pathname = "publicacao/" + dados.idPostagem

@@ -151,8 +151,12 @@ async function iniciarPublicacoes() {
             publicacao.querySelector(".paragrafo").innerHTML = dados.texto
             if (dados.capa.imagem == "" || dados.capa.tipoImagem) {
                 publicacao.querySelector(".imagem").src = "/imagens/publicacao.png";
+                publicacao.querySelector(".imagem").alt = "Publicação sem imagem"
+                publicacao.querySelector(".imagem").title = "Publicação sem imagem"
             } else {
                 publicacao.querySelector(".imagem").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
+                publicacao.querySelector(".imagem").alt = dados.capa.descricaoImagem
+                publicacao.querySelector(".imagem").title = dados.capa.descricaoImagem
             }
             publicacao.addEventListener("click", function () {
                 window.location.pathname = "publicacao/" + dados.idPostagem

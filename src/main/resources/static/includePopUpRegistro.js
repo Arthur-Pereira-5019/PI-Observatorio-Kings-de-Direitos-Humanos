@@ -117,9 +117,13 @@ async function iniciarPopupRegistro() {
         elemento.dataset.ativo = String(Number(!ativo));
         if (!ativo) {
             elemento.src = "/imagens/olhos_abertos.png"
+            elemento.alt = "Ícone de olhos fechados (Desocultar senha)"
+            elemento.title = "Desocultar senha"
             pai.type = "text"
         } else {
             elemento.src = "/imagens/olhosfechados.png"
+            elemento.alt = "Ícone de olhos fechados (Ocultar senha)"
+            elemento.title = "Ocultar senha"
             pai.type = "password"
         }
     }

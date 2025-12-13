@@ -104,10 +104,16 @@ async function iniciarTelaApoio() {
         let imagem = elemento.querySelector("#foto-instituicao-tela-apoio")
         if (d.foto == null) {
             imagem.src = "/imagens/grupo.png";
+            imagem.alt = "Grupo sem imagem."
+            imagem.title = "Grupo sem imagem."
         } else if (d.foto.imagem == "") {
             imagem.src = "/imagens/grupo.png";
+            imagem.alt = "Grupo sem imagem."
+            imagem.title = "Grupo sem imagem."
         } else {
             imagem.src = "data:image/" + d.foto.tipoImagem + ";base64," + d.foto.imagem;
+            imagem.alt = d.foto.descricaoImagem
+            imagem.title = d.foto.descricaoImagem
         }
 
         const botaoEditar = elemento.querySelector(".editar-acolhimento")
