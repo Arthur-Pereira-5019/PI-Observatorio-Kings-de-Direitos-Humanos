@@ -17,7 +17,7 @@ public class NoticiaScheduler {
     @Scheduled(fixedRate = 2000000)
     public void baixarNoticiasPeriodicamente() {
         if(!mode.equals("DISABLED")) {
-            //ns.salvarNoticias();
+            ns.salvarNoticias();
         }
     }
 }

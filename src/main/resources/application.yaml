@@ -37,4 +37,4 @@ api:
     token:
       secret: ${JWT_SECRET:KINGS}
   news: ${NEWSDATA_API_KEY}
-  scraping_mode: DISABLED;
+  scraping_mode: DISABLED

@@ -145,7 +145,9 @@ async function iniciarPublicacoes() {
 
 
         function construirPublicacao(publicacao, dados) {
+            link = "/publicacao/" + dados.idPostagem;
             publicacao.querySelector(".titulo-publicacao").textContent = dados.titulo
+            publicacao.querySelector(".titulo-publicacao").title = window.location.origin + link; 
             publicacao.querySelector(".autor").textContent = dados.autor
             publicacao.querySelector(".data").textContent = dados.data
             publicacao.querySelector(".paragrafo").innerHTML = dados.texto
@@ -159,7 +161,7 @@ async function iniciarPublicacoes() {
                 publicacao.querySelector(".imagem").title = dados.capa.descricaoImagem
             }
             publicacao.addEventListener("click", function () {
-                window.location.pathname = "publicacao/" + dados.idPostagem
+                window.location.pathname = "publicacao/" + link
             })
         }
     }

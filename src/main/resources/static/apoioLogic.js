@@ -136,19 +136,61 @@ async function iniciarTelaApoio() {
             }
         }
 
-        preencher_elemento("#twitterC", d.twitter)
-        preencher_elemento("#instaC", d.instagram)
-        preencher_elemento("#linkedinC", d.linkedin)
-        preencher_elemento("#siteC", d.site)
-        preencher_elemento("#numeroC", d.telefone)
-        preencher_elemento("#enderecoC", d.localizacao)
+        twitter(d.twitter)
+        insta(d.instagram)
+        linkedin(d.linkedin)
+        site(d.site)
+        telefone(d.telefone)
+        endereco(d.localizacao)
 
-        function preencher_elemento(seletor, link) {
+        function preencher_elemento(seletor, link, href) {
+            let elemento = getElemento(seletor);
             if (!link) {
-                elemento.querySelector(seletor).parentNode.remove()
+                elemento.parentNode.remove()
                 return;
             }
-            elemento.querySelector(seletor).textContent = link;
+            elemento.textContent = link;
+            elemento.title = href;
+            elemento.href = href;
+        }
+
+        function twitter(link) {
+            preencher_elemento("#twitterC", "@"+link, "https://x.com/"+link)
+        }
+
+        function insta(link) {
+            preencher_elemento("#instaC", "@"+link, "https://www.instagram.com/"+link)
+        }
+
+        function linkedin(link) {
+            preencher_elemento("#linkedinC", "Linkedin", link)
+        }
+
+        function site(link) {
+            let nl = link;
+            if(link.includes("https://")) {
+                nl = link.replace("https://","")
+            }
+            preencher_elemento("#siteC", nl, link)
+        }
+
+        function telefone(link) {
+            let nt = link;
+            //Telefone Fixo ou Celular
+            if(link.length = 12) {
+            nt = "+" + nt.substring(0,2) + " (" + nt.substring(2,4) +") "+nt.substring(4,8)+"-"+nt.substring(8,12);
+            } else {
+            nt = "+" + nt.substring(0,2) + " (" + nt.substring(2,4) +") "+nt.substring(4,9)+"-"+nt.substring(9,13);
+            }
+            preencher_elemento("#numeroC", nt, "tel:"+link)
+        }
+        
+        function endereco(link) {
+            preencher_elemento("#enderecoC",link,"https://www.google.com/maps/search/"+link)
+        }
+
+        function getElemento(seletor) {
+            return elemento.querySelector(seletor)
         }
     }
 }

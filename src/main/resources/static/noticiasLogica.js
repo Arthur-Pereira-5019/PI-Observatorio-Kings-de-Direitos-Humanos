@@ -53,7 +53,6 @@ async function iniciarNoticias() {
     })
         .then(res => {
             if (!res.ok) {
-                carregarComentarios()
                 throw new Error("Erro no servidor");
 
             }
@@ -153,8 +152,6 @@ async function iniciarNoticias() {
                 })
                 if (dados.linkIconDonoExterno) {
                     noticia.querySelector(".logoObservatorio").src = dados.linkIconDonoExterno
-                    noticia.querySelector(".logoObservatorio").alt = "Ícone do site"
-                    noticia.querySelector(".logoObservatorio").title = "Ícone do site"
                 }
                 return;
             }
@@ -173,6 +170,7 @@ async function iniciarNoticias() {
             noticia.addEventListener("click", function () {
                 window.location.pathname = "publicacao/" + dados.idPostagem
             })
+            noticia.querySelector(".logoObservatorio").src="/imagens/iconKings.png"
         }
     }
 

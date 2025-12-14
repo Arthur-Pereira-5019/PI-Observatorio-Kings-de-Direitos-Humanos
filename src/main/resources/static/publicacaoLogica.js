@@ -20,6 +20,7 @@ async function iniciarPublicacao() {
 
     if (localStorage.getItem("comentarioSalvo")) {
         cComentario.value = localStorage.getItem("comentarioSalvo")
+        caracteres.textContent = cComentario.value.length + "/512";
     }
 
     async function anexarHTMLExterno(url, cssFile, jsFile, durl, msg, idDenunciado, tipoDenunciado) {
