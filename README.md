@@ -6,9 +6,14 @@ Site desenvolvido com Spring Boot para dar a minorias sociais e demais pessoas e
 
 ### As quatro funcionalidades chave do sistema são:
  - Criação de publicações por especialistas
- - Criação de fóruns para usuários comuns conversarem entre si
+ ![Publicacões](/screenshots/homepage.png)
+ - Criação de fóruns para usuários comuns dialogarem
+ ![Forum](/screenshots/forum.png)
  - Agregação de notícias externas com a temática dos direitos humanos na região do Vale;
+ ![Notícias](/screenshots/noticias_agregadas.png)
  - Listagem de pessoas e instituições relacionadas com a defesa de direitos humanos na região do Vale do Itajaí.
+ ![Apoio](/screenshots/apoios.png)
+
 
 
 ## A aplicação
@@ -27,6 +32,8 @@ Site desenvolvido com Spring Boot para dar a minorias sociais e demais pessoas e
   - Acessando o próprio perfil, um usuário comum pode configurar sua conta, requisitar um cargo para si ou requisitar a exclusão de sua conta em até 30 dias.
   - Acessando o perfil de outrém, um usuário comum pode denunciar essa conta.
   - Qualquer tela que possui algum conteúdo paginado, através de uma barra de pesquisa no cabeçalho do site é possível buscar os conteúdos desejados por uma busca textual.
+
+ ![Perfil](/screenshots/perfil.png)
 
 ### Especialistas
 
