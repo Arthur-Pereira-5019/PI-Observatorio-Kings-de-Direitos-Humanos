@@ -120,6 +120,7 @@ body {
     position: absolute;
     background-color: white;
     position: fixed;
+    transition: all;
 }
 
 .item-menu-lateral {
@@ -137,7 +138,7 @@ body {
     border-radius: 40px;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
     gap: 5%;
-
+    padding-right: 0.7em;
 }
 
 .icon-item-menu-lateral {
@@ -150,4 +151,5 @@ body {
 
 #bemvindo {
     font-family: "Inter", sans-serif;
+    font-size: 1.1em;
 }

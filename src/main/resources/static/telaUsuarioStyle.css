@@ -182,6 +182,10 @@
     border-radius: 100%;
 }
 
+#capaUsuario {
+    position: relative;
+}
+
 .mais {
     width: 70%;
     height: 70%;

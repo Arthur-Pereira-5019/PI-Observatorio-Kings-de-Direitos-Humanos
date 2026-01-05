@@ -161,7 +161,7 @@ async function iniciarPublicacoes() {
                 publicacao.querySelector(".imagem").title = dados.capa.descricaoImagem
             }
             publicacao.addEventListener("click", function () {
-                window.location.pathname = "publicacao/" + link
+                window.location.pathname = link
             })
         }
     }

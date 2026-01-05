@@ -18,30 +18,18 @@ async function iniciarCabecalho() {
     btnContato = document.getElementById("btnContato");
     btnSair = document.getElementById("btnSair");
 
+    btnLupa = document.getElementById("lupa")
+
     menuLateral = document.getElementById("parte-geral-menu-lateral");
     barraPesquisa = document.getElementById('campoPesquisa');
     barraPesquisa.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
-            let busca = barraPesquisa.value == "" ? " ": barraPesquisa.value
-            if (window.location.href.includes("/noticias/")) {
-                event.preventDefault();
-                window.location.pathname = "noticias/" + busca + "/0";
-            } else if (window.location.href.includes("/foruns/")) {
-                event.preventDefault();
-                window.location.pathname = "foruns/" + busca + "/0";
-            } else if (window.location.href.includes("/registro/")) {
-                event.preventDefault();
-                window.location.pathname = "registro/" + busca + "/0";
-            } else if (window.location.href.includes("/requisicoes/")) {
-                event.preventDefault();
-                window.location.pathname = "requisicoes/" + busca + "/0";
-            } else {
-                event.preventDefault();
-                window.location.pathname = "publicacoes/" + busca + "/0";
-            }
-
+            event.preventDefault();
+            busca()
         }
     });
+
+    btnLupa.addEventListener("click", busca)
 
     menu.addEventListener("click", function () {
         if (menuLateral.style.display === "flex") {
@@ -107,7 +95,7 @@ async function iniciarCabecalho() {
             }
             document.querySelector("#btnSair").style.display = "flex";
         }).catch(e => {
-            
+
         })
 
     async function logout() {
@@ -115,6 +103,21 @@ async function iniciarCabecalho() {
             headers: { 'Content-Type': 'application/json' },
         })
         if (!res.ok) throw new Error("Erro no servidor")
+    }
+
+    async function busca() {
+            let busca = barraPesquisa.value == "" ? " " : barraPesquisa.value
+            if (window.location.href.includes("/noticias/")) {
+                window.location.pathname = "noticias/" + busca + "/0";
+            } else if (window.location.href.includes("/foruns/")) {
+                window.location.pathname = "foruns/" + busca + "/0";
+            } else if (window.location.href.includes("/registro/")) {
+                window.location.pathname = "registro/" + busca + "/0";
+            } else if (window.location.href.includes("/requisicoes/")) {
+                window.location.pathname = "requisicoes/" + busca + "/0";
+            } else {
+                window.location.pathname = "publicacoes/" + busca + "/0";
+            }
     }
 }
 document.addEventListener("DOMContentLoaded", iniciarCabecalho)

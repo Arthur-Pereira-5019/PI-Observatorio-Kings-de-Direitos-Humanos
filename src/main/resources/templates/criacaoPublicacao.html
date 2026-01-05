@@ -19,10 +19,14 @@
         <p class="textoBase">Título: *</p>
         <input id="campoTitulo" maxlength="512" autocomplete="off">
 
-        <label id="capaPostagem" label for="capaPostagemInput">
-            <img id="capaPostagemPreview" onerror="this.style.display='none'">
-            <input id="capaPostagemInput" type="file" enctype="multipart/form-data" accept=".jpg,.jpeg,.webp" >
-        </label>
+        <div id="campoCapa">
+            <label id="capaPostagem" label for="capaPostagemInput">
+                <img id="capaPostagemPreview" onerror="this.style.display='none'">
+                <input id="capaPostagemInput" type="file" enctype="multipart/form-data" accept=".jpg,.jpeg,.webp">
+            </label>
+            <textarea id="descCapa" maxlength="256" rows="4" cols="50" placeholder="Descreva a imagem da capa"></textarea>
+        </div>
+
 
         <div id="richtexteditor" style="position: relative;left: 50%;transform: translateX(-50%);"></div>
 
