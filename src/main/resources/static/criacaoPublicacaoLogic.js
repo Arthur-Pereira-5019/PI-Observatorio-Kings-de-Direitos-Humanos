@@ -3,6 +3,7 @@ let campoTags;
 async function iniciarCriacaoPublicacao() {
     campoTags = document.getElementById("campoTags");
     const capaPostagemInput = document.getElementById("capaPostagemInput");
+    const descCapa = document.getElementById("descCapa");
     capaPostagemInput.addEventListener("input", input_capa);
 
 
@@ -78,6 +79,7 @@ async function publicarDocumento(finalizada) {
         capaBase64: campoImagem,
         tituloPostagem: campoTituloPostagem.value,
         textoPostagem: campoTextoPostagem,
+        descricaoCapa: descCapa.value,
         tags: campoTags.value,
         publicada: finalizada,
     };
@@ -109,19 +111,20 @@ function input_capa() {
     const imagemSubmetida = entrada.files[0];
 
 
-    if (imagemSubmetida && imagemSubmetida.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg") || imagemSubmetida.name.endsWith(".webp")) {
-        const reader = new FileReader();
+    if (imagemSubmetida) {
+        nome = imagemSubmetida.name.toLowerCase();
+        if (nome.endsWith(".jpg") || nome.endsWith(".jpeg") || nome.endsWith(".webp")) {
+            const reader = new FileReader();
 
+            reader.onload = (e) => {
+                const base64StringWithPrefix = e.target.result;
+                capaPostagemPreview.src = base64StringWithPrefix;
+            };
 
-        reader.onload = (e) => {
-            const base64StringWithPrefix = e.target.result;
-            capaPostagemPreview.src = base64StringWithPrefix;
-        };
-
-
-        reader.readAsDataURL(imagemSubmetida);
-    } else {
-        alert("Forneça uma imagem de formato suportado!")
+            reader.readAsDataURL(imagemSubmetida);
+        } else {
+            alert("Forneça uma imagem de formato suportado!")
+        }
     }
 }
 

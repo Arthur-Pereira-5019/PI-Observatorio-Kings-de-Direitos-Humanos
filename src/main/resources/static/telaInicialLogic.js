@@ -55,12 +55,13 @@ async function iniciarTelaInicial() {
             })
             .then(data => {
                 if (data.resultado[0]) {
+                    console.log(data.resultado[0])
                     textoEsquerda.textContent = data.resultado[0].titulo
                     textoEsquerda.title = data.resultado[0].titulo
                     linkNoticiaEsquerda = "http://localhost:8080/publicacao/" + data.resultado[0].idPostagem;
                     ImagemEsquerda.src = "data:image/" + data.resultado[0].capa.tipoImagem + ";base64," + data.resultado[0].capa.imagem;
                     ImagemEsquerda.alt = data.resultado[0].capa.descricaoImagem
-                    ImagemEsquerda.title = data.resultado[0].capa.descricaoImagem
+                    ImagemEsquerda.title = data.resultado[0].titulo
 
                 } else {
                     noticiaEsquerda.style.display = "none"
@@ -70,8 +71,8 @@ async function iniciarTelaInicial() {
                     textoDireita.title = data.resultado[1].titulo
                     linkNoticiaDireita = "http://localhost:8080/publicacao/" + data.resultado[1].idPostagem;
                     ImagemDireita.src = "data:image/" + data.resultado[1].capa.tipoImagem + ";base64," + data.resultado[1].capa.imagem;
-                    ImagemDireita.alt = data.resultado[0].capa.descricaoImagem
-                    ImagemDireita.title = data.resultado[0].capa.descricaoImagem
+                    ImagemDireita.alt = data.resultado[1].capa.descricaoImagem
+                    ImagemDireita.title = data.resultado[1].titulo
                 } else {
                     noticiaDireita.style.display = "none"
                     seta_direita.style.display = "none"

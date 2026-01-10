@@ -125,7 +125,7 @@ public class PostagemServices {
             throw new NullResourceException("Postagem sem capa submetida!");
         }
         Postagem post = new Postagem();
-        CriarImagemRequest cir = new CriarImagemRequest(pcdto.capaBase64(), "Capa", "Capa da publicacao" + pcdto.tituloPostagem(), pcdto.tipoCapa());
+        CriarImagemRequest cir = new CriarImagemRequest(pcdto.capaBase64(), pcdto.descricaoCapa(), "Capa da publicacao: " + pcdto.tituloPostagem(), pcdto.tipoCapa());
         Usuario u = us.encontrarPorId(usuarioId, false);
         Imagem i = is.criarImagem(cir, u);
 

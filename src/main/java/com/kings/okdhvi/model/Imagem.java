@@ -11,7 +11,7 @@ public class Imagem {
     String tituloImagem;
 
     @Column(length = 512)
-    String decricaoImagem;
+    String descricaoImagem;
 
     @Column(length = 128)
     String donoImagem;
@@ -38,12 +38,12 @@ public class Imagem {
         this.tituloImagem = tituloImagem;
     }
 
-    public String getDecricaoImagem() {
-        return decricaoImagem;
+    public String getDescricaoImagem() {
+        return descricaoImagem;
     }
 
-    public void setDecricaoImagem(String decricaoImagem) {
-        this.decricaoImagem = decricaoImagem;
+    public void setDescricaoImagem(String descricaoImagem) {
+        this.descricaoImagem = descricaoImagem;
     }
 
     public String getDonoImagem() {

@@ -41,7 +41,7 @@ public class ImagemService {
         i.setDonoImagem("("+u.getIdUsuario()+")" + u.getNome());
         i.setTituloImagem(cir.titulo());
         i.setDataImagem(Date.from(Instant.now()));
-        i.setDecricaoImagem(cir.descricao());
+        i.setDescricaoImagem(cir.descricao());
         try {
             return ir.save(i);
         } catch (Exception e) {

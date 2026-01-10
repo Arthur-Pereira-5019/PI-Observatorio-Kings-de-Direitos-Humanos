@@ -9,6 +9,7 @@ public record PostagemCDTO(
         boolean publicada,
         String capaBase64,
         String tipoCapa,
+        String descricaoCapa,
         Local local)
 {
 

@@ -31,7 +31,8 @@
      align-items: center;
      justify-content: center;
      gap: 5%;
-
+         height: 50vh;
+    min-height: fit-content;
  }
 
  .noticia-container {
