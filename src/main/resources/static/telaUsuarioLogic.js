@@ -241,14 +241,15 @@ async function iniciarPerfil() {
             publicacao.querySelector(".autor").textContent = dados.autor
             publicacao.querySelector(".data").textContent = dados.data
             publicacao.querySelector(".paragrafo").innerHTML = dados.texto
+            let imagem = publicacao.querySelector(".imagem")
             if (dados.capa.imagem == "" || dados.capa.tipoImagem) {
-                publicacao.querySelector(".imagem").src = "/imagens/publicacao.png";
-                publicacao.querySelector("imagem").alt = "Publicação sem capa"
-                publicacao.querySelector("imagem").title = "Publicação sem capa"
+                imagem.src = "/imagens/publicacao.png";
+                imagem.alt = "Publicação sem capa"
+                imagem.title = "Publicação sem capa"
             } else {
-                publicacao.querySelector(".imagem").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
-                publicacao.querySelector("imagem").alt = dados.capa.descricaoImagem
-                publicacao.querySelector("imagem").title = dados.capa.descricaoImagem
+                imagem.src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
+                imagem.alt = dados.capa.descricaoImagem
+                imagem.title = dados.titulo
             }
             publicacao.addEventListener("click", function () {
                 window.location.pathname = "publicacao/" + dados.idPostagem
