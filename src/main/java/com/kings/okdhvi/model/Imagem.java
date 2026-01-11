@@ -8,27 +8,26 @@ import java.util.Date;
 @Entity
 public class Imagem {
     @Column(length = 128)
-    String tituloImagem;
+    private String tituloImagem;
 
     @Column(length = 512)
-    String descricaoImagem;
+    private String descricaoImagem;
 
     @Column(length = 128)
-    String donoImagem;
+    private String donoImagem;
 
     @Column
-    Date dataImagem;
+    private Date dataImagem;
 
     @Column
-    String tipoImagem;
+    private String tipoImagem;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long idImagem;
+    private Long idImagem;
 
-    @Lob
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    byte[] imagem;
+    @Column
+    private String caminho;
 
     public String getTituloImagem() {
         return tituloImagem;
@@ -70,19 +69,19 @@ public class Imagem {
         this.idImagem = idImagem;
     }
 
-    public byte[] getImagem() {
-        return imagem;
-    }
-
-    public void setImagem(byte[] imagem) {
-        this.imagem = imagem;
-    }
-
     public String getTipoImagem() {
         return tipoImagem;
     }
 
     public void setTipoImagem(String tipoImagem) {
         this.tipoImagem = tipoImagem;
+    }
+
+    public String getCaminho() {
+        return caminho;
+    }
+
+    public void setCaminho(String caminho) {
+        this.caminho = caminho;
     }
 }

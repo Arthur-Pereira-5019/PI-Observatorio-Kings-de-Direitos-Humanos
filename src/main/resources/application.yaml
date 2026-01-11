@@ -38,3 +38,7 @@ api:
       secret: ${JWT_SECRET:KINGS}
   news: ${NEWSDATA_API_KEY}
   scraping_mode: DISABLED
+file_saving:
+  base_path: "./imagens"
+  allowed-mime: "image/jpeg", "image/jpg", "image/webp", "image/png"
+
