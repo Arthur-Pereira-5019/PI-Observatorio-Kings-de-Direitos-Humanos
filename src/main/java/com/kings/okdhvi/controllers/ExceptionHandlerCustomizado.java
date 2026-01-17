@@ -2,6 +2,7 @@ package com.kings.okdhvi.controllers;
 
 import com.kings.okdhvi.exception.*;
 import com.kings.okdhvi.exception.imagens.InvalidBase64ImageEncoding;
+import com.kings.okdhvi.exception.imagens.InvalidDocumentFormat;
 import com.kings.okdhvi.exception.login.InvalidLoginInfoException;
 import com.kings.okdhvi.exception.postagem.RevisaoPostagemException;
 import com.kings.okdhvi.exception.usuario.*;
@@ -53,6 +54,12 @@ public class ExceptionHandlerCustomizado {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(exceptionResponse);
+    }
+
+    @ExceptionHandler(InvalidDocumentFormat.class)
+    public final ResponseEntity<ExceptionResponse> handleInvalidDocumentFormat(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(DuplicatedResource.class)

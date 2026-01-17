@@ -8,12 +8,16 @@ import com.kings.okdhvi.model.Imagem;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.model.DTOs.CriarImagemRequest;
 import com.kings.okdhvi.repositories.ImagemRepository;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.Instant;
 import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ImagemService {
@@ -23,6 +27,12 @@ public class ImagemService {
 
     @Autowired
     TokenService ts;
+
+    @Autowired
+    ArquivosSalvosService ass;
+
+    @Value("file_saving.allowed-mime")
+    private List<String> mimes;
 
     public Imagem criarImagem(CriarImagemRequest cir, Usuario u) {
         if(cir == null) {
@@ -55,6 +65,17 @@ public class ImagemService {
 
     public void excluirImagemPeloId(Long id) {
         ir.delete(retornarImagemPeloId(id));
+    }
+
+    private void validarImagem(MultipartFile i) {
+        if(i.isEmpty()) {
+            throw new NullResourceException("Imagem vazia!");
+        }
+
+        String tipo = i.getContentType();
+        if(tipo == null || !mimes.contains(tipo)) {
+            throw new InvalidBase64ImageEncoding("Formato de arquivo inválido!");
+        }
     }
 
 }
