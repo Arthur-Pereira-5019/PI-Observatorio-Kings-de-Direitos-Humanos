@@ -3,7 +3,7 @@ package com.kings.okdhvi.services;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.model.Apoio;
 import com.kings.okdhvi.model.DTOs.ApoioCDTO;
-import com.kings.okdhvi.model.DTOs.CriarImagemRequest;
+import com.kings.okdhvi.model.DTOs.CriarImagemMetaRequest;
 import com.kings.okdhvi.model.Imagem;
 import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.repositories.ApoioRepository;
@@ -30,12 +30,15 @@ public class ApoioService {
         a.setSite(ap.site());
         a.setInstagram(ap.instagram());
         a.setTelefone(ap.telefone());
+ /*
         if(ap.ImagemBase64() != null) {
             if(!ap.ImagemBase64().isEmpty()) {
-                Imagem i = is.criarImagem(new CriarImagemRequest(ap.ImagemBase64(), "Logo de " + ap.nomeInstituicao(), "Logo de " + ap.nomeInstituicao(), ""), u);
+                Imagem i = is.criarImagem(new CriarImagemMetaRequest(ap.ImagemBase64(), "Logo de " + ap.nomeInstituicao(), "Logo de " + ap.nomeInstituicao(), ""), u);
                 a.setFoto(i);
             }
         }
+
+  */
         return apr.save(a);
     }
 
@@ -61,12 +64,12 @@ public class ApoioService {
         velhoAp.setSite(ap.site());
         velhoAp.setInstagram(ap.instagram());
         velhoAp.setLinkedin(ap.linkedin());
-
+/*
         if(ap.ImagemBase64() != null && !ap.ImagemBase64().isEmpty() && !ap.ImagemBase64().isBlank()) {
-            Imagem i = is.criarImagem(new CriarImagemRequest(ap.ImagemBase64(), "Logo de "+ap.nomeInstituicao(), "Logo de "+ap.nomeInstituicao(),""),u);
+            Imagem i = is.criarImagem(new CriarImagemMetaRequest(ap.ImagemBase64(), "Logo de "+ap.nomeInstituicao(), "Logo de "+ap.nomeInstituicao(),""),u);
             velhoAp.setFoto(i);
         }
-
+*/
         return apr.save(velhoAp);
     }
 }

@@ -2,7 +2,6 @@ package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.NullResourceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
-import com.kings.okdhvi.exception.postagem.RevisaoPostagemException;
 import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.model.DTOs.*;
 import com.kings.okdhvi.repositories.PostagemRepository;
@@ -125,11 +124,14 @@ public class PostagemServices {
             throw new NullResourceException("Postagem sem capa submetida!");
         }
         Postagem post = new Postagem();
-        CriarImagemRequest cir = new CriarImagemRequest(pcdto.capaBase64(), pcdto.descricaoCapa(), "Capa da publicacao: " + pcdto.tituloPostagem(), pcdto.tipoCapa());
         Usuario u = us.encontrarPorId(usuarioId, false);
-        Imagem i = is.criarImagem(cir, u);
 
-        post.setCapa(i);
+        /*
+        CriarImagemMetaRequest cir = new CriarImagemMetaRequest(pcdto.capaBase64(), pcdto.descricaoCapa(), "Capa da publicacao: " + pcdto.tituloPostagem(), pcdto.tipoCapa());
+        Imagem i = is.criarImagem(cir, u);
+                post.setCapa(i);
+
+*/
 
         post.setTextoPostagem(pcdto.textoPostagem());
         post.setTituloPostagem(pcdto.tituloPostagem());

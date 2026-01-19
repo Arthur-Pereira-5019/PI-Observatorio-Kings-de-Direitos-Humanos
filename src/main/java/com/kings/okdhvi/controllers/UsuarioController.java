@@ -18,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin(origins="")
 @RestController
@@ -67,8 +68,8 @@ public class UsuarioController {
 
     @PreAuthorize("hasRole('PADRAO')")
     @PutMapping(value = "/atualizar_imagem")
-    public Usuario atualizarImagem(@RequestBody CriarImagemRequest i, @AuthenticationPrincipal UserDetails ud) {
-        return us.atualizarFoto(us.buscarId(ud), i);
+    public Usuario atualizarImagem(@RequestPart("meta") CriarImagemMetaRequest meta, @RequestPart(value = "imagem") MultipartFile imagem, @RequestBody CriarImagemMetaRequest i, @AuthenticationPrincipal UserDetails ud) {
+        return us.atualizarFoto(us.buscarId(ud), imagem, meta);
     }
 
     @PreAuthorize("hasRole('MODER')")

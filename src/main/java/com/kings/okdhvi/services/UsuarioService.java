@@ -17,6 +17,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -85,9 +86,9 @@ public class UsuarioService {
     }
 
     @Transactional
-    public Usuario atualizarFoto(Long id, CriarImagemRequest cir) {
+    public Usuario atualizarFoto(Long id, MultipartFile file, CriarImagemMetaRequest cir) {
         Usuario u = encontrarPorId(id, false);
-        Imagem i = is.criarImagem(cir, u);
+        Imagem i = is.criarImagem(file, cir, u);
         u.setFotoDePerfil(i);
         return ur.save(u);
     }

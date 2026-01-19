@@ -2,9 +2,11 @@ package com.kings.okdhvi.services;
 
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.exception.usuario.UnauthorizedActionException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 
 import java.io.IOException;
@@ -18,13 +20,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class ArquivosSalvosService {
-    @Value("file_saving.base_path")
-    private String basePath;
-
     private final Path rootPath;
 
-    public ArquivosSalvosService(Path rootPath) {
+    public ArquivosSalvosService(@Value("${file_saving.base_path}") String basePath) {
         this.rootPath = Paths.get(basePath);
     }
 

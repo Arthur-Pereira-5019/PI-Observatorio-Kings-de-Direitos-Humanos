@@ -21,8 +21,8 @@ spring:
     mvc:
       time-zone: "America/Sao_Paulo"
 logger:
-  root: WARN
-  com.kings.okdhvi: WARN
+  root: DEBUG
+  com.kings.okdhvi: DEBUG
 logging:
   level:
     org:
@@ -40,5 +40,5 @@ api:
   scraping_mode: DISABLED
 file_saving:
   base_path: "./imagens"
-  allowed-mime: "image/jpeg", "image/jpg", "image/webp", "image/png"
+  allowed-mime: image/jpeg, image/jpg, image/webp, image/png
 
