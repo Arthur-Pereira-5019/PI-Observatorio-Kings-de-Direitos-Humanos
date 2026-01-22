@@ -6,7 +6,9 @@ import com.kings.okdhvi.services.ImagemService;
 import com.kings.okdhvi.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,6 +18,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -33,7 +36,7 @@ public class ImagemController {
         return is.criarImagem(imagem,meta,us.encontrarPorId(us.buscarId(ud),false));
     }
 
-    @GetMapping("/{id}")
+    /*@GetMapping("/{id}")
     public MultiValueMap<String, Object> procurarImagemPeloId(@PathVariable("id") Long id) {
         Imagem meta = is.retornarDadosImagemPeloId(id);
         Resource imagem = is.retornarImagemPeloId(id);
@@ -42,6 +45,21 @@ public class ImagemController {
         body.add("image", imagem);
 
         return body;
+    }*/
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Resource> procurarImagemPeloId(@PathVariable Long id) {
+        Imagem meta = is.retornarDadosImagemPeloId(id);
+        Resource imagem = is.retornarImagemPeloId(id);
+
+        return ResponseEntity
+                .ok()
+                .header(
+                        HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=\"" + meta.getTituloImagem() + "\""
+                ).header("descricao",meta.getDescricaoImagem())
+                .contentType(MediaType.parseMediaType(meta.getTipoImagem()))
+                .body(imagem);
     }
 
     @PreAuthorize("isAuthenticated()")

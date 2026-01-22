@@ -99,32 +99,30 @@ async function iniciarPerfil() {
             capaPreview = document.querySelector(".icon-user");
 
             const imagemSubmetida = entrada.files[0];
+            const name = imagemSubmetida.name.toLowerCase()
 
-            if (imagemSubmetida && imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg") || imagemSubmetida.name.endsWith(".webp")) {
-                const reader = new FileReader();
+            if (imagemSubmetida && name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".webp")) {
+                requestBody = {
+                    descricao: "Foto de perfil de " + data.nome,
+                    titulo: "Foto de perfil de " + data.nome
+                }
 
-                reader.onload = (e) => {
-                    const base64StringWithPrefix = e.target.result;
-                    requestBody = {
-                        imageBase64: base64StringWithPrefix.replace(base64StringWithPrefix.substring(0, base64StringWithPrefix.indexOf(",") + 1), ""),
-                        descricao: "Foto de perfil de " + data.nome,
-                        titulo: "Foto de perfil de " + data.nome
-                    }
+                const formData = new FormData();
+                formData.append("imagem", imagemSubmetida)
+                formData.append("meta", new Blob([JSON.stringify(requestBody)], { type: "application/json" }))
 
-                    fetch("http://localhost:8080/api/user/atualizar_imagem", {
-                        method: 'PUT',
-                        body: JSON.stringify(requestBody),
-                        headers: { 'Content-Type': 'application/json' },
+                fetch("http://localhost:8080/api/user/atualizar_imagem", {
+                    method: 'PUT',
+                    body: formData
+                                })
+                    .then(res => {
+                        if (!res.ok) return res.json();
+                        alert("Imagem adicionada com sucesso!")
+                        window.location.reload();
                     })
-                        .then(res => {
-                            if (!res.ok) return res.json();
-                            alert("Imagem adicionada com sucesso!")
-                            window.location.reload();
-                        })
-                        .then(d => {
-                            alert(d.mensagem)
-                        })
-                };
+                    .then(d => {
+                        alert(d.mensagem)
+                    })
 
                 reader.readAsDataURL(imagemSubmetida);
             } else {
@@ -169,7 +167,7 @@ async function iniciarPerfil() {
             entrada.remove()
         } else {
             btnConfigUser.style.display = "flex"
-            if(!estadoDaConta == ADMINISTRADOR) {
+            if (!estadoDaConta == ADMINISTRADOR) {
                 btnRequisitar.style.display = "flex"
             } else {
                 btnRequisitar.remove()

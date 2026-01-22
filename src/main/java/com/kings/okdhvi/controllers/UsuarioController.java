@@ -67,8 +67,8 @@ public class UsuarioController {
     }
 
     @PreAuthorize("hasRole('PADRAO')")
-    @PutMapping(value = "/atualizar_imagem")
-    public Usuario atualizarImagem(@RequestPart("meta") CriarImagemMetaRequest meta, @RequestPart(value = "imagem") MultipartFile imagem, @RequestBody CriarImagemMetaRequest i, @AuthenticationPrincipal UserDetails ud) {
+    @PutMapping(value = "/atualizar_imagem", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Usuario atualizarImagem(@RequestPart("meta") CriarImagemMetaRequest meta, @RequestPart(value = "imagem") MultipartFile imagem, @AuthenticationPrincipal UserDetails ud) {
         return us.atualizarFoto(us.buscarId(ud), imagem, meta);
     }
 

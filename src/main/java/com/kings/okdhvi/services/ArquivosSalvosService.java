@@ -31,7 +31,7 @@ public class ArquivosSalvosService {
     public String salvarArquivo(InputStream inputStream, String nomeOriginal) throws IOException {
         Files.createDirectories(rootPath);
         String extensao = retornarExtensao(nomeOriginal);
-        Path filePath = rootPath.resolve(UUID.randomUUID().toString() + extensao);
+        Path filePath = rootPath.resolve(UUID.randomUUID().toString() + "." + extensao);
         try(OutputStream outputStream = Files.newOutputStream(filePath, StandardOpenOption.CREATE_NEW)) {
             StreamUtils.copy(inputStream, outputStream);
         }

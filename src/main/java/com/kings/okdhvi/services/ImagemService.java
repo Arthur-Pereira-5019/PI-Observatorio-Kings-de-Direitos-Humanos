@@ -34,7 +34,7 @@ public class ImagemService {
     @Autowired
     ArquivosSalvosService as;
 
-    @Value("file_saving.allowed-mime")
+    @Value("${file_saving.allowed-mime}")
     private List<String> mimes;
 
     public Imagem criarImagem(MultipartFile file, CriarImagemMetaRequest cir, Usuario u) {
@@ -69,7 +69,7 @@ public class ImagemService {
         try {
             return as.buscarArquivo(retornarDadosImagemPeloId(id).getCaminho());
         } catch (IOException e) {
-            throw new ResourceNotFoundException("Imagem não encontrada!");
+            throw new ResourceNotFoundException("Problema ao buscar imagem no sistema!");
         }
     }
 
@@ -90,7 +90,9 @@ public class ImagemService {
 
         String tipo = i.getContentType();
         if(tipo == null || !mimes.contains(tipo)) {
-            throw new InvalidBase64ImageEncoding("Formato de arquivo inválido!");
+            mimes.forEach(System.out::println);
+            System.out.println(tipo);
+            throw new InvalidDocumentFormat("Formato de arquivo inválido!");
         }
     }
 
