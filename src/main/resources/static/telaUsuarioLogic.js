@@ -114,7 +114,7 @@ async function iniciarPerfil() {
                 fetch("http://localhost:8080/api/user/atualizar_imagem", {
                     method: 'PUT',
                     body: formData
-                                })
+                })
                     .then(res => {
                         if (!res.ok) return res.json();
                         alert("Imagem adicionada com sucesso!")
@@ -191,10 +191,25 @@ async function iniciarPerfil() {
 
 
         if (data.fotoDePerfil != null) {
-            let fotoB64 = data.fotoDePerfil.imagem
-            if (fotoB64 != "") {
-                document.querySelector(".icon-user").src = "data:image/" + data.fotoDePerfil.tipoImagem + ";base64," + fotoB64;
-            }
+            let fotoId = data.fotoDePerfil.idImagem
+            fetch("http://localhost:8080/api/imagem/" + fotoId, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error("Erro no servidor");
+                    return res.blob();
+                })
+                .then(data => {
+                    const url = URL.createObjectURL(data)
+                    document.querySelector(".icon-user").src = url;
+                    document.querySelector(".icon-user").onload = () => {
+                        URL.revokeObjectURL(url);
+                    };
+
+                })
+                .catch(err => console.error(err));
+
         }
     } catch (error) {
         console.error('Erro:', error);

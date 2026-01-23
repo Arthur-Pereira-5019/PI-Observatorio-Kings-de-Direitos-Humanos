@@ -69,6 +69,8 @@ async function iniciarCabecalho() {
         window.location.reload()
     })
 
+    
+
 
     fetch("http://localhost:8080/api/user/apresentar", {
         headers: { 'Content-Type': 'application/json' },
@@ -87,6 +89,26 @@ async function iniciarCabecalho() {
                 fundo.style.backgroundColor = "#00c2b2ff";
             }
             bemvindos.textContent = "Olá " + data.nome + "!";
+                    if (data.fotoDePerfil != null) {
+            let fotoId = data.fotoDePerfil.idImagem
+            fetch("http://localhost:8080/api/imagem/" + fotoId, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error("Erro no servidor");
+                    return res.blob();
+                })
+                .then(data => {
+                    document.querySelector(".icon-user").src = URL.createObjectURL(data);
+                    document.querySelector(".icon-user").onload = () => {
+                        URL.revokeObjectURL(objectUrl);
+                    };
+
+                })
+                .catch(err => console.error(err));
+
+        }
             if (data.fotoDePerfil != null) {
                 pic.src = "data:image/" + data.fotoDePerfil.tipoImagem + ";base64," + data.fotoDePerfil.imagem;
                 pic.alt = data.fotoDePerfil.descricaoImagem
