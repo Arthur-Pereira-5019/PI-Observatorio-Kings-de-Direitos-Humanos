@@ -7,7 +7,6 @@ public record PostagemCDTO(
         String textoPostagem,
         String tags,
         boolean publicada,
-        String capaBase64,
         String tipoCapa,
         String descricaoCapa,
         Local local)

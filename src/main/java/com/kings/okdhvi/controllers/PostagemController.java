@@ -14,6 +14,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.ArrayList;
@@ -40,8 +41,8 @@ public class PostagemController {
 
     @PreAuthorize("hasRole('ROLE_ESPEC')")
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Postagem criarPostagem(@RequestBody PostagemCDTO p, @AuthenticationPrincipal UserDetails user) {
-        return ps.criarPostagem(p, us.buscarId(user));
+    public Postagem criarPostagem(@RequestPart("meta") PostagemCDTO p, @RequestPart(value = "imagem") MultipartFile imagem, @AuthenticationPrincipal UserDetails user) {
+        return ps.criarPostagem(p, imagem, us.buscarId(user));
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -116,30 +117,23 @@ public class PostagemServices {
     }
 
     @Transactional
-    public Postagem criarPostagem(PostagemCDTO pcdto, Long usuarioId) {
+    public Postagem criarPostagem(PostagemCDTO pcdto, MultipartFile imagem, Long usuarioId) {
         if (pcdto == null) {
             throw new NullResourceException("Postagem nula submetida!");
         }
-        if (pcdto.capaBase64() == null) {
+        if (imagem == null) {
             throw new NullResourceException("Postagem sem capa submetida!");
         }
-        Postagem post = new Postagem();
         Usuario u = us.encontrarPorId(usuarioId, false);
-
-        /*
-        CriarImagemMetaRequest cir = new CriarImagemMetaRequest(pcdto.capaBase64(), pcdto.descricaoCapa(), "Capa da publicacao: " + pcdto.tituloPostagem(), pcdto.tipoCapa());
-        Imagem i = is.criarImagem(cir, u);
-                post.setCapa(i);
-
-*/
-
+        CriarImagemMetaRequest cir = new CriarImagemMetaRequest(pcdto.descricaoCapa(), pcdto.tituloPostagem());
+        Imagem i = is.criarImagem(imagem,cir,u);
+        Postagem post = new Postagem();
         post.setTextoPostagem(pcdto.textoPostagem());
         post.setTituloPostagem(pcdto.tituloPostagem());
         post.setTags(pcdto.tags());
         post.setLocal(pcdto.local());
+        post.setCapa(i);
         post.setExterna(false);
-
-
         post.setAutor(u);
         post.setDataDaPostagem(Date.from(Instant.now()));
         return pr.save(post);
