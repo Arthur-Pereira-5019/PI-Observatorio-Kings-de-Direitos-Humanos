@@ -69,7 +69,7 @@ async function iniciarCabecalho() {
         window.location.reload()
     })
 
-    
+
 
 
     fetch("http://localhost:8080/api/user/apresentar", {
@@ -89,31 +89,47 @@ async function iniciarCabecalho() {
                 fundo.style.backgroundColor = "#00c2b2ff";
             }
             bemvindos.textContent = "Olá " + data.nome + "!";
-                    if (data.fotoDePerfil != null) {
-            let fotoId = data.fotoDePerfil.idImagem
-            fetch("http://localhost:8080/api/imagem/" + fotoId, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-            })
-                .then(res => {
-                    if (!res.ok) throw new Error("Erro no servidor");
-                    return res.blob();
-                })
-                .then(data => {
-                    document.querySelector(".icon-user").src = URL.createObjectURL(data);
-                    document.querySelector(".icon-user").onload = () => {
-                        URL.revokeObjectURL(objectUrl);
-                    };
-
-                })
-                .catch(err => console.error(err));
-
-        }
             if (data.fotoDePerfil != null) {
-                pic.src = "data:image/" + data.fotoDePerfil.tipoImagem + ";base64," + data.fotoDePerfil.imagem;
-                pic.alt = data.fotoDePerfil.descricaoImagem
-                pic.title = data.fotoDePerfil.descricaoImagem
-                pic.title = data.fotoDePerfil.descricaoImagem
+                let fotoId = data.fotoDePerfil.idImagem
+                fetch("http://localhost:8080/api/imagem/" + fotoId, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                })
+                    .then(res => {
+                        if (!res.ok) throw new Error("Erro no servidor");
+                        return res.blob();
+                    })
+                    .then(data => {
+                        document.querySelector(".icon-user").src = URL.createObjectURL(data);
+                        document.querySelector(".icon-user").onload = () => {
+                            URL.revokeObjectURL(objectUrl);
+                        };
+
+                    })
+                    .catch(err => console.error(err));
+
+            }
+            if (data.fotoDePerfil != null) {
+                let fotoId = data.fotoDePerfil.idImagem
+                fetch("http://localhost:8080/api/imagem/" + fotoId, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                })
+                    .then(res => {
+                        if (!res.ok) throw new Error("Erro no servidor");
+                        return res.blob();
+                    })
+                    .then(data => {
+                        const url = URL.createObjectURL(data)
+                        pic.src = url;
+                        pic.title = data.fotoDePerfil.descricaoImagem
+                        pic.alt = data.fotoDePerfil.descricaoImagem
+                        pic.onload = () => {
+                            URL.revokeObjectURL(url);
+                        };
+
+                    })
+                    .catch(err => console.error(err));
             }
             document.querySelector("#btnSair").style.display = "flex";
         }).catch(e => {
@@ -128,18 +144,18 @@ async function iniciarCabecalho() {
     }
 
     async function busca() {
-            let busca = barraPesquisa.value == "" ? " " : barraPesquisa.value
-            if (window.location.href.includes("/noticias/")) {
-                window.location.pathname = "noticias/" + busca + "/0";
-            } else if (window.location.href.includes("/foruns/")) {
-                window.location.pathname = "foruns/" + busca + "/0";
-            } else if (window.location.href.includes("/registro/")) {
-                window.location.pathname = "registro/" + busca + "/0";
-            } else if (window.location.href.includes("/requisicoes/")) {
-                window.location.pathname = "requisicoes/" + busca + "/0";
-            } else {
-                window.location.pathname = "publicacoes/" + busca + "/0";
-            }
+        let busca = barraPesquisa.value == "" ? " " : barraPesquisa.value
+        if (window.location.href.includes("/noticias/")) {
+            window.location.pathname = "noticias/" + busca + "/0";
+        } else if (window.location.href.includes("/foruns/")) {
+            window.location.pathname = "foruns/" + busca + "/0";
+        } else if (window.location.href.includes("/registro/")) {
+            window.location.pathname = "registro/" + busca + "/0";
+        } else if (window.location.href.includes("/requisicoes/")) {
+            window.location.pathname = "requisicoes/" + busca + "/0";
+        } else {
+            window.location.pathname = "publicacoes/" + busca + "/0";
+        }
     }
 }
 document.addEventListener("DOMContentLoaded", iniciarCabecalho)

@@ -10,6 +10,8 @@ async function iniciarRequisitar() {
     const inputC = document.getElementById("inputC")
     const comboboxCargosRequisitar = document.getElementById("combobox-cargos-requisitar")
 
+    inputC.value = sharedContato;
+
     fetch("http://localhost:8080/api/reqcar", {
         headers: { 'Content-Type': 'application/json' },
     })

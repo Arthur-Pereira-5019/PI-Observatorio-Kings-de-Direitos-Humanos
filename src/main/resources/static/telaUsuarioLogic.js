@@ -1,5 +1,6 @@
 let id;
 let estadoDaConta;
+let sharedContato;
 
 async function anexarHTMLExternoPerfil(url, cssFile, jsFile, durl, msg, idDenunciado, tipoDenunciado) {
 
@@ -82,6 +83,7 @@ async function iniciarPerfil() {
         const data = await response.json();
 
         nomeUsuario.textContent = data.nome;
+        sharedContato = data.email;
         document.title = data.nome;
         estadoDaConta = data.estadoDaConta;
         const cargoAtual = document.getElementById(data.estadoDaConta)
@@ -191,6 +193,7 @@ async function iniciarPerfil() {
 
 
         if (data.fotoDePerfil != null) {
+            const frame = document.querySelector(".icon-user");
             let fotoId = data.fotoDePerfil.idImagem
             fetch("http://localhost:8080/api/imagem/" + fotoId, {
                 method: 'GET',
@@ -202,14 +205,15 @@ async function iniciarPerfil() {
                 })
                 .then(data => {
                     const url = URL.createObjectURL(data)
-                    document.querySelector(".icon-user").src = url;
-                    document.querySelector(".icon-user").onload = () => {
+                    frame.src = url;
+                    frame.title = data.fotoDePerfil.descricaoImagem
+                    frame.alt = data.fotoDePerfil.descricaoImagem
+                    frame.onload = () => {
                         URL.revokeObjectURL(url);
                     };
 
                 })
                 .catch(err => console.error(err));
-
         }
     } catch (error) {
         console.error('Erro:', error);

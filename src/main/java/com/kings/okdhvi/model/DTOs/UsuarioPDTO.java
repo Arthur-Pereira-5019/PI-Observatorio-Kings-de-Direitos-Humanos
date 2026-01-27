@@ -13,6 +13,8 @@ public class UsuarioPDTO {
 
         private Integer proprio = 0;
 
+        private String email;
+
     public Long getIdUsuario() {
         return idUsuario;
     }
@@ -28,6 +30,7 @@ public class UsuarioPDTO {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
 
     public Imagem getFotoDePerfil() {
         return fotoDePerfil;
@@ -45,11 +48,19 @@ public class UsuarioPDTO {
         this.estadoDaConta = estadoDaConta;
     }
 
+    public void setProprio(Integer proprio) {
+        this.proprio = proprio;
+    }
+
     public Integer getProprio() {
         return proprio;
     }
 
-    public void setProprio(Integer proprio) {
-        this.proprio = proprio;
+    public void setEmail(String email) {
+        this.email = email;
     }
+    public String getEmail() {
+        return email;
+    }
+
 }

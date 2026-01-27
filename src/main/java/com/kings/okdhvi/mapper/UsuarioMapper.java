@@ -54,6 +54,7 @@ public class UsuarioMapper {
         updto.setNome(u.getNome());
         updto.setIdUsuario(u.getIdUsuario());
         updto.setEstadoDaConta(u.getEstadoDaConta());
+        updto.setEmail(u.getEmail());
         if(idRequisitor.equals(u.getIdUsuario())) {
             if(requisitor.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MODER"))) {
                 updto.setProprio(3);

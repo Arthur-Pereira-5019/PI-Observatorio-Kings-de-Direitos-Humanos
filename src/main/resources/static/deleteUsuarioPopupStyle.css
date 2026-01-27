@@ -1,7 +1,6 @@
 * {
     margin: 0;
     box-sizing: border-box;
-    font-family: "Inter", sans-serif;
 }
 
 #posPopUpDelete {
@@ -15,7 +14,6 @@
     display: none;
     scrollbar-width: none;
     z-index: 999;
-
 }
 
 
@@ -37,6 +35,10 @@
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
+}
+
+.fundo-popup-excluir > *{
+    font-family: "Inter", sans-serif;
 }
 
 .titulo-popup-excluir {
