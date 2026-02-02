@@ -123,10 +123,7 @@ async function iniciarPublicacao() {
                 botaoOcultar.remove()
             }
 
-
-            capa.src = "data:image/" + data.capa.tipoImagem + ";base64," + data.capa.imagem;
-            capa.alt = data.capa.descricaoImagem;
-            capa.title = data.capa.descricaoImagem;
+            fetchImagem(data.capa.idImagem,capa)
             dadosPublicacao.textContent = "Publicado em " + data.dataDaPostagem + " por " + data.autor.nome;
             let elementoSurpresa = document.createElement("div");
             let imgs;
@@ -269,7 +266,7 @@ async function iniciarPublicacao() {
             } else if (dados.autor.foto.imagem == "") {
                 imagem.src = "/imagens/perfilIconDark.png";
             } else {
-                imagem.src = "data:image/" + dados.autor.foto.tipoImagem + ";base64," + dados.autor.foto.imagem;
+                fetchImagem(data.autor.foto.idImagem,imagem)
             }
             if (dados.proprio) {
                 exclusao.style.backgroundColor = 'darkred'
@@ -334,9 +331,7 @@ async function iniciarPublicacao() {
             if (!response.ok) throw new Error("Erro no servidor");
 
             let data = await response.json();
-            i.src = "data:image/" + data.tipoImagem + ";base64," + data.imagem;
-            i.alt = data.decricaoImagem
-            i.title = data.decricaoImagem
+            fetchImagem(data.idImagem,i)
         } catch (err) {
             console.error(err);
             return null;

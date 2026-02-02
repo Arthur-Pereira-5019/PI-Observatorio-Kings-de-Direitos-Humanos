@@ -1,4 +1,5 @@
 let campoTags;
+let imagemCapa;
 
 async function iniciarCriacaoPublicacao() {
     campoTags = document.getElementById("campoTags");
@@ -35,8 +36,6 @@ async function publicarDocumento(finalizada) {
     let campoTextoPostagem = textoPublicacao.innerHTML;
     let textoPuroPostagem = textoPublicacao.textContent;
     const campoTituloPostagem = document.getElementById("campoTitulo");
-    let canva = document.getElementById("capaPostagemPreview");
-    let campoImagem = canva.src;
 
     //Precisa ser antes para não dar flicker nas imagens
     if (textoPuroPostagem.length < 20) {
@@ -49,8 +48,7 @@ async function publicarDocumento(finalizada) {
         return;
     }
 
-
-    if (campoImagem.length == 0 || campoImagem.includes("/nova_publicacao")) {
+    if (!imagemCapa) {
         alert("Dê uma capa para a publicação antes de enviá-la.")
         return;
     }
@@ -61,22 +59,8 @@ async function publicarDocumento(finalizada) {
         i.src = "";
     })
 
-    campoImagem = canva.src;
     campoTextoPostagem = textoPublicacao.innerHTML;
-
-
-    let endPosition = campoImagem.indexOf(",");
-    let fimPrefixo = campoImagem.indexOf(";")
-    let inicioPrefixo = campoImagem.indexOf("/")
-    prefixo = campoImagem.substring(inicioPrefixo, fimPrefixo);
-
-
-    endPosition++;
-    campoImagem = campoImagem.replace(campoImagem.substring(0, endPosition), "");
-
-
     const requestBody = {
-        capaBase64: campoImagem,
         tituloPostagem: campoTituloPostagem.value,
         textoPostagem: campoTextoPostagem,
         descricaoCapa: descCapa.value,
@@ -84,11 +68,13 @@ async function publicarDocumento(finalizada) {
         publicada: finalizada,
     };
 
+    const formData = new FormData();
+    formData.append("capa", imagemCapa)
+    formData.append("postagem", new Blob([JSON.stringify(requestBody)], { type: "application/json" }))
 
     fetch("http://localhost:8080/api/postagem", {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody)
+        body: formData
     })
         .then(res => {
             if (!res.ok) throw new Error("Erro no servidor");
@@ -106,10 +92,7 @@ async function publicarDocumento(finalizada) {
 function input_capa() {
     const entrada = document.getElementById("capaPostagemInput");
     capaPostagemPreview = document.getElementById("capaPostagemPreview");
-
-
     const imagemSubmetida = entrada.files[0];
-
 
     if (imagemSubmetida) {
         nome = imagemSubmetida.name.toLowerCase();
@@ -119,6 +102,7 @@ function input_capa() {
             reader.onload = (e) => {
                 const base64StringWithPrefix = e.target.result;
                 capaPostagemPreview.src = base64StringWithPrefix;
+                imagemCapa = imagemSubmetida;
             };
 
             reader.readAsDataURL(imagemSubmetida);

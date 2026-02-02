@@ -1,7 +1,4 @@
 const iconButton = document.getElementById("iconButton");
-
-
-
 async function carregarHTMLExterno(id, url, cssFile, jsFile) {
     if (cssFile) {
         anexarCss(cssFile)
@@ -64,7 +61,6 @@ async function iniciarHtmlExterno() {
     if(window.location.pathname.includes("sobre/edit")) {
         await anexarJs("/sobreEditLogic.js")
     }
-
 
     if (iconButton) {
         iconButton.addEventListener("click", function () {

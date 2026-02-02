@@ -140,25 +140,22 @@ async function iniciarPublicacoes() {
                     btnCampo.remove()
                 }
             })
-            .catch(err => {window.location.pathname = ""});
+            .catch(err => {console.log(err)});
 
 
 
         function construirPublicacao(publicacao, dados) {
-            link = "/publicacao/" + dados.idPostagem;
+            let link = "/publicacao/" + dados.idPostagem;
+            let imagem = publicacao.querySelector(".imagem")
             publicacao.querySelector(".titulo-publicacao").textContent = dados.titulo
-            publicacao.querySelector(".titulo-publicacao").title = window.location.origin + link; 
+            publicacao.querySelector(".titulo-publicacao").title = window.location.origin + link;
             publicacao.querySelector(".autor").textContent = dados.autor
             publicacao.querySelector(".data").textContent = dados.data
             publicacao.querySelector(".paragrafo").innerHTML = dados.texto
-            if (dados.capa.imagem == "" || dados.capa.tipoImagem) {
-                publicacao.querySelector(".imagem").src = "/imagens/publicacao.png";
-                publicacao.querySelector(".imagem").alt = "Publicação sem imagem"
-                publicacao.querySelector(".imagem").title = "Publicação sem imagem"
-            } else {
-                publicacao.querySelector(".imagem").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
-                publicacao.querySelector(".imagem").alt = dados.capa.descricaoImagem
-                publicacao.querySelector(".imagem").title = dados.capa.descricaoImagem
+            if (fetchImagem(dados.capa.idImagem, imagem) == false) {
+                imagem.src = "/imagens/publicacao.png";
+                imagem.alt = "Publicação sem imagem"
+                imagem.title = "Publicação sem imagem"
             }
             publicacao.addEventListener("click", function () {
                 window.location.pathname = link

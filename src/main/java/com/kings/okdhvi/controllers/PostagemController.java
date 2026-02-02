@@ -40,8 +40,8 @@ public class PostagemController {
     }
 
     @PreAuthorize("hasRole('ROLE_ESPEC')")
-    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Postagem criarPostagem(@RequestPart("meta") PostagemCDTO p, @RequestPart(value = "imagem") MultipartFile imagem, @AuthenticationPrincipal UserDetails user) {
+    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Postagem criarPostagem(@RequestPart("postagem") PostagemCDTO p, @RequestPart(value = "capa") MultipartFile imagem, @AuthenticationPrincipal UserDetails user) {
         return ps.criarPostagem(p, imagem, us.buscarId(user));
     }
 

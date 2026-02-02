@@ -91,45 +91,7 @@ async function iniciarCabecalho() {
             bemvindos.textContent = "Olá " + data.nome + "!";
             if (data.fotoDePerfil != null) {
                 let fotoId = data.fotoDePerfil.idImagem
-                fetch("http://localhost:8080/api/imagem/" + fotoId, {
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/json' },
-                })
-                    .then(res => {
-                        if (!res.ok) throw new Error("Erro no servidor");
-                        return res.blob();
-                    })
-                    .then(data => {
-                        document.querySelector(".icon-user").src = URL.createObjectURL(data);
-                        document.querySelector(".icon-user").onload = () => {
-                            URL.revokeObjectURL(objectUrl);
-                        };
-
-                    })
-                    .catch(err => console.error(err));
-
-            }
-            if (data.fotoDePerfil != null) {
-                let fotoId = data.fotoDePerfil.idImagem
-                fetch("http://localhost:8080/api/imagem/" + fotoId, {
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/json' },
-                })
-                    .then(res => {
-                        if (!res.ok) throw new Error("Erro no servidor");
-                        return res.blob();
-                    })
-                    .then(data => {
-                        const url = URL.createObjectURL(data)
-                        pic.src = url;
-                        pic.title = data.fotoDePerfil.descricaoImagem
-                        pic.alt = data.fotoDePerfil.descricaoImagem
-                        pic.onload = () => {
-                            URL.revokeObjectURL(url);
-                        };
-
-                    })
-                    .catch(err => console.error(err));
+                fetchImagem(fotoId,pic)
             }
             document.querySelector("#btnSair").style.display = "flex";
         }).catch(e => {
