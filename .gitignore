@@ -13,7 +13,7 @@ target/
 .springBeans
 .sts4-cache
 
-.imagens/
+.imagens
 
 ### IntelliJ IDEA ###
 .idea
@@ -33,3 +33,4 @@ build/
 
 ### VS Code ###
 .vscode/
+/imagens/
