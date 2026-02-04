@@ -157,20 +157,16 @@ async function iniciarNoticias() {
             }
             noticia.querySelector(".tituloNoticia").textContent = dados.titulo
             noticia.querySelector(".autor").textContent = dados.nomeAutor
-            if (dados.capa.imagem == "" || dados.capa.tipoImagem) {
-                noticia.querySelector(".capa").src = "/imagens/noticia.png";
-                noticia.querySelector(".capa").alt = "Notícia sem capa";
-                noticia.querySelector(".capa").title = "Notícia sem capa";
-            } else {
-                noticia.querySelector(".capa").src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
-                noticia.querySelector(".capa").alt = dados.capa.descricaoImagem
-                noticia.querySelector(".capa").title = dados.capa.descricaoImagem
-
+            let capa = noticia.querySelector(".capa")
+            if (fetchImagem(dados.capa.idImagem, capa) == false) {
+                capa.src = "/imagens/noticia.png";
+                capa.alt = "Notícia sem capa";
+                capa.title = "Notícia sem capa";
             }
             noticia.addEventListener("click", function () {
                 window.location.pathname = "publicacao/" + dados.idPostagem
             })
-            noticia.querySelector(".logoObservatorio").src="/imagens/iconKings.png"
+            noticia.querySelector(".logoObservatorio").src = "/imagens/iconKings.png"
         }
     }
 

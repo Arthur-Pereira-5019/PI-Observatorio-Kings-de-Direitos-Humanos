@@ -159,7 +159,7 @@ async function iniciarForunsLogica() {
             } else if (dados.autor.foto.imagem == "") {
                 imagem.src = "/imagens/perfilIcon.png";
             } else {
-                imagem.src = "data:image/" + dados.autor.foto.tipoImagem + ";base64," + dados.autor.foto.imagem;
+                fetchImagem(dados.autor.foto.idImagem,imagem)
             }
         }
 

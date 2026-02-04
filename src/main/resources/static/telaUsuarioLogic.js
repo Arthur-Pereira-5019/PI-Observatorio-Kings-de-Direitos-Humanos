@@ -194,26 +194,7 @@ async function iniciarPerfil() {
 
         if (data.fotoDePerfil != null) {
             const frame = document.querySelector(".icon-user");
-            let fotoId = data.fotoDePerfil.idImagem
-            fetch("http://localhost:8080/api/imagem/" + fotoId, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-            })
-                .then(res => {
-                    if (!res.ok) throw new Error("Erro no servidor");
-                    return res.blob();
-                })
-                .then(data => {
-                    const url = URL.createObjectURL(data)
-                    frame.src = url;
-                    frame.title = data.fotoDePerfil.descricaoImagem
-                    frame.alt = data.fotoDePerfil.descricaoImagem
-                    frame.onload = () => {
-                        URL.revokeObjectURL(url);
-                    };
-
-                })
-                .catch(err => console.error(err));
+            fetchImagem(data.fotoDePerfil.idImagem,frame)
         }
     } catch (error) {
         console.error('Erro:', error);
@@ -259,14 +240,10 @@ async function iniciarPerfil() {
             publicacao.querySelector(".data").textContent = dados.data
             publicacao.querySelector(".paragrafo").innerHTML = dados.texto
             let imagem = publicacao.querySelector(".imagem")
-            if (dados.capa.imagem == "" || dados.capa.tipoImagem) {
+            if (fetchImagem(dados.capa.idImagem, imagem) == false) {
                 imagem.src = "/imagens/publicacao.png";
-                imagem.alt = "Publicação sem capa"
-                imagem.title = "Publicação sem capa"
-            } else {
-                imagem.src = "data:image/" + dados.capa.tipoImagem + ";base64," + dados.capa.imagem;
-                imagem.alt = dados.capa.descricaoImagem
-                imagem.title = dados.titulo
+                imagem.alt = "Publicação sem imagem"
+                imagem.title = "Publicação sem imagem"
             }
             publicacao.addEventListener("click", function () {
                 window.location.pathname = "publicacao/" + dados.idPostagem

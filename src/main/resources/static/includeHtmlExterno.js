@@ -48,6 +48,7 @@ async function anexarJs(jsFile) {
 async function iniciarHtmlExterno() {
     await anexarCss("/posicionamentoPopups.css")
     await anexarCss("/richTextStyle.css")
+    await anexarJs("/helper.js")
     await carregarHTMLExterno("header", "/cabecalho", "/cabecalhoStyle.css", "/cabecalhoLogic.js");
     await carregarHTMLExterno("footer", "/rodape", "/rodapeStyle.css");
     await carregarHTMLExterno("login", "/popupLogin", "/popUpLoginStyle.css", "/includePopupLogin.js");

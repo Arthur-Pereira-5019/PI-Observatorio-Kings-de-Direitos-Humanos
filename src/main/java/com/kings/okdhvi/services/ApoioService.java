@@ -9,6 +9,7 @@ import com.kings.okdhvi.model.Usuario;
 import com.kings.okdhvi.repositories.ApoioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class ApoioService {
     @Autowired
     ImagemService is;
 
-    public Apoio criarNovoApoio(ApoioCDTO ap, Usuario u) {
+    public Apoio criarNovoApoio(ApoioCDTO ap, MultipartFile imagem, Usuario u) {
         Apoio a = new Apoio();
         a.setNomeInstituicao(ap.nomeInstituicao());
         a.setLinkedin(ap.linkedin());
@@ -30,15 +31,8 @@ public class ApoioService {
         a.setSite(ap.site());
         a.setInstagram(ap.instagram());
         a.setTelefone(ap.telefone());
- /*
-        if(ap.ImagemBase64() != null) {
-            if(!ap.ImagemBase64().isEmpty()) {
-                Imagem i = is.criarImagem(new CriarImagemMetaRequest(ap.ImagemBase64(), "Logo de " + ap.nomeInstituicao(), "Logo de " + ap.nomeInstituicao(), ""), u);
-                a.setFoto(i);
-            }
-        }
-
-  */
+        Imagem i = is.criarImagem(imagem,new CriarImagemMetaRequest("Logo de " + ap.nomeInstituicao(), "Logo de " + ap.nomeInstituicao()), u);
+        a.setFoto(i);
         return apr.save(a);
     }
 
@@ -54,7 +48,7 @@ public class ApoioService {
         apr.delete(encontrarApoio(id));
     }
 
-    public Apoio atualizarApoio(ApoioCDTO ap, Long id, Usuario u) {
+    public Apoio atualizarApoio(ApoioCDTO ap, MultipartFile imagem, Long id, Usuario u) {
         Apoio velhoAp = encontrarApoio(id);
         velhoAp.setNomeInstituicao(ap.nomeInstituicao());
         velhoAp.setSobreInstituicao(ap.sobreInstituicao());
@@ -64,12 +58,8 @@ public class ApoioService {
         velhoAp.setSite(ap.site());
         velhoAp.setInstagram(ap.instagram());
         velhoAp.setLinkedin(ap.linkedin());
-/*
-        if(ap.ImagemBase64() != null && !ap.ImagemBase64().isEmpty() && !ap.ImagemBase64().isBlank()) {
-            Imagem i = is.criarImagem(new CriarImagemMetaRequest(ap.ImagemBase64(), "Logo de "+ap.nomeInstituicao(), "Logo de "+ap.nomeInstituicao(),""),u);
-            velhoAp.setFoto(i);
-        }
-*/
+        Imagem i = is.criarImagem(imagem,new CriarImagemMetaRequest("Logo de " + ap.nomeInstituicao(), "Logo de " + ap.nomeInstituicao()), u);
+        velhoAp.setFoto(i);
         return apr.save(velhoAp);
     }
 }

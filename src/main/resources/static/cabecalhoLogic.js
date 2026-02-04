@@ -7,7 +7,7 @@ async function iniciarCabecalho() {
     home = document.getElementById('home');
     menu = document.getElementById("menu");
     bemvindos = document.getElementById("bemvindo");
-    pic = document.getElementById("iconButton");
+    let pic = document.getElementById("iconButton");
     fundo = document.getElementById("containerCabecalho");
 
     btnNoticias = document.getElementById("btnNoticias");
