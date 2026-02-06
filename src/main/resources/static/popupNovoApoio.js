@@ -16,6 +16,8 @@ async function iniciarNovoApoio(url, idApoioExistente) {
     const blur = document.querySelector("#blurNovoApoio");
     const container_decisao = document.querySelector("#fundoNovoApoio");
 
+    let novaImagem;
+
     blur.display = "flex"
     container_decisao.display = "flex"
 
@@ -32,7 +34,7 @@ async function iniciarNovoApoio(url, idApoioExistente) {
     if (idApoioExistente) {
         await carregarDadosApoio(idApoioExistente);
         excluirApoio.style.display = "block";
-        excluirApoio.addEventListener("click", function() {
+        excluirApoio.addEventListener("click", function () {
             if (confirm("Tem certeza que deseja excluir este apoio?")) {
                 deletarApoio(url, idApoioExistente);
             }
@@ -47,14 +49,12 @@ async function iniciarNovoApoio(url, idApoioExistente) {
         const imagemSubmetida = entrada.files[0];
 
         if (imagemSubmetida && (imagemSubmetida.name.endsWith(".png") || imagemSubmetida.name.endsWith(".jpg") || imagemSubmetida.name.endsWith(".jpeg") || imagemSubmetida.name.endsWith(".webp"))) {
-            const reader = new FileReader();
-
-            reader.onload = (e) => {
-                const base64StringWithPrefix = e.target.result;
-                capaPreview.src = base64StringWithPrefix
-                imagemAlterada = true
+            capaPreview.src = URL.createObjectURL(entrada.files[0])
+            novaImagem = imagemSubmetida;
+            imagemAlterada = true
+            capaPreview.onload = function () {
+                URL.revokeObjectURL(capaPreview.src)
             }
-            reader.readAsDataURL(imagemSubmetida);
         }
     }
 
@@ -82,12 +82,7 @@ async function iniciarNovoApoio(url, idApoioExistente) {
             endereco.value = dadosOriginais.localizacao || "";
             siteInst.value = dadosOriginais.site || "";
             likIn.value = dadosOriginais.linkedin || "";
-
-            if (dadosOriginais.foto && dadosOriginais.foto.imagem) {
-                capaPreview.src = "data:image/" + dadosOriginais.foto.tipoImagem + ";base64," + dadosOriginais.foto.imagem;
-                capaPreview.alt = dadosOriginais.foto.descricaoImagem;
-                capaPreview.title = dadosOriginais.foto.descricaoImagem;
-            }
+            fetchImagem(dadosOriginais.foto.idImagem,capaPreview)
 
         } catch (error) {
             console.error("Erro ao carregar apoio:", error);
@@ -108,8 +103,6 @@ async function iniciarNovoApoio(url, idApoioExistente) {
     });
 
     function criarApoio() {
-        let ib64 = imagemAlterada ? capaPreview.src.replace(capaPreview.src.substring(0, capaPreview.src.indexOf(",") + 1), "") : "";
-        
         const novoApoio = {
             nomeInstituicao: nomeInst.value,
             sobreInstituicao: sobreInst.value,
@@ -119,13 +112,16 @@ async function iniciarNovoApoio(url, idApoioExistente) {
             site: siteInst.value,
             instagram: insta.value,
             linkedin: likIn.value,
-            ImagemBase64: ib64
+            atualizarImagem: imagemAlterada
         };
 
+        const formData = new FormData();
+        formData.append("capa", imagemAlterada ? novaImagem : null)
+        formData.append("apoio", new Blob([JSON.stringify(novoApoio)], { type: "application/json" }))
+
         fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(novoApoio)
+            method: 'POST',
+            body: formData
         })
             .then(res => {
                 if (!res.ok) {
@@ -133,8 +129,7 @@ async function iniciarNovoApoio(url, idApoioExistente) {
                 }
                 alert("Novo apoio cadastrado com sucesso!");
                 window.location.reload();
-            })
-            .catch(err => console.error(err));
+            }).catch(err => console.error(err));
     }
 
     function editarApoio() {
@@ -146,32 +141,26 @@ async function iniciarNovoApoio(url, idApoioExistente) {
             localizacao: endereco.value,
             site: siteInst.value,
             instagram: insta.value,
-            linkedin: likIn.value
-        };
+            linkedin: likIn.value,
+                        atualizarImagem: imagemAlterada
 
-        if (imagemAlterada) {
-            apoioEditado.ImagemBase64 = capaPreview.src.replace(capaPreview.src.substring(0, capaPreview.src.indexOf(",") + 1), "");
-        } else {
-            apoioEditado.ImagemBase64 = "";
-        }
+        };
+        const formData = new FormData();
+        formData.append("capa", imagemAlterada ? novaImagem : null)
+        formData.append("apoio", new Blob([JSON.stringify(apoioEditado)], { type: "application/json" }))
+
 
         fetch(url + idApoioExistente, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            credentials: 'include',
-            body: JSON.stringify(apoioEditado)
+            method: 'PUT',
+            body: formData
         })
             .then(res => {
                 if (!res.ok) {
-                    throw new Error("Erro ao atualizar");
+                    return res.json();
                 }
                 alert("Apoio atualizado com sucesso!");
                 window.location.reload();
-            })
-            .catch(err => {
-                console.error(err);
-                alert("Erro ao atualizar apoio");
-            });
+            }).catch(err => console.error(err));
     }
 
     function deletarApoio(baseUrl, idApoio) {

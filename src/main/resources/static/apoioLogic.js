@@ -35,19 +35,19 @@ async function iniciarTelaApoio() {
         const userResponse = await fetch("http://localhost:8080/api/user", {
             headers: { 'Content-Type': 'application/json' },
         });
-        
+
         if (userResponse.ok) {
             const userData = await userResponse.json();
             if (userData.estadoDaConta === "ADMINISTRADOR") {
                 isAdmin = true;
-                
+
                 addApoio.style.display = "flex"
                 addApoio.addEventListener("click", function () {
                     anexarHTMLExterno(
-                        "/novo_apoio", 
-                        "/novoApoioStyle.css", 
-                        "/popupNovoApoio.js", 
-                        "http://localhost:8080/api/apoio/", 
+                        "/novo_apoio",
+                        "/novoApoioStyle.css",
+                        "/popupNovoApoio.js",
+                        "http://localhost:8080/api/apoio/",
                         null
                     )
                 })
@@ -61,12 +61,12 @@ async function iniciarTelaApoio() {
         const apoiosResponse = await fetch("http://localhost:8080/api/apoio/", {
             headers: { 'Content-Type': 'application/json' },
         });
-        
+
         if (!apoiosResponse.ok) throw new Error("Erro no servidor");
-        
+
         const data = await apoiosResponse.json();
         console.log(data);
-        
+
         if (!data[0]) {
             primeiroApoioD.remove()
             primeiroApoioE.remove()
@@ -100,36 +100,27 @@ async function iniciarTelaApoio() {
     function construirPublicacao(elemento, d, isAdmin) {
         elemento.querySelector("#infoApoio").textContent = d.sobreInstituicao
         elemento.querySelector("#nomeApoio").textContent = d.nomeInstituicao
-        
+
         let imagem = elemento.querySelector("#foto-instituicao-tela-apoio")
-        if (d.foto == null) {
+        if (!fetchImagem(d.foto.idImagem, imagem)) {
             imagem.src = "/imagens/grupo.png";
             imagem.alt = "Grupo sem imagem."
             imagem.title = "Grupo sem imagem."
-        } else if (d.foto.imagem == "") {
-            imagem.src = "/imagens/grupo.png";
-            imagem.alt = "Grupo sem imagem."
-            imagem.title = "Grupo sem imagem."
-        } else {
-            imagem.src = "data:image/" + d.foto.tipoImagem + ";base64," + d.foto.imagem;
-            imagem.alt = d.foto.descricaoImagem
-            imagem.title = d.foto.descricaoImagem
         }
 
         const botaoEditar = elemento.querySelector(".editar-acolhimento")
         if (botaoEditar) {
             botaoEditar.setAttribute("data-apoio-id", d.idApoio)
-            
+
             if (isAdmin) {
                 botaoEditar.style.display = "flex"
-                botaoEditar.addEventListener("click", function() {
+                botaoEditar.addEventListener("click", function () {
                     const apoioId = this.getAttribute("data-apoio-id")
-                    console.log("ID do Apoio:", apoioId)
                     anexarHTMLExterno(
-                        "/novo_apoio", 
-                        "/novoApoioStyle.css", 
-                        "/popupNovoApoio.js", 
-                        "http://localhost:8080/api/apoio/", 
+                        "/novo_apoio",
+                        "/novoApoioStyle.css",
+                        "/popupNovoApoio.js",
+                        "http://localhost:8080/api/apoio/",
                         apoioId
                     )
                 })
@@ -143,55 +134,57 @@ async function iniciarTelaApoio() {
         telefone(d.telefone)
         endereco(d.localizacao)
 
-        function preencher_elemento(seletor, link, href) {
-            let elemento = getElemento(seletor);
-            if (!link) {
-                elemento.parentNode.remove()
-                return;
-            }
-            elemento.textContent = link;
-            elemento.title = href;
-            elemento.href = href;
-        }
 
-        function twitter(link) {
-            preencher_elemento("#twitterC", "@"+link, "https://x.com/"+link)
-        }
+    }
 
-        function insta(link) {
-            preencher_elemento("#instaC", "@"+link, "https://www.instagram.com/"+link)
+    function preencher_elemento(seletor, link, href) {
+        let elemento = getElemento(seletor);
+        if (!link) {
+            elemento.parentNode.remove()
+            return;
         }
+        elemento.textContent = link;
+        elemento.title = href;
+        elemento.href = href;
+    }
 
-        function linkedin(link) {
-            preencher_elemento("#linkedinC", "Linkedin", link)
-        }
+    function twitter(link) {
+        preencher_elemento("#twitterC", "@" + link, "https://x.com/" + link)
+    }
 
-        function site(link) {
-            let nl = link;
-            if(link.includes("https://")) {
-                nl = link.replace("https://","")
-            }
-            preencher_elemento("#siteC", nl, link)
-        }
+    function insta(link) {
+        preencher_elemento("#instaC", "@" + link, "https://www.instagram.com/" + link)
+    }
 
-        function telefone(link) {
-            let nt = link;
-            //Telefone Fixo ou Celular
-            if(link.length = 12) {
-            nt = "+" + nt.substring(0,2) + " (" + nt.substring(2,4) +") "+nt.substring(4,8)+"-"+nt.substring(8,12);
-            } else {
-            nt = "+" + nt.substring(0,2) + " (" + nt.substring(2,4) +") "+nt.substring(4,9)+"-"+nt.substring(9,13);
-            }
-            preencher_elemento("#numeroC", nt, "tel:"+link)
-        }
-        
-        function endereco(link) {
-            preencher_elemento("#enderecoC",link,"https://www.google.com/maps/search/"+link)
-        }
+    function linkedin(link) {
+        preencher_elemento("#linkedinC", "Linkedin", link)
+    }
 
-        function getElemento(seletor) {
-            return elemento.querySelector(seletor)
+    function site(link) {
+        let nl = link;
+        if (link.includes("https://")) {
+            nl = link.replace("https://", "")
         }
+        preencher_elemento("#siteC", nl, link)
+    }
+
+    function telefone(link) {
+        let nt = link;
+        //Telefone Fixo ou Celular
+        if (link.length = 12) {
+            nt = "+" + nt.substring(0, 2) + " (" + nt.substring(2, 4) + ") " + nt.substring(4, 8) + "-" + nt.substring(8, 12);
+        } else {
+            nt = "+" + nt.substring(0, 2) + " (" + nt.substring(2, 4) + ") " + nt.substring(4, 9) + "-" + nt.substring(9, 13);
+        }
+        preencher_elemento("#numeroC", nt, "tel:" + link)
+    }
+
+    function endereco(link) {
+        preencher_elemento("#enderecoC", link, "https://www.google.com/maps/search/" + link)
+    }
+
+    function getElemento(seletor) {
+        return elemento.querySelector(seletor)
     }
 }
 

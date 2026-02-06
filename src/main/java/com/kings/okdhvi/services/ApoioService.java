@@ -58,8 +58,10 @@ public class ApoioService {
         velhoAp.setSite(ap.site());
         velhoAp.setInstagram(ap.instagram());
         velhoAp.setLinkedin(ap.linkedin());
-        Imagem i = is.criarImagem(imagem,new CriarImagemMetaRequest("Logo de " + ap.nomeInstituicao(), "Logo de " + ap.nomeInstituicao()), u);
-        velhoAp.setFoto(i);
+        if(ap.atualizarImagem()) {
+            Imagem i = is.criarImagem(imagem,new CriarImagemMetaRequest("Logo de " + ap.nomeInstituicao(), "Logo de " + ap.nomeInstituicao()), u);
+            velhoAp.setFoto(i);
+        }
         return apr.save(velhoAp);
     }
 }
