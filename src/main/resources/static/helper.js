@@ -1,7 +1,7 @@
 
-function fetchImagem(id,componente) {
-    let descricao
-    fetch("http://localhost:8080/api/imagem/" + id, {
+async function fetchImagem(id,componente) {
+    let descricao;
+    await fetch("http://localhost:8080/api/imagem/" + id, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
     })
@@ -21,5 +21,4 @@ function fetchImagem(id,componente) {
             return true;
         })
         .catch(err => console.error(err));
-    return false;
 }

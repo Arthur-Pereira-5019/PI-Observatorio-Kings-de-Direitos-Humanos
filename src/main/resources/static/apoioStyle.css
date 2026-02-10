@@ -1,7 +1,6 @@
  * {
      margin: 0;
      box-sizing: border-box;
-     font-family: "Inter", sans-serif;
  }
 
  .container-resto-tela-apoio {
@@ -20,6 +19,7 @@
      color: #CA0000;
      font-size: 5rem;
      font-weight: 800;
+         font-family: "Inter", "sans-serif";
  }
 
  #instrucao-tela-apoio {
@@ -70,6 +70,10 @@
      gap: 1rem;
      flex-direction: column;
      position: relative;
+ }
+
+ #container_apoio {
+        font-family: "Inter", "sans-serif";
  }
 
  #foto-instituicao-tela-apoio {

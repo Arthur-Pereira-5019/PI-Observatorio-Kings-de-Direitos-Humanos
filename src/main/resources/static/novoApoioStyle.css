@@ -1,7 +1,6 @@
 * {
     margin: 0;
     box-sizing: border-box;
-    font-family: "Inter", sans-serif;
 }
 
 #posPopUpNovoApoio {
@@ -17,7 +16,7 @@
     z-index: 980
 }
 
-.fundo-novo-apoio {
+#fundoNovoApoio {
     display: flex;
     flex-direction: column;
     gap: 1.5%;
@@ -32,6 +31,7 @@
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     background-color: rgb(0, 194, 178);
     overflow: hidden;
+        font-family: "Inter", sans-serif;
 }
 
 .nome-labels-apoio {

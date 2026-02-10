@@ -86,7 +86,7 @@ async function iniciarPublicacao() {
             botaoOcultar.remove();
             l = false;
         })
-    fetch("http://localhost:8080/api/postagem/" + id, {
+    await fetch("http://localhost:8080/api/postagem/" + id, {
         headers: { 'Content-Type': 'application/json' },
     })
         .then(res => {
@@ -132,12 +132,9 @@ async function iniciarPublicacao() {
             for (const i of imgs) {
                 await desserializarImagem(i);
             }
+            console.log(elementoSurpresa.innerHTML)
             texto.innerHTML = elementoSurpresa.innerHTML;
         })
-
-
-
-
 
 
 
@@ -322,20 +319,7 @@ async function iniciarPublicacao() {
     }
 
     async function desserializarImagem(i) {
-        let id = i.dataset.db_id
-        try {
-            let response = await fetch("http://localhost:8080/api/imagem/" + id, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' }
-            })
-            if (!response.ok) throw new Error("Erro no servidor");
-
-            let data = await response.json();
-            fetchImagem(data.idImagem,i)
-        } catch (err) {
-            console.error(err);
-            return null;
-        };
+        await fetchImagem(Number(i.dataset.db_id),i)
     }
 }
 

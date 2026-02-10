@@ -102,10 +102,13 @@ async function iniciarTelaApoio() {
         elemento.querySelector("#nomeApoio").textContent = d.nomeInstituicao
 
         let imagem = elemento.querySelector("#foto-instituicao-tela-apoio")
-        if (!fetchImagem(d.foto.idImagem, imagem)) {
+        try {
+            fetchImagem(d.foto.idImagem, imagem)
+        } catch (e) {
             imagem.src = "/imagens/grupo.png";
             imagem.alt = "Grupo sem imagem."
             imagem.title = "Grupo sem imagem."
+            console.log(e)
         }
 
         const botaoEditar = elemento.querySelector(".editar-acolhimento")
@@ -138,14 +141,14 @@ async function iniciarTelaApoio() {
     }
 
     function preencher_elemento(seletor, link, href) {
-        let elemento = getElemento(seletor);
+        let elementoAtual = getElemento(seletor);
         if (!link) {
-            elemento.parentNode.remove()
+            elementoAtual.parentNode.remove()
             return;
         }
-        elemento.textContent = link;
-        elemento.title = href;
-        elemento.href = href;
+        elementoAtual.textContent = link;
+        elementoAtual.title = href;
+        elementoAtual.href = href;
     }
 
     function twitter(link) {
@@ -186,6 +189,7 @@ async function iniciarTelaApoio() {
     function getElemento(seletor) {
         return elemento.querySelector(seletor)
     }
+
 }
 
 document.addEventListener("DOMContentLoaded", iniciarTelaApoio);

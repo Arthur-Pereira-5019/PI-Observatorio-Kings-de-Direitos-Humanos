@@ -240,11 +240,14 @@ async function iniciarPerfil() {
             publicacao.querySelector(".data").textContent = dados.data
             publicacao.querySelector(".paragrafo").innerHTML = dados.texto
             let imagem = publicacao.querySelector(".imagem")
-            if (fetchImagem(dados.capa.idImagem, imagem) == false) {
+            try {
+                fetchImagem(dados.capa.idImagem, imagem)
+            } catch(e) {
                 imagem.src = "/imagens/publicacao.png";
                 imagem.alt = "Publicação sem imagem"
                 imagem.title = "Publicação sem imagem"
             }
+            
             publicacao.addEventListener("click", function () {
                 window.location.pathname = "publicacao/" + dados.idPostagem
             })

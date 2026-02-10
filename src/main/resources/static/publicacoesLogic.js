@@ -152,7 +152,9 @@ async function iniciarPublicacoes() {
             publicacao.querySelector(".autor").textContent = dados.autor
             publicacao.querySelector(".data").textContent = dados.data
             publicacao.querySelector(".paragrafo").innerHTML = dados.texto
-            if (fetchImagem(dados.capa.idImagem, imagem) == false) {
+            try {
+                fetchImagem(dados.capa.idImagem, imagem) == false
+            } catch(e) {
                 imagem.src = "/imagens/publicacao.png";
                 imagem.alt = "Publicação sem imagem"
                 imagem.title = "Publicação sem imagem"

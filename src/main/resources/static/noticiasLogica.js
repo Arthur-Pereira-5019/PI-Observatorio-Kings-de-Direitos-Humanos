@@ -158,7 +158,9 @@ async function iniciarNoticias() {
             noticia.querySelector(".tituloNoticia").textContent = dados.titulo
             noticia.querySelector(".autor").textContent = dados.nomeAutor
             let capa = noticia.querySelector(".capa")
-            if (fetchImagem(dados.capa.idImagem, capa) == false) {
+            try {
+                fetchImagem(dados.capa.idImagem, capa)
+            } catch (e) {
                 capa.src = "/imagens/noticia.png";
                 capa.alt = "Notícia sem capa";
                 capa.title = "Notícia sem capa";

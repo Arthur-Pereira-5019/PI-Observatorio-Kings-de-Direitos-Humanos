@@ -15,26 +15,20 @@ window.iniciarPopupNovaImagem = function () {
     campoTitulo = document.getElementById("titulo_nova_imagem");
     canva = document.getElementById("canva");
     inserir = document.getElementById("inserir");
-
+    let imagem;
 
     function file_input() {
-        const entrada = document.getElementById("arquivo");
+        capaPostagemPreview = document.getElementById("canva");
+        const arquivo = file.files[0];
 
-
-        const arquivo = entrada.files[0];
-
-
-        if (arquivo && arquivo.name.endsWith(".png") || arquivo.name.endsWith(".jpg") || arquivo.name.endsWith(".jpeg") || arquivo.name.endsWith(".gif") || arquivo.name.endsWith(".webp")) {
-            const reader = new FileReader();
-
-
-            reader.onload = (e) => {
-                const base64StringWithPrefix = e.target.result;
-                canva.src = base64StringWithPrefix;
-            };
-
-
-            reader.readAsDataURL(arquivo);
+        if (arquivo) {
+            nome = arquivo.name.toLowerCase();
+            if (arquivo && nome.endsWith(".png") || nome.endsWith(".jpg") || nome.endsWith(".jpeg") || nome.endsWith(".gif") || nome.endsWith(".webp")) {
+                capaPostagemPreview.src = URL.createObjectURL(arquivo)
+                imagem = arquivo;
+            } else {
+                alert("Forneça uma imagem de formato suportado!")
+            }
         }
     }
 
@@ -69,6 +63,7 @@ window.iniciarPopupNovaImagem = function () {
 
 
 
+
         const requestBody = {
             imageBase64: imageData,
             descricao: campoDescricao.value,
@@ -77,10 +72,14 @@ window.iniciarPopupNovaImagem = function () {
         };
 
 
+        const formData = new FormData();
+        formData.append("imagem", imagem)
+        formData.append("meta", new Blob([JSON.stringify(requestBody)], { type: "application/json" }))
+
+
         fetch("http://localhost:8080/api/imagem", {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(requestBody)
+            body: formData
         })
             .then(res => {
                 if (!res.ok) throw new Error("Erro no servidor");
@@ -93,7 +92,6 @@ window.iniciarPopupNovaImagem = function () {
                 img.classList.add(tagT);
                 img.textContent = "";
                 img.src = canva.src
-                console.log(selecaoAntiga);
                 if (!selecaoAntiga || !selecaoAntiga.rangeCount) {
                     const editor = document.getElementById("textoPublicacao");
                     const sel = window.getSelection();
