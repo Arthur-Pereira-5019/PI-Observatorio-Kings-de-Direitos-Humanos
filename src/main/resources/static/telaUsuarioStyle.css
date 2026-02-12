@@ -249,6 +249,11 @@
     height: 100%;
 }
 
+.container-forum {
+        font-family: "Inter", "sans-serif";
+
+}
+
 .container-info-forum {
     width: 75%;
     height: 100%;
@@ -264,7 +269,6 @@
     color: #E40000;
     font-size: 1.7rem;
     font-weight: 400;
-        font-family: "Inter", "sans-serif";
 }
 
 .titulo-forum:hover {
