@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,11 +41,11 @@ public class Forum {
 
     @Column(nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
-    private Date dataDeCriacao;
+    private ZonedDateTime dataDeCriacao;
 
     @Column(nullable = true)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
-    private Date dataDeAtualizacao;
+    private ZonedDateTime dataDeAtualizacao;
 
     @ManyToOne
     @JoinColumn(name="idUsuario")
@@ -56,6 +57,18 @@ public class Forum {
 
     @Column
     private Local local;
+
+    @Column
+    private boolean arquivado;
+
+    public Forum(String tituloForum, Usuario autor, String textoForum, Local local) {
+        this.dataDeCriacao = ZonedDateTime.now();
+        this.dataDeAtualizacao = ZonedDateTime.now();
+        this.tituloForum = tituloForum;
+        this.autor = autor;
+        this.textoForum = textoForum;
+        this.local = local;
+    }
 
     public boolean isOculto() {
         return oculto;
@@ -69,16 +82,13 @@ public class Forum {
         return comentarios;
     }
 
-    public void setComentarios(List<Comentario> comentarios) {
-        this.comentarios = comentarios;
+    public void comentar(Comentario c) {
+        comentarios.add(c);
+        dataDeAtualizacao = ZonedDateTime.now();
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getTituloForum() {
@@ -89,20 +99,12 @@ public class Forum {
         this.tituloForum = tituloForum;
     }
 
-    public Date getDataDeCriacao() {
+    public ZonedDateTime getDataDeCriacao() {
         return dataDeCriacao;
-    }
-
-    public void setDataDeCriacao(Date dataDeCriacao) {
-        this.dataDeCriacao = dataDeCriacao;
     }
 
     public Usuario getAutor() {
         return autor;
-    }
-
-    public void setAutor(Usuario autor) {
-        this.autor = autor;
     }
 
     public String getTextoForum() {
@@ -113,11 +115,11 @@ public class Forum {
         this.textoForum = textoForum;
     }
 
-    public Date getDataDeAtualizacao() {
+    public ZonedDateTime getDataDeAtualizacao() {
         return dataDeAtualizacao;
     }
 
-    public void setDataDeAtualizacao(Date dataDeAtualizacao) {
+    public void setDataDeAtualizacao(ZonedDateTime dataDeAtualizacao) {
         this.dataDeAtualizacao = dataDeAtualizacao;
     }
 
@@ -127,5 +129,9 @@ public class Forum {
 
     public void setLocal(Local local) {
         this.local = local;
+    }
+
+    public void arquivar() {
+        this.arquivado = true;
     }
 }

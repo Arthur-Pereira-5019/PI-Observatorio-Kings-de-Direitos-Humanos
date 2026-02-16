@@ -3,12 +3,17 @@ package com.kings.okdhvi.controllers;
 import com.kings.okdhvi.mapper.ForumMapper;
 import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.model.DTOs.*;
+import com.kings.okdhvi.model.DTOs.forum.ForumArquivarDTO;
+import com.kings.okdhvi.model.DTOs.forum.ForumCDTO;
+import com.kings.okdhvi.model.DTOs.forum.ForumECDTO;
+import com.kings.okdhvi.model.DTOs.forum.ForumESDTO;
 import com.kings.okdhvi.services.ForumServices;
 import com.kings.okdhvi.services.UsuarioService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -92,6 +97,14 @@ public class ForumController {
     public BuscaPaginadaResultado<ForumESDTO> listarForunsTexto(@RequestBody BuscaPaginadaTexto bpt, @PathVariable("texto") String texto, @AuthenticationPrincipal UserDetails ud) {
         return listarForuns(bpt, texto,0, ud);
     }
+
+    @PatchMapping(value="/arquivar")
+    public ResponseEntity<?> arquivarForum(@RequestBody ForumArquivarDTO fadto, @AuthenticationPrincipal UserDetails ud) {
+        fs.arquivar(fadto,us.buscarId(ud));
+        return ResponseEntity.ok("Fórum arquivado com sucesso");
+    }
+
+
 
 
 }

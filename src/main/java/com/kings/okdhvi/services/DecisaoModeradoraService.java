@@ -55,10 +55,10 @@ public class DecisaoModeradoraService {
         return dmr.save(d);
     }
 
-    public DecisaoModeradora criarDecisaoModeradoraExc(String m, String nomeM, String nomeR, Long idModerado, String acaoInFixo) {
+    public DecisaoModeradora criarDecisaoModeradoraExc(String motivacao, String nomeM, String nomeR, Long idModerado, String acaoInFixo) {
         DecisaoModeradora d = new DecisaoModeradora();
         d.setData(Date.from(Instant.now()));
-        d.setMotivacao(m);
+        d.setMotivacao(motivacao);
         d.setTipo("Usuario");
         d.setResponsavel(null);
         d.setUsuarioModerado(null);

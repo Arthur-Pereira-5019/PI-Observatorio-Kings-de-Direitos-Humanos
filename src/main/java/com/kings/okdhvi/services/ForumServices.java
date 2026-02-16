@@ -4,22 +4,20 @@ import com.kings.okdhvi.exception.NullResourceException;
 import com.kings.okdhvi.exception.ResourceNotFoundException;
 import com.kings.okdhvi.model.*;
 import com.kings.okdhvi.model.DTOs.*;
+import com.kings.okdhvi.model.DTOs.forum.ForumArquivarDTO;
+import com.kings.okdhvi.model.DTOs.forum.ForumCDTO;
 import com.kings.okdhvi.repositories.ForumRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import jakarta.transaction.Transactional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -102,16 +100,8 @@ public class ForumServices {
 
     @Transactional
     public Forum criarForum(ForumCDTO fcdto, Long usuarioId) {
-        Forum forum = new Forum();
         Usuario u = us.encontrarPorId(usuarioId, false);
-
-        forum.setTextoForum(fcdto.textoForum());
-        forum.setTituloForum(fcdto.tituloForum());
-
-        forum.setAutor(u);
-        forum.setLocal(fcdto.local());
-        forum.setDataDeCriacao(Date.from(Instant.now()));
-        forum.setDataDeAtualizacao(forum.getDataDeCriacao());
+        Forum forum = new Forum(fcdto.tituloForum(),u,fcdto.textoForum(),fcdto.local());
         return fr.save(forum);
     }
 
@@ -139,6 +129,23 @@ public class ForumServices {
         f.setOculto(resultado);
         dms.criarDecisaoModeradora(d, "Forum", u, f.getAutor(), idForum, (f.isOculto() ? "" : "des") +"ocultou o fórum de");
         fr.save(f);
+    }
+
+    @Transactional
+    public void arquivar(ForumArquivarDTO fadto, Long userId) {
+        Usuario u = us.encontrarPorId(userId,false);
+        Forum f = encontrarForumPeloId(fadto.id());
+        if(f == null) {
+            throw new ResourceNotFoundException("Fórum não existente submetido");
+        }
+        boolean moderador = !f.getAutor().getIdUsuario().equals(fadto.id());
+        DecisaoModeradora decisaoModeradora;
+        if(moderador) {
+            decisaoModeradora = dms.criarDecisaoModeradoraExc(fadto.motivacao(),f.getAutor().getNome(),u.getNome(),f.getId(),"arquivou o Fórum de");
+        } else {
+            decisaoModeradora = dms.criarDecisaoModeradoraExc("Ação deliberada do autor",u.getNome(),u.getNome(),f.getId(),"arquivou o Fórum de");
+        }
+        f.arquivar();
     }
 
 

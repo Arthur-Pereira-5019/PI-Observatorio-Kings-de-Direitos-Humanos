@@ -1,8 +1,8 @@
-package com.kings.okdhvi.model.DTOs;
+package com.kings.okdhvi.model.DTOs.forum;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.kings.okdhvi.model.Imagem;
+import com.kings.okdhvi.model.DTOs.UsuarioForDTO;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 public class ForumECDTO extends ForumESDTO{
@@ -19,7 +19,7 @@ public class ForumECDTO extends ForumESDTO{
     public ForumECDTO() {
     }
 
-    public ForumECDTO(Long idForum, String titulo, long respostas, Date ultimaAtualizacao, Date dataCriacao, UsuarioForDTO autor, boolean oculto, String textoForum) {
+    public ForumECDTO(Long idForum, String titulo, long respostas, ZonedDateTime ultimaAtualizacao, ZonedDateTime dataCriacao, UsuarioForDTO autor, boolean oculto, String textoForum) {
         super(idForum, titulo, respostas, ultimaAtualizacao, dataCriacao, autor, oculto);
         this.textoForum = textoForum;
     }

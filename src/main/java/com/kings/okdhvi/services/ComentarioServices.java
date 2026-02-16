@@ -53,29 +53,28 @@ public class ComentarioServices {
     @Transactional
     public Comentario criarComentario(ComentarioCDTO ccdto, Long id) {
         Comentario c = new Comentario();
-if(ccdto.textoComentario().length() < 8) {
-    throw new PersistenceException("Digite algo antes de enviar seu comentário!");
-}
+        if (ccdto.textoComentario().length() < 8) {
+            throw new PersistenceException("Digite algo antes de enviar seu comentário!");
+        }
         c.setAutor(us.encontrarPorId(id, false));
         c.setTextComentario(ccdto.textoComentario());
         c.setDataComentario(Date.from(Instant.now()));
         c.setTipo(ccdto.tipo());
         c.setIdDono(ccdto.idComentavel());
         c = cr.save(c);
-        if(ccdto.tipo() == 'P') {
+        if (ccdto.tipo() == 'P') {
             Postagem p = ps.encontrarPostagemPeloId(ccdto.idComentavel());
-            if(p.isOculto()) {
+            if (p.isOculto()) {
                 throw new UnauthorizedActionException("A postagem está oculta, não há como comentar.");
             }
             p.getComentarios().add(c);
             ps.atualizarPostagem(p, id);
-        }else {
+        } else {
             Forum f = fs.encontrarForumPeloId(ccdto.idComentavel());
-            if(f.isOculto()) {
+            if (f.isOculto()) {
                 throw new UnauthorizedActionException("A postagem está oculta, não há como comentar.");
             }
-            f.setDataDeAtualizacao(Date.from(Instant.now()));
-            f.getComentarios().add(c);
+            f.comentar(c);
             fs.atualizarForum(f);
         }
         return c;
@@ -84,10 +83,10 @@ if(ccdto.textoComentario().length() < 8) {
 
     public void deletarComentario(Long id, Usuario u, DecisaoModeradoraOPDTO dmdto) {
         Comentario c = encontrarComentario(id);
-        if(dmdto != null) {
-            dms.criarDecisaoModeradora(dmdto, "Comentario "+ c.getTipo(), u, c.getAutor(), c.getIdDono(), "apagou o comentário de");
+        if (dmdto != null) {
+            dms.criarDecisaoModeradora(dmdto, "Comentario " + c.getTipo(), u, c.getAutor(), c.getIdDono(), "apagou o comentário de");
         } else {
-            if(!u.getIdUsuario().equals(c.getAutor().getIdUsuario())) {
+            if (!u.getIdUsuario().equals(c.getAutor().getIdUsuario())) {
                 throw new UnauthorizedActionException("Tentativa de excluir comentário de outro usuário!");
             }
             dms.criarDecisaoModeradora(new DecisaoModeradoraOPDTO("Usuário excluiu o próprio comentário"),
@@ -111,14 +110,14 @@ if(ccdto.textoComentario().length() < 8) {
     public BuscaPaginadaResultado<Comentario> buscaFiltrada(BuscaPaginada bp, Long id, Character tipo, UserDetails ud) {
         boolean moderador = false;
 
-        if(ud != null) {
-            if(ud.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MODER"))) {
+        if (ud != null) {
+            if (ud.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MODER"))) {
                 moderador = true;
             }
         }
 
         if (!moderador) {
-            if(tipo == 'P' && ps.encontrarPostagemPeloId(id).isOculto()) {
+            if (tipo == 'P' && ps.encontrarPostagemPeloId(id).isOculto()) {
                 throw new UnauthorizedActionException("Você não possui permissão para acessar esse conteúdo!");
             }
         }
@@ -130,7 +129,7 @@ if(ccdto.textoComentario().length() < 8) {
         List<Predicate> predicates = new ArrayList<>();
 
         Predicate predicateId = cb.equal(c.get("idDono"), id);
-        Predicate predicateTipo =  cb.equal(c.get("tipo"), tipo);
+        Predicate predicateTipo = cb.equal(c.get("tipo"), tipo);
         predicates.add(predicateTipo);
         predicates.add(predicateId);
 
@@ -150,12 +149,12 @@ if(ccdto.textoComentario().length() < 8) {
         List<Comentario> resultadosDaBusca = busca.getResultList();
         int tamanhoTotal = resultadosDaBusca.size();
 
-        if(resultadosDaBusca.isEmpty()) {
+        if (resultadosDaBusca.isEmpty()) {
             bpr.setResultado(resultadosDaBusca);
         } else {
-            bpr.setResultado(resultadosDaBusca.subList(0,Math.min(bp.numeroResultados(), resultadosDaBusca.size())));
+            bpr.setResultado(resultadosDaBusca.subList(0, Math.min(bp.numeroResultados(), resultadosDaBusca.size())));
         }
-        bpr.setProximosIndexes(tamanhoTotal-bpr.getResultado().size());
+        bpr.setProximosIndexes(tamanhoTotal - bpr.getResultado().size());
         return bpr;
     }
 
@@ -163,7 +162,7 @@ if(ccdto.textoComentario().length() < 8) {
         String[] t = texto.split(" ");
         List<Predicate> retorno = new ArrayList<>();
 
-        for(int i = 0; i < t.length; i++) {
+        for (int i = 0; i < t.length; i++) {
             retorno.add(cb.like(cb.lower(p.get(campo)), "%" + t[i] + "%"));
         }
 

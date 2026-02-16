@@ -20,6 +20,11 @@ spring:
     time-zone: "America/Sao_Paulo"
     mvc:
       time-zone: "America/Sao_Paulo"
+  mail:
+    host: "smpt.gmail.com"
+    port: 587
+    username:
+    password:
 logger:
   root: DEBUG
   com.kings.okdhvi: DEBUG
