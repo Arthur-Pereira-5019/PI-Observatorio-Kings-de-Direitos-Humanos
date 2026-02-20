@@ -59,7 +59,10 @@ public class Forum {
     private Local local;
 
     @Column
-    private boolean arquivado;
+    private boolean arquivado = false;
+
+    public Forum() {
+    }
 
     public Forum(String tituloForum, Usuario autor, String textoForum, Local local) {
         this.dataDeCriacao = ZonedDateTime.now();

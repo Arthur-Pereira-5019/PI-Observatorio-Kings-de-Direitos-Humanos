@@ -1,5 +1,5 @@
 async function anexarHTMLExterno(url, cssFile, jsFile, durl, msg, idDenunciado, tipoDenunciado) {
-        if (cssFile) {
+    if (cssFile) {
         anexarCss(cssFile)
     }
     const response = await fetch(url);
@@ -45,7 +45,7 @@ async function iniciarVerForum() {
     let moderador = false;
     let l = false;
 
-        if (localStorage.getItem("respostaSalva")) {
+    if (localStorage.getItem("respostaSalva")) {
         textoComentario.value = localStorage.getItem("respostaSalva")
     }
 
@@ -91,9 +91,9 @@ async function iniciarVerForum() {
     })
 
         .then(res => {
-            if (!res.ok){
+            if (!res.ok) {
                 window.location.pathname = "telaInexistente"
-            } 
+            }
             return res.json();
         })
 
@@ -128,12 +128,12 @@ async function iniciarVerForum() {
             document.getElementById("nome-user-discussao-forum").textContent = data.autor.nome
             document.getElementById("textoForum").textContent = data.textoForum
             document.getElementById("data-comentario-forum").textContent = data.dataCriacao
-            if (data.autor.foto == null) {
+            try {
+                fetchImagem(data.autor.foto.idImagem, fotoPerfil) == false
+            } catch (e) {
                 fotoPerfil.src = "/imagens/perfilIcon.png";
-            } else if (data.autor.foto.fotoPerfil == "" || data.autor.foto.tipoImagem == "") {
-                fotoPerfil.src = "/imagens/perfilIcon.png";
-            } else {
-                fotoPerfil.src = "data:image/" + data.autor.foto.tipoImagem + ";base64," + data.autor.foto.imagem;
+                fotoPerfil.alt = "Publicação sem imagem"
+                fotoPerfil.title = "Publicação sem imagem"
             }
             carregarComentarios();
 
@@ -260,12 +260,12 @@ async function iniciarVerForum() {
             comentario.querySelector(".nomeComentario").addEventListener("click", function () {
                 window.location.pathname = "usuario/" + dados.autor.id;
             })
-            if (dados.autor.foto == null) {
+            try {
+                fetchImagem(dados.autor.foto.idImagem, imagem) == false
+            } catch (e) {
                 imagem.src = "/imagens/perfilIcon.png";
-            } else if (dados.autor.foto.imagem == "" || dados.autor.foto.tipoImagem == "") {
-                imagem.src = "/imagens/perfilIcon.png";
-            } else {
-                imagem.src = "data:image/" + dados.autor.foto.tipoImagem + ";base64," + dados.autor.foto.imagem;
+                imagem.alt = "Publicação sem imagem"
+                imagem.title = "Publicação sem imagem"
             }
             if (dados.proprio) {
                 exclusao.style.backgroundColor = 'darkred'
@@ -280,16 +280,16 @@ async function iniciarVerForum() {
                     openCriacaoDecisao("http://localhost:8080/api/com/excluir/" + dados.id, "Comentário excluído com sucesso!")
                 })
             } else {
-                if(l) {
+                if (l) {
                     exclusao.style.backgroundColor = 'darkred'
-                exclusao.querySelector("#zoio-log").src = "/imagens/megafone-icon_white.png"
-                exclusao.addEventListener("click", function () {
-                    openCriacaoDenuncia("Sua denúncia será processada", dados.id, "Comentario")
-                })
+                    exclusao.querySelector("#zoio-log").src = "/imagens/megafone-icon_white.png"
+                    exclusao.addEventListener("click", function () {
+                        openCriacaoDenuncia("Sua denúncia será processada", dados.id, "Comentario")
+                    })
                 } else {
                     exclusao.style.display = "none"
                 }
-                
+
             }
             imagem.addEventListener("click", function () {
                 window.location.href = "http://localhost:8080/usuario/" + dados.autor.id;
