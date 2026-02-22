@@ -1,55 +1,28 @@
-async function anexarHTMLExterno(url, cssFile, jsFile, durl, msg, idDenunciado, tipoDenunciado) {
-    if (cssFile) {
-        anexarCss(cssFile)
-    }
-    const response = await fetch(url);
-    const data = await response.text()
-    const novoObjeto = document.createElement("div");
-    document.body.appendChild(novoObjeto)
-    novoObjeto.innerHTML = data;
-
-
-
-    if (jsFile) {
-        let script = document.createElement("script");
-        script.src = jsFile;
-        script.onload = () => {
-            if (jsFile === "/popupNovaDecisaoLogica.js" && typeof iniciarPopupNovaDecisao === "function") {
-                iniciarPopupNovaDecisao(durl, msg);
-            }
-            if (jsFile === "/popupDecisaoModeradoraLogic.js" && typeof iniciarPopupDecisao === "function") {
-                iniciarPopupDecisao(durl);
-            }
-            if (jsFile === "/popupCriacaoDenunciaLogic.js" && typeof iniciarPopupNovaDenuncia === "function") {
-                iniciarPopupNovaDenuncia(msg, idDenunciado, tipoDenunciado);
-            }
-        };
-        document.body.appendChild(script);
-    }
-}
+const url = window.location.href;
+const id = url.substring(url.lastIndexOf('/') + 1)
+let com = 0;
+let buscando = false;
+let moderador = false;
+let l = false;
+const body = document.querySelector("body");
+let footer
 
 async function iniciarVerForum() {
     const textoComentario = document.getElementById("text-area-comentario-forum")
     const comentarioLimite = document.getElementById("limite-caracteres-criacao-comentario-forum")
     const btnEnviar = document.getElementById("botao-enviar-comentario-forum")
-    const body = document.querySelector("body");
-    const footer = document.querySelector("#footer")
     const botaoOcultar = document.querySelector("#btnOcultar")
     const titulo = document.getElementById("titulo-forum-forum")
     const decmod = document.getElementById("dec_mod_martelo")
 
-    const url = window.location.href;
-    const id = url.substring(url.lastIndexOf('/') + 1)
-    let com = 0;
-    let buscando = false;
-    let moderador = false;
-    let l = false;
+    footer = document.querySelector("#footer")
+
 
     if (localStorage.getItem("respostaSalva")) {
         textoComentario.value = localStorage.getItem("respostaSalva")
     }
 
-    fetch("http://localhost:8080/api/user", {
+    await fetch("http://localhost:8080/api/user", {
         headers: { 'Content-Type': 'application/json' },
     })
         .then(res => {
@@ -67,9 +40,10 @@ async function iniciarVerForum() {
             } else if (data.estadoDaConta == "PADRAO" || data.estadoDaConta == "ESPECIALISTA") {
                 botaoOcultar.style.display = "flex";
                 botaoOcultar.style.backgroundColor = 'darkred'
-                botaoOcultar.querySelector("#zoio-log").src = "/imagens/megafone-icon_white.png"
-                botaoOcultar.querySelector("#zoio-log").alt = "Ícone de megafone (botão de denúncia)"
-                botaoOcultar.querySelector("#zoio-log").title = "Ícone de megafone (botão de denúncia)"
+                const olhoLog = botaoOcultar.querySelector("#olho-log")
+                olhoLog.src = "/imagens/megafone-icon_white.png"
+                olhoLog.alt = "Ícone de megafone (botão de denúncia)"
+                olhoLog.title = "Ícone de megafone (botão de denúncia)"
                 botaoOcultar.addEventListener("click", function () {
                     openCriacaoDenuncia("Sua denúncia será processada", id, "Forum")
                 })
@@ -78,7 +52,7 @@ async function iniciarVerForum() {
                 l = false;
             }
         })
-        .catch(e => {
+        .catch(() => {
             botaoOcultar.remove()
             l = false;
         });
@@ -88,15 +62,12 @@ async function iniciarVerForum() {
         headers: {
             'Content-Type': 'application/json',
         }
+    }).then(res => {
+        if (res.status == 404) {
+            window.location.pathname = "telaInexistente"
+        }
+        return res.json();
     })
-
-        .then(res => {
-            if (!res.ok) {
-                window.location.pathname = "telaInexistente"
-            }
-            return res.json();
-        })
-
         .then(data => {
             if (data.oculto) {
                 titulo.style.color = "purple";
@@ -138,8 +109,6 @@ async function iniciarVerForum() {
             carregarComentarios();
 
         })
-
-
 
 
     textoComentario.addEventListener("keydown", function () {
@@ -193,123 +162,7 @@ async function iniciarVerForum() {
         })
     })
 
-
-    async function chamarComentarios() {
-        const rect = footer.getBoundingClientRect();
-
-        if (rect.top >= 0 && rect.top <= (window.innerHeight || document.documentElement.clientHeight)) {
-            if (!buscando) {
-                await carregarComentarios()
-            }
-        }
-    }
-
     body.addEventListener('scroll', chamarComentarios);
-
-
-    async function carregarComentarios() {
-        buscando = true;
-
-        const requestBody = {
-            parametro: "dataComentario",
-            ascending: false
-        };
-
-        fetch("http://localhost:8080/api/com/listar_comentarios/" + id + "/F/" + com, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(requestBody)
-        })
-            .then(res => {
-                if (!res.ok) throw new Error("Erro no servidor");
-                return res.json();
-            })
-            .then(data => {
-                const primeiroComentario = document.querySelector('.containerPrimeiroComentario');
-                const containerGeral = document.getElementById("container-universal-tela-forum");
-
-                if (data.resultado.length === 0) {
-                    primeiroComentario.remove()
-                    body.removeEventListener('scroll', chamarComentarios);
-                } else {
-                    if (data.proximosIndexes == 0) {
-                        body.removeEventListener('scroll', chamarComentarios);
-                    }
-                    data.resultado.forEach((post, index) => {
-                        if (index == 0) {
-                            construirComentario(primeiroComentario, post)
-                        } else {
-                            const novoComentario = primeiroComentario.cloneNode(true);
-                            containerGeral.appendChild(novoComentario)
-                            construirComentario(novoComentario, post)
-                        }
-                    });
-                }
-                com++;
-                buscando = false;
-            })
-            .catch(err => console.error(err));
-
-
-        function construirComentario(comentario, dados) {
-            imagem = comentario.querySelector(".foto-user-discussao-forum")
-            exclusao = comentario.querySelector(".botao-ocultar-comentario-forum")
-            comentario.querySelector(".textoComentarioForum").textContent = dados.texto
-            comentario.querySelector(".nomeComentario").textContent = dados.autor.nome
-            comentario.querySelector(".data-comentario-forum").textContent = dados.date
-            comentario.querySelector(".nomeComentario").addEventListener("click", function () {
-                window.location.pathname = "usuario/" + dados.autor.id;
-            })
-            try {
-                fetchImagem(dados.autor.foto.idImagem, imagem) == false
-            } catch (e) {
-                imagem.src = "/imagens/perfilIcon.png";
-                imagem.alt = "Publicação sem imagem"
-                imagem.title = "Publicação sem imagem"
-            }
-            if (dados.proprio) {
-                exclusao.style.backgroundColor = 'darkred'
-                exclusao.querySelector("#zoio-log").src = "/imagens/iconelixo.png"
-                exclusao.addEventListener("click", function () {
-                    excluirProprioComentario("http://localhost:8080/api/com/excluir_proprio/" + dados.id, "Comentário excluído com sucesso!")
-                })
-            } else if (moderador) {
-                exclusao.style.backgroundColor = 'purple'
-                exclusao.querySelector("#zoio-log").src = "/imagens/iconelixo.png"
-                exclusao.addEventListener("click", function () {
-                    openCriacaoDecisao("http://localhost:8080/api/com/excluir/" + dados.id, "Comentário excluído com sucesso!")
-                })
-            } else {
-                if (l) {
-                    exclusao.style.backgroundColor = 'darkred'
-                    exclusao.querySelector("#zoio-log").src = "/imagens/megafone-icon_white.png"
-                    exclusao.addEventListener("click", function () {
-                        openCriacaoDenuncia("Sua denúncia será processada", dados.id, "Comentario")
-                    })
-                } else {
-                    exclusao.style.display = "none"
-                }
-
-            }
-            imagem.addEventListener("click", function () {
-                window.location.href = "http://localhost:8080/usuario/" + dados.autor.id;
-            })
-        }
-    }
-
-
-    async function excluirProprioComentario(url) {
-        fetch(url, {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-        })
-            .then(res => {
-                if (!res.ok) throw new Error("Erro no servidor");
-                alert("Comentário excluído com sucesso!")
-                window.location.reload();
-            })
-            .catch(err => console.error(err));
-    }
 
 
     async function openCriacaoDecisao(durl, msg) {
@@ -323,3 +176,147 @@ async function iniciarVerForum() {
 }
 
 document.addEventListener("DOMContentLoaded", iniciarVerForum);
+
+async function chamarComentarios() {
+    const rect = footer.getBoundingClientRect();
+
+    if (rect.top >= 0 && rect.top <= (window.innerHeight || document.documentElement.clientHeight) && !buscando) {
+        await carregarComentarios()
+    }
+}
+
+function construirComentario(comentario, dados) {
+    imagem = comentario.querySelector(".foto-user-discussao-forum")
+    exclusao = comentario.querySelector(".botao-ocultar-comentario-forum")
+    iconelixo = comentario.querySelector("#iconelixo")
+    comentario.querySelector(".textoComentarioForum").textContent = dados.texto
+    comentario.querySelector(".nomeComentario").textContent = dados.autor.nome
+    comentario.querySelector(".data-comentario-forum").textContent = dados.date
+    comentario.querySelector(".nomeComentario").addEventListener("click", function () {
+        window.location.pathname = "usuario/" + dados.autor.id;
+    })
+    try {
+        fetchImagem(dados.autor.foto.idImagem, imagem) == false
+    } catch (e) {
+        imagem.src = "/imagens/perfilIcon.png";
+        imagem.alt = "Publicação sem imagem"
+        imagem.title = "Publicação sem imagem"
+    }
+    if (dados.proprio) {
+        exclusao.style.backgroundColor = 'darkred'
+        iconelixo.src = "/imagens/iconelixo.png"
+        exclusao.addEventListener("click", function () {
+            excluirProprioComentario("http://localhost:8080/api/com/excluir_proprio/" + dados.id, "Comentário excluído com sucesso!")
+        })
+    } else if (moderador) {
+        exclusao.style.backgroundColor = 'purple'
+        iconelixo.src = "/imagens/iconelixo.png"
+        exclusao.addEventListener("click", function () {
+            openCriacaoDecisao("http://localhost:8080/api/com/excluir/" + dados.id, "Comentário excluído com sucesso!")
+        })
+    } else {
+        if (l) {
+            exclusao.style.backgroundColor = 'darkred'
+            iconelixo.src = "/imagens/megafone-icon_white.png"
+            exclusao.addEventListener("click", function () {
+                openCriacaoDenuncia("Sua denúncia será processada", dados.id, "Comentario")
+            })
+        } else {
+            exclusao.style.display = "none"
+        }
+
+    }
+    imagem.addEventListener("click", function () {
+        window.location.href = "http://localhost:8080/usuario/" + dados.autor.id;
+    })
+}
+
+async function anexarHTMLExterno(url, cssFile, jsFile, durl, msg, idDenunciado, tipoDenunciado) {
+    if (cssFile) {
+        anexarCss(cssFile)
+    }
+    const response = await fetch(url);
+    const data = await response.text()
+    const novoObjeto = document.createElement("div");
+    body.appendChild(novoObjeto)
+    novoObjeto.innerHTML = data;
+
+
+
+    if (jsFile) {
+        let script = document.createElement("script");
+        script.src = jsFile;
+        script.onload = () => {
+            if (jsFile === "/popupNovaDecisaoLogica.js" && typeof iniciarPopupNovaDecisao === "function") {
+                iniciarPopupNovaDecisao(durl, msg);
+            }
+            if (jsFile === "/popupDecisaoModeradoraLogic.js" && typeof iniciarPopupDecisao === "function") {
+                iniciarPopupDecisao(durl);
+            }
+            if (jsFile === "/popupCriacaoDenunciaLogic.js" && typeof iniciarPopupNovaDenuncia === "function") {
+                iniciarPopupNovaDenuncia(msg, idDenunciado, tipoDenunciado);
+            }
+        };
+        body.appendChild(script);
+    }
+}
+
+async function carregarComentarios() {
+    buscando = true;
+
+    const requestBody = {
+        parametro: "dataComentario",
+        ascending: false
+    };
+
+    fetch("http://localhost:8080/api/com/listar_comentarios/" + id + "/F/" + com, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestBody)
+    })
+        .then(res => {
+            if (!res.ok) throw new Error("Erro no servidor");
+            return res.json();
+        })
+        .then(data => {
+            const primeiroComentario = document.querySelector('.containerPrimeiroComentario');
+            const containerGeral = document.getElementById("container-universal-tela-forum");
+            com++;
+            buscando = false;
+            let boo = false;
+            if (data.resultado.length > 0) {
+                if (data.proximosIndexes == 0) {
+                    body.removeEventListener('scroll', chamarComentarios);
+                }
+                data.resultado.forEach((post, index) => {
+                    if (index == 0) {
+                        construirComentario(primeiroComentario, post)
+                    } else {
+                        const novoComentario = primeiroComentario.cloneNode(true);
+                        containerGeral.appendChild(novoComentario)
+                        construirComentario(novoComentario, post)
+                    }
+                });
+                boo = true;
+                return;
+            }
+            primeiroComentario.remove()
+            body.removeEventListener('scroll', chamarComentarios);
+        })
+        .catch(err => console.error(err));
+
+}
+
+
+async function excluirProprioComentario(url) {
+    fetch(url, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+    })
+        .then(res => {
+            if (!res.ok) throw new Error("Erro no servidor");
+            alert("Comentário excluído com sucesso!")
+            window.location.reload();
+        })
+        .catch(err => console.error(err));
+}
