@@ -7,6 +7,8 @@ import com.kings.okdhvi.services.ComentarioServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class ForumMapper {
     @Autowired
@@ -28,7 +30,7 @@ public class ForumMapper {
         );
     }
 
-    public ForumECDTO parseForumToECDTO(Forum f) {
+    public ForumECDTO parseForumToECDTO(Forum f, Long idUsuario) {
         String textoForum = f.getTextoForum();
         Long id = f.getId();
         String prefixoOculto = f.isOculto() ? "[OCULTO] " : "";
@@ -40,7 +42,8 @@ public class ForumMapper {
                 f.getDataDeCriacao(),
                 um.usuarioForum(f.getAutor()),
                 f.isOculto(),
-                f.getTextoForum()
+                f.getTextoForum(),
+                Objects.equals(idUsuario, f.getAutor().getIdUsuario())
         );
     }
 

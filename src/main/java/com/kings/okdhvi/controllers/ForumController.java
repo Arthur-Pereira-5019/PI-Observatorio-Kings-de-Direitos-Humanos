@@ -51,7 +51,7 @@ public class ForumController {
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ForumECDTO encontrarForumPeloId(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails ud, HttpServletResponse response) throws NoResourceFoundException {
-        ForumECDTO retorno = fm.parseForumToECDTO(fs.encontrarForumPeloId(id));
+        ForumECDTO retorno = fm.parseForumToECDTO(fs.encontrarForumPeloId(id), us.buscarId(ud));
         if(retorno.isOculto()) {
             if(ud==null) {
                 throw new NoResourceFoundException(HttpMethod.GET, "");

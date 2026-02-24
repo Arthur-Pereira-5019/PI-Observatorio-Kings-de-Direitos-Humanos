@@ -215,6 +215,17 @@
     width: 80%;
 }
 
+#infoForum {
+    display: flex;
+    gap: 3vh
+}
+
+#cadeado {
+    width: 2vw;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+}
+
 #dec_mod_martelo {
     width: 10vh;
     aspect-ratio: 1/1;

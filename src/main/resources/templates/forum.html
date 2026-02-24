@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="/forumStyle.css">
 </head>
 
@@ -26,7 +28,7 @@
 
         <div class="container-resto-tela-forum">
 
-    
+
             <div class="container-geral-discussao-forum">
 
                 <div class="botao-ocultar-comentario-forum" id="btnOcultar">
@@ -40,14 +42,19 @@
 
                 <div class="container-texto-discussao-forum">
                     <p id="textoForum" class="textoPrincipal"></p>
-                    <p id="data-comentario-forum"></p>
+                    <div id="infoForum">
+                        <img src="/imagens/lock.png" id="cadeado">
+                        <p id="data-comentario-forum"></p>
+
+                    </div>
                 </div>
 
             </div>
 
-         
+
             <div class="fundo-criacao-comentario-forum">
-                <textarea name="comentario" placeholder="Participe da discussão!" id="text-area-comentario-forum" maxlength="512"></textarea>
+                <textarea name="comentario" placeholder="Participe da discussão!" id="text-area-comentario-forum"
+                    maxlength="512"></textarea>
 
                 <div class="container-botaoElimite-comentario-forum">
                     <p id="limite-caracteres-criacao-comentario-forum"></p>
@@ -55,7 +62,7 @@
                 </div>
             </div>
 
-       
+
             <div class="container-geral-discussao-forum containerPrimeiroComentario">
 
                 <div class="botao-ocultar-comentario-forum">

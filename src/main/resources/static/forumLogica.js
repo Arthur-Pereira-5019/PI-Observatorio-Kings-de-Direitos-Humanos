@@ -14,6 +14,7 @@ async function iniciarVerForum() {
     const botaoOcultar = document.querySelector("#btnOcultar")
     const titulo = document.getElementById("titulo-forum-forum")
     const decmod = document.getElementById("dec_mod_martelo")
+    const cadeado = document.getElementById("cadeado")
 
     footer = document.querySelector("#footer")
 
@@ -91,6 +92,14 @@ async function iniciarVerForum() {
                     let durl = "http://localhost:8080/api/forum/ocultar/" + id;
                     await openCriacaoDecisao(durl, "Postagem oculta com sucesso!");
                 })
+            }
+            if(moderador) {
+                cadeado.addEventListener("click",arquivarForum())
+
+            } else if(data.dono) {
+
+            } else {
+                cadeado.remove()
             }
             const fotoPerfil = document.querySelector("#foto-user-discussao-forum")
             titulo.textContent = data.titulo
@@ -319,4 +328,8 @@ async function excluirProprioComentario(url) {
             window.location.reload();
         })
         .catch(err => console.error(err));
+}
+
+async function arquivarForum() {
+
 }
