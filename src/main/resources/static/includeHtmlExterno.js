@@ -33,7 +33,7 @@ async function anexarJs(jsFile) {
             iniciarCabecalho();
         } else if (jsFile === "/includePopUpRegistro.js" && typeof iniciarCabecalho === "function") {
             iniciarPopupRegistro();
-        } else if (jsFile === "/includePopupLogin.js" && typeof iniciarCabecalho === "function") {
+        } else if (jsFile === "/includePopUpLogin.js" && typeof iniciarCabecalho === "function") {
             iniciarPopupLogin();
         } else if (jsFile === "/richTextLogic.js" && typeof iniciarRichText === "function") {
             iniciarRichText();
@@ -47,11 +47,11 @@ async function anexarJs(jsFile) {
 
 async function iniciarHtmlExterno() {
     await anexarCss("/posicionamentoPopups.css")
-    await anexarCss("/richTextStyle.css")
+    await anexarCss("/richtextStyle.css")
     await anexarJs("/helper.js")
     await carregarHTMLExterno("header", "/cabecalho", "/cabecalhoStyle.css", "/cabecalhoLogic.js");
     await carregarHTMLExterno("footer", "/rodape", "/rodapeStyle.css");
-    await carregarHTMLExterno("login", "/popupLogin", "/popUpLoginStyle.css", "/includePopupLogin.js");
+    await carregarHTMLExterno("login", "/popupLogin", "/popUpLoginStyle.css", "/includePopUpLogin.js");
     await carregarHTMLExterno("registro", "/popupRegistro", "/popUpRegistroStyle.css", "/includePopUpRegistro.js");
     try {
         if(window.location.pathname.includes("sobre/edit") || window.location.pathname.includes("nova_publicacao")) {

@@ -94,11 +94,14 @@ async function iniciarVerForum() {
                 })
             }
             if(moderador) {
-                cadeado.addEventListener("click",arquivarForum())
-
+                cadeado.addEventListener("click",async function() {
+                    await arquivarForum()
+                })
             } else if(data.dono) {
-
-            } else {
+                cadeado.addEventListener("click",async function() {
+                    await arquivarForum()
+                })
+            }  else {
                 cadeado.remove()
             }
             const fotoPerfil = document.querySelector("#foto-user-discussao-forum")
@@ -292,7 +295,6 @@ async function carregarComentarios() {
             const containerGeral = document.getElementById("container-universal-tela-forum");
             com++;
             buscando = false;
-            let boo = false;
             if (data.resultado.length > 0) {
                 if (data.proximosIndexes == 0) {
                     body.removeEventListener('scroll', chamarComentarios);
@@ -306,7 +308,6 @@ async function carregarComentarios() {
                         construirComentario(novoComentario, post)
                     }
                 });
-                boo = true;
                 return;
             }
             primeiroComentario.remove()
@@ -331,5 +332,19 @@ async function excluirProprioComentario(url) {
 }
 
 async function arquivarForum() {
-
+    requestBody = {
+        "id":id
+    }
+    fetch("http://localhost:8080/api/forum/arquivar", {
+                method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestBody)
+    }).then(res => {
+        if(!res.ok) {
+            return res.json()
+        }
+        window.location.reload()
+    }).then(data => {
+        alert(data.mensagem)
+    })
 }
