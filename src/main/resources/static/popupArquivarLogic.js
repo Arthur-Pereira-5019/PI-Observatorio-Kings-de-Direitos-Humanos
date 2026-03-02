@@ -22,7 +22,7 @@ async function iniciarPopupArquivar(idForum) {
     async function denunciar() {
         sumir();
         requestBody = {
-            "id":id
+            "id":id,
             "motivacao":motivacao.value
         }
         fetch("http://localhost:8080/api/forum/arquivar", {

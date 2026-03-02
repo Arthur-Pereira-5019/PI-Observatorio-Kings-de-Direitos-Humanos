@@ -339,5 +339,5 @@ async function excluirProprioComentario(url) {
 }
 
 async function arquivarForum() {
-    await anexarHTMLExterno("/popupArquivarForum", "/popupArquivarStyle.css", "/popupArquivarLogic.js", id, msg);
+    await anexarHTMLExterno("/popupArquivarForum", "/popupArquivarStyle.css", "/popupArquivarLogic.js", id);
 }
