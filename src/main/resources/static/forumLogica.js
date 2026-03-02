@@ -185,6 +185,10 @@ async function iniciarVerForum() {
         await anexarHTMLExterno("/popupNovaDenuncia", "/popupNovaDenunciaStyle.css", "/popupCriacaoDenunciaLogic.js", "", msg, id, tipo);
     }
 
+    async function openCriacaoDenuncia(msg, id, tipo) {
+        await anexarHTMLExterno("/popupNovaDenuncia", "/popupNovaDenunciaStyle.css", "/popupCriacaoDenunciaLogic.js", "", msg, id, tipo);
+    }
+
 }
 
 document.addEventListener("DOMContentLoaded", iniciarVerForum);
@@ -268,6 +272,9 @@ async function anexarHTMLExterno(url, cssFile, jsFile, durl, msg, idDenunciado, 
             if (jsFile === "/popupCriacaoDenunciaLogic.js" && typeof iniciarPopupNovaDenuncia === "function") {
                 iniciarPopupNovaDenuncia(msg, idDenunciado, tipoDenunciado);
             }
+            if (jsFile === "/popupArquivarLogic.js" && typeof iniciarPopupArquivar === "function") {
+                iniciarPopupArquivar(durl);
+            }
         };
         body.appendChild(script);
     }
@@ -332,19 +339,5 @@ async function excluirProprioComentario(url) {
 }
 
 async function arquivarForum() {
-    requestBody = {
-        "id":id
-    }
-    fetch("http://localhost:8080/api/forum/arquivar", {
-                method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody)
-    }).then(res => {
-        if(!res.ok) {
-            return res.json()
-        }
-        window.location.reload()
-    }).then(data => {
-        alert(data.mensagem)
-    })
+    await anexarHTMLExterno("/popupArquivarForum", "/popupArquivarStyle.css", "/popupArquivarLogic.js", id, msg);
 }

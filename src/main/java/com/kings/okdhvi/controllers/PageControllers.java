@@ -137,6 +137,10 @@ public class PageControllers {
     @RequestMapping("/popupNovaDenuncia")
     public String returnpopupNovaDenuncia() {return "popupNovaDenuncia";}
 
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping("/popupArquivarForum")
+    public String returnPopupArquivarForum() {return "popupArquivarForum";}
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping("/sobre/edit")
     public String returnSobreEdit() {return "sobreEdit";}
