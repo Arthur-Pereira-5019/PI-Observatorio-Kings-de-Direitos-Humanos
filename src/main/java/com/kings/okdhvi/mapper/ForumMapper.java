@@ -43,7 +43,8 @@ public class ForumMapper {
                 um.usuarioForum(f.getAutor()),
                 f.isOculto(),
                 f.getTextoForum(),
-                Objects.equals(idUsuario, f.getAutor().getIdUsuario())
+                Objects.equals(idUsuario, f.getAutor().getIdUsuario()),
+                f.isArquivado()
         );
     }
 

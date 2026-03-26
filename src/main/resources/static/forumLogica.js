@@ -15,6 +15,7 @@ async function iniciarVerForum() {
     const titulo = document.getElementById("titulo-forum-forum")
     const decmod = document.getElementById("dec_mod_martelo")
     const cadeado = document.getElementById("cadeado")
+    const caixaCriacaoComentario = document.getElementById("caixaCriacaoComentario")
 
     footer = document.querySelector("#footer")
 
@@ -93,17 +94,24 @@ async function iniciarVerForum() {
                     await openCriacaoDecisao(durl, "Postagem oculta com sucesso!");
                 })
             }
-            if(moderador) {
-                cadeado.addEventListener("click",async function() {
-                    await arquivarForum()
-                })
-            } else if(data.dono) {
-                cadeado.addEventListener("click",async function() {
-                    await arquivarForum()
-                })
-            }  else {
-                cadeado.remove()
+            console.log(data)
+            if (!data.arquivado) {
+                if (moderador) {
+                    cadeado.addEventListener("click", async function () {
+                        await arquivarForum()
+                    })
+                } else if (data.dono) {
+                    cadeado.addEventListener("click", async function () {
+                        await arquivarForum()
+                    })
+                } else {
+                    cadeado.remove()
+                }
+            } else {
+                caixaCriacaoComentario.remove()
+                cadeado.title = "Fórum arquivado"
             }
+
             const fotoPerfil = document.querySelector("#foto-user-discussao-forum")
             titulo.textContent = data.titulo
             document.title = data.titulo

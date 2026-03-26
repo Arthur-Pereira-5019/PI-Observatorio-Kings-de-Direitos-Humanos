@@ -2,6 +2,7 @@ package com.kings.okdhvi.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kings.okdhvi.exception.usuario.UnauthorizedActionException;
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -86,8 +87,12 @@ public class Forum {
     }
 
     public void comentar(Comentario c) {
-        comentarios.add(c);
-        dataDeAtualizacao = ZonedDateTime.now();
+        if(!arquivado) {
+            comentarios.add(c);
+            dataDeAtualizacao = ZonedDateTime.now();
+        } else {
+            throw new UnauthorizedActionException("Impossível comentar em um fórum arquivado!");
+        }
     }
 
     public Long getId() {
@@ -136,5 +141,9 @@ public class Forum {
 
     public void arquivar() {
         this.arquivado = true;
+    }
+
+    public boolean isArquivado() {
+        return arquivado;
     }
 }

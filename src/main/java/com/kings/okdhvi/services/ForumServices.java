@@ -139,13 +139,13 @@ public class ForumServices {
             throw new ResourceNotFoundException("Fórum não existente submetido");
         }
         boolean moderador = !f.getAutor().getIdUsuario().equals(fadto.id());
-        DecisaoModeradora decisaoModeradora;
         if(moderador) {
-            decisaoModeradora = dms.criarDecisaoModeradoraExc(fadto.motivacao(),f.getAutor().getNome(),u.getNome(),f.getId(),"arquivou o Fórum de");
+            dms.criarDecisaoModeradoraExc(fadto.motivacao(),f.getAutor().getNome(),u.getNome(),f.getId(),"arquivou o Fórum de");
         } else {
-            decisaoModeradora = dms.criarDecisaoModeradoraExc("Ação deliberada do autor",u.getNome(),u.getNome(),f.getId(),"arquivou o Fórum de");
+            dms.criarDecisaoModeradoraExc("Ação deliberada do autor",u.getNome(),u.getNome(),f.getId(),"arquivou o Fórum de");
         }
         f.arquivar();
+        fr.save(f);
     }
 
 

@@ -9,7 +9,6 @@ async function iniciarPopupArquivar(idForum) {
 
     aplicar.addEventListener("click", async function () {
         await denunciar()
-
     })
 
     blur.addEventListener("click", sumir)

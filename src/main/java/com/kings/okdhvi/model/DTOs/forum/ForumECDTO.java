@@ -8,6 +8,8 @@ import java.util.Date;
 public class ForumECDTO extends ForumESDTO{
     private String textoForum;
 
+    private boolean arquivado;
+
     public boolean dono;
 
     public String getTextoForum() {
@@ -23,9 +25,18 @@ public class ForumECDTO extends ForumESDTO{
     public ForumECDTO() {
     }
 
-    public ForumECDTO(Long idForum, String titulo, long respostas, ZonedDateTime ultimaAtualizacao, ZonedDateTime dataCriacao, UsuarioForDTO autor, boolean oculto, String textoForum, boolean dono) {
+    public ForumECDTO(Long idForum, String titulo, long respostas, ZonedDateTime ultimaAtualizacao, ZonedDateTime dataCriacao, UsuarioForDTO autor, boolean oculto, String textoForum, boolean dono, boolean arquivado) {
         super(idForum, titulo, respostas, ultimaAtualizacao, dataCriacao, autor, oculto);
         this.textoForum = textoForum;
         this.dono = dono;
+        this.arquivado = arquivado;
+    }
+
+    public boolean isArquivado() {
+        return arquivado;
+    }
+
+    public void setArquivado(boolean arquivado) {
+        this.arquivado = arquivado;
     }
 }
