@@ -84,7 +84,7 @@ Para rodar o observatório na sua máquina:
 
 1) Clone o repositório
 ```bash
-  npm run deploy
+  git clone https://github.com/Arthur-Pereira-5019/PI-Observatorio-Kings-de-Direitos-Humanos.git
 ```
 
 2) Crie uma conta em https://newsdata.io/login e obtenha uma chave da API.
