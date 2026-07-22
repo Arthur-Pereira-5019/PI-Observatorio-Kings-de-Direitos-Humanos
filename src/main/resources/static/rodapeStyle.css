@@ -19,32 +19,45 @@ footer {
     min-height: 30vh;
 }
 
-.container {
+.container-rodape {
     display: flex;
     width: auto;
     margin-left: 0px;
     height: auto;
+    flex-direction: column-reverse;
+}
+
+.lado_rodape {
+    width: 100%;
+    display: flex;
+    padding: 3%;
+        font-family: "Inter", sans-serif;
+}
+
+@media (min-width:800px) {
+    .container-rodape {
+        flex-direction: row;
+    }
+
+    .lado_rodape {
+        width: 50%;
+    }
+
 
 }
 
-.container-rodape-esquerda {
-    display: flex;
-    padding: 3%;
+#container-rodape-esquerda {
     font-size: 18px;
     align-items: center;
     text-align: center;
-    width: 50%;
     margin-left: 0px;
 
 }
 
-.container-rodape-direita {
-    display: flex;
-    padding: 3%;
+#container-rodape-direita {
     font-size: 24px;
     align-items: center;
     text-align: justify;
-    width: 50%;
     margin-right: 0px;
     font-weight: lighter;
     color: #FFFFFFFF;

@@ -60,7 +60,7 @@ async function iniciarCabecalho() {
     })
 
     home.addEventListener("click", function () {
-        window.location.href = URL;
+        window.location.href = BASE_URL;
     })
 
     btnSair.addEventListener("click", async function () {

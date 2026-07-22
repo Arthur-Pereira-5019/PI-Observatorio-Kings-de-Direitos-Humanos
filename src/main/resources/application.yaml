@@ -6,6 +6,11 @@ spring:
     username: root
     password: Art.DB25
     name: com.mysql.cj.jdbc.Driver
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      exclude: static/**,public/**,templates/**
   jpa:
     hibernate:
       ddl-auto: update
