@@ -18,7 +18,7 @@ async function iniciarConfigUser() {
     telefoneAlterar = document.getElementById("campoTelefoneConfigUser")
     checkNotificacoes = document.querySelector(".checkEmail")
 
-    fetch("http://localhost:8080/api/user/config", {
+    fetch(BASE_URL+"/api/user/config", {
         headers: { 'Content-Type': 'application/json' },
     }).then(res => {
         if (!res.ok) throw new Error("Erro no servidor");
@@ -42,7 +42,7 @@ async function iniciarConfigUser() {
 
         }
 
-        fetch("http://localhost:8080/api/user/atualizarUsuario", {
+        fetch(BASE_URL+"/api/user/atualizarUsuario", {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(novoPut)

@@ -77,7 +77,7 @@ window.iniciarPopupNovaImagem = function () {
         formData.append("meta", new Blob([JSON.stringify(requestBody)], { type: "application/json" }))
 
 
-        fetch("http://localhost:8080/api/imagem", {
+        fetch(BASE_URL+"/api/imagem", {
             method: 'POST',
             body: formData
         })

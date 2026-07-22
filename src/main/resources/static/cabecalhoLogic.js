@@ -60,7 +60,7 @@ async function iniciarCabecalho() {
     })
 
     home.addEventListener("click", function () {
-        window.location.href = "http://localhost:8080";
+        window.location.href = URL;
     })
 
     btnSair.addEventListener("click", async function () {
@@ -72,7 +72,7 @@ async function iniciarCabecalho() {
 
 
 
-    fetch("http://localhost:8080/api/user/apresentar", {
+    fetch(BASE_URL+"/api/user/apresentar", {
         headers: { 'Content-Type': 'application/json' },
     })
         .then(res => {
@@ -99,7 +99,7 @@ async function iniciarCabecalho() {
         })
 
     async function logout() {
-        const res = await fetch("http://localhost:8080/api/user/logout", {
+        const res = await fetch(BASE_URL+"/api/user/logout", {
             headers: { 'Content-Type': 'application/json' },
         })
         if (!res.ok) throw new Error("Erro no servidor")

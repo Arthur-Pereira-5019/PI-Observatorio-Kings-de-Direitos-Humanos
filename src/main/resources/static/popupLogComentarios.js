@@ -20,7 +20,7 @@ async function iniciarPopupLogComentarios() {
     async function carregarComentarios() {
         buscando = true;
 
-        fetch("http://localhost:8080/api/com/encontrar_comentarios/" + id, {
+        fetch(BASE_URL+"/api/com/encontrar_comentarios/" + id, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         })
@@ -64,7 +64,7 @@ async function iniciarPopupLogComentarios() {
                 let c = confirm("Deseja apagar o comentário sem olhar o contexto da publicação?")
                 if (c) {
                     sumir()
-                    openCriacaoDecisao("http://localhost:8080/api/com/excluir/" + dados.id, "Comentário excluído com sucesso")
+                    openCriacaoDecisao(BASE_URL+"/api/com/excluir/" + dados.id, "Comentário excluído com sucesso")
                 }
 
             })

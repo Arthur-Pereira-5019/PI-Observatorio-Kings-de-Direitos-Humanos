@@ -17,7 +17,7 @@ async function iniciarPopupLogin() {
     })
 
     document.querySelector("#iconButton").addEventListener("click", function () {
-        fetch("http://localhost:8080/api/user", {
+        fetch(BASE_URL+"/api/user", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ async function iniciarPopupLogin() {
                 lembrar: lembrar.checked
             };
 
-            fetch("http://localhost:8080/api/user/login", {
+            fetch(BASE_URL+"/api/user/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(novoPost)

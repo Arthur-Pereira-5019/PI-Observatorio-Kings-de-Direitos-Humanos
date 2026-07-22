@@ -53,7 +53,7 @@ async function iniciarPublicacao() {
     }
 
 
-    fetch("http://localhost:8080/api/user", {
+    fetch(BASE_URL+"/api/user", {
         headers: { 'Content-Type': 'application/json' },
     })
         .then(res => {
@@ -86,7 +86,7 @@ async function iniciarPublicacao() {
             botaoOcultar.remove();
             l = false;
         })
-    await fetch("http://localhost:8080/api/postagem/" + id, {
+    await fetch(BASE_URL+"/api/postagem/" + id, {
         headers: { 'Content-Type': 'application/json' },
     })
         .then(res => {
@@ -102,7 +102,7 @@ async function iniciarPublicacao() {
                 titulo.style.color = "purple";
                 decmod.style.display = "flex";
                 decmod.addEventListener("click", function () {
-                    anexarHTMLExterno("/decisao", "/popupDecisaoModeradoraStyle.css", "/popupDecisaoModeradoraLogic.js", "http://localhost:8080/api/decmod/Postagem/" + id, null)
+                    anexarHTMLExterno("/decisao", "/popupDecisaoModeradoraStyle.css", "/popupDecisaoModeradoraLogic.js", BASE_URL+"/api/decmod/Postagem/" + id, null)
                 })
 
                 botaoOcultar.style.backgroundColor = "green"
@@ -110,12 +110,12 @@ async function iniciarPublicacao() {
                 botaoOcultar.querySelector("img").alt = "Ícone de olhos abertos (Desocultar postagem)"
                 botaoOcultar.querySelector("img").title = "Desocultar postagem"
                 botaoOcultar.addEventListener("click", async function () {
-                    let durl = "http://localhost:8080/api/postagem/ocultar/" + id;
+                    let durl = BASE_URL+"/api/postagem/ocultar/" + id;
                     await openCriacaoDecisao(durl, "Postagem desocultada com sucesso!");
                 })
             } else if (moderador) {
                 botaoOcultar.addEventListener("click", async function () {
-                    let durl = "http://localhost:8080/api/postagem/ocultar/" + id;
+                    let durl = BASE_URL+"/api/postagem/ocultar/" + id;
                     await openCriacaoDecisao(durl, "Postagem oculta com sucesso!");
                 })
             }
@@ -158,7 +158,7 @@ async function iniciarPublicacao() {
             idComentavel: id,
         };
 
-        fetch("http://localhost:8080/api/com/", {
+        fetch(BASE_URL+"/api/com/", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
@@ -213,7 +213,7 @@ async function iniciarPublicacao() {
             ascending: false
         };
 
-        fetch("http://localhost:8080/api/com/listar_comentarios/" + id + "/P/" + com, {
+        fetch(BASE_URL+"/api/com/listar_comentarios/" + id + "/P/" + com, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
@@ -270,13 +270,13 @@ async function iniciarPublicacao() {
                 btnDenuncia.style.display = 'none'
 
                 exclusao.addEventListener("click", function () {
-                    excluirProprioComentario("http://localhost:8080/api/com/excluir_proprio/" + dados.id, "Comentário excluído com sucesso!")
+                    excluirProprioComentario(BASE_URL+"/api/com/excluir_proprio/" + dados.id, "Comentário excluído com sucesso!")
                 })
             } else if (moderador) {
                 exclusao.style.backgroundColor = 'purple'
                 btnDenuncia.style.display = 'none'
                 exclusao.addEventListener("click", function () {
-                    openCriacaoDecisao("http://localhost:8080/api/com/excluir/" + dados.id, "Comentário excluído com sucesso!")
+                    openCriacaoDecisao(BASE_URL+"/api/com/excluir/" + dados.id, "Comentário excluído com sucesso!")
                 })
             } else {
                 exclusao.style.display = 'none'

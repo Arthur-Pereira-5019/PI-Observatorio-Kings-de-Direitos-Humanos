@@ -21,7 +21,7 @@ async function iniciarExclusaoUser() {
             "senha": campoSenhaExc.value
         }
 
-        fetch("http://localhost:8080/api/user/requisitar_exclusao", {
+        fetch(BASE_URL+"/api/user/requisitar_exclusao", {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

@@ -12,7 +12,7 @@ async function iniciarRequisitar() {
 
     inputC.value = sharedContato;
 
-    fetch("http://localhost:8080/api/reqcar", {
+    fetch(BASE_URL+"/api/reqcar", {
         headers: { 'Content-Type': 'application/json' },
     })
         .then(res => {
@@ -44,7 +44,7 @@ async function iniciarRequisitar() {
             contato: inputC.value
         }
 
-        fetch("http://localhost:8080/api/reqcar/requisitar_cargo", {
+        fetch(BASE_URL+"/api/reqcar/requisitar_cargo", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(novoPost)

@@ -46,4 +46,6 @@ api:
 file_saving:
   base_path: "./imagens"
   allowed-mime: image/jpeg, image/jpg, image/webp, image/png
-
+server:
+  address: 0.0.0.0
+  port: 8080

@@ -79,7 +79,7 @@ async function iniciarRegistro() {
             }
         }
 
-        fetch("http://localhost:8080/api/decmod/listar" + buscaf, {
+        fetch(BASE_URL+"/api/decmod/listar" + buscaf, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)

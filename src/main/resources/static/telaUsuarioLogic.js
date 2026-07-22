@@ -69,7 +69,7 @@ async function iniciarPerfil() {
     }
 
     try {
-        const response = await fetch("http://localhost:8080/api/user/" + id, {
+        const response = await fetch(BASE_URL+"/api/user/" + id, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ async function iniciarPerfil() {
                 formData.append("imagem", imagemSubmetida)
                 formData.append("meta", new Blob([JSON.stringify(requestBody)], { type: "application/json" }))
 
-                fetch("http://localhost:8080/api/user/atualizar_imagem", {
+                fetch(BASE_URL+"/api/user/atualizar_imagem", {
                     method: 'PUT',
                     body: formData
                 })
@@ -160,7 +160,7 @@ async function iniciarPerfil() {
         } else if (data.proprio == 2) {
             btnAddCargo.style.display = "flex"
             btnAddCargo.addEventListener("click", function () {
-                anexarHTMLExternoPerfil("/aplicar_cargo", "/aplicarPopupStyle.css", "/aplicarPopupLogic.js", "http://localhost:8080/api/user/aplicar_cargo/" + id)
+                anexarHTMLExternoPerfil("/aplicar_cargo", "/aplicarPopupStyle.css", "/aplicarPopupLogic.js", BASE_URL+"/api/user/aplicar_cargo/" + id)
             })
             btnAtvUser.style.display = "flex"
             btnAtvUser.addEventListener("click", async function () {
@@ -201,7 +201,7 @@ async function iniciarPerfil() {
     }
 
     async function gerarPublicacoes() {
-        fetch("http://localhost:8080/api/postagem/usuario/" + id, {
+        fetch(BASE_URL+"/api/postagem/usuario/" + id, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         })
@@ -255,7 +255,7 @@ async function iniciarPerfil() {
     }
 
     async function gerarForuns() {
-        fetch("http://localhost:8080/api/forum/usuario/" + id, {
+        fetch(BASE_URL+"/api/forum/usuario/" + id, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         })

@@ -1,3 +1,5 @@
+let BASE_URL = ""
+
 const iconButton = document.getElementById("iconButton");
 async function carregarHTMLExterno(id, url, cssFile, jsFile) {
     if (cssFile) {
@@ -46,6 +48,7 @@ async function anexarJs(jsFile) {
 
 
 async function iniciarHtmlExterno() {
+    BASE_URL = window.location.origin;
     await anexarCss("/posicionamentoPopups.css")
     await anexarCss("/richtextStyle.css")
     await anexarJs("/helper.js")
@@ -65,7 +68,7 @@ async function iniciarHtmlExterno() {
 
     if (iconButton) {
         iconButton.addEventListener("click", function () {
-            fetch("http://localhost:8080/api/user", {
+            fetch(BASE_URL+"/api/user", {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
 

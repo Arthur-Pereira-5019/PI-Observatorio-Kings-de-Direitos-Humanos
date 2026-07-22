@@ -72,7 +72,7 @@ async function publicarDocumento(finalizada) {
     formData.append("capa", imagemCapa)
     formData.append("postagem", new Blob([JSON.stringify(requestBody)], { type: "application/json" }))
 
-    fetch("http://localhost:8080/api/postagem", {
+    fetch(BASE_URL+"/api/postagem", {
         method: 'POST',
         body: formData
     })

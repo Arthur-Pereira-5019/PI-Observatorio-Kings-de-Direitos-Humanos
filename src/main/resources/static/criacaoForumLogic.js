@@ -33,7 +33,7 @@ btnPublicarForum.addEventListener("click", function () {
         tituloForum: campoTitulo.value,
         textoForum: textoPublicacao.value,
     }
-    fetch("http://localhost:8080/api/forum", {
+    fetch(BASE_URL+"/api/forum", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(novoPost)

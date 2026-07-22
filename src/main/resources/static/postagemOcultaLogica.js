@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-url = 'http://localhost:8080/api/decmod';
+url = BASE_URL+'/api/decmod';
 path = window.location.pathname;
 url = url+path.replace("pagina_banida/","");
 

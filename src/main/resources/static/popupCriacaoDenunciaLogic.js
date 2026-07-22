@@ -27,7 +27,7 @@ async function iniciarPopupNovaDenuncia(msg, idDenunciado, tipoDenunciado) {
             idDenunciado: idDenunciado
         }
 
-        fetch("http://localhost:8080/api/denuncia/denunciar", {
+        fetch(BASE_URL+"/api/denuncia/denunciar", {
             method: "PUT",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)

@@ -60,7 +60,7 @@ async function iniciarNoticias() {
         let busca = "/" + partes.pop() + " noticia";
         buscaf = busca + busca2
 
-        fetch("http://localhost:8080/api/noticia/listar_agregadas" + buscaf, {
+        fetch(BASE_URL+"/api/noticia/listar_agregadas" + buscaf, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
@@ -138,7 +138,7 @@ async function iniciarNoticias() {
 
 async function operarNoticia(operation, msg, id) {
     if(!confirm("Você deseja prosseguir com a ação?")) return;
-    fetch("http://localhost:8080/api/noticia/" + operation + "/" + id, {
+    fetch(BASE_URL+"/api/noticia/" + operation + "/" + id, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
     })

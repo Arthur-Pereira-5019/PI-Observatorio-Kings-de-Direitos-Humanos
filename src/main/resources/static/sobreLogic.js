@@ -1,7 +1,7 @@
 async function iniciarSobre() {
     let textp = document.getElementById("textoPublicacao");
 
-    fetch("http://localhost:8080/api/tf/1", {
+    fetch(BASE_URL+"/api/tf/1", {
         headers: { 'Content-Type': 'application/json' },
     })
         .then(res => {
@@ -21,7 +21,7 @@ async function iniciarSobre() {
             textp.innerHTML = elementoSurpresa.innerHTML;
         })
 
-    fetch("http://localhost:8080/api/user/apresentar", {
+    fetch(BASE_URL+"/api/user/apresentar", {
         headers: { 'Content-Type': 'application/json' },
     })
         .then(res => {
@@ -44,7 +44,7 @@ async function iniciarSobre() {
  async function desserializarImagem(i) {
         let id = i.dataset.db_id
         try {
-            let response = await fetch("http://localhost:8080/api/imagem/" + id, {
+            let response = await fetch(BASE_URL+"/api/imagem/" + id, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' }
             })

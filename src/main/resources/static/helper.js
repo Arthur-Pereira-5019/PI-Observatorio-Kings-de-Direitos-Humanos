@@ -1,7 +1,6 @@
-
 async function fetchImagem(id,componente) {
     let descricao;
-    await fetch("http://localhost:8080/api/imagem/" + id, {
+    await fetch(BASE_URL+"/api/imagem/" + id, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
     })

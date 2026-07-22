@@ -1,7 +1,7 @@
 async function iniciarSobreEdit() {
     let textp;
 
-    await fetch("http://localhost:8080/api/tf/1", {
+    await fetch(BASE_URL+"/api/tf/1", {
         headers: { 'Content-Type': 'application/json' },
     })
         .then(res => {
@@ -52,7 +52,7 @@ async function iniciarSobreEdit() {
         };
 
 
-        fetch("http://localhost:8080/api/tf/criar", {
+        fetch(BASE_URL+"/api/tf/criar", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
@@ -71,7 +71,7 @@ async function iniciarSobreEdit() {
  async function desserializarImagem(i) {
         let id = i.dataset.db_id
         try {
-            let response = await fetch("http://localhost:8080/api/imagem/" + id, {
+            let response = await fetch(BASE_URL+"/api/imagem/" + id, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' }
             })

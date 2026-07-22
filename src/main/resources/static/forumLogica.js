@@ -24,7 +24,7 @@ async function iniciarVerForum() {
         textoComentario.value = localStorage.getItem("respostaSalva")
     }
 
-    await fetch("http://localhost:8080/api/user", {
+    await fetch(BASE_URL+"/api/user", {
         headers: { 'Content-Type': 'application/json' },
     })
         .then(res => {
@@ -59,7 +59,7 @@ async function iniciarVerForum() {
             l = false;
         });
 
-    await fetch("http://localhost:8080/api/forum/" + id, {
+    await fetch(BASE_URL+"/api/forum/" + id, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ async function iniciarVerForum() {
                 titulo.style.color = "purple";
                 decmod.style.display = "flex";
                 decmod.addEventListener("click", function () {
-                    anexarHTMLExterno("/decisao", "/popupDecisaoModeradoraStyle.css", "/popupDecisaoModeradoraLogic.js", "http://localhost:8080/api/decmod/Forum/" + id, null)
+                    anexarHTMLExterno("/decisao", "/popupDecisaoModeradoraStyle.css", "/popupDecisaoModeradoraLogic.js", BASE_URL+"/api/decmod/Forum/" + id, null)
                 })
                 if (moderador) {
                     botaoOcultar.style.backgroundColor = "green"
@@ -83,14 +83,14 @@ async function iniciarVerForum() {
                     botaoOcultar.querySelector("img").alt = "Ícone de olhos abertos"
                     botaoOcultar.querySelector("img").title = "Ícone de olhos abertos"
                     botaoOcultar.addEventListener("click", async function () {
-                        let durl = "http://localhost:8080/api/forum/ocultar/" + id;
+                        let durl = BASE_URL+"/api/forum/ocultar/" + id;
                         await openCriacaoDecisao(durl, "Postagem desocultada com sucesso!");
                     })
                 }
 
             } else if (moderador) {
                 botaoOcultar.addEventListener("click", async function () {
-                    let durl = "http://localhost:8080/api/forum/ocultar/" + id;
+                    let durl = BASE_URL+"/api/forum/ocultar/" + id;
                     await openCriacaoDecisao(durl, "Postagem oculta com sucesso!");
                 })
             }
@@ -151,7 +151,7 @@ async function iniciarVerForum() {
             idComentavel: id,
         };
 
-        fetch("http://localhost:8080/api/com/", {
+        fetch(BASE_URL+"/api/com/", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
@@ -230,13 +230,13 @@ function construirComentario(comentario, dados) {
         exclusao.style.backgroundColor = 'darkred'
         iconelixo.src = "/imagens/iconelixo.png"
         exclusao.addEventListener("click", function () {
-            excluirProprioComentario("http://localhost:8080/api/com/excluir_proprio/" + dados.id, "Comentário excluído com sucesso!")
+            excluirProprioComentario(BASE_URL+"/api/com/excluir_proprio/" + dados.id, "Comentário excluído com sucesso!")
         })
     } else if (moderador) {
         exclusao.style.backgroundColor = 'purple'
         iconelixo.src = "/imagens/iconelixo.png"
         exclusao.addEventListener("click", function () {
-            openCriacaoDecisao("http://localhost:8080/api/com/excluir/" + dados.id, "Comentário excluído com sucesso!")
+            openCriacaoDecisao(BASE_URL+"/api/com/excluir/" + dados.id, "Comentário excluído com sucesso!")
         })
     } else {
         if (l) {
@@ -251,7 +251,7 @@ function construirComentario(comentario, dados) {
 
     }
     imagem.addEventListener("click", function () {
-        window.location.href = "http://localhost:8080/usuario/" + dados.autor.id;
+        window.location.href = BASE_URL+"/usuario/" + dados.autor.id;
     })
 }
 
@@ -296,7 +296,7 @@ async function carregarComentarios() {
         ascending: false
     };
 
-    fetch("http://localhost:8080/api/com/listar_comentarios/" + id + "/F/" + com, {
+    fetch(BASE_URL+"/api/com/listar_comentarios/" + id + "/F/" + com, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestBody)

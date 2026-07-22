@@ -48,7 +48,7 @@ async function iniciarNoticias() {
         moverUrl(Number(btnLonge.textContent) - paginaAtual())
     })
 
-    fetch("http://localhost:8080/api/user", {
+    fetch(BASE_URL+"/api/user", {
         headers: { 'Content-Type': 'application/json' },
     })
         .then(res => {
@@ -83,7 +83,7 @@ async function iniciarNoticias() {
         let busca = "/" + partes.pop() + " noticia";
         buscaf = busca + busca2
 
-        fetch("http://localhost:8080/api/noticia/listar_noticias" + buscaf, {
+        fetch(BASE_URL+"/api/noticia/listar_noticias" + buscaf, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)

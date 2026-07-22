@@ -60,7 +60,7 @@ async function iniciarNovoApoio(url, idApoioExistente) {
 
     async function carregarDadosApoio(idApoio) {
         try {
-            const response = await fetch(`http://localhost:8080/api/apoio/${idApoio}`, {
+            const response = await fetch(BASE_URL+`/api/apoio/${idApoio}`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include'

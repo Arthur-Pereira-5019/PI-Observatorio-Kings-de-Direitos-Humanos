@@ -95,11 +95,11 @@ async function iniciarTelaRequisicoes() {
         buscaf = busca + busca2
 
         let tBusca = localStorage.getItem('busca')
-        urlB = "http://localhost:8080/api/reqcar/listar_requisicoes/"
+        urlB = BASE_URL+"/api/reqcar/listar_requisicoes/"
         if (tBusca == "exclusao") {
-            urlB = "http://localhost:8080/api/exccon/listar_requisicoes/"
+            urlB = BASE_URL+"/api/exccon/listar_requisicoes/"
         } else if (tBusca == "denuncia") {
-            urlB = "http://localhost:8080/api/denuncia/listar_requisicoes/"
+            urlB = BASE_URL+"/api/denuncia/listar_requisicoes/"
         }
 
         fetch(urlB + buscaf, {

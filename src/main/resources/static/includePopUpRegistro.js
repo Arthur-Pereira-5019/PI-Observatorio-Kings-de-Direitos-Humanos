@@ -195,7 +195,7 @@ async function iniciarPopupRegistro() {
                 dataDeNascimento: inputDataNascRegistro.value
             };
 
-            fetch("http://localhost:8080/api/user/registrar", {
+            fetch(BASE_URL+"/api/user/registrar", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(novoPost)

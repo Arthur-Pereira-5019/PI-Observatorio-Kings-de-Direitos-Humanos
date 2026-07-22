@@ -46,7 +46,7 @@ async function iniciarTelaInicial() {
         
 
 
-        fetch("http://localhost:8080/api/postagem/busca_paginada/" + page, {
+        fetch(BASE_URL+"/api/postagem/busca_paginada/" + page, {
             headers: { 'Content-Type': 'application/json' }
         })
             .then(res => {
@@ -57,7 +57,7 @@ async function iniciarTelaInicial() {
                 if (data.resultado[0]) {
                     textoEsquerda.textContent = data.resultado[0].titulo
                     textoEsquerda.title = data.resultado[0].titulo
-                    linkNoticiaEsquerda = "http://localhost:8080/publicacao/" + data.resultado[0].idPostagem;
+                    linkNoticiaEsquerda = BASE_URL+"/publicacao/" + data.resultado[0].idPostagem;
                     fetchImagem(data.resultado[0].capa.idImagem, ImagemEsquerda)
                 } else {
                     noticiaEsquerda.style.display = "none"
@@ -65,7 +65,7 @@ async function iniciarTelaInicial() {
                 if (data.resultado[1]) {
                     textoDireita.textContent = data.resultado[1].titulo
                     textoDireita.title = data.resultado[1].titulo
-                    linkNoticiaDireita = "http://localhost:8080/publicacao/" + data.resultado[1].idPostagem;
+                    linkNoticiaDireita = BASE_URL+"/publicacao/" + data.resultado[1].idPostagem;
                     fetchImagem(data.resultado[1].capa.idImagem, ImagemDireita)
                 } else {
                     noticiaDireita.style.display = "none"

@@ -11,7 +11,7 @@ async function iniciarPublicacoes() {
     inputBusca = document.getElementById("campoPesquisa")
     botaoNovaPostagem = document.getElementById("botao-moderador")
     campoModerador = document.getElementById("container-moderador")
-    fetch("http://localhost:8080/api/user", {
+    fetch(BASE_URL+"/api/user", {
         headers: { 'Content-Type': 'application/json' },
     })
         .then(res => {
@@ -93,7 +93,7 @@ async function iniciarPublicacoes() {
             }
         }
 
-        fetch("http://localhost:8080/api/postagem/listar_publicacoes" + buscaf, {
+        fetch(BASE_URL+"/api/postagem/listar_publicacoes" + buscaf, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)

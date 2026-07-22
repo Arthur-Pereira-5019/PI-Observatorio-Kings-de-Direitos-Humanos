@@ -32,7 +32,7 @@ async function iniciarTelaApoio() {
     let isAdmin = false;
 
     try {
-        const userResponse = await fetch("http://localhost:8080/api/user", {
+        const userResponse = await fetch(BASE_URL+"/api/user", {
             headers: { 'Content-Type': 'application/json' },
         });
 
@@ -47,7 +47,7 @@ async function iniciarTelaApoio() {
                         "/novo_apoio",
                         "/novoApoioStyle.css",
                         "/popupNovoApoio.js",
-                        "http://localhost:8080/api/apoio/",
+                        BASE_URL+"/api/apoio/",
                         null
                     )
                 })
@@ -58,7 +58,7 @@ async function iniciarTelaApoio() {
     }
 
     try {
-        const apoiosResponse = await fetch("http://localhost:8080/api/apoio/", {
+        const apoiosResponse = await fetch(BASE_URL+"/api/apoio/", {
             headers: { 'Content-Type': 'application/json' },
         });
 
@@ -123,7 +123,7 @@ async function iniciarTelaApoio() {
                         "/novo_apoio",
                         "/novoApoioStyle.css",
                         "/popupNovoApoio.js",
-                        "http://localhost:8080/api/apoio/",
+                        BASE_URL+"/api/apoio/",
                         apoioId
                     )
                 })

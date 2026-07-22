@@ -24,7 +24,7 @@ async function iniciarPopupArquivar(idForum) {
             "id":id,
             "motivacao":motivacao.value
         }
-        fetch("http://localhost:8080/api/forum/arquivar", {
+        fetch(BASE_URL+"/api/forum/arquivar", {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
